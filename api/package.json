@@ -1,14 +1,25 @@
 {
+<<<<<<< HEAD
+  "name": "despegue",
+=======
   "name": "api",
+>>>>>>> 86d050420c3e0d680c7e18556f458997ae35c60e
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "echo \"Error: no test specified\" && exit 1"
+=======
     "start": "nodemon "
+>>>>>>> 86d050420c3e0d680c7e18556f458997ae35c60e
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
+    "express": "^4.18.2"
+=======
     "body-parser": "^1.20.1",
     "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
@@ -18,5 +29,6 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
     "parser": "^0.1.4"
+>>>>>>> 86d050420c3e0d680c7e18556f458997ae35c60e
   }
 }
