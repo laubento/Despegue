@@ -23,4 +23,4 @@ const historySchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("History", userSchema)
+module.exports = mongoose.model("History", historySchema)
