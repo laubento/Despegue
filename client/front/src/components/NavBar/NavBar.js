@@ -2,4 +2,6 @@
 
 export default function NavBar(){
     
+
+
 }

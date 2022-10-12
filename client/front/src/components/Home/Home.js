@@ -1,10 +1,10 @@
 import React from 'react'
-import Card from './Card/Card'
+
 
 function Home() {
   return (
     <div>
-        <Card />
+        <h1>pepe</h1>
     </div>
   )
 }
