@@ -1,11 +1,12 @@
 const { Router } = require("express");
-const User = require("../../models/user");
-
-const flightRouter = require("./flights")
-
 const router = Router();
 
-router.use('/flights', flightRouter)
+const User = require("../../models/user");
 
+const prices = require("./prices");
+router.use('/prices', prices)
+
+const flightRouter = require("./flights")
+router.use('/flights', flightRouter)
 
 module.exports = router;
