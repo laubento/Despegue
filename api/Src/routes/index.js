@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 
 const User = require("../../models/user");
+const axios = require('axios')
 
 const prices = require("./prices");
 router.use('/prices', prices)
