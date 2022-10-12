@@ -1,6 +1,11 @@
 const { Router } = require("express");
-const router = Router();
 const User = require("../../models/user");
 
-router.get("/", async (req, res) => {});
+const flightRouter = require("./flights")
+
+const router = Router();
+
+router.use('/flights', flightRouter)
+
+
 module.exports = router;
