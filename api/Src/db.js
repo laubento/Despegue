@@ -9,5 +9,8 @@ const db = async () => {
     })
     .catch((err) => console.error(err));
 };
+mongoose.connection.on("error", (err) => {
+  console.log("Error al conectar", err);
+});
 
 module.exports = db;
