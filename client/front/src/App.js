@@ -5,14 +5,12 @@ import Flights from "./components/Flights/Flights";
 
 function App() {
   return (
-    <BrowserRouter>
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/flights" component={Flights} />
         </Switch>
       </div>
-    </BrowserRouter>
   );
 }
 
