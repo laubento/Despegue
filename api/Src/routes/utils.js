@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 const API_KEY = "6346ec1e305b47e49ad6a38d"
 
 async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, returningDate, adults, childern, infants, cabinClass, currency }) {
@@ -6,7 +6,7 @@ async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, r
         .get(
             `https://api.flightapi.io/onewaytrip/${API_KEY}/${departurePlace}/${arrivalPlace}/${departureDate}/${adults}/${childern}/${infants}/${cabinClass}/${currency}`
         )
-        .then((response) => response.data);
+        .then((response) => response.data)
 
     const flights = data.legs.map((flight) => {
         return {
@@ -43,7 +43,7 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
         .get(
             `https://api.flightapi.io/roundtrip/${API_KEY}/${departurePlace}/${arrivalPlace}/${departureDate}/${returningDate}/${adults}/${childern}/${infants}/${cabinClass}/${currency}`
         )
-        .then((response) => response.data);
+        .then((response) => response.data)
 
     const flights = data.legs.map((flight) => {
         return {
