@@ -1,8 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const infoFlights = require("../utils/data");
+const infoFlights = require("../API Mock/data");
 
-console.log(infoFlights);
 router.post("/", (req, res) => {
   let { priceMin, priceMax } = req.body;
   if (priceMin && priceMax) {
