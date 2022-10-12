@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Card from "./components/Card";
+import Card from "./components/Card/Card";
 import Home from "./components/Home.js";
 
 function App() {
