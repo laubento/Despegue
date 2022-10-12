@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 });
 app.use("/", index);
 
+
 app.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;
