@@ -1,7 +1,7 @@
 import React from 'react'
-import Card from './Card/Card'
-import info from './Data/data.js'
-import './styles/Flights.css'
+import Card from '../Card/Card'
+import info from '../Data/data.js'
+import '../styles/Flights.css'
 // se usa info de momento
 
 
