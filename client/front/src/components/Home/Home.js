@@ -1,10 +1,15 @@
 import React from 'react'
-import Card from './Card/Card'
+import { Link } from 'react-router-dom'
+// se usa info de momento
+
 
 function Home() {
+ 
   return (
     <div>
-        <Card />
+      <Link to ='/flights'>
+      <button>Flights</button>
+      </Link>
     </div>
   )
 }
