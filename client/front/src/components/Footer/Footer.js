@@ -1,13 +1,11 @@
 import React from 'react'
 
-function Footer() {
-    console.log('HOLAAAAAAAAAA')
+export default function Footer() {
+    
     return (
-        <footer>
+        <footer className='bg-dark text-white'>
             <h1>Footer</h1>
 
         </footer>
     )
 }
-
-export default Footer
