@@ -5,12 +5,14 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Login} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
