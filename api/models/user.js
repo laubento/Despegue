@@ -6,15 +6,15 @@ const userSchema = mongoose.Schema({
         required: true
     },
 
-    lastname:{
-        type: String,
-        required: true
-    },
+    // lastname:{
+    //     type: String,
+    //     required: true
+    // },
 
-    age:{
-        type: Number,
-        required: true
-    },
+    // age:{
+    //     type: Number,
+    //     required: true
+    // },
 
     password: {
         type: String,
@@ -27,14 +27,14 @@ const userSchema = mongoose.Schema({
         unique: true
     },
 
-    gender: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: Number,
-        required: false
-    },
+    // gender: {
+    //     type: String,
+    //     required: true
+    // },
+    // phone: {
+    //     type: Number,
+    //     required: false
+    // },
     admin: {
         type: Boolean,
         required: false
