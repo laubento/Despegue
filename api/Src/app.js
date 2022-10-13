@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const index = require("./routes/index");
 const session = require("express-session");
-const bcrypt = require("bcryptjs");
 const cors = require("cors");
 require("dotenv").config();
 const { URI, USER, PASSWORD } = process.env;

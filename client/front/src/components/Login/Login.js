@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
-  const [regUser, setRegUser] = useState({ name: "", password: "" });
+  const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
   const [regPassword, setRegPassword] = useState("");
   const [logUserName, setLogUsername] = useState("");
   const [logPassword, setLogPassword] = useState("");
@@ -36,6 +36,13 @@ const Login = () => {
           type="text"
           name="password"
           value={regUser.password}
+          onChange={handleChange}
+        />
+        <label>Email</label>
+        <input
+          type="text"
+          name="email"
+          value={regUser.email}
           onChange={handleChange}
         />
         <button onClick={register}>Submit</button>
