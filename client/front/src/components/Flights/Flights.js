@@ -8,16 +8,12 @@ import "../styles/Flights.css";
 // se usa info de momento
 
 function Flights() {
-  let info = useSelector(state => state.flights)
+  let flights = useSelector((state) => state.flights);
   let infofiltrada = useSelector(state => state.filteredFlights)
   // console.log(infofiltrada)
   if(infofiltrada.length > 0){
-    info = infofiltrada
+    flights = infofiltrada
   }
-
-  
-
-  const flights = useSelector((state) => state.flights);
 
   return (
     <div className="d-flex">

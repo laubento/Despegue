@@ -32,14 +32,14 @@ export default function Filter() {
                     <li className="pb-2">
                         <h4>Prince</h4>
                         <label for="customRange2" class="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onChange={e => rangeChange(e)} />
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onMouseUp={e => rangeChange(e)} />
 
                         <label for="customRange2" class="form-label">Min</label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onChange={e => rangeChange(e)} />
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min="0" max="60" id="customRange2" onChange={e => rangeChange(e)} />
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min="0" max="60" id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Scales</h4>
