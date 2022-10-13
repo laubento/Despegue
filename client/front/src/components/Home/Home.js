@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogReg from "../Login/Formulario/LogReg";
+import FlightsSearch from "../FlightsSearch/FlightsSearch";
 
 // se usa info de momento
 
@@ -11,6 +11,7 @@ function Home() {
       <Link to="/flights">
         <button>Flights</button>
       </Link>
+      <FlightsSearch />
     </div>
   );
 }

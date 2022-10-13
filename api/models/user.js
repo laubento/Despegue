@@ -27,18 +27,25 @@ const userSchema = mongoose.Schema({
     unique: true,
   },
 
-  // gender: {
-  //     type: String,
-  //     required: true
-  // },
-  // phone: {
-  //     type: Number,
-  //     required: false
-  // },
-  // admin: {
-  //     type: Boolean,
-  //     required: false
-  // }
-});
+    gender: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: Number,
+        required: false
+    },
+    admin: {
+        type: Boolean,
+        required: false
+    },
+    // historyPurchase: [
+    //     {type: mongoose.Schema.Types.ObjectId,ref:'History'}
+    // ] 
+    historyPurchase: {
+        type: Array,
+    }
+    
+})
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema)

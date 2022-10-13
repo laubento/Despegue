@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getFlights } from '../../Redux/Actions';
+import { useHistory } from 'react-router-dom';
+
 
 export default function FlightsSearch() {
+
+    //Fecha actual
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    const Today = `${year}-${month}-${day}`
 
     const [flights, setFlights] = useState({
         tripType:'onewaytrip',
@@ -17,11 +26,21 @@ export default function FlightsSearch() {
         currency: 'USD'
     })
 
+    const [error, setError] = useState({
+        nombre: '',
+        altura: '',
+        peso: '',
+        anoDeVida: '',
+        criadoPara: ''
+    })
+
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleChange = (e) => {
-        // e.preventDefault();
-        console.log(e);
+        if(e.target.name === 'departureDate'){
+            return setFlights({...flights, returningDate: '', [e.target.name]: e.target.value})
+        }
         setFlights({...flights, [e.target.name]: e.target.value});
     }
 
@@ -40,6 +59,7 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
+        history.push('/flights');
     }
 
     return(
@@ -65,14 +85,14 @@ export default function FlightsSearch() {
                 </div>
                 <div className='col-2'>
                     <label>Depart</label>
-                    <input className='form-control' type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
+                    <input className='form-control' min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
                 </div>
                 {
-                    flights.tripType === 'roundtrip'
+                    flights.tripType === 'roundtrip' 
                         ?                 
                             <div className='col-2'>
                                 <label>Arrive</label>
-                                <input className='form-control' type='date' name='returningDate' id='arrive' value={flights.returningDate} onChange={handleChange}></input>
+                                <input className='form-control' disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
                             </div>
                         : null
                 }
@@ -100,8 +120,10 @@ export default function FlightsSearch() {
                     <label>Infants</label>
                     <input className='form-control' type='number' name='infants' id='infants' value={flights.infants} onChange={handleChange}></input>
                 </div>
+                <div className='col-2'>
+                    <button type="submit" className="btn btn-primary btn-lg">Search!</button>
+                </div>
             </div>
-            <input type='submit' value='Search!'/>
         </form>
     )
 }

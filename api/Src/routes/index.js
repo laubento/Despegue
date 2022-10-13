@@ -27,4 +27,8 @@ router.use("/user", user);
 // const filters = require('./filters')
 // router.use('/filters')
 
+
+const users = require("../routes/purchaseRelationship")
+router.use("/users", users)
+
 module.exports = router;
