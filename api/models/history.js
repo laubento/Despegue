@@ -21,6 +21,7 @@ const historySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {type: mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 
 module.exports = mongoose.model("History", historySchema);
