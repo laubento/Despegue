@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const infoFlights = require("../API Mock/data");
+const infoFlights = require("../../API Mock/data");
 
 router.post("/", (req, res) => {
   let { priceMin, priceMax } = req.body;
