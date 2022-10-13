@@ -1,0 +1,16 @@
+.info-div {
+    background-color: rgb(111, 11, 138);
+    border-radius: 15px;
+    color: black;
+    border-color:  rgb(111, 11, 138);
+    padding-bottom: 1rem;
+}
+
+.info-div h1 {
+    color: white;
+}
+
+.spandiv {
+    background-color: white;
+    border-radius: 10px;
+}
