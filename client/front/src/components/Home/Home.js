@@ -7,7 +7,7 @@ import LogReg from "../Login/Formulario/LogReg";
 function Home() {
   return (
     <div>
-      <LogReg />
+      {/* <LogReg /> */}
       <Link to="/flights">
         <button>Flights</button>
       </Link>

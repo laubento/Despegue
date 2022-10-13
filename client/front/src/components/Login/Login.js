@@ -6,6 +6,7 @@ const Login = () => {
   const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
   const register = async () => {
     const res = await axios.post("/register", regUser);
+    console.log(res);
   };
 
   const login = async () => {
@@ -22,6 +23,7 @@ const Login = () => {
       ...regUser,
       [e.target.name]: e.target.value,
     });
+    console.log(regUser);
   };
   const handleLogin = (e) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ const Login = () => {
       ...logUser,
       [e.target.name]: e.target.value,
     });
+    console.log(logUser);
   };
   return (
     <div>
@@ -60,12 +63,27 @@ const Login = () => {
       <div>
         <h2>Login</h2>
         <label>User</label>
-        <input type="text" onChange={handleLogin} />
+        <input
+          type="text"
+          value={logUser.name}
+          name="name"
+          onChange={handleLogin}
+        />
         <label>Password</label>
-        <input type="text" onChange={handleLogin} />
-        <button onClick={login}>Submit</button>
+        <input
+          type="text"
+          value={logUser.password}
+          name="password"
+          onChange={handleLogin}
+        />
         <label>Email</label>
-        <input type="text" name="email" onChange={handleLogin} />
+        <input
+          type="text"
+          value={logUser.email}
+          name="email"
+          onChange={handleLogin}
+        />
+        <button onClick={login}>Submit</button>
       </div>
       <div>
         <h2>Get User</h2>

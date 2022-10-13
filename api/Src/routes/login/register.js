@@ -1,23 +1,21 @@
 const { Router } = require("express");
-const User = require('../../../models/user')
+const User = require("../../../models/user");
 const bcrypt = require("bcryptjs");
 const router = Router();
 
 // router.post("/", async (req, res) => {
-  // const {name, email, password, confirm_password} = req.body
-  
-  // if(password !== confirm_password){
-  //   return res.send('Contraseñas distintas.')
-  // }
+// const {name, email, password, confirm_password} = req.body
 
-  // const newUser = new User({name,email,password})
+// if(password !== confirm_password){
+//   return res.send('Contraseñas distintas.')
+// }
 
-  // await newUser.save();
-  // const usuarios = User.find({})
-  // console.log(usuarios)
-  // console.log(req.body)
+// const newUser = new User({name,email,password})
 
-
+// await newUser.save();
+// const usuarios = User.find({})
+// console.log(usuarios)
+// console.log(req.body)
 
 // const router = Router();
 
@@ -26,12 +24,11 @@ router.post("/", async (req, res) => {
   // if (req.body.emial === user.email) res.send("Usuario existente");
   User.findOne(
     {
-      email: req.body.email,
+      name: req.body.name,
     },
     async (err, doc) => {
       if (err) throw err;
-      console.log(doc);
-      if (doc) return res.status(400).send("User already exists");
+      if (doc) return res.send("User already exists");
       if (!doc) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
