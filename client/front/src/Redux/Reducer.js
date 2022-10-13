@@ -317,17 +317,17 @@ export default function reducer(state = initialState, action) {
                         (flight) => flight.stopoversCount >= Number(stopOvers)
                     )
             }
+            // console.log(minPrice,'-------', maxPrice)   
             if (minPrice !== "default" && maxPrice !== "default") {
-                console.log(minPrice,'-------', maxPrice)
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
-                        flight.price >= minPrice && flight.price <= maxPrice
+                        Number(flight.price) >= minPrice && Number(flight.price) <= maxPrice
                 );
             }
             if (maxDuration !== "default") {
                 // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
-                    (flight) => flight.duration.split('h')[0] < maxDuration );
+                    (flight) => flight.duration.split('h')[0] <= maxDuration );
             }
             console.log(filteringFlights)
             return {

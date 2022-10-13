@@ -28,12 +28,19 @@ export default function Filter() {
         dispatch(filterFlights(filters))
     }, [dispatch, filters])
     let flights = useSelector(state => state.flights)
-
+    
     flights.forEach(e => {
+        if(!valueSlide.minD && !valueSlide.minP) {setValueSlide({...valueSlide, minP: Number(e.price), minD: Number(e.duration.split('h')[0])})}
+        
         if(valueSlide.maxP < Number(e.price)){
             setValueSlide({
                 ...valueSlide,
-                maxP: e.price
+                maxP: Number(e.price)
+            })
+        } else if(valueSlide.minP > Number(e.price)){
+            setValueSlide({
+                ...valueSlide,
+                minP: Number(e.price)
             })
         }
         if(valueSlide.maxD < Number(e.duration.split('h')[0])){
@@ -41,9 +48,14 @@ export default function Filter() {
                 ...valueSlide,
                 maxD: Number(e.duration.split('h')[0]) + 1
             })
+        } else if(valueSlide.minD > Number(e.duration.split('h')[0])){
+            setValueSlide({
+                ...valueSlide,
+                minD: Number(e.duration.split('h')[0])
+            })
         }
     });
-    // console.log(valueSlide)
+    console.log(valueSlide)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-2 pt-3 " id="side_nav_filter">
@@ -51,14 +63,14 @@ export default function Filter() {
                     <li className="pb-2">
                         <h4>Price</h4>
                         <label for="customRange2" class="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min="0" max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
 
                         <label for="customRange2" class="form-label">Min</label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min="0" max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min="0" max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={valueSlide.minD} max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Scales</h4>
