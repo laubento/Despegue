@@ -14,8 +14,8 @@ router.post("/", async (req, res) => {
     async (err, doc) => {
       if (err) throw err;
       console.log(doc);
-      if (doc.email) return res.status(400).send("User already exists");
-      if (!doc.email) {
+      if (doc) return res.status(400).send("User already exists");
+      if (!doc) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const newUser = new User({
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
           email: req.body.email,
         });
         await newUser.save();
-        res.status(201).send("User create");
+        return res.status(201).send("User create");
       }
     }
   );

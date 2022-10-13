@@ -3,15 +3,19 @@ import axios from "axios";
 
 const Login = () => {
   const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
-  const [regPassword, setRegPassword] = useState("");
-  const [logUserName, setLogUsername] = useState("");
-  const [logPassword, setLogPassword] = useState("");
-  const register = () => {
-    axios.post("/register", regUser);
+  const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
+  const register = async () => {
+    const res = await axios.post("/register", regUser);
   };
 
-  const login = () => {};
-  const getUser = () => {};
+  const login = async () => {
+    const res = await axios.post("/login", logUser);
+    console.log(res);
+  };
+  const getUser = async () => {
+    const res = await axios.get("/user");
+    console.log(res);
+  };
   const handleChange = (e) => {
     e.preventDefault();
     setRegUser({
@@ -19,7 +23,13 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(regUser);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLogUser({
+      ...logUser,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div>
       <div>
@@ -50,10 +60,12 @@ const Login = () => {
       <div>
         <h2>Login</h2>
         <label>User</label>
-        <input type="text" onChange={(e) => setLogUsername(e.target.value)} />
+        <input type="text" onChange={handleLogin} />
         <label>Password</label>
-        <input type="text" onChange={(e) => setLogPassword(e.target.value)} />
+        <input type="text" onChange={handleLogin} />
         <button onClick={login}>Submit</button>
+        <label>Email</label>
+        <input type="text" name="email" onChange={handleLogin} />
       </div>
       <div>
         <h2>Get User</h2>
