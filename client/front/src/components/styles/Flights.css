@@ -1,8 +1,18 @@
-.prueba{
+.flights-cont{
     background-color: rgb(205, 205, 205);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+   min-height: 100vh;
+}
+
+.pag-list-style{
+    text-decoration: none;
+    list-style:none;
+}
+
+.flights-container-cards{
+    display: flex;
+    flex-direction: column;
 }
 
