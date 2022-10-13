@@ -1,0 +1,144 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(226, 226, 226);
+}
+
+.NavBar-header{
+    background-color: white;
+    display: flex;
+}
+.NavBar-Logo{
+    text-decoration: none;
+    color: rgb(111, 11, 138);
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+}
+.NavBar-Logo:hover{
+    color: black;
+}
+.NavBar-ImgLogo{
+    height: 50px;
+    width: 50px;
+}
+
+.NavBar-Info{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EEE;
+    border-bottom-left-radius: 24px;
+    padding: 0px 24px;
+    box-sizing: border-box;
+    height: 40px;
+    /* width: 70%; */
+}
+.NavBar-ContainerPrincipal{
+    display: flex;
+    padding: 0px;
+    justify-content: space-between;
+}
+.NavBar-Ul{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+.NavBar-Ul li{
+    margin: 0px 10px 0px 0px;
+    padding: 0px 10px 0px 0px;
+    /* padding: 0px 10px;
+    border-right: 1px solid rgba(79, 78, 80, 0.452);
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+.NavBar-Ventas{
+    display: flex;
+    align-items: center;
+}
+.NavBar-Ventas p{
+    margin: 0px 0px 0px 5px;
+    font-family: 'Acme';
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.NavBar-Ventas, .NavBar-IniciarSesion, .NavBar-MisViajes{
+    height: max-content;
+    border-right: 1px solid rgba(110, 11, 138, 0.205);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.NavBar-ContainerButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+.NavBar-Ayuda{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.NavBar-Boton1{
+    padding: 0px 10px;
+}
+.NavBar-LinkBoton{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    margin: 5px;
+    color: rgb(95, 95, 95);
+    animation: all 0.2s;
+}
+.NavBar-LogoBoton{
+    height: 20px;
+    width: 20px;
+    /* background-color: antiquewhite; */
+    /* border-radius: 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.NavBar-LinkBoton:hover{
+    color: blueviolet;
+}   
+.NavBar-Nuevo{
+
+}
+.NavBar-Ul a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+}
+.NavBar-Ul li img{
+    padding-right: 5px;
+}
+.NavBar-LinBotonActive{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    margin: 5px;
+    color: rgb(95, 95, 95);
+    height: max-content;
+    border-bottom: 4px solid rgb(111, 11, 138);
+    animation: all 0.2s;
+}
+.NavBar-LinBotonActive:hover{
+    color: rgb(95, 95, 95);
+}
