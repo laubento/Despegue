@@ -5,13 +5,21 @@ const Login = () => {
   const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
   const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
   const register = async () => {
-    const res = await axios.post("/register", regUser);
-    console.log(res);
+    axios({
+      method: "POST",
+      data: regUser,
+      withCredentials: true,
+      url: "/register",
+    }).then((res) => console.log(res));
   };
 
   const login = async () => {
-    const res = await axios.post("/login", logUser);
-    console.log(res);
+    axios({
+      method: "POST",
+      data: logUser,
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => console.log(res));
   };
   const getUser = async () => {
     const res = await axios.get("/user");
