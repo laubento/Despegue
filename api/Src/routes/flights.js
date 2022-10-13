@@ -5,7 +5,7 @@ const router = Router();
 // const flights = require("../API Mock/data.json");
 // const flights = require('../API Mock/lessData.json')
 
-router.get("/oneWay", async (req, res) => {
+router.post("/onewaytrip", async (req, res) => {
     const { stopOversCount, minPrice, maxPrice, maxDuration } = req.query;
 
     const stopOversCountNumber = parseInt(stopOversCount);
@@ -14,7 +14,7 @@ router.get("/oneWay", async (req, res) => {
     const maxDurationNumber = parseInt(maxDuration);
 
     try {
-        const flights = await utils.getFlightsOneWay(req.body);
+        const flights = await utils.getFlightsOneWay(req.body.flight);
         let filteredFlights = flights;
 
         if (stopOversCount) {
@@ -47,7 +47,7 @@ router.get("/oneWay", async (req, res) => {
     }
 });
 
-router.get("/roundTrip", async (req, res) => {
+router.get("/roundtrip", async (req, res) => {
     try {
         const flights = await utils.getFlightsRoundTrip(req.body);
         res.status(200).send(flights);

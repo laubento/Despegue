@@ -12,7 +12,7 @@ export default function reducer(state = initialState, action) {
     //     ...state,
     //     allFlights: action.payload,
     //   };
-    case 'GET_FLIGHT':
+    case 'GET_FLIGHTS':
       return{
           ...state,
           flights: action.payload
