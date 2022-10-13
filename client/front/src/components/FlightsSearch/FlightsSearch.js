@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getFlights } from '../../Redux/Actions';
+import { useHistory } from 'react-router-dom';
+
 
 export default function FlightsSearch() {
 
@@ -33,6 +35,7 @@ export default function FlightsSearch() {
     })
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleChange = (e) => {
         if(e.target.name === 'departureDate'){
@@ -56,6 +59,7 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
+        history.push('/flights');
     }
 
     return(
@@ -116,8 +120,10 @@ export default function FlightsSearch() {
                     <label>Infants</label>
                     <input className='form-control' type='number' name='infants' id='infants' value={flights.infants} onChange={handleChange}></input>
                 </div>
+                <div className='col-2'>
+                    <button type="submit" className="btn btn-primary btn-lg">Search!</button>
+                </div>
             </div>
-            <input type='submit' value='Search!'/>
         </form>
     )
 }
