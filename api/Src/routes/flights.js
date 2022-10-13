@@ -2,7 +2,7 @@ const { Router } = require("express");
 const utils = require("./utils");
 const router = Router();
 
-const flights = require("../API Mock/data.json");
+// const flights = require("../API Mock/data.json");
 // const flights = require('../API Mock/lessData.json')
 
 router.get("/oneWay", async (req, res) => {
@@ -14,7 +14,7 @@ router.get("/oneWay", async (req, res) => {
     const maxDurationNumber = parseInt(maxDuration);
 
     try {
-        // const flights = await utils.getFlightsOneWay(req.body);
+        const flights = await utils.getFlightsOneWay(req.body);
         let filteredFlights = flights;
 
         if (stopOversCount) {

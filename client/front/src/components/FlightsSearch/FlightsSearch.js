@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getFlights } from '../Redux/Actions';
+import { getFlights } from '../../Redux/Actions';
 
 export default function FlightsSearch() {
 
