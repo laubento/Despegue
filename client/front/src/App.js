@@ -1,12 +1,10 @@
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-
+import FlightsSearch from '../src/components/FlightsSearch';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        
-      </div>
+        <FlightsSearch/>
     </BrowserRouter>
   );
 }
