@@ -1,0 +1,44 @@
+.pagination{
+    gap:15px;
+    list-style: none;
+}
+
+.pagination .page-num{
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.pagination .page-num:hover{
+    color:rgb(111, 11, 138) ;
+    transition: 1s;
+}
+
+.selected{
+    background-color: rgb(229, 121, 253);
+    border-radius: 10px;
+}
+
+.break{
+    cursor: pointer;
+}
+
+.page-num{
+    text-decoration: none;
+    color:rgb(111, 11, 138) ;
+}
+
+.previous{
+    background-color: rgb(240, 240, 240);
+    border-radius: 13px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.next{
+    background-color: rgb(240, 240, 240);
+    border-radius: 13px;
+    font-size: 23px;
+    font-weight: bold; 
+}
