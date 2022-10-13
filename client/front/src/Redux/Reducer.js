@@ -329,7 +329,7 @@ export default function reducer(state = initialState, action) {
                 filteringFlights = filteringFlights.filter(
                     (flight) => flight.duration.split('h')[0] <= maxDuration );
             }
-            console.log(filteringFlights)
+            // console.log(filteringFlights)
             return {
                 ...state,
                 filteredFlights: filteringFlights,
