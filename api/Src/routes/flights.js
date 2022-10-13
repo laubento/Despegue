@@ -17,23 +17,23 @@ router.post("/onewaytrip", async (req, res) => {
         const flights = await utils.getFlightsOneWay(req.body.flight);
         // let filteredFlights = flights;
 
-    //     if (stopOversCount) {
-    //         filteredFlights = filteredFlights.filter(
-    //             (flight) => flight.stopoversCount === stopOversCountNumber
-    //         );
-    //     }
-    //     if (minPrice && maxPrice) {
-    //         filteredFlights = filteredFlights.filter(
-    //             (flight) =>
-    //                 flight.price >= minPriceNumber &&
-    //                 flight.price <= maxPriceNumber
-    //         );
-    //     }
-    //     if (maxDuration) {
-    //         filteredFlights = filteredFlights.filter(
-    //             (flight) => flight.duration < maxDurationNumber
-    //         );
-    //     }
+        // if (stopOversCount) {
+        //     filteredFlights = filteredFlights.filter(
+        //         (flight) => flight.stopoversCount === stopOversCountNumber
+        //     );
+        // }
+        // if (minPrice && maxPrice) {
+        //     filteredFlights = filteredFlights.filter(
+        //         (flight) =>
+        //             flight.price >= minPriceNumber &&
+        //             flight.price <= maxPriceNumber
+        //     );
+        // }
+        // if (maxDuration) {
+        //     filteredFlights = filteredFlights.filter(
+        //         (flight) => flight.duration < maxDurationNumber
+        //     );
+        // }
 
         res.status(200).send(flights);
     } catch (error) {
@@ -46,10 +46,12 @@ router.post("/onewaytrip", async (req, res) => {
 });
 
 router.post("/roundtrip", async (req, res) => {
+
     try {
         const flights = await utils.getFlightsRoundTrip(req.body.flight);
         res.status(200).send(flights);
     } catch (error) {
+        console.log(error);
         res.status(404).send({
             error: error.response.data.message
                 ? error.response.data.message

@@ -9,7 +9,7 @@ export default function FlightsSearch() {
         departurePlace: '',
         arrivalPlace: '',
         departureDate: '',
-        arrivalDate: '',
+        returningDate: '',
         cabinClass: '',
         adults: 0,
         children: 0,
@@ -33,7 +33,7 @@ export default function FlightsSearch() {
             departurePlace: '',
             arrivalPlace: '',
             departureDate: '',
-            arrivalDate: '',
+            returningDate: '',
             cabinClass: '',
             adults: 0,
             children: 0,
@@ -72,7 +72,7 @@ export default function FlightsSearch() {
                         ?                 
                             <div className='col-2'>
                                 <label>Arrive</label>
-                                <input className='form-control' type='date' name='arrivalDate' id='arrive' value={flights.arrivalDate} onChange={handleChange}></input>
+                                <input className='form-control' type='date' name='returningDate' id='arrive' value={flights.returningDate} onChange={handleChange}></input>
                             </div>
                         : null
                 }
