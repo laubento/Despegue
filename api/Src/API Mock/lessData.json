@@ -1,0 +1,46 @@
+[
+{
+    "id": "LA2376~30-LA530~31-LA7464~31",
+    "departureTime": "04:05",
+    "arrivalTime": "17:15",
+    "duration": "49h 10m",
+    "airlinesNames": [
+        "LATAM Airlines Group SA"
+    ],
+    "stopoversCount": 2,
+    "price": "7596"
+},
+{
+    "id": "LH511~30-LH716~31",
+    "departureTime": "18:00",
+    "arrivalTime": "10:30",
+    "duration": "28h 30m",
+    "airlinesNames": [
+        "Lufthansa"
+    ],
+    "stopoversCount": 1,
+    "price": "5029"
+},
+{
+    "id": "LA1436~30-LA530~31-LA7464~31",
+    "departureTime": "07:35",
+    "arrivalTime": "17:15",
+    "duration": "45h 40m",
+    "airlinesNames": [
+        "LATAM Airlines Group SA"
+    ],
+    "stopoversCount": 2,
+    "price": "7596"
+},
+{
+    "id": "UA818~30-UA1376~31-UA7925~31",
+    "departureTime": "22:05",
+    "arrivalTime": "21:10",
+    "duration": "35h 05m",
+    "airlinesNames": [
+        "United Airlines"
+    ],
+    "stopoversCount": 2,
+    "price": "7293"
+}
+]
