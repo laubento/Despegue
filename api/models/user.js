@@ -38,8 +38,13 @@ const userSchema = mongoose.Schema({
     admin: {
         type: Boolean,
         required: false
-    } 
-
+    },
+    // historyPurchase: [
+    //     {type: mongoose.Schema.Types.ObjectId,ref:'History'}
+    // ] 
+    historyPurchase: {
+        type: Array,
+    }
     
 })
 

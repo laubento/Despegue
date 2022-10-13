@@ -6,11 +6,13 @@ import Footer from "./components/Footer/Footer";
 import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import Login from "./components/Login/Login";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Route path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
         <Route exact path="/" component={Login} />
         <Route exact path="/flightSearch" component={FlightsSearch} />

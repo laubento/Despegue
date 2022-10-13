@@ -42,11 +42,11 @@ function Card({
         </div>
       </div>
       <div className="col-2 text-center mt-2">
-      <span className="font-weight-bold"> Duration</span>
-        <br/>
+        <span className="font-weight-bold"> Duration</span>
+        <br />
         <span>{duration}</span>
-        <br/>
-      <span className="font-weight-bold">Scales: {stopoversCount}</span> 
+        <br />
+        <span className="font-weight-bold">Scales: {stopoversCount}</span>
       </div>
       <div className="col-2 container card-border-left card-price-box">
       <div className="div-price-btn mt-1">
