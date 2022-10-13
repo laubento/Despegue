@@ -1,26 +1,30 @@
 const mongoose = require("mongoose");
 
-const historySchema = mongoose.Schema({
-  destination: {
+const flight = mongoose.Schema({
+  airport: {
     type: String,
     required: true,
   },
-  exit: {
+
+  departureDate: {
     type: String,
     required: true,
   },
-  arrive: {
+
+  returnDate: {
     type: String,
     required: true,
   },
-  schedule: {
-    type: String,
+
+  price: {
+    type: Number,
     required: true,
   },
-  type: {
-    type: String,
+
+  scales: {
+    type: Number,
     required: true,
   },
 });
 
-module.exports = mongoose.model("History", historySchema);
+module.exports = mongoose.model("Flight", flight);

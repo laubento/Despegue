@@ -1,18 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
-import {store} from './Redux/Store.js';
-import { ThemeProvider } from '@chakra-ui/core'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./Redux/Store.js";
+import axios from 'axios'
+
+axios.defaults.baseURL = "http://localhost:3001";
 
 ReactDOM.render(
-  <ThemeProvider>
-    <Provider store={store}>
+  <Provider store={store}>
       <React.StrictMode>
-        <App />
+          <App />
       </React.StrictMode>
-    </Provider>
-  </ThemeProvider>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
