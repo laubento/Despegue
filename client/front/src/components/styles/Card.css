@@ -53,6 +53,9 @@ button {
     border-radius: 12px;
     cursor: pointer;
 }
+button:hover{
+    background-color: rgb(75, 1, 96);
+}
 .font-weight-bold{
     font-weight: bold;
 }
