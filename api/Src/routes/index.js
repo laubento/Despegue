@@ -20,3 +20,4 @@ router.use('/duration', flightDurationFilter)
 // router.use('/filters')
 
 module.exports = router;
+

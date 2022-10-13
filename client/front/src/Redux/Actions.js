@@ -1,12 +1,19 @@
-import axios from "axios";
-export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS";
+import axios from 'axios';
 
-export const getAllFlights = () => {
-  return async (dispatch) => {
-    let response = await axios.get("/flights");
-    return dispatch({
-      typeof: GET_ALL_FLIGHTS,
-      payload: response.data,
-    });
-  };
-};
+export function getFlights(flight){
+    const tripType = flight.tripType;
+    const apiKey = '633df619b8f7611a58d22a5e';
+    return async (dispatch) => {
+        // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
+        var json = await axios.get(`/flights/${tripType}`, {flight})
+
+        console.log(json);
+        return dispatch({
+            type: 'GET_FLIGHTS',
+            payload: json.data
+        })
+    }
+
+
+}
+
