@@ -1,7 +1,7 @@
 const app = require("./src/app");
 const db = require("./src/db");
 
-app.listen(3000, () => {
-  console.log("listening on port 3000");
+app.listen(3001, () => {
+  console.log("listening on port 3001");
   db();
 });
