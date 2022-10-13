@@ -4,6 +4,13 @@ import { getFlights } from '../../Redux/Actions';
 
 export default function FlightsSearch() {
 
+    //Fecha actual
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    const Today = `${year}-${month}-${day}`
+
     const [flights, setFlights] = useState({
         tripType:'onewaytrip',
         departurePlace: '',
@@ -17,11 +24,20 @@ export default function FlightsSearch() {
         currency: 'USD'
     })
 
+    const [error, setError] = useState({
+        nombre: '',
+        altura: '',
+        peso: '',
+        anoDeVida: '',
+        criadoPara: ''
+    })
+
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
-        // e.preventDefault();
-        console.log(e);
+        if(e.target.name === 'departureDate'){
+            return setFlights({...flights, returningDate: '', [e.target.name]: e.target.value})
+        }
         setFlights({...flights, [e.target.name]: e.target.value});
     }
 
@@ -65,14 +81,14 @@ export default function FlightsSearch() {
                 </div>
                 <div className='col-2'>
                     <label>Depart</label>
-                    <input className='form-control' type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
+                    <input className='form-control' min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
                 </div>
                 {
-                    flights.tripType === 'roundtrip'
+                    flights.tripType === 'roundtrip' 
                         ?                 
                             <div className='col-2'>
                                 <label>Arrive</label>
-                                <input className='form-control' type='date' name='returningDate' id='arrive' value={flights.returningDate} onChange={handleChange}></input>
+                                <input className='form-control' disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
                             </div>
                         : null
                 }
