@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterFlights } from '../../Redux/Actions'
 
 export default function Filter() {
@@ -10,7 +10,10 @@ export default function Filter() {
         maxDuration: 'default',
         stopOvers: 'default',
     })
-
+    let [valueSlide, setValueSlide] = useState({
+        maxP: 0,
+        maxD: 0,
+    })
 
     const rangeChange = (e) => {
         e.preventDefault();
@@ -24,43 +27,60 @@ export default function Filter() {
     useEffect(e => {
         dispatch(filterFlights(filters))
     }, [dispatch, filters])
-    // console.log(filters)
+    let flights = useSelector(state => state.flights)
+
+    flights.forEach(e => {
+        if(valueSlide.maxP < Number(e.price)){
+            setValueSlide({
+                ...valueSlide,
+                maxP: e.price
+            })
+        }
+        if(valueSlide.maxD < Number(e.duration.split('h')[0])){
+            setValueSlide({
+                ...valueSlide,
+                maxD: Number(e.duration.split('h')[0]) + 1
+            })
+        }
+    });
+    // console.log(valueSlide)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-2 pt-3 " id="side_nav_filter">
                 <ul className="list-unstyled px-2">
                     <li className="pb-2">
-                        <h4>Prince</h4>
+                        <h4>Price</h4>
                         <label for="customRange2" class="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min="0" max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
 
                         <label for="customRange2" class="form-label">Min</label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min="0" max="854000" id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min="0" max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min="0" max="60" id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min="0" max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Scales</h4>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" onChange={rangeChange} />
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                All Scales
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="stopOvers" value={1} id="flexRadioDefault1" onChange={rangeChange} />
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                1 scale
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="stopOvers" value={2} id="flexRadioDefault1" onChange={rangeChange} />
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                2 or more scales
-                            </label>
+                        <div onChange={rangeChange}>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    All Scales
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="stopOvers" value={1} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 1} />
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    1 scale
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="stopOvers" value={2} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 2} />
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    2 or more scales
+                                </label>
+                            </div>
                         </div>
 
                     </li>

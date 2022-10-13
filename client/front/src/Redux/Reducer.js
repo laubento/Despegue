@@ -318,13 +318,14 @@ export default function reducer(state = initialState, action) {
                     )
             }
             if (minPrice !== "default" && maxPrice !== "default") {
+                console.log(minPrice,'-------', maxPrice)
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
                         flight.price >= minPrice && flight.price <= maxPrice
                 );
             }
             if (maxDuration !== "default") {
-                console.log(maxDuration)
+                // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
                     (flight) => flight.duration.split('h')[0] < maxDuration );
             }
