@@ -4,7 +4,6 @@ import '../styles/Footer.css'
 // se usa info de momento
 
 export default function Footer() {
-
     return (
         <div className='Footer-containerPrincipal'>
             <footer className='bg-dark text-white'>

@@ -8,7 +8,7 @@ import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/Login";
-// import axios from "axios";
+import Register from "./components/Register/Register";
 function App() {
   const [user, setUser] = useState(null);
 
@@ -42,8 +42,9 @@ function App() {
       <BrowserRouter>
         <NavBar user={user} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/login" component={Login} />
+        <Route exact path={'/register'} component={Register} />
+        <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
       </BrowserRouter>

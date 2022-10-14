@@ -1,9 +1,6 @@
 .Login-containerPrincipal{
-    /* background-color: aqua; */
     display: flex;
     justify-content: center;
-    /* height: 100vh; */
-    /* align-items: center; */
 }
 .Login-formulario {
 	min-width: 600px;
@@ -24,6 +21,14 @@
 	font-size: 14px;
 	margin-bottom: 5px;
 	color: #1f1f1f;
+}
+.Login-Portada{
+	height: 200px;
+}
+.Login-PortadaContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .Login-formulario input,
@@ -77,4 +82,39 @@
 
 .Login-formulario input[type="radio"] {
 	width: auto;
+}
+
+.Login-Link{
+	text-decoration: none;
+	color: #000000;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.Login-Link:hover{
+	color: #000000;
+}
+
+.Login-BotonRegister{
+	background-color: #e2e2e2;
+	border: 1px solid #000000;
+	border-radius: 20px;
+	padding: 5px;
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s;
+}
+.Login-BotonRegister:hover{
+	color: #000000;
+	background-color: #b8b8b8;
+}
+.Login-containerRegister{
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
