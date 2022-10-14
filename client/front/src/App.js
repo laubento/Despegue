@@ -7,6 +7,7 @@ import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
+        <Route exact path={'/register'} component={Register} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />

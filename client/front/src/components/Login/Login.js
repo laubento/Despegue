@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import '../styles/Login.css'
+import '../styles/Login-Register.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom'
+import Portada from '../../Images/PortadaFormulario.png'
 
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -11,67 +13,72 @@ const Login = () => {
   }
 
   return (
-<>
-			<Formik
-				initialValues={{
-					password: '',
-					email: ''
-				}}
-				validate={(valores) => {
-					let errores = {};
+    <>
+      <Formik
+        initialValues={{
+          password: '',
+          email: ''
+        }}
+        validate={(valores) => {
+          let errores = {};
 
-					// Validacion nombre
-					if(!valores.password){
-						errores.password = 'Please enter a password'
-					} 
+          // Validacion nombre
+          if (!valores.password) {
+            errores.password = 'Por favor, introduzca una contraseña'
+          }
 
-					// Validacion correo
-					if(!valores.email){
-						errores.email = 'Please enter an email address'
-					} else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)){
-						errores.email = 'Mail can only contain letters, numbers, periods, hyphens and underscores'
-					}
+          // Validacion correo
+          if (!valores.email) {
+            errores.email = 'Introduzca una dirección de correo electrónico'
+          } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
+            errores.email = 'El correo sólo puede contener letras, números, puntos, guiones y guiones bajos'
+          }
 
-					return errores;
-				}}
-				onSubmit={(valores, {resetForm}) => {
-					resetForm();
-					console.log('Form submitted');
-					cambiarFormularioEnviado(true);
-					setTimeout(() => cambiarFormularioEnviado(false), 5000);
+          return errores;
+        }}
+        onSubmit={(valores, { resetForm }) => {
+          resetForm();
+          console.log('Form submitted');
+          cambiarFormularioEnviado(true);
+          setTimeout(() => cambiarFormularioEnviado(false), 5000);
           login(valores)
-				}}
-			>
-				{( {errors} ) => (
+        }}
+      >
+        {({ errors }) => (
           <div className="Login-containerPrincipal">
             <Form className="Login-formulario">
+              <img className="Login-Portada" src={Portada} alt='Portada'/>
               <div>
                 <label htmlFor="email">Correo</label>
                 <Field
-                  type="text" 
-                  id="email" 
-                  name="email" 
-                  placeholder="abc@email.com" 
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="abc@email.com"
                 />
                 <ErrorMessage name="email" component={() => (<div className="error">{errors.email}</div>)} />
               </div>
               <div>
-                <label htmlFor="name">Password</label>
+                <label htmlFor="name">Contraseña</label>
                 <Field
-                  type="password" 
-                  id="password" 
-                  name="password" 
+                  type="password"
+                  id="password"
+                  name="password"
                   placeholder="********"
                 />
                 <ErrorMessage name="password" component={() => (<div className="error">{errors.password}</div>)} />
               </div>
-              <button type="submit">Enviar</button>
+              <button type="submit">Iniciar Sesion</button>
               {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
+              <div className="Login-containerRegister">
+                <h6>No tenes cuenta?</h6>
+                <div className="Login-BotonRegister"><Link className="Login-Link" to={'/register'}>Registrarse</Link></div>
+              </div>
             </Form>
           </div>
-				)}
-			</Formik>
-		</>
+        )}
+      </Formik>
+    </>
   );
 };
 
