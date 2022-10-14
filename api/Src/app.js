@@ -40,6 +40,13 @@ app.use(morgan("dev"));
 //     credentials: true,
 //   })
 // );
+// app.use(
+//   session({
+//     secret: "secretcode",
+//     resave: true,
+//     saveUninitialized: false,
+//   })
+// );
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,13 +57,6 @@ app.use(
     credentials: true,
   })
 );
-// app.use(
-//   session({
-//     secret: "secretcode",
-//     resave: true,
-//     saveUninitialized: true,
-//   })
-// );
 // require("./routes/login/passportConfig")(passport);
 app.use("/", index);
 

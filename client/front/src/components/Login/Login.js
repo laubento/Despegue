@@ -36,7 +36,6 @@ const Login = () => {
       ...regUser,
       [e.target.name]: e.target.value,
     });
-    console.log(regUser);
   };
   const handleLogin = (e) => {
     e.preventDefault();
@@ -44,7 +43,6 @@ const Login = () => {
       ...logUser,
       [e.target.name]: e.target.value,
     });
-    console.log(logUser);
   };
   return (
     <div>

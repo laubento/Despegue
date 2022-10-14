@@ -3,20 +3,18 @@ const passport = require("passport");
 
 const router = Router();
 
-// router.post("/", (req, res, next) => {
-//   console.log(req.body);
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) throw err;
-//     console.log(user);
-//     if (!user) return res.send("Not user exist");
-//     else {
-//       req.logIn(user, (err) => {
-//         if (err) throw err;
-//         res.send("Success");
-//         console.log(req.user);
-//       });
-//     }
-//   })(req, res, next);
-// });
+router.post("/", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    console.log(user);
+    if (!user) return res.send("Not user exist");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send("Success");
+      });
+    }
+  })(req, res, next);
+});
 
 module.exports = router;

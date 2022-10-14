@@ -6,7 +6,6 @@ import LogReg from "../Login/Formulario/LogReg";
 // se usa info de momento
 
 function Home({ user }) {
-  console.log(user);
   return (
     <div>
       {/* <LogReg /> */}

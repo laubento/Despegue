@@ -8,22 +8,28 @@ import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import Login from "./components/Login/Login";
 import NavBar from "./components/NavBar/NavBar";
-import axios from "axios";
+// import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
-      axios
-        .get("http://localhost:3001/auth/login/success")
+      fetch("http://localhost:3001/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
         .then((response) => {
-          console.log(response, "RESPONSE");
           if (response.status === 200) return response.json();
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-          console.log(resObject.user, "USER");
+          console.log(resObject);
           setUser(resObject.user);
         })
         .catch((err) => {
@@ -32,14 +38,11 @@ function App() {
     };
     getUser();
   }, []);
-  console.log(user);
   return (
     <div className="App">
       <BrowserRouter>
         <NavBar user={user} />
-        {/* <Route path="/" component={NavBar} /> */}
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/login" component={Login} />
         <Route path="/flights" component={Flights} />

@@ -11,10 +11,10 @@ import { Link } from "react-router-dom";
 
 export default function NavBar({ user }) {
   let url = window.location.pathname;
-  console.log(url);
+
   return (
     <div className="NavBar-header">
-      <h1>{user ? user.displayName : "User"}</h1>
+      <h1>{user ? user.name : "User"}</h1>
       <div className="container-fluid NavBar-ContainerPrincipal">
         <a className="NavBar-Logo" href="#">
           <img className="NavBar-ImgLogo" alt="Logo" src={Logo} />
