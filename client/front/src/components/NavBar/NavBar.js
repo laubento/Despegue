@@ -37,16 +37,16 @@ export default function NavBar() {
             <div className='NavBar-Info'>
                 <ul className='NavBar-Ul'>
                     <li className='NavBar-Ventas'>
-                        <a href='#'><img alt='ventas' src={Auriculares}/>Ventas <p> 0810 810 9992</p></a>
+                        <Link to={'/'}><img alt='ventas' src={Auriculares}/>Ventas <p> 0810 810 9992</p></Link>
                     </li>
                     <li className='NavBar-IniciarSesion'>
-                        <a href='#'><img alt='ventas' src={Persona}/>Iniciar Sesion</a>
+                        <Link to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link>
                     </li>
                     <li className='NavBar-MisViajes'>
-                        <a href='#'><img alt='ventas' src={Valija}/>Mis Viajes</a>
+                        <Link to={'/'}><img alt='ventas' src={Valija}/>Mis Viajes</Link>
                     </li>
                     <li className='NavBar-Ayuda'>
-                        <a href='#'><img alt='ventas' src={Ayuda}/>Ayuda</a>
+                        <Link to={'/'}><img alt='ventas' src={Ayuda}/>Ayuda</Link>
                     </li>
                 </ul>
             </div>

@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
