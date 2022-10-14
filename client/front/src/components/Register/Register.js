@@ -105,7 +105,7 @@ const Register = () => {
                             {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
                             <div className="Login-containerRegister">
                                 <h6>Ya tienes eres usuario?</h6>
-                                <div className="Login-BotonRegister"><Link className="Login-Link" to={'/register'}>Iniciar Sesion</Link></div>
+                                <div className="Login-BotonRegister"><Link className="Login-Link" to={'/login'}>Iniciar Sesion</Link></div>
                             </div>
                         </Form>
                     </div>
