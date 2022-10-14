@@ -40,7 +40,7 @@ export default function NavBar() {
                         <a href='#'><img alt='ventas' src={Auriculares}/>Ventas <p> 0810 810 9992</p></a>
                     </li>
                     <li className='NavBar-IniciarSesion'>
-                        <a href='#'><img alt='ventas' src={Persona}/>Iniciar Sesion</a>
+                        <Link to='/register'> <img alt='ventas' src={Persona}/>Iniciar Sesion</Link>
                     </li>
                     <li className='NavBar-MisViajes'>
                         <a href='#'><img alt='ventas' src={Valija}/>Mis Viajes</a>

@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const GET_FLIGHTS = "GET_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
+export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
+export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -24,5 +26,20 @@ export const filterFlights = (filters) => {
             type: FILTER_FLIGHTS,
             payload: filters
         })
+    }
+}
+
+export function searchAirportFrom (name) {
+    return async function(dispatch){
+        let response = await axios.get(`http://localhost:3001/searchByName/from?nombre=${name}`)
+        return dispatch({type: SEARCH_AIRPORT_FROM, payload: response.data})
+    }
+}
+
+
+export function searchAirportTo (name) {
+    return async function(dispatch){
+        let response = await axios.get(`http://localhost:3001/searchByName/to?nombre=${name}`)
+        return dispatch({type: SEARCH_AIRPORT_TO, payload: response.data})
     }
 }

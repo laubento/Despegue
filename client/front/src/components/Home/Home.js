@@ -7,7 +7,6 @@ import FlightsSearch from "../FlightsSearch/FlightsSearch";
 function Home() {
   return (
     <div>
-      <LogReg />
       <Link to="/flights">
         <button>Flights</button>
       </Link>

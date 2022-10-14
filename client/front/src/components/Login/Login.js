@@ -6,7 +6,12 @@ const Login = () => {
   const [regPassword, setRegPassword] = useState("");
   const [logUserName, setLogUsername] = useState("");
   const [logPassword, setLogPassword] = useState("");
+  const [confirmPassword, setConfirm] = useState("")
+  const [errPass, setErrPass] = useState('')
   const register = () => {
+    if(confirmPassword !== regUser.password){
+      return setErrPass('Las contraseñas no son iguales')
+    }
     axios.post("/register", regUser);
   };
 
@@ -14,12 +19,13 @@ const Login = () => {
   const getUser = () => {};
   const handleChange = (e) => {
     e.preventDefault();
+    setErrPass('')
     setRegUser({
       ...regUser,
       [e.target.name]: e.target.value,
     });
   };
-  console.log(regUser);
+  
   return (
     <div>
       <div>
@@ -33,11 +39,13 @@ const Login = () => {
         />
         <label>Password</label>
         <input
-          type="text"
+          type="password"
           name="password"
           value={regUser.password}
           onChange={handleChange}
         />
+        <label>Confirm Password </label>
+          <input type='password' onChange={(e)=>setConfirm(e.target.value)}/>
         <label>Email</label>
         <input
           type="text"
@@ -46,6 +54,9 @@ const Login = () => {
           onChange={handleChange}
         />
         <button onClick={register}>Submit</button>
+        {errPass && (
+        <h3>{errPass}</h3>
+      )}
       </div>
       <div>
         <h2>Login</h2>
@@ -59,6 +70,7 @@ const Login = () => {
         <h2>Get User</h2>
         <button onClick={getUser}>Get</button>
       </div>
+
     </div>
   );
 };
