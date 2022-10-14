@@ -26,7 +26,7 @@ app.use(morgan("dev"));
 // });
 app.use(
   cors({
-    origin: "https://localhost:3001",
+    origin: "*",
     credentials: true,
   })
 );
