@@ -4,10 +4,10 @@ const bcrypt = require("bcryptjs");
 const router = Router();
 
 router.post("/", (req, res) => {
-  User.findOne({ name: req.body.name }, async (err, doc) => {
+  User.findOne({ name: req.body.email }, async (err, doc) => {
     if (err) throw err;
     console.log(doc);
-    if (doc) res.status(400).send("User Already Exists");
+    if (doc) return res.status(400).send("User Already Exists");
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 

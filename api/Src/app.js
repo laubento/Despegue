@@ -12,6 +12,7 @@ const { URI, USER, PASSWORD } = process.env;
 
 const app = express();
 
+require("./routes/login/passportConfig");
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
@@ -32,22 +33,22 @@ app.use((req, res, next) => {
 //   })
 // );
 app.use(
+  cors({
+    origin: "http://localhost:3000", // <-- location of the react app were connecting to
+    credentials: true,
+  })
+);
+app.use(
   session({
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
   })
 );
-app.use(
-  cors({
-    origin: "http://localhost:3000", // <-- location of the react app were connecting to
-    credentials: true,
-  })
-);
 app.use(cookieParser("secretcode"));
-app.use(passport.initialize());
 app.use(passport.session());
-require("./routes/login/passportConfig")(passport);
+app.use(passport.initialize());
+// require("./routes/login/passportConfig")(passport);
 app.use("/", index);
 
 app.use((err, req, res, next) => {
