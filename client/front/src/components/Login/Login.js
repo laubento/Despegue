@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import '../styles/Login.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const Login = () => {
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
   const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
 
@@ -45,63 +48,67 @@ const Login = () => {
     });
   };
   return (
-    <div>
-      <div>
-        <h2>Register</h2>
-        <label>User</label>
-        <input
-          type="text"
-          name="name"
-          value={regUser.name}
-          onChange={handleChange}
-        />
-        <label>Password</label>
-        <input
-          type="text"
-          name="password"
-          value={regUser.password}
-          onChange={handleChange}
-        />
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          value={regUser.email}
-          onChange={handleChange}
-        />
-        <button onClick={register}>Submit</button>
-      </div>
-      <div>
-        <h2>Login</h2>
-        <label>User</label>
-        <input
-          type="text"
-          value={logUser.name}
-          name="name"
-          onChange={handleLogin}
-        />
-        <label>Password</label>
-        <input
-          type="text"
-          value={logUser.password}
-          name="password"
-          onChange={handleLogin}
-        />
-        <label>Email</label>
-        <input
-          type="text"
-          value={logUser.email}
-          name="email"
-          onChange={handleLogin}
-        />
-        <button onClick={login}>Submit</button>
-        <button onClick={google}>Google</button>
-      </div>
-      <div>
-        <h2>Get User</h2>
-        <button onClick={getUser}>Get</button>
-      </div>
-    </div>
+<>
+			<Formik
+				initialValues={{
+					password: '',
+					email: ''
+				}}
+				validate={(valores) => {
+					let errores = {};
+
+					// Validacion nombre
+					if(!valores.password){
+						errores.password = 'Please enter a password'
+					} 
+
+					// Validacion correo
+					if(!valores.email){
+						errores.email = 'Please enter an email address'
+					} else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)){
+						errores.email = 'Mail can only contain letters, numbers, periods, hyphens and underscores'
+					}
+
+					return errores;
+				}}
+				onSubmit={(valores, {resetForm}) => {
+					resetForm();
+					console.log('Form submitted');
+					cambiarFormularioEnviado(true);
+					setTimeout(() => cambiarFormularioEnviado(false), 5000);
+          login(valores)
+				}}
+			>
+				{( {errors} ) => (
+          <div className="Login-containerPrincipal">
+            <Form className="Login-formulario">
+              <div>
+                <label htmlFor="email">Correo</label>
+                <Field
+                  type="text" 
+                  id="email" 
+                  name="email" 
+                  placeholder="abc@email.com" 
+                />
+                <ErrorMessage name="email" component={() => (<div className="error">{errors.email}</div>)} />
+              </div>
+              <div>
+                <label htmlFor="name">Password</label>
+                <Field
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  placeholder="********"
+                />
+                <ErrorMessage name="password" component={() => (<div className="error">{errors.password}</div>)} />
+              </div>
+              <button type="submit">Enviar</button>
+              {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
+            </Form>
+          </div>
+				)}
+			</Formik>
+		</>
   );
 };
 

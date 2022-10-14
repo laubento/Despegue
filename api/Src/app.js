@@ -57,7 +57,16 @@ app.use(
     credentials: true,
   })
 );
-// require("./routes/login/passportConfig")(passport);
+app.use(
+  session({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize())
+app.use(passport.session())
 app.use("/", index);
 
 app.use((err, req, res, next) => {
