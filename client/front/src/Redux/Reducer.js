@@ -1,7 +1,9 @@
 import { GET_FLIGHTS, FILTER_FLIGHTS } from "./Actions";
 
 const initialState = {
-    flights: [
+    flights: [],
+
+    flights2: [
         {
             "id": "TK16~30-TK198~1",
             "departureTime": "23:50",

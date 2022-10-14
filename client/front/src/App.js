@@ -7,6 +7,7 @@ import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import Login from "./components/Login/Login";
 import NavBar from "./components/NavBar/NavBar";
+import Checkout from './components/Checkout/Checkout'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
+        <Route path="/p" component={Checkout} />
       </BrowserRouter>
     </div>
   );
