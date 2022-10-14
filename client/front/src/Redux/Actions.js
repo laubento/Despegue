@@ -3,6 +3,7 @@ import axios from 'axios';
 export const GET_FLIGHTS = "GET_FLIGHTS"
 export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
+export const SET_LOADER = "SET_LOADER"
 
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -33,5 +34,11 @@ export const filterFlights = (filters) => {
             type: FILTER_FLIGHTS,
             payload: filters
         })
+    }
+}
+
+export const setLoader = () => {
+    return function (dispatch){
+        dispatch({type: SET_LOADER})
     }
 }

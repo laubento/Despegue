@@ -1,9 +1,10 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS, SET_LOADER } from "./Actions";
 
 const initialState = {
     flights: [],
     allFlights: [],
     filteredFlights: [],
+    loading: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -57,6 +58,21 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 filteredFlights: filteringFlights,
             };
+
+            case SET_LOADER:
+                if(state.flights.length === 0){
+                    return{
+                        ...state,
+                        loading: true
+                    }
+                }
+                if(state.flights.length !== 0){
+                    return{
+                        ...state,
+                        loading: false
+                    }
+                }
+
 
         default:
             return state;
