@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
-  const Login = (valores) => {
+  const login = (valores) => {
     console.log(valores)
   }
 
@@ -39,7 +39,7 @@ const Login = () => {
 					console.log('Form submitted');
 					cambiarFormularioEnviado(true);
 					setTimeout(() => cambiarFormularioEnviado(false), 5000);
-          Login(valores)
+          login(valores)
 				}}
 			>
 				{( {errors} ) => (
@@ -58,7 +58,7 @@ const Login = () => {
               <div>
                 <label htmlFor="name">Password</label>
                 <Field
-                  type="text" 
+                  type="password" 
                   id="password" 
                   name="password" 
                   placeholder="********"
