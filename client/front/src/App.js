@@ -45,7 +45,6 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path={'/register'} component={Register} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
-        <Route exact path="/login" component={Login} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
       </BrowserRouter>
