@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const index = require("./routes/index");
 const session = require("express-session");
-const bcrypt = require("bcryptjs");
+const passportLocal = require("passport-local").Strategy;
 const cors = require("cors");
+const passport = require("passport");
 require("dotenv").config();
 const { URI, USER, PASSWORD } = process.env;
 
@@ -14,22 +15,22 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-//   next();
-// });
-app.use(
-  cors({
-    origin: "https://localhost:3001",
-    credentials: true,
-  })
-);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+// app.use(
+//   cors({
+//     origin: "https://localhost:3001",
+//     credentials: true,
+//   })
+// );
 app.use(
   session({
     secret: "secretcode",
@@ -37,7 +38,16 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(
+  cors({
+    origin: "http://localhost:3000", // <-- location of the react app were connecting to
+    credentials: true,
+  })
+);
 app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./routes/login/passportConfig")(passport);
 app.use("/", index);
 
 app.use((err, req, res, next) => {
