@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const GET_FLIGHTS = "GET_FLIGHTS"
+export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
 
 export function getFlights(flight){
@@ -13,6 +14,14 @@ export function getFlights(flight){
         return dispatch({
             type: GET_FLIGHTS,
             payload: flights.data
+        })
+    }
+}
+
+export const clearFlights = () => {
+    return function(dispatch){
+        dispatch({
+            type: CLEAR_FLIGHTS
         })
     }
 }
