@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getFlights } from '../../Redux/Actions';
+import '../styles/FlightSearch.css'
 import { useHistory } from 'react-router-dom';
 
 
 export default function FlightsSearch() {
+    const dispatch = useDispatch();
 
     //Fecha actual
     let today = new Date();
@@ -19,26 +21,71 @@ export default function FlightsSearch() {
         arrivalPlace: '',
         departureDate: '',
         returningDate: '',
-        cabinClass: '',
-        adults: 0,
+        cabinClass: 'Economy',
+        adults: 1,
         children: 0,
         infants: 0,
         currency: 'USD'
     })
 
     const [error, setError] = useState({
-        nombre: '',
-        altura: '',
-        peso: '',
-        anoDeVida: '',
-        criadoPara: ''
+        departurePlace: '',
+        boolDeparturePlace: '',
+        arrivalPlace: '',
+        boolArrivalPlace: '',
+        departureDate: '',
+        boolDepartureDate: '',
+        arrivalDate: '',
+        boolArrivalDate: ''
     })
 
-    const dispatch = useDispatch();
-    const history = useHistory();
+    function validate(input){
+        let errors = {}
+
+        if(!input.departurePlace){
+            errors.departurePlace = 'necesita rellenar'
+            errors.boolDeparturePlace = 'a'
+        }
+        else if(input.departurePlace.length < 3){
+            errors.departurePlace = '3 minimo'
+            errors.boolDeparturePlace = 'a'
+        }
+
+        if(!input.arrivalPlace){
+            errors.arrivalPlace = 'necesita rellenarr'
+            errors.boolArrivalPlace = 'a'
+        }
+        else if(input.arrivalPlace.length < 3){
+            errors.arrivalPlace = '3 minimoo'
+            errors.boolArrivalPlace = 'a'
+        }
+        if(!input.departureDate){
+            errors.departureDate = 'completar fecha'
+            errors.boolDepartureDate = 'a'
+        }
+        if(input.tripType === 'roundtrip'){
+            if(!input.arrivalDate){
+                errors.arrivalDate = 'completar fechaaa'
+                errors.boolArrivalDate = 'a'
+            }
+        }
+
+        return errors
+    }
+
+    // Lugares disponibles
+    const handleChangeSites = (num, age) => {
+        if(num){ setFlights({...flights, [age]: flights[age] + 1}) }
+        else{ setFlights({...flights, [age]: flights[age] - 1}) }
+    }
+
 
     const handleChange = (e) => {
+        // Seteo de la fecha arrive en caso de cambio
         if(e.target.name === 'departureDate'){
+            return setFlights({...flights, returningDate: '', [e.target.name]: e.target.value})
+        }
+        if(e.target.id === 'oneway'){
             return setFlights({...flights, returningDate: '', [e.target.name]: e.target.value})
         }
         setFlights({...flights, [e.target.name]: e.target.value});
@@ -46,6 +93,16 @@ export default function FlightsSearch() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError(validate({
+            ...flights,
+            [e.target.name]: e.target.value
+        }))
+        if(error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolArrivalDate){
+            console.log('entro')
+            return true
+        }
+
+
         dispatch(getFlights(flights));
         setFlights({
             tripType:'onewaytrip',
@@ -53,8 +110,8 @@ export default function FlightsSearch() {
             arrivalPlace: '',
             departureDate: '',
             returningDate: '',
-            cabinClass: '',
-            adults: 0,
+            cabinClass: 'Economy',
+            adults: 1,
             children: 0,
             infants: 0,
             currency: 'USD'
@@ -77,22 +134,22 @@ export default function FlightsSearch() {
             <div className='row'>
                 <div className='col-2'>
                     <label>From</label>
-                    <input className='form-control' type='text' name='departurePlace' id='from' value={flights.departurePlace} onChange={handleChange}></input>
+                    <input className={ error.boolDeparturePlace ? 'FlightSearch-error form-control' : 'form-control'} type='text' name='departurePlace' id='from' value={flights.departurePlace} onChange={handleChange}></input>
                 </div>
                 <div className='col-2'>
                     <label>To</label>
-                    <input className='form-control' type='text' name='arrivalPlace' id='to' value={flights.arrivalPlace} onChange={handleChange}></input>
+                    <input className={ error.boolArrivalPlace ? 'FlightSearch-error form-control' : 'form-control'} type='text' name='arrivalPlace' id='to' value={flights.arrivalPlace} onChange={handleChange}></input>
                 </div>
                 <div className='col-2'>
                     <label>Depart</label>
-                    <input className='form-control' min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
+                    <input className={ error.boolDepartureDate ? 'FlightSearch-error form-control' : 'form-control'} min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
                 </div>
                 {
                     flights.tripType === 'roundtrip' 
                         ?                 
                             <div className='col-2'>
                                 <label>Arrive</label>
-                                <input className='form-control' disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
+                                <input className={ error.boolArrivalDate ? 'FlightSearch-error form-control' : 'form-control'} disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
                             </div>
                         : null
                 }
@@ -110,20 +167,34 @@ export default function FlightsSearch() {
                 </div>
                 <div className='col-2'>
                     <label>Adults</label>
-                    <input className='form-control' type='number' name='adults' id='adults' value={flights.adults} onChange={handleChange}></input>
+                    <div className='form-control FlightSearch-containerConteo'>
+                        <button disabled={flights.adults === 1} type='button' onClick={() => {handleChangeSites(0, 'adults')}} className='FlightSearch-Menos'>-</button>
+                        <div className='FlightSearch-conteo'>{flights.adults}</div>
+                        <button disabled={flights.infants + flights.adults + flights.children > 5} type='button' onClick={() => handleChangeSites(1, 'adults')} className='FlightSearch-Mas'>+</button>
+                    </div>
                 </div>
                 <div className='col-2'>
                     <label>Children</label>
-                    <input className='form-control' type='number' name='children' id='children' value={flights.children} onChange={handleChange}></input>
+                    <div className='form-control FlightSearch-containerConteo'>
+                        <button disabled={flights.children === 0} type='button' onClick={() => {handleChangeSites(0, 'children')}} className='FlightSearch-Menos'>-</button>
+                        <div className='FlightSearch-conteo'>{flights.children}</div>
+                        <button disabled={flights.infants + flights.adults + flights.children > 5} type='button' onClick={() => {handleChangeSites(1, 'children')}} className='FlightSearch-Mas'>+</button>
+                    </div>
                 </div>
                 <div className='col-2'>
                     <label>Infants</label>
-                    <input className='form-control' type='number' name='infants' id='infants' value={flights.infants} onChange={handleChange}></input>
-                </div>
-                <div className='col-2'>
-                    <button type="submit" className="btn btn-primary btn-lg">Search!</button>
+                    <div className='form-control FlightSearch-containerConteo'>
+                        <button disabled={flights.infants === 0} type='button' onClick={() => {handleChangeSites(0, 'infants')}} className='FlightSearch-Menos'>-</button>
+                        <div className='FlightSearch-conteo'>{flights.infants}</div>
+                        <button disabled={flights.infants + flights.adults + flights.children > 5} type='button' onClick={() => {handleChangeSites(1, 'infants')}} className='FlightSearch-Mas'>+</button>
+                    </div>
                 </div>
             </div>
+            <input type='submit' className="btn btn-primary btn-lg" value='Search!'/>
+            {error.departurePlace ? <p className={'FlightSearch-errorsText'}>{error.departurePlace}</p> : null}
+            {error.arrivalPlace ? <p className={'FlightSearch-errorsText'}>{error.arrivalPlace}</p> : null}
+            {error.departureDate ? <p className={'FlightSearch-errorsText'}>{error.departureDate}</p> : null}
+            {error.arrivalDate ? <p className={'FlightSearch-errorsText'}>{error.arrivalDate}</p> : null}
         </form>
     )
 }
