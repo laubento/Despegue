@@ -1,13 +1,13 @@
-import Logo from '../../Images/Logo.png'
-import Avion from '../../Images/avion.png'
-import Auriculares from '../../Images/auricular.png'
-import Persona from '../../Images/persona.png'
-import Ayuda from '../../Images/boton-web-de-ayuda.png'
-import Valija from '../../Images/valija.png'
-import Ofertas from '../../Images/fuego.png'
-import Asistencias from '../../Images/botiquin.png'
-import '../styles/NavBar.css'
-import { Link } from 'react-router-dom'
+import Logo from "../../Images/Logo.png";
+import Avion from "../../Images/avion.png";
+import Auriculares from "../../Images/auricular.png";
+import Persona from "../../Images/persona.png";
+import Ayuda from "../../Images/boton-web-de-ayuda.png";
+import Valija from "../../Images/valija.png";
+import Ofertas from "../../Images/fuego.png";
+import Asistencias from "../../Images/botiquin.png";
+import "../styles/NavBar.css";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
     let url = window.location.pathname

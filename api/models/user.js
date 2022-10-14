@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs')
+const bcrypt = require("bcryptjs");
 
-
-const userSchema = mongoose.Schema({
+const User = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -29,25 +28,26 @@ const userSchema = mongoose.Schema({
     unique: true,
   },
 
-    // gender: {
-    //     type: String,
-    //     required: true
-    // },
-    // phone: {
-    //     type: Number,
-    //     required: false
-    // },
-    // admin: {
-    //     type: Boolean,
-    //     required: false
-    // },
-    // historyPurchase: [
-    //     {type: mongoose.Schema.Types.ObjectId,ref:'History'}
-    // ] 
-    // historyPurchase: {
-    //     type: Array,
-    // }
-    
-})
+  // gender: {
+  //     type: String,
+  //     required: true
+  // },
+  // phone: {
+  //     type: Number,
+  //     required: false
+  // },
+  // admin: {
+  //     type: Boolean,
+  //     required: false
+  // }
+});
+User.methods.encryptPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+};
 
-module.exports = mongoose.model("User", userSchema)
+User.methods.matchPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+module.exports = mongoose.model("User", User);

@@ -7,11 +7,48 @@ import Portada from '../../Images/PortadaFormulario.png'
 
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
+  const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
 
-  const login = (valores) => {
-    console.log(valores)
-  }
+  const google = () => {
+    window.open("http://localhost:3001/auth/google", "_self");
+  };
 
+  const register = async () => {
+    axios({
+      method: "POST",
+      data: regUser,
+      withCredentials: true,
+      url: "/register",
+    }).then((res) => console.log(res));
+  };
+
+  const login = async () => {
+    axios({
+      method: "POST",
+      data: logUser,
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => console.log(res));
+  };
+  const getUser = async () => {
+    const res = await axios.get("/user");
+    console.log(res);
+  };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setRegUser({
+      ...regUser,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLogUser({
+      ...logUser,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <>
       <Formik

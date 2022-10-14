@@ -21,6 +21,8 @@ router.use("/duration", flightDurationFilter);
 const login = require("./login/login");
 const register = require("./login/register");
 const user = require("./login/user");
+const auth = require("./login/auth");
+router.use("/auth", auth);
 router.use("/login", login);
 router.use("/register", register);
 router.use("/user", user);

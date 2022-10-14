@@ -1,14 +1,20 @@
 const { Router } = require("express");
+const passport = require("passport");
 
 const router = Router();
 
-const passport = require('passport')
-
-router.post("/", (req, res) => {
-  console.log(req.body);
-  passport.authenticate('local', {
-    
-  })
+router.post("/", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    console.log(user);
+    if (!user) return res.send("Not user exist");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send("Success");
+      });
+    }
+  })(req, res, next);
 });
 
 module.exports = router;
