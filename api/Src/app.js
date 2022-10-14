@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const index = require("./routes/index");
@@ -11,8 +12,15 @@ require("dotenv").config();
 const { URI, USER, PASSWORD } = process.env;
 
 const app = express();
-
 require("./routes/login/passportConfig");
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["secretcode"],
+    maxAge: 24 * 60 * 60 * 100,
+  })
+);
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
@@ -46,8 +54,8 @@ app.use(
   })
 );
 app.use(cookieParser("secretcode"));
-app.use(passport.session());
 app.use(passport.initialize());
+app.use(passport.session());
 // require("./routes/login/passportConfig")(passport);
 app.use("/", index);
 

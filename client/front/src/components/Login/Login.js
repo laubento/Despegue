@@ -4,6 +4,11 @@ import axios from "axios";
 const Login = () => {
   const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
   const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
+
+  const google = () => {
+    window.open("http://localhost:3001/auth/google", "_self");
+  };
+
   const register = async () => {
     axios({
       method: "POST",
@@ -92,6 +97,7 @@ const Login = () => {
           onChange={handleLogin}
         />
         <button onClick={login}>Submit</button>
+        <button onClick={google}>Google</button>
       </div>
       <div>
         <h2>Get User</h2>
