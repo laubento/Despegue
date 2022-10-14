@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getFlights } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 
 export default function FlightsSearch() {
     const dispatch = useDispatch();
-
+    const history = useHistory()
     //Fecha actual
     let today = new Date();
     let day = today.getDate();
