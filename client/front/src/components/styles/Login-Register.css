@@ -25,6 +25,11 @@
 .Login-Portada{
 	height: 200px;
 }
+.Login-PortadaContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .Login-formulario input,
 .Login-formulario textarea {

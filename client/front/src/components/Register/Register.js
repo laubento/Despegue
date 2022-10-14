@@ -60,7 +60,9 @@ const Register = () => {
                 {({ errors }) => (
                     <div className="Login-containerPrincipal">
                         <Form className="Login-formulario">
-                            <img className='Login-Portada' src={Portada} alt='Portada' />
+                            <div className="Login-PortadaContainer">
+                                <img className="Login-Portada" src={Portada} alt='Portada' />
+                            </div>
                             <div>
                                 <label htmlFor="name">Nombre</label>
                                 <Field
