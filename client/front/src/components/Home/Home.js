@@ -5,10 +5,12 @@ import LogReg from "../Login/Formulario/LogReg";
 
 // se usa info de momento
 
-function Home() {
+function Home({ user }) {
+  console.log(user);
   return (
     <div>
       {/* <LogReg /> */}
+      <h1>ASDASDASD</h1>
       <Link to="/flights">
         <button>Flights</button>
       </Link>

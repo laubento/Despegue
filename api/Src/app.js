@@ -24,38 +24,39 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+//   next();
+// });
 // app.use(
 //   cors({
-//     origin: "https://localhost:3001",
+//     origin: "https://localhost:3000",
 //     credentials: true,
 //   })
 // );
-app.use(
-  cors({
-    origin: "http://localhost:3000", // <-- location of the react app were connecting to
-    credentials: true,
-  })
-);
-app.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // <-- location of the react app were connecting to
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
+// app.use(
+//   session({
+//     secret: "secretcode",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 // require("./routes/login/passportConfig")(passport);
 app.use("/", index);
 

@@ -5,6 +5,7 @@ const CLIENT_URL = "http://localhost:3000/";
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
+    console.log(req.user);
     res.status(200).json({
       success: true,
       message: "successfull",
@@ -12,6 +13,7 @@ router.get("/login/success", (req, res) => {
       //   cookies: req.cookies
     });
   }
+  console.log(req.user);
 });
 
 router.get("/login/failed", (req, res) => {
@@ -22,6 +24,7 @@ router.get("/login/failed", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
+  // req.session = null;
   req.logout();
   res.redirect(CLIENT_URL);
 });

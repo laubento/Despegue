@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
@@ -9,20 +10,21 @@ import "../styles/Flights.css";
 
 function Flights() {
   let flights = useSelector((state) => state.flights);
-  let infofiltrada = useSelector(state => state.filteredFlights)
+  let infofiltrada = useSelector((state) => state.filteredFlights);
   // console.log(infofiltrada)
-  if(infofiltrada.length > 0){
-    flights = infofiltrada
+  if (infofiltrada.length > 0) {
+    flights = infofiltrada;
   }
-
+  const logout = () => {
+    window.open("http://localhost:3001/auth/logout", "_self");
+  };
   return (
     <div className="d-flex">
       <Filter />
       <div className="flights-cont position-relative ms-5">
         <div className="flights-container-cards">
-          <Paginado
-            data={flights}
-          />
+          <Paginado data={flights} />
+          <button onClick={logout}>Logout</button>
         </div>
       </div>
     </div>

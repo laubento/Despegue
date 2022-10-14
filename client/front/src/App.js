@@ -18,10 +18,12 @@ function App() {
       axios
         .get("http://localhost:3001/auth/login/success")
         .then((response) => {
+          console.log(response, "RESPONSE");
           if (response.status === 200) return response.json();
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
+          console.log(resObject.user, "USER");
           setUser(resObject.user);
         })
         .catch((err) => {
@@ -30,13 +32,16 @@ function App() {
     };
     getUser();
   }, []);
+  console.log(user);
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path="/" component={NavBar} />
+        <NavBar user={user} />
+        {/* <Route path="/" component={NavBar} /> */}
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
+        {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/flightSearch" component={FlightsSearch} />
+        <Route exact path="/login" component={Login} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
       </BrowserRouter>
