@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights } from '../../Redux/Actions';
+import { getFlights, clearFlights } from '../../Redux/Actions';
 import { useEffect } from 'react';
 import '../styles/FlightSearch.css'
-// import { useHistory } from 'react-router-dom';
-
 
 export default function FlightsSearch() {
     const dispatch = useDispatch();
@@ -100,6 +98,7 @@ export default function FlightsSearch() {
         setP(p + 1)
         console.log(p)
         if(p < 1 || error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolReturningDate) return
+        dispatch(clearFlights())
         dispatch(getFlights(flights));
         setFlights({
             tripType:'onewaytrip',
@@ -114,7 +113,6 @@ export default function FlightsSearch() {
             currency: 'USD'
         });
         history.push('/flights');
-        console.log('nooooo')
     }, [error])
 
     const handleSubmit = async (e) => {
@@ -124,26 +122,6 @@ export default function FlightsSearch() {
             [e.target.name]: e.target.value
         }))
         
-
-        
-        // if(error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolArrivalDate){
-        //     console.log('entro')
-        //     return true
-        // }
-        // dispatch(getFlights(flights));
-        // setFlights({
-        //     tripType:'onewaytrip',
-        //     departurePlace: '',
-        //     arrivalPlace: '',
-        //     departureDate: '',
-        //     returningDate: '',
-        //     cabinClass: 'Economy',
-        //     adults: 1,
-        //     children: 0,
-        //     infants: 0,
-        //     currency: 'USD'
-        // });
-        // history.push('/flights');
     }
 
     return(

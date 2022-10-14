@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS } from "./Actions";
 
 const initialState = {
     flights: [],
@@ -18,6 +18,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: action.payload,
             };
+        case CLEAR_FLIGHTS:
+            return{
+                ...state,
+                flights: []
+            }
         case FILTER_FLIGHTS:
             const { minPrice, maxPrice, maxDuration, stopOvers } =
                 action.payload;
@@ -25,21 +30,29 @@ export default function reducer(state = initialState, action) {
             let filteringFlights = state.flights.slice();
 
             if (stopOvers !== "default") {
-                filteringFlights = filteringFlights.filter(
-                    (flight) => flight.stopoversCount === stopOvers
-                );
+                // console.log(stopOvers)
+                stopOvers == 1 ?
+                    filteringFlights = filteringFlights.filter(
+                        (flight) => flight.stopoversCount === Number(stopOvers)
+                    )
+                    :
+                    filteringFlights = filteringFlights.filter(
+                        (flight) => flight.stopoversCount >= Number(stopOvers)
+                    )
             }
+            // console.log(minPrice,'-------', maxPrice)   
             if (minPrice !== "default" && maxPrice !== "default") {
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
-                        flight.price >= minPrice && flight.price <= maxPrice
+                        Number(flight.price) >= minPrice && Number(flight.price) <= maxPrice
                 );
             }
             if (maxDuration !== "default") {
+                // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
-                    (flight) => flight.duration < maxDuration
-                );
+                    (flight) => flight.duration.split('h')[0] <= maxDuration );
             }
+            // console.log(filteringFlights)
             return {
                 ...state,
                 filteredFlights: filteringFlights,
