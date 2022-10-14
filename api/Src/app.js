@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const index = require("./routes/index");
 const session = require("express-session");
 const cors = require("cors");
+const passport = require('passport')
+
 require("dotenv").config();
 const { URI, USER, PASSWORD } = process.env;
 
@@ -37,6 +39,8 @@ app.use(
   })
 );
 app.use(cookieParser("secretcode"));
+app.use(passport.initialize())
+app.use(passport.session())
 app.use("/", index);
 
 app.use((err, req, res, next) => {

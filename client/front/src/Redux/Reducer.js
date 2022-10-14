@@ -1,9 +1,11 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO } from "./Actions";
 
 const initialState = {
     flights: [],
     allFlights: [],
     filteredFlights: [],
+    airportsFrom: [],
+    airportsTo: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -57,6 +59,19 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 filteredFlights: filteringFlights,
             };
+        case SEARCH_AIRPORT_FROM:
+
+        return {
+            ...state,
+            airportsFrom: action.payload
+        }
+
+        case SEARCH_AIRPORT_TO:
+
+        return {
+            ...state,
+            airportsTo: action.payload
+        }
 
         default:
             return state;

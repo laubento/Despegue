@@ -62,34 +62,34 @@ export default function Filter() {
                 <ul className="list-unstyled px-2">
                     <li className="pb-2">
                         <h4>Price</h4>
-                        <label for="customRange2" class="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <label htmlFor="customRange2" className="form-label">Max</label>
+                        <input type="range" name={'maxPrice'} className="form-range w-100"  min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
 
-                        <label for="customRange2" class="form-label">Min</label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <label htmlFor="customRange2" className="form-label">Min</label>
+                        <input type="range" name={'minPrice'} className="form-range w-100"  min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={valueSlide.minD} max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxDuration'} className="form-range w-100"  min={valueSlide.minD} max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
                     <li className="pb-2">
                         <h4>Scales</h4>
                         <div onChange={rangeChange}>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
-                                <label class="form-check-label" for="flexRadioDefault1">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
+                                <label className="form-check-label" for="flexRadioDefault1">
                                     All Scales
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="stopOvers" value={1} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 1} />
-                                <label class="form-check-label" for="flexRadioDefault1">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="stopOvers" value={1} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 1} />
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     1 scale
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="stopOvers" value={2} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 2} />
-                                <label class="form-check-label" for="flexRadioDefault1">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="stopOvers" value={2} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 2} />
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     2 or more scales
                                 </label>
                             </div>
