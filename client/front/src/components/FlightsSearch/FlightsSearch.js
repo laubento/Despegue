@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights } from '../../Redux/Actions';
+import { getFlights, clearFlights } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 // import { useHistory } from 'react-router-dom';
 
@@ -102,7 +102,7 @@ export default function FlightsSearch() {
             console.log('entro')
             return true
         }
-
+        dispatch(clearFlights())
 
         dispatch(getFlights(flights));
         setFlights({

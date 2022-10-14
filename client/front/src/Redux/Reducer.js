@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS } from "./Actions";
 
 const initialState = {
     flights: [],
@@ -18,6 +18,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: action.payload,
             };
+        case CLEAR_FLIGHTS:
+            return{
+                ...state,
+                flights: []
+            }
         case FILTER_FLIGHTS:
             const { minPrice, maxPrice, maxDuration, stopOvers } =
                 action.payload;
