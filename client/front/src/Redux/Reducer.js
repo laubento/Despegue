@@ -307,7 +307,7 @@ export default function reducer(state = initialState, action) {
             let filteringFlights = state.flights.slice();
 
             if (stopOvers !== "default") {
-                
+                // console.log(stopOvers)
                 stopOvers == 1 ?
                     filteringFlights = filteringFlights.filter(
                         (flight) => flight.stopoversCount === Number(stopOvers)
@@ -317,17 +317,19 @@ export default function reducer(state = initialState, action) {
                         (flight) => flight.stopoversCount >= Number(stopOvers)
                     )
             }
+            // console.log(minPrice,'-------', maxPrice)   
             if (minPrice !== "default" && maxPrice !== "default") {
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
-                        flight.price >= minPrice && flight.price <= maxPrice
+                        Number(flight.price) >= minPrice && Number(flight.price) <= maxPrice
                 );
             }
             if (maxDuration !== "default") {
+                // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
-                    (flight) => flight.duration < maxDuration
-                );
+                    (flight) => flight.duration.split('h')[0] <= maxDuration );
             }
+            // console.log(filteringFlights)
             return {
                 ...state,
                 filteredFlights: filteringFlights,
