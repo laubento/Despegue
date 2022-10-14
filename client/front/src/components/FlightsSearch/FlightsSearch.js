@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getFlights } from '../../Redux/Actions';
+import { useEffect } from 'react';
 import '../styles/FlightSearch.css'
+// import { useHistory } from 'react-router-dom';
+
 
 export default function FlightsSearch() {
     const dispatch = useDispatch();
-
+    const history = useHistory()
     //Fecha actual
     let today = new Date();
     let day = today.getDate();
     let month = today.getMonth() + 1;
     let year = today.getFullYear();
     const Today = `${year}-${month}-${day}`
+    // let p = 0;
+    const [p, setP] = useState(0)
 
     const [flights, setFlights] = useState({
         tripType:'onewaytrip',
@@ -33,8 +39,8 @@ export default function FlightsSearch() {
         boolArrivalPlace: '',
         departureDate: '',
         boolDepartureDate: '',
-        arrivalDate: '',
-        boolArrivalDate: ''
+        returningDate: '',
+        boolReturningDate: ''
     })
 
     function validate(input){
@@ -62,12 +68,11 @@ export default function FlightsSearch() {
             errors.boolDepartureDate = 'a'
         }
         if(input.tripType === 'roundtrip'){
-            if(!input.arrivalDate){
-                errors.arrivalDate = 'completar fechaaa'
-                errors.boolArrivalDate = 'a'
+            if(!input.returningDate){
+                errors.returningDate = 'completar fechaaa'
+                errors.boolReturningDate = 'a'
             }
         }
-
         return errors
     }
 
@@ -78,6 +83,8 @@ export default function FlightsSearch() {
     }
 
 
+    
+    
     const handleChange = (e) => {
         // Seteo de la fecha arrive en caso de cambio
         if(e.target.name === 'departureDate'){
@@ -89,18 +96,10 @@ export default function FlightsSearch() {
         setFlights({...flights, [e.target.name]: e.target.value});
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setError(validate({
-            ...flights,
-            [e.target.name]: e.target.value
-        }))
-        if(error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolArrivalDate){
-            console.log('entro')
-            return true
-        }
-
-
+    useEffect( () => {
+        setP(p + 1)
+        console.log(p)
+        if(p < 1 || error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolReturningDate) return
         dispatch(getFlights(flights));
         setFlights({
             tripType:'onewaytrip',
@@ -114,10 +113,41 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
+        history.push('/flights');
+        console.log('nooooo')
+    }, [error])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError(validate({
+            ...flights,
+            [e.target.name]: e.target.value
+        }))
+        
+
+        
+        // if(error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolArrivalDate){
+        //     console.log('entro')
+        //     return true
+        // }
+        // dispatch(getFlights(flights));
+        // setFlights({
+        //     tripType:'onewaytrip',
+        //     departurePlace: '',
+        //     arrivalPlace: '',
+        //     departureDate: '',
+        //     returningDate: '',
+        //     cabinClass: 'Economy',
+        //     adults: 1,
+        //     children: 0,
+        //     infants: 0,
+        //     currency: 'USD'
+        // });
+        // history.push('/flights');
     }
 
     return(
-        <form style={{width: '1200px', margin: 'auto'}} onSubmit={handleSubmit}>
+        <form style={{width: '1200px', margin: 'auto'}} onSubmit={(e) => {handleSubmit(e)}}>
             <div className='text-left' onChange={handleChange}>
                 <div className="form-check form-check-inline">
                     <input className="form-check-input" type="radio" name="tripType" id="oneway" value='onewaytrip' defaultChecked={flights.tripType === 'onewaytrip'}/>
@@ -146,7 +176,7 @@ export default function FlightsSearch() {
                         ?                 
                             <div className='col-2'>
                                 <label>Arrive</label>
-                                <input className={ error.boolArrivalDate ? 'FlightSearch-error form-control' : 'form-control'} disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
+                                <input className={ error.boolReturningDate ? 'FlightSearch-error form-control' : 'form-control'} disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
                             </div>
                         : null
                 }
@@ -187,11 +217,11 @@ export default function FlightsSearch() {
                     </div>
                 </div>
             </div>
-            <input type='submit' value='Search!'/>
+            <input type='submit' className="btn btn-primary btn-lg" value='Search!'/>
             {error.departurePlace ? <p className={'FlightSearch-errorsText'}>{error.departurePlace}</p> : null}
             {error.arrivalPlace ? <p className={'FlightSearch-errorsText'}>{error.arrivalPlace}</p> : null}
             {error.departureDate ? <p className={'FlightSearch-errorsText'}>{error.departureDate}</p> : null}
-            {error.arrivalDate ? <p className={'FlightSearch-errorsText'}>{error.arrivalDate}</p> : null}
+            {error.returningDate ? <p className={'FlightSearch-errorsText'}>{error.returningDate}</p> : null}
         </form>
     )
 }
