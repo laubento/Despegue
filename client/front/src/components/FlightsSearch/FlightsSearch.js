@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
 import { useEffect } from 'react';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
     const dispatch = useDispatch();
     const history = useHistory()
+    let airportsFrom = useSelector((state) => state.airportsFrom);
+     let airportsTo = useSelector((state) => state.airportsTo);
+  
+   const [airportName, setAirportName] = useState({
+     from: '',
+     to: ''
+   });
+   const [activateFrom, setActivateFrom] = useState(false)
+   const [activateTo, setActivateTo] = useState(false)
     //Fecha actual
     let today = new Date();
     let day = today.getDate();
@@ -41,6 +50,12 @@ export default function FlightsSearch() {
         boolReturningDate: ''
     })
 
+    const [searchError, setSearchError] = useState({
+        vacioFrom : '',
+        vacioTo : '',
+        most: ''
+    })
+
     function validate(input){
         let errors = {}
 
@@ -53,11 +68,11 @@ export default function FlightsSearch() {
             errors.boolDeparturePlace = 'a'
         }
 
-        if(!input.arrivalPlace){
+        if(!airportName.from){
             errors.arrivalPlace = 'necesita rellenarr'
             errors.boolArrivalPlace = 'a'
         }
-        else if(input.arrivalPlace.length < 3){
+        else if(airportName.from.length < 3){
             errors.arrivalPlace = '3 minimoo'
             errors.boolArrivalPlace = 'a'
         }
@@ -121,10 +136,112 @@ export default function FlightsSearch() {
             ...flights,
             [e.target.name]: e.target.value
         }))
-        
+        if(airportName.from === ''){
+            setSearchError({
+                vacioFrom:'El buscador está vacio!'
+            })   
+        }
+        if(airportName.to === ''){
+            setSearchError({
+                vacioTo:'El buscador está vacio!'
+            })   
+        }
     }
+        const handleChangeAirport = (e) => {
+            e.preventDefault();
 
+            setAirportName({
+                [e.target.name] : e.target.value
+            })
+            setSearchError({
+                vacioFrom: '',
+                vacioTo: '',
+                most:''
+            })
+        }
+
+        const handleSubmitAirportFrom = (e) => {
+            e.preventDefault();
+            if(airportName.from === "") {
+                setSearchError({
+                    vacioFrom: 'El input está vacio!'
+                  })
+                  return;
+            }
+            setActivateFrom(true)
+            dispatch(searchAirportFrom(airportName.from))
+        }
+
+        const handleSubmitAirportTo = (e) => {
+                e.preventDefault();
+                if (airportName.to === "") {
+                  setSearchError({
+                    vacioTo: 'El input está vacio!'
+                  })
+                  return;
+                }
+                setActivateTo(true)
+                dispatch(searchAirportTo(airportName.to));
+              };
+            
+            
+              const handleSelectFrom = (e) => {
+                let codeIata = e.target.value.substr(-3)
+                setFlights({
+                    ...flights,
+                    departurePlace: codeIata
+                })
+                setActivateFrom(true)
+                dispatch(searchAirportFrom(airportName.from))
+              }
+            console.log(searchError)
+              const handleSelectTo = (e) => {
+                let codeIata = e.target.value.substr(-3)
+                setFlights({
+                    ...flights,
+                    arrivalPlace: codeIata
+                })
+              }
     return(
+    <div>
+      <form onSubmit={(e) => handleSubmitAirportFrom(e)}>
+      <label>From</label>
+                    <br/>
+            <input className={ searchError.vacio === 'vacio' ? 'FlightSearch-error form-control' : 'form-control'}  type='text' name='from'  onChange={(e) => handleChangeAirport(e)}  />
+            {searchError.vacioFrom ? <span className='FlightSearch-errorsText' >{searchError.vacioFrom}</span> : ''}
+            <button type='submit'>Buscar</button>
+            <br/>
+            {activateFrom === false ? '' : <select onChange={(e) => handleSelectFrom(e)}>
+            {airportsFrom.length && airportsFrom.map((e,i) =>{
+                
+                return(
+                    
+                        <option key={i}>{e.name}, code: {e.iata}</option>
+                )
+                })}
+                </select> }
+                
+                </form>
+                <form onSubmit={(e) => handleSubmitAirportTo(e)}>
+                    <label>To</label>
+                    <br/>
+            <input className={ searchError.vacio === 'vacio' ? 'FlightSearch-error form-control' : 'form-control'} type='text' name='to'  onChange={(e) => handleChangeAirport(e)}  />
+            <button type='submit'>Buscar</button>
+            <br/>
+            {searchError.vacioTo ? <span className='FlightSearch-errorsText' >{searchError.vacioTo}</span> : ''}
+            <br/>
+            {activateTo === false ? '' : <select onChange={(e) => handleSelectTo(e)}>
+            {airportsTo.length && airportsTo.map((e,i) =>{
+                
+                return(
+                    
+                        <option key={i}>{e.name}, code: {e.iata}</option>
+                )
+                })}
+                </select> }
+                
+                </form>
+
         <form style={{width: '1200px', margin: 'auto'}} onSubmit={(e) => {handleSubmit(e)}}>
             <div className='text-left' onChange={handleChange}>
                 <div className="form-check form-check-inline">
@@ -137,14 +254,14 @@ export default function FlightsSearch() {
                 </div>
             </div>
             <div className='row'>
-                <div className='col-2'>
+                {/* <div className='col-2'>
                     <label>From</label>
                     <input className={ error.boolDeparturePlace ? 'FlightSearch-error form-control' : 'form-control'} type='text' name='departurePlace' id='from' value={flights.departurePlace} onChange={handleChange}></input>
                 </div>
                 <div className='col-2'>
                     <label>To</label>
                     <input className={ error.boolArrivalPlace ? 'FlightSearch-error form-control' : 'form-control'} type='text' name='arrivalPlace' id='to' value={flights.arrivalPlace} onChange={handleChange}></input>
-                </div>
+                </div> */}
                 <div className='col-2'>
                     <label>Depart</label>
                     <input className={ error.boolDepartureDate ? 'FlightSearch-error form-control' : 'form-control'} min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
@@ -196,10 +313,11 @@ export default function FlightsSearch() {
                 </div>
             </div>
             <input type='submit' className="btn btn-primary btn-lg" value='Search!'/>
-            {error.departurePlace ? <p className={'FlightSearch-errorsText'}>{error.departurePlace}</p> : null}
-            {error.arrivalPlace ? <p className={'FlightSearch-errorsText'}>{error.arrivalPlace}</p> : null}
+            {/* {airportName.most ? <p className={'FlightSearch-errorsText'}>hola</p> : null} 
+            {error.arrivalPlace ? <p className={'FlightSearch-errorsText'}>{error.arrivalPlace}</p> : null} */}
             {error.departureDate ? <p className={'FlightSearch-errorsText'}>{error.departureDate}</p> : null}
             {error.returningDate ? <p className={'FlightSearch-errorsText'}>{error.returningDate}</p> : null}
         </form>
+        </div>
     )
 }

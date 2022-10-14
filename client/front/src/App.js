@@ -5,9 +5,8 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
-import Login from "./components/Login/Login";
 import NavBar from "./components/NavBar/NavBar";
-
+import Login from "./components/Login/Login";
 function App() {
   return (
     <div className="App">

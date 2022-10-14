@@ -25,9 +25,9 @@ function Paginado({ data }) {
       <div className=" ">
         {currentItems.map((e, i) => {
           return (
-            <div className="p">
+            <div className="p" key={e.id}>
               <Card
-                key={e.id}
+                
                 airlinesName={e.airlinesNames}
                 departureTime={e.departureTime}
                 arrivalTime={e.arrivalTime}
