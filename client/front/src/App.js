@@ -10,10 +10,12 @@ import NavBar from "./components/NavBar/NavBar";
 import Checkout from './components/Checkout/Checkout'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
-  const [user, setUser] = useState(null);
 
+    const dispatch = useDispatch()
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:3001/auth/login/success", {
@@ -30,8 +32,9 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-          console.log(resObject);
-          setUser(resObject.user);
+            // const {id, displayName, photos} = resObject.user
+            // dispatch(storeUserInfo({id, displayName, photos}))
+            dispatch(storeUserInfo(resObject.user))
         })
         .catch((err) => {
           console.log(err);
@@ -43,10 +46,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar user={user}/>} />
+        <Route path={"/"} render={() => <NavBar/>} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" render={() => <Login user={user}/>} />
-        <Route exact path={'/register'} render={() => <Register user={user}/>} />
+        <Route exact path="/login" render={() => <Login/>} />
+        <Route exact path={'/register'} render={() => <Register/>} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
