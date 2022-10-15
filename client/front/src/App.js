@@ -38,14 +38,18 @@ function App() {
     };
     getUser();
   }, []);
-  
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar user={user}/>} />
+        <Route path={"/"} render={() => <NavBar user={user} />} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" render={() => <Login user={user}/>} />
-        <Route exact path={'/register'} render={() => <Register user={user}/>} />
+        <Route exact path="/login" render={() => <Login user={user} />} />
+        <Route
+          exact
+          path={"/register"}
+          render={() => <Register user={user} />}
+        />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
