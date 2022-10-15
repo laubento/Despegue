@@ -45,6 +45,13 @@ export default function Filter() {
         })
     }
 
+    const handleChange = (e) =>{
+        setSlider({
+            ...slider,
+            [e.target.name]: e.target.value
+        })
+    }
+
     useEffect(e => {
         dispatch(filterFlights(filters))
         validate()
@@ -87,25 +94,32 @@ export default function Filter() {
         }
     }
     validate()
+    
+    let [slider, setSlider] =useState({
+        minPrice: valueSlide.minP,
+        maxPrice: valueSlide.maxP,
+        maxDuration: valueSlide.maxD,
+    })
 
     return (
         <div className="bg-secondary text-white">
-            <div className="header-box px-2 pt-3 " id="side_nav_filter">
+            <div className="header-box px-1 pt-3 " id="side_nav_filter">
                 <ul className="list-unstyled px-2">
-                    <li className="pb-2">
+                    <h3>Filters</h3>
+                    <li className="pb-2 border-top">
+                        <h4>By Price</h4>
+                        <label for="customRange2" className="d-flex" class="form-label">Max Price:<p>{slider.maxPrice}$</p></label>
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
 
-                        <h4>Price</h4>
-                        <label for="customRange2" class="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" onMouseUp={e => rangeChange(e)} />
-
-                        <label for="customRange2" class="form-label">Min</label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <label for="customRange2" className="d-flex" class="form-label">Min Price:<p>{slider.minPrice}$</p></label>
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
                     </li>
-                    <li className="pt-2">
-                        <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                    <li className="pb-2 border-top">
+                        <h4>Duration:</h4>
+                        <p>{slider.maxDuration}hs</p>
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
                     </li>
-                    <li className="pt-2">
+                    <li className="pb-2 border-top">
                         <h4>Scales</h4>
                         <div onChange={rangeChange}>
                             <div className="form-check">
@@ -128,10 +142,10 @@ export default function Filter() {
                             </div>
                         </div>
                     </li>
-                    <li className="pt-2">
+                    <li className="pt-2 border-top">
                         <h4>Order by:</h4>
                         <select class="form-select" aria-label="Default select example" onChange={handleSelect}>
-                            <option selected>Open this select menu</option>
+                            <option selected>Select an order</option>
                             <option value="orderP" >Price</option>
                             <option value="orderD" >Duration</option>
                             <option value="orderS" >Scales</option>
