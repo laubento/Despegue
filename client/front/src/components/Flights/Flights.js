@@ -9,20 +9,20 @@ import "../styles/Flights.css";
 
 function Flights() {
   let flights = useSelector((state) => state.flights);
-  let infofiltrada = useSelector(state => state.filteredFlights)
-  // console.log(infofiltrada)
-  if(infofiltrada.length > 0){
-    flights = infofiltrada
-  }
+  // let infofiltrada = useSelector(state => state.filteredFlights)
+  // // console.log(infofiltrada)
+  // if(infofiltrada.length > 0){
+  //   flights = infofiltrada
+  // }
 
   return (
     <div className="d-flex">
       <Filter />
       <div className="flights-cont position-relative ms-5">
         <div className="flights-container-cards">
-          <Paginado
+          {flights !== 'Error' ?<Paginado
             data={flights}
-          />
+          />: <h2>There are no flights with these characteristics</h2>}
         </div>
       </div>
     </div>
