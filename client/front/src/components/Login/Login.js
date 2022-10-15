@@ -1,54 +1,73 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/Login-Register.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
-import Portada from "../../Images/PortadaFormulario.png";
+import '../styles/Login-Register.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom'
+import Portada from '../../Images/PortadaFormulario.png'
+import Google from '../../Images/google.png'
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({user}) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const [regUser, setRegUser] = useState({ name: "", password: "", email: "" });
-  const [logUser, setLogUser] = useState({ name: "", password: "", email: "" });
+  const history = useHistory()
+
+  useEffect(() => {
+    console.log('entre')
+    if(user){
+      console.log('a')
+      history.push('/');
+    }
+  }, [user])
+
 
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-  const register = async () => {
-    axios({
-      method: "POST",
-      data: regUser,
-      withCredentials: true,
-      url: "/register",
-    }).then((res) => console.log(res));
-  };
+  
 
-  const login = async () => {
-    axios({
-      method: "POST",
-      data: logUser,
-      withCredentials: true,
-      url: "/login",
-    }).then((res) => console.log(res));
-  };
-  const getUser = async () => {
-    const res = await axios.get("/user");
-    console.log(res);
-  };
-  const handleChange = (e) => {
-    e.preventDefault();
-    setRegUser({
-      ...regUser,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setLogUser({
-      ...logUser,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const register = async () => {
+  //   axios({
+  //     method: "POST",
+  //     data: regUser,
+  //     withCredentials: true,
+  //     url: "/register",
+  //   }).then((res) => console.log(res));
+  // };
+
+  // const login = async () => {
+  //   axios({
+  //     method: "POST",
+  //     data: logUser,
+  //     withCredentials: true,
+  //     url: "/login",
+  //   }).then((res) => console.log(res));
+  // };
+  // const getUser = async () => {
+  //   const res = await axios.get("/user");
+  //   console.log(res);
+  // };
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   setRegUser({
+  //     ...regUser,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   setLogUser({
+  //     ...logUser,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  function login(valores){
+
+  }
+
+
   return (
     <>
       <Formik
@@ -120,10 +139,11 @@ const Login = () => {
                   )}
                 />
               </div>
+
               <button type="submit">Iniciar Sesion</button>
-              {formularioEnviado && (
-                <p className="exito">Formulario enviado con exito!</p>
-              )}
+              <button onClick={google} type="button" className="Login-ButtonGoogle"><img src={Google} alt="google"/>Iniciar Sesion con google</button>
+
+              {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
               <div className="Login-containerRegister">
                 <h6>No tenes cuenta?</h6>
                 <div className="Login-BotonRegister">

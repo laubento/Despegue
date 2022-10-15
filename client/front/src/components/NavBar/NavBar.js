@@ -11,7 +11,13 @@ import { Link } from "react-router-dom";
 
 export default function NavBar({user}) {
     let url = window.location.pathname
-    console.log(url)
+    console.log(user)
+
+    function handleSubmitLogOut(){
+        window.open("http://localhost:3001/auth/logout", "_self");
+        alert('Cerrando sesion')
+    }
+
     return (
         <div className='NavBar-header'>
             <div className='container-fluid NavBar-ContainerPrincipal'>
@@ -41,11 +47,27 @@ export default function NavBar({user}) {
                     </li>
                     
                     <li className='NavBar-IniciarSesion'>
-                        {!user ? <Link to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link> : <Link to={'/'}><img alt='ventas' src={Persona}/>pepe</Link>}
+                        {!user ? <Link  to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link> : <Link className="Login-UsuarioDesplegable" to={'/'}><img alt='ventas' src={Persona}/>
+                        {user.displayName}
+                        <div className="Login-Desplegable">
+                            <div className="Login-DesplegableContainerImg">
+                                <img src={user.photos[0].value}/>
+                                <h6>{`Bienvenido ${user.name.givenName}!`}</h6>
+                            </div>
+                            <hr />
+                            <div className="Login-DesplegableContainerBoton">
+                                <Link to={'/user'} className="Login-DesplegableBoton">Mi perfil</Link>
+                                <hr />
+                                <Link to={'/user/travels'} className="Login-DesplegableBoton">Mis viajes</Link>
+                                <hr />
+                                <button onClick={handleSubmitLogOut} className="Login-DesplegableBoton">Cerrar sesion</button>
+                            </div>
+                        </div>
+                        </Link>}
                         
                     </li>
                     <li className='NavBar-MisViajes'>
-                        <Link to={'/'}><img alt='ventas' src={Valija}/>Mis Viajes</Link>
+                        {user ? <Link to={'/user/travels'}><img alt='ventas' src={Valija}/>Mis Viajes</Link> : <Link to={'/login'}><img alt='ventas' src={Valija}/>Mis Viajes</Link>}
                     </li>
                     <li className='NavBar-Ayuda'>
                         <Link to={'/'}><img alt='ventas' src={Ayuda}/>Ayuda</Link>

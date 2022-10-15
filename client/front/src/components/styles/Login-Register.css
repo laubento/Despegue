@@ -54,7 +54,7 @@
 	font-size: 12px;
 }
 
-.Login-formulario button[type="submit"] {
+.Login-formulario button[type="submit"], .Login-ButtonGoogle {
 	display: block;
 	background: #0085FF;
 	font-weight: 600;
@@ -67,6 +67,20 @@
 	color: #fff;
 	font-size: 16px;
 	transition: .3s ease all;
+}
+.Login-ButtonGoogle{
+	background: rgba(219, 66, 55, 0.952);
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+}
+.Login-ButtonGoogle img{
+	margin-right: 10px;
+}
+.Login-ButtonGoogle:hover{
+	color: white;
+	background-color: rgb(236, 44, 30);
 }
 
 .Login-formulario button[type="submit"]:hover {
