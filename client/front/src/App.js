@@ -9,6 +9,7 @@ import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -37,10 +38,11 @@ function App() {
     };
     getUser();
   }, []);
+  
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar user={user} />
+        <Route path={"/"} render={() => <NavBar user={user}/>} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path={'/register'} component={Register} />

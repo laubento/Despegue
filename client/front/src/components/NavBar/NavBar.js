@@ -9,7 +9,7 @@ import Asistencias from "../../Images/botiquin.png";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({user}) {
     let url = window.location.pathname
     console.log(url)
     return (
@@ -39,8 +39,10 @@ export default function NavBar() {
                     <li className='NavBar-Ventas'>
                         <Link to={'/'}><img alt='ventas' src={Auriculares}/>Ventas <p> 0810 810 9992</p></Link>
                     </li>
+                    
                     <li className='NavBar-IniciarSesion'>
-                        <Link to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link>
+                        {!user ? <Link to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link> : <Link to={'/'}><img alt='ventas' src={Persona}/>pepe</Link>}
+                        
                     </li>
                     <li className='NavBar-MisViajes'>
                         <Link to={'/'}><img alt='ventas' src={Valija}/>Mis Viajes</Link>
