@@ -1,10 +1,15 @@
 import React from "react";
 import { PayPalButton } from "react-paypal-button-v2";
+import { useSelector } from "react-redux";
 
-export default function Checkout(flight){
+export default function Checkout(){
 
-    return (
-      <PayPalButton
+    const user = useSelector(state => state.currentUserInfo)
+
+    console.log(user);
+   
+        return (
+            <PayPalButton
         options={{
             clientId: "AUTQWKW83h4_sO_FXl0PzPqTyY1_qLTd-gyC8JrX6oVn6r8zVWj9mXBVTkwOjkSMeRB8DH4BoZUGsVuf",
             currency: "USD"
