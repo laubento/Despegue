@@ -15,6 +15,8 @@ import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
 
+    const [user, setUser] = useState(null)
+
     const dispatch = useDispatch()
   useEffect(() => {
     const getUser = () => {
@@ -34,6 +36,7 @@ function App() {
         .then((resObject) => {
             // const {id, displayName, photos} = resObject.user
             // dispatch(storeUserInfo({id, displayName, photos}))
+            setUser(resObject.user)
             dispatch(storeUserInfo(resObject.user))
         })
         .catch((err) => {
@@ -53,7 +56,7 @@ function App() {
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
-        <Route path="/p" component={Checkout} />
+        <Route path="/p" render={() => <Checkout user={user} />} />
       </BrowserRouter>
     </div>
   );
