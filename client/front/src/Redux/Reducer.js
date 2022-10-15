@@ -6,7 +6,7 @@ const initialState = {
     filteredFlights: [],
     airportsFrom: [],
     airportsTo: [],
-    currentUserInfo: {},
+    currentUserInfo: null,
 };
 
 export default function reducer(state = initialState, action) {
