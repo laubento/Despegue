@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterFlights } from '../../Redux/Actions'
+import '../styles/Filter.css'
 
 export default function Filter() {
     let dispatch = useDispatch();
@@ -17,62 +18,94 @@ export default function Filter() {
 
     const rangeChange = (e) => {
         e.preventDefault();
-        // console.log(e.target.value)
+
         setFilters({
             ...filters,
             [e.target.name]: e.target.value
         })
-
+        validate()
     }
+
+    const handleSelect = (e) => {
+        e.preventDefault();
+        
+        setFilters({
+            ...filters,
+            order: e.target.value 
+        })
+        validate()
+    }
+
+    const handleClick = () => {
+        setFilters({
+            minPrice: 'default',
+            maxPrice: 'default',
+            maxDuration: 'default',
+            stopOvers: 'default',
+        })
+    }
+
     useEffect(e => {
         dispatch(filterFlights(filters))
+        validate()
     }, [dispatch, filters])
+
     let flights = useSelector(state => state.flights)
-    
-    flights.forEach(e => {
-        if(!valueSlide.minD && !valueSlide.minP) {setValueSlide({...valueSlide, minP: Number(e.price), minD: Number(e.duration.split('h')[0])})}
-        
-        if(valueSlide.maxP < Number(e.price)){
-            setValueSlide({
-                ...valueSlide,
-                maxP: Number(e.price)
+
+    const validate = () => {
+        try {
+            flights.forEach(e => {
+
+                if (!valueSlide.minD && !valueSlide.minP) { setValueSlide({ ...valueSlide, minP: Number(e.price), minD: Number(e.duration.split('h')[0]) }) }
+
+                if (valueSlide.maxP < Number(e.price)) {
+                    setValueSlide({
+                        ...valueSlide,
+                        maxP: Number(e.price)
+                    })
+                } else if (valueSlide.minP > Number(e.price)) {
+                    setValueSlide({
+                        ...valueSlide,
+                        minP: Number(e.price)
+                    })
+                }
+                if (valueSlide.maxD < Number(e.duration.split('h')[0])) {
+                    setValueSlide({
+                        ...valueSlide,
+                        maxD: Number(e.duration.split('h')[0]) + 1
+                    })
+                } else if (valueSlide.minD > Number(e.duration.split('h')[0])) {
+                    setValueSlide({
+                        ...valueSlide,
+                        minD: Number(e.duration.split('h')[0])
+                    })
+                }
+
             })
-        } else if(valueSlide.minP > Number(e.price)){
-            setValueSlide({
-                ...valueSlide,
-                minP: Number(e.price)
-            })
+        } catch (err) {
+
         }
-        if(valueSlide.maxD < Number(e.duration.split('h')[0])){
-            setValueSlide({
-                ...valueSlide,
-                maxD: Number(e.duration.split('h')[0]) + 1
-            })
-        } else if(valueSlide.minD > Number(e.duration.split('h')[0])){
-            setValueSlide({
-                ...valueSlide,
-                minD: Number(e.duration.split('h')[0])
-            })
-        }
-    });
-    console.log(valueSlide)
+    }
+    validate()
+
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-2 pt-3 " id="side_nav_filter">
                 <ul className="list-unstyled px-2">
                     <li className="pb-2">
-                        <h4>Price</h4>
-                        <label htmlFor="customRange2" className="form-label">Max</label>
-                        <input type="range" name={'maxPrice'} className="form-range w-100"  min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
 
-                        <label htmlFor="customRange2" className="form-label">Min</label>
-                        <input type="range" name={'minPrice'} className="form-range w-100"  min={valueSlide.minP} max={valueSlide.maxP} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <h4>Price</h4>
+                        <label for="customRange2" class="form-label">Max</label>
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" onMouseUp={e => rangeChange(e)} />
+
+                        <label for="customRange2" class="form-label">Min</label>
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
-                    <li className="pb-2">
+                    <li className="pt-2">
                         <h4>Duration</h4>
-                        <input type="range" name={'maxDuration'} className="form-range w-100"  min={valueSlide.minD} max={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} />
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} id="customRange2" onMouseUp={e => rangeChange(e)} />
                     </li>
-                    <li className="pb-2">
+                    <li className="pt-2">
                         <h4>Scales</h4>
                         <div onChange={rangeChange}>
                             <div className="form-check">
@@ -94,11 +127,20 @@ export default function Filter() {
                                 </label>
                             </div>
                         </div>
-
+                    </li>
+                    <li className="pt-2">
+                        <h4>Order by:</h4>
+                        <select class="form-select" aria-label="Default select example" onChange={handleSelect}>
+                            <option selected>Open this select menu</option>
+                            <option value="orderP" >Price</option>
+                            <option value="orderD" >Duration</option>
+                            <option value="orderS" >Scales</option>
+                        </select>
                     </li>
                 </ul>
-            </div>
 
+            </div>
+            {flights === 'Error' ? <button type="button" class="btn btn-outline-light" onClick={e => handleClick(e)}>Reset filter</button> : null}
         </div>
     );
 }

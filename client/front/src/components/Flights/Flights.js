@@ -23,7 +23,7 @@ function Flights() {
       <Filter />
       <div className="flights-cont position-relative ms-5">
         <div className="flights-container-cards">
-          <Paginado data={flights} />
+          {flights !== 'Error' ?<Paginado data={flights} />: <h2>There are no flights with these characteristics</h2>}
           <button onClick={logout}>Logout</button>
         </div>
       </div>

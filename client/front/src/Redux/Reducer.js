@@ -19,18 +19,19 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 flights: action.payload,
+                allFlights: action.payload,
             };
         case CLEAR_FLIGHTS:
-            return{
+            return {
                 ...state,
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration, stopOvers } =
+            const { minPrice, maxPrice, maxDuration, stopOvers, order } =
                 action.payload;
 
-            let filteringFlights = state.flights.slice();
-
+            let filteringFlights = state.allFlights.slice();
+            // console.log(action.payload)
             if (stopOvers !== "default") {
                 // console.log(stopOvers)
                 stopOvers == 1 ?
@@ -52,12 +53,30 @@ export default function reducer(state = initialState, action) {
             if (maxDuration !== "default") {
                 // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
-                    (flight) => flight.duration.split('h')[0] <= maxDuration );
+                    (flight) => flight.duration.split('h')[0] <= maxDuration);
             }
-            // console.log(filteringFlights)
+            if (order === 'orderP') {
+                filteringFlights = filteringFlights.sort((a, b) => {
+                    return a.price - b.price
+                })
+            }
+            if (order === 'orderD') {
+                filteringFlights = filteringFlights.sort((a, b) => {
+                    if(a.duration.split('h')[0] === b.duration.split('h')[0])  return a.duration.split('h')[1].split('m')[0] - b.duration.split('h')[1].split('m')[0]
+                    else return a.duration.split('h')[0] - b.duration.split('h')[0]
+                })
+            }
+            if (order === 'orderS') {
+                filteringFlights = filteringFlights.sort((a, b) => {
+                    return a.stopoversCount - b.stopoversCount
+                })
+            }
+            if (filteringFlights.length === 0) {
+                filteringFlights = 'Error'
+            }
             return {
                 ...state,
-                filteredFlights: filteringFlights,
+                flights: filteringFlights,
             };
         case SEARCH_AIRPORT_FROM:
 
