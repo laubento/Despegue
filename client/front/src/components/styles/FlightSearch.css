@@ -41,3 +41,51 @@
 .FlightSearch-errorsText{
     color: red;
 }
+
+.FlightSearch-cont{
+    background: rgb(98,22,148);
+    background: linear-gradient(90deg, rgba(98,22,148,1) 1%, rgba(179,43,224,1) 32%, rgba(231,108,249,1) 93%);
+    border-radius: 12px;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 19px;
+}
+
+.FlightSearch-btn{
+    background: rgb(98,22,148);
+    background: linear-gradient(90deg, rgba(98,22,148,1) 1%, rgb(131, 17, 169) 32%, rgb(178, 24, 202) 93%);
+    border: none;
+    color: white;
+    margin-left: 4px;
+}
+
+.FlightSearch-btn-search{
+    background: rgb(98,22,148);
+    background: linear-gradient(90deg, rgba(98,22,148,1) 1%, rgb(131, 17, 169) 32%, rgb(178, 24, 202) 93%);
+    border: none;
+    color: white;
+    font-size: 20px;
+}
+
+/* .FlightInput-spacing{
+    margin: 20px;
+} */
+
+.slc-ord{
+    height: 30px;
+    margin:10px;
+    border: none;
+    border-radius: 10%;
+    color:white;
+    background-color: rgb(115, 27, 150);
+}
+
+.Flightsearch-input{
+    text-align: center;
+    border-radius: 7px;
+    border: none;
+}
+
+.Flightsearch-input:focus{
+    outline: none;
+}
