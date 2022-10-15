@@ -9,8 +9,13 @@ import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
+
+    const dispatch = useDispatch()
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -29,8 +34,9 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-          console.log(resObject);
-          setUser(resObject.user);
+            const {id, displayName, photos} = resObject.user
+            dispatch(storeUserInfo({id, displayName, photos}))
+            setUser(resObject.user);
         })
         .catch((err) => {
           console.log(err);
