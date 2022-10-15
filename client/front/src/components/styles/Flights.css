@@ -2,8 +2,9 @@
     background-color: rgb(205, 205, 205);
     display: flex;
     justify-content: center;
+    width: 1300px;
     align-items: center;
-   min-height: 100vh;
+    min-height: 100vh;
 }
 
 .pag-list-style{
