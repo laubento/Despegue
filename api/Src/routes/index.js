@@ -7,6 +7,7 @@ const axios = require("axios");
 // const prices = require("./filters/prices");
 // router.use('/prices', prices)
 
+
 const flightRouter = require("./flights");
 router.use("/flights", flightRouter);
 
@@ -20,6 +21,8 @@ router.use("/duration", flightDurationFilter);
 const login = require("./login/login");
 const register = require("./login/register");
 const user = require("./login/user");
+const auth = require("./login/auth");
+router.use("/auth", auth);
 router.use("/login", login);
 router.use("/register", register);
 router.use("/user", user);
@@ -27,6 +30,9 @@ router.use("/user", user);
 // const filters = require('./filters')
 // router.use('/filters')
 
+//getAirportByName
+const searchByName = require('./searchByName/getAirportsByName.js')
+router.use("/searchByName", searchByName)
 
 const users = require("../routes/purchaseRelationship")
 router.use("/users", users)

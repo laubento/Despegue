@@ -1,0 +1,134 @@
+.Login-containerPrincipal{
+    display: flex;
+    justify-content: center;
+}
+.Login-formulario {
+	min-width: 600px;
+	margin: 50px 0px;
+	background: #fff;
+	border-radius: 5px;
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.Login-formulario > div {
+	margin-bottom: 20px;
+}
+
+.Login-formulario label {
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+.Login-Portada{
+	height: 200px;
+}
+.Login-PortadaContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Login-formulario input,
+.Login-formulario textarea {
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+	border-radius: 5px;
+	border: 2px solid #e2e2e2;
+	font-size: 18px;
+	padding: 10px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.Login-formulario input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+.Login-formulario .error {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.Login-formulario button[type="submit"], .Login-ButtonGoogle {
+	display: block;
+	background: #0085FF;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	transition: .3s ease all;
+}
+.Login-ButtonGoogle{
+	background: rgba(219, 66, 55, 0.952);
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+}
+.Login-ButtonGoogle img{
+	margin-right: 10px;
+}
+.Login-ButtonGoogle:hover{
+	color: white;
+	background-color: rgb(236, 44, 30);
+}
+
+.Login-formulario button[type="submit"]:hover {
+	background: #0051ff;
+}
+
+.Login-formulario .exito {
+	text-align: center;
+	font-size: 14px;
+	padding-top: 20px;
+	color: #02a802;
+}
+
+.Login-formulario input[type="radio"] {
+	width: auto;
+}
+
+.Login-Link{
+	text-decoration: none;
+	color: #000000;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.Login-Link:hover{
+	color: #000000;
+}
+
+.Login-BotonRegister{
+	background-color: #e2e2e2;
+	border: 1px solid #000000;
+	border-radius: 20px;
+	padding: 5px;
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s;
+}
+.Login-BotonRegister:hover{
+	color: #000000;
+	background-color: #b8b8b8;
+}
+.Login-containerRegister{
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
