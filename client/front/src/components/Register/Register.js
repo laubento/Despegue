@@ -4,10 +4,25 @@ import '../styles/Login-Register.css'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom'
 import Portada from '../../Images/PortadaFormulario.png'
+import Google from '../../Images/google.png'
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-
-const Register = () => {
+const Register = ({user}) => {
     const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+    const history = useHistory()
+
+    useEffect(() => {
+      console.log('entre')
+      if(user){
+        console.log('a')
+        history.push('/');
+      }
+    }, [user])
+
+    const google = () => {
+        window.open("http://localhost:3001/auth/google", "_self");
+    };
 
     const register = (valores) => {
         console.log(valores)
@@ -104,6 +119,8 @@ const Register = () => {
                                 <ErrorMessage name="passwordRepet" component={() => (<div className="error">{errors.passwordRepet}</div>)} />
                             </div>
                             <button type="submit">Registrar</button>
+                            <button onClick={google} type="button" className="Login-ButtonGoogle"><img src={Google} alt="google"/>Iniciar Sesion con google</button>
+
                             {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
                             <div className="Login-containerRegister">
                                 <h6>Ya tienes eres usuario?</h6>
