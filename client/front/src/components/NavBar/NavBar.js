@@ -47,7 +47,7 @@ export default function NavBar({user}) {
                     </li>
                     
                     <li className='NavBar-IniciarSesion'>
-                        {!user ? <Link  to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link> : <Link className="Login-UsuarioDesplegable" to={'/'}><img alt='ventas' src={Persona}/>
+                        {!user ? <Link  to={'/login'}><img alt='ventas' src={Persona}/>Iniciar Sesion</Link> : <Link className="Login-UsuarioDesplegable" to={'/'}><img className="Login-PhotoLog" alt='ventas' src={user.photos[0].value}/>
                         {user.displayName}
                         <div className="Login-Desplegable">
                             <div className="Login-DesplegableContainerImg">
