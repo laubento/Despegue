@@ -9,6 +9,9 @@ const GOOGLE_CLIENT_ID =
   "909365047101-qs6n7ap7lfqce2golts6kh46amfndqe5.apps.googleusercontent.com";
 const GOOGLE_CLIENT_SECRET = "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";
 
+const FACEBOOK_APP_ID = "825716382185580";
+const FACEBOOK_APP_SECRET = "c4e1da180a4451a1f3c8fc05fee5ad18";
+
 passport.use(
   new GoogleStrategy(
     {
