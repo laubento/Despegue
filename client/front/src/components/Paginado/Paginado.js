@@ -1,27 +1,38 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Card from "../Card/Card";
 import Loader from "../Loader/Loader";
+=======
+import React from "react";
+import { Link } from 'react-router-dom'
+>>>>>>> feat/input-de-busqueda-aiport
 import "../styles/Paginado.css";
 
-function Paginado({ data }) {
-  const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5;
+function Paginado({ paginado, allFlights, flightsPerPage, prevHandler, nextHandler }) {
+  let pageNumbers = [];
+  for(let i = 1; i <= Math.ceil(allFlights/flightsPerPage); i++){
+      pageNumbers.push(i)
+  }
 
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, data]);
+//   const prevHandler = (e) => {
+//     e.preventDefault()
+//     if(number === pageNumbers[0]) return;
+//     number--
+//     let prevPage = number
+//     return paginado(prevPage)
+// }
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.length;
-    setItemOffset(newOffset);
-  };
+// const nextHandler = (e) => {
+//     e.preventDefault()
+//     if(number === pageNumbers.length) return;
+//     number++
+//     let nextPage = number
+//   return paginado(nextPage)
+// }
 
   return (
+<<<<<<< HEAD
     <>
       <div className=" ">
         {currentItems.length !== 0 ? currentItems.map((e, i) => {
@@ -57,6 +68,23 @@ function Paginado({ data }) {
       />
     </>
   );
+=======
+  <nav className="w-100 p-4 pag-cont"> 
+    <ul className="pag-nav">
+    <li className="flights-li" onClick={(e) => prevHandler(e) }>{'<'}</li>
+      {pageNumbers && 
+      pageNumbers.map((n,i) => {
+         return (
+          <li className="page-num " key = {i}>
+              <Link className="pag-link" to={`/flights/${n}`} onClick={() => paginado(n)}>{n}</Link>
+          </li>
+          )
+      })}
+      <li className="flights-li" onClick={(e) => nextHandler(e) } >{'>'}</li>
+      </ul>
+  </nav>
+)
+>>>>>>> feat/input-de-busqueda-aiport
 }
 
 export default Paginado;

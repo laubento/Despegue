@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterFlights } from '../../Redux/Actions'
+import { filterFlights, searchAirline, clearFilters } from '../../Redux/Actions'
 import '../styles/Filter.css'
 
-export default function Filter() {
+export default function Filter({paginado, number}) {
     let dispatch = useDispatch();
     let [filters, setFilters] = useState({
         minPrice: 'default',
@@ -12,6 +12,7 @@ export default function Filter() {
         maxHour: 'default',
         maxDuration: 'default',
         stopOvers: 'default',
+        findAirline: 'default'
     })
     let [valueSlide, setValueSlide] = useState({
         maxP: 0,
@@ -27,6 +28,8 @@ export default function Filter() {
             [e.target.name]: e.target.value
         })
         validate()
+        number = 1
+        paginado(1)
     }
 
     const handleSelect = (e) => {
@@ -37,6 +40,8 @@ export default function Filter() {
             order: e.target.value
         })
         validate()
+        number = 1
+        paginado(1)
     }
 
     const handleClick = () => {
@@ -45,6 +50,10 @@ export default function Filter() {
             maxPrice: valueSlide.maxP,
             maxDuration: valueSlide.maxD,
             stopOvers: 'default',
+            findAirline: {
+                payload: '',
+                type: 'default'
+            }
         })
     }
 
@@ -53,6 +62,9 @@ export default function Filter() {
             ...slider,
             [e.target.name]: e.target.value
         })
+        validate()
+        number = 1
+        paginado(1)
     }
 
     useEffect(e => {
@@ -61,7 +73,6 @@ export default function Filter() {
     }, [dispatch, filters])
 
     let flights = useSelector(state => state.flights)
-
     const validate = () => {
         try {
             flights.forEach(e => {
@@ -114,7 +125,29 @@ export default function Filter() {
         maxPrice: valueSlide.maxP,
         maxDuration: valueSlide.maxD,
     })
-    console.log(slider)
+    
+    const handleChangeAirline = (e) => {
+        e.preventDefault();
+        if(e.target.value === ''){
+           return setFilters({
+                ...filters,
+                findAirline:{
+                    payload : '',
+                    type: 'default'
+                }
+            })
+        }
+        setFilters({
+            ...filters,
+            findAirline: {
+                payload : e.target.value,
+                type: 'find'
+            }
+        })
+        number = 1
+        paginado(1)
+        // dispatch(searchAirline(airlineName.toLowerCase()))
+    }
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">
@@ -182,6 +215,11 @@ export default function Filter() {
                 </ul>
 
             </div>
+            <div className="d-flex justify-content-center flex-column p-4 ">
+            <label className="text-center font-weight-bold ">Search your favourite airline!</label>
+                <input className="m-3 Flightsearch-input" type='text' name="airlineName" onChange={(e) => handleChangeAirline(e) } />
+            </div>
+
             {flights === 'Error' ? <button type="button" class="btn btn-outline-light" onClick={e => handleClick(e)}>Reset filter</button> : null}
         </div>
     );
