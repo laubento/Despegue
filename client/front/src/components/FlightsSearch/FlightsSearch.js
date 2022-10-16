@@ -248,7 +248,7 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
-              console.log(flights)
+            //   console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>
