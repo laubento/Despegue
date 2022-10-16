@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration, stopOvers, order } =
+            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order } =
                 action.payload;
 
             let filteringFlights = state.allFlights.slice();
@@ -50,6 +50,12 @@ export default function reducer(state = initialState, action) {
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
                         Number(flight.price) >= minPrice && Number(flight.price) <= maxPrice
+                );
+            }
+            if (minHour !== "default" && maxHour !== "default") {
+                filteringFlights = filteringFlights.filter(
+                    (flight) =>
+                        Number(flight.departureTime.split(':')[0]) >= minHour && Number(flight.departureTime.split(':')[0]) <= maxHour
                 );
             }
             if (maxDuration !== "default") {
