@@ -114,7 +114,7 @@ export default function Filter() {
         maxPrice: valueSlide.maxP,
         maxDuration: valueSlide.maxD,
     })
-
+    console.log(slider)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">
@@ -148,6 +148,12 @@ export default function Filter() {
                                 <input className="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
                                 <label className="form-check-label" for="flexRadioDefault1">
                                     All Scales
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="stopOvers" value={0} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 0} />
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                    Direct
                                 </label>
                             </div>
                             <div className="form-check">
