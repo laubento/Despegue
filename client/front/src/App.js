@@ -52,8 +52,8 @@ function App() {
           render={() => <Register user={user} />}
         />
         <Route exact path="/flightSearch" component={FlightsSearch} />
-        <Route path="/flights" component={Flights} />
         <Route path="/flights/flightDetail/:id" component={CardDetail}/>
+        <Route path="/flights" component={Flights} />
         <Route path="/" component={Footer} />
       </BrowserRouter>
     </div>
