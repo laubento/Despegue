@@ -102,7 +102,6 @@ export default function Filter() {
                         minHs: Number(e.departureTime.split(':')[0])
                     })
                 }
-                console.log(valueSlide)
             })
         } catch (err) {
 
