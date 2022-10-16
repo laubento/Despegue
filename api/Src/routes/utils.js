@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_KEY = "634ae6d6046255a726227fb3"
+const API_KEY = "633df619b8f7611a58d22a5e"
 
 async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, returningDate, adults, childern, infants, cabinClass, currency }) {
     const data = await axios
@@ -11,7 +11,9 @@ async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, r
     const flights = data.legs.map((flight) => {
         return {
             id: flight.id.split(":").slice(1, -1).join("-"),
+            departureAirportCode: flight.departureAirportCode,
             departureTime: flight.departureTime,
+            arrivalAirportCode: flight.arrivalAirportCode,
             arrivalTime: flight.arrivalTime,
             duration: flight.duration,
             airlinesNames: data.airlines
@@ -21,7 +23,6 @@ async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, r
                         : null
                 )
                 .filter((a) => a !== null),
-            stopoversCount: flight.stopoversCount,
             price: data.fares
                 .map((fare) =>
                     fare.tripId.split(":")[1] ===
@@ -33,6 +34,9 @@ async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, r
                 .toString()
                 .split(",")[0],
             cabinClass,
+            stopoversCount: flight.stopoversCount,
+            stopoverAirportCodes: flight.stopoverAirportCodes,
+            segments: flight.segments
         };
     });
     return flights;
