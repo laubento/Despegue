@@ -10,6 +10,11 @@ import { useHistory } from "react-router-dom";
 
 const Login = ({ user }) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const [logUser, setLogUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const history = useHistory();
 
   useEffect(() => {
@@ -37,14 +42,17 @@ const Login = ({ user }) => {
   //   }).then((res) => console.log(res));
   // };
 
-  // const login = async () => {
-  //   axios({
-  //     method: "POST",
-  //     data: logUser,
-  //     withCredentials: true,
-  //     url: "/login",
-  //   }).then((res) => console.log(res));
-  // };
+  const loginFetch = async () => {
+    axios({
+      method: "POST",
+      data: logUser,
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => {
+      console.log(res);
+      history.push("/");
+    });
+  };
   // const getUser = async () => {
   //   const res = await axios.get("/user");
   //   console.log(res);
@@ -56,13 +64,13 @@ const Login = ({ user }) => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   setLogUser({
-  //     ...logUser,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLogUser({
+      ...logUser,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   function login(valores) {}
 
@@ -116,6 +124,8 @@ const Login = ({ user }) => {
                   id="email"
                   name="email"
                   placeholder="abc@email.com"
+                  value={logUser.email}
+                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="email"
@@ -129,6 +139,8 @@ const Login = ({ user }) => {
                   id="password"
                   name="password"
                   placeholder="********"
+                  value={logUser.password}
+                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="password"
@@ -138,7 +150,9 @@ const Login = ({ user }) => {
                 />
               </div>
 
-              <button type="submit">Iniciar Sesion</button>
+              <button onClick={loginFetch} type="submit">
+                Iniciar Sesion
+              </button>
               <button
                 onClick={google}
                 type="button"
