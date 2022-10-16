@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
-import { useEffect } from 'react';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
