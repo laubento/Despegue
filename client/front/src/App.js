@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 // import Card from "./components/Card/Card.js";
 import Home from "./components/Home/Home";
@@ -53,7 +53,7 @@ function App() {
         });
     };
     getUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
