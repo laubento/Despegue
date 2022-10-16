@@ -1,82 +1,44 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/Login-Register.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
-import Portada from "../../Images/PortadaFormulario.png";
-import Google from "../../Images/google.png";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import '../styles/Login-Register.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom'
+import Portada from '../../Images/PortadaFormulario.png'
+import Google from '../../Images/google.png'
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import {useSelector } from 'react-redux'
 
 const Login = () => {
-
-    const user = useSelector(state => state.user)
-
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const [logUser, setLogUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const history = useHistory();
+  const history = useHistory()
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
-    console.log("entre");
-    if (user) {
-      console.log("a");
-      history.push("/");
+    console.log('entre')
+    if(user){
+      console.log('a')
+      history.push('/');
     }
-  }, [user, history]);
+  }, [user])
+
 
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-  const facebook = () => {
-    window.open("http://localhost:3001/auth/facebook", "_self");
-  };
-
-  // const register = async () => {
-  //   axios({
-  //     method: "POST",
-  //     data: regUser,
-  //     withCredentials: true,
-  //     url: "/register",
-  //   }).then((res) => console.log(res));
-  // };
-
-  const loginFetch = async () => {
+  function login(valores){
     axios({
       method: "POST",
-      data: logUser,
+      data: valores,
       withCredentials: true,
       url: "/login",
     }).then((res) => {
       console.log(res);
       window.location.reload()
     });
-  };
-  // const getUser = async () => {
-  //   const res = await axios.get("/user");
-  //   console.log(res);
-  // };
-  // const handleChange = (e) => {
-  //   e.preventDefault();
-  //   setRegUser({
-  //     ...regUser,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setLogUser({
-      ...logUser,
-      [e.target.name]: e.target.value,
-    });
-  };
+  }
 
-  function login(valores) {}
 
   return (
     <>
@@ -128,8 +90,6 @@ const Login = () => {
                   id="email"
                   name="email"
                   placeholder="abc@email.com"
-                  value={logUser.email}
-                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="email"
@@ -143,8 +103,6 @@ const Login = () => {
                   id="password"
                   name="password"
                   placeholder="********"
-                  value={logUser.password}
-                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="password"
@@ -154,21 +112,10 @@ const Login = () => {
                 />
               </div>
 
-              <button onClick={loginFetch} type="submit">
-                Iniciar Sesion
-              </button>
-              <button
-                onClick={google}
-                type="button"
-                className="Login-ButtonGoogle"
-              >
-                <img src={Google} alt="google" />
-                Iniciar Sesion con google
-              </button>
+              <button type="submit">Iniciar Sesion</button>
+              <button onClick={google} type="button" className="Login-ButtonGoogle"><img src={Google} alt="google"/>Iniciar Sesion con google</button>
 
-              {formularioEnviado && (
-                <p className="exito">Formulario enviado con exito!</p>
-              )}
+              {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
               <div className="Login-containerRegister">
                 <h6>No tenes cuenta?</h6>
                 <div className="Login-BotonRegister">
