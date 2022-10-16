@@ -2,7 +2,7 @@
     background-color: rgb(205, 205, 205);
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 1300px;
     align-items: center;
     min-height: 100vh;
 }
@@ -15,27 +15,5 @@
 .flights-container-cards{
     display: flex;
     flex-direction: column;
-}
-
-.Flights-cp{
-    background-color: rgb(108, 10, 200);
-    width: max-content;
-    margin: auto;
-    padding: 6px;
-    border-radius: 12px;
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-}
-
-.flights-li{
-    list-style: none;
-    font-size: 24px;
-    color: rgb(110, 17, 197);
-    background-color: white;
-    font-weight: bold;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    cursor: pointer;
 }
 

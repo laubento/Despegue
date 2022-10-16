@@ -25,7 +25,7 @@ function Card({
       <div className="card-border-right col text-center">
         {airlinesName.length > 1 ? (
           <div className="card-airline-box" >
-        <h3 className="card-font-size">{airlinesName.map(e => e).join('')}</h3>
+        <h3 >{airlinesName.map(e => e).join('')}</h3>
           </div>
         ):
         (

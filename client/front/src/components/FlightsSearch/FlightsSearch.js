@@ -205,6 +205,7 @@ export default function FlightsSearch() {
 
         const handleSubmitAirportFrom = (e) => {
             e.preventDefault();
+            console.log(airportName.from)
             if(airportName.from === "") {
                 return setSearchError({
                     ...searchError,
@@ -246,6 +247,7 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
+            //   console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>

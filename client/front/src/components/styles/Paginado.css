@@ -2,11 +2,6 @@
     gap:15px;
     list-style: none;
 }
-.pag-cont{
-    width: max-content;
-    border-radius: 12px;
-    padding: 2px;
-}
 
 .pagination .page-num{
     padding: 4px;
@@ -31,27 +26,19 @@
 
 .page-num{
     text-decoration: none;
-    list-style: none;
+    color:rgb(111, 11, 138) ;
+}
+
+.previous{
+    background-color: rgb(240, 240, 240);
+    border-radius: 13px;
+    font-size: 23px;
     font-weight: bold;
 }
 
-.pag-link{
-    text-decoration: none;
-    color: rgb(148, 18, 212);
-    font-size: 24px;
-    padding: 2px;
-    margin: 4px;
-    border-radius: 9px;
-}
-
-.pag-link:hover{
-    background-color: rgb(228, 58, 186);
-    color: rgb(148, 18, 212);
-    transition: 1s;
-}
-
-
-.pag-nav{
-    display:flex;
-    justify-content: center;
+.next{
+    background-color: rgb(240, 240, 240);
+    border-radius: 13px;
+    font-size: 23px;
+    font-weight: bold; 
 }
