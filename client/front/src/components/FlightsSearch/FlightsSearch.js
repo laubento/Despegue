@@ -275,18 +275,18 @@ export default function FlightsSearch() {
             
                 </div >
                 <div className='d-flex justify-content-center'>
-                {activateFrom === false ? '' : 
-            <select className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
-                <option>Nearby Airports...</option>
+                 
+            <select hidden={!airportsFrom.length} className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
+                <option hidden>Nearby Airports...</option>
             {airportsFrom.length && airportsFrom.map((e,i) =>{
                 return(
                         <option key={i}>{e.name}, {e.iata}</option>
                 )
                 })}
                 </select> 
-                    }
-            {activateTo === false ? '' :  <select className='slc-ord' onChange={(e) => handleSelectTo(e)}>
-                <option>Nearby Airports...</option>
+                    
+            <select hidden={!airportsTo.length} className='slc-ord' onChange={(e) => handleSelectTo(e)}>
+                <option hidden >Nearby Airports...</option>
             {airportsTo.length && airportsTo.map((e,i) =>{
                     
                 return( 
@@ -294,7 +294,7 @@ export default function FlightsSearch() {
                         <option  key={i}>{e.name}, {e.iata}</option>
                 )
                 })}
-                </select>  }
+                </select>  
                 </div>
                 <div className='d-flex justify-content-center'>
                     

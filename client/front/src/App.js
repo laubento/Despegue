@@ -40,7 +40,7 @@ function App() {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
-            photos: resObject.user.photos ? resObject.user.photos : null,
+            photos: resObject.user.photos ? resObject.user.photos[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
             firstName: resObject.user.name.givenName
               ? resObject.user.name.givenName
               : resObject.user.name,
@@ -67,9 +67,9 @@ function App() {
           path={"/register"}
           render={() => <Register />}
         />
+        <Route exact path="/flights" component={Flights} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
-        <Route path="/flights/flightDetail/:id" component={CardDetail} />
-        <Route path="/flights" component={Flights} />
+        <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
       </BrowserRouter>
     </div>
