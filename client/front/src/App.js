@@ -40,7 +40,7 @@ function App() {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
-            photos: resObject.user.photos ? resObject.user.photos[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+            photos: resObject.user.photos ? resObject.user.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
             firstName: resObject.user.name.givenName
               ? resObject.user.name.givenName
               : resObject.user.name,

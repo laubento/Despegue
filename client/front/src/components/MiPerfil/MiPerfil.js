@@ -29,7 +29,7 @@ export default function MiPerfil() {
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.name.toUpperCase() : null}</h3>
-                            <h3>{user ? user.name.toUpperCase() : null}</h3>
+                            {/* <h3>{user ? user.name.toUpperCase() : null}</h3> */}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">
