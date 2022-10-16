@@ -37,7 +37,7 @@ export default function reducer(state = initialState, action) {
             // console.log(action.payload)
             if (stopOvers !== "default") {
                 // console.log(stopOvers)
-                stopOvers == 1 ?
+                stopOvers === 1 ?
                     filteringFlights = filteringFlights.filter(
                         (flight) => flight.stopoversCount === Number(stopOvers)
                     )
