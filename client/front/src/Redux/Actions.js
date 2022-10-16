@@ -3,6 +3,7 @@ import axios from 'axios';
 export const GET_FLIGHTS = "GET_FLIGHTS"
 export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
+export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
 export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 
@@ -34,6 +35,15 @@ export const filterFlights = (filters) => {
         dispatch({
             type: FILTER_FLIGHTS,
             payload: filters
+        })
+    }
+}
+
+export function filterFlightById(id){
+    return function(dispatch){
+        dispatch({
+            type: FILTER_FLIGHT_BY_ID,
+            payload: id
         })
     }
 }

@@ -1,15 +1,25 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { filterFlightById } from "../../Redux/Actions";
 import '../styles/Card.css'
 
 function Card({
+  id,
   airlinesName,
   departureTime,
   arrivalTime,
   duration,
   stopoversCount,
-  price,
+  price
 }) {
+
+  const dispatch = useDispatch();
+  const handleClick = (e) => {
+    dispatch(filterFlightById(id))
+
+  }
+
   return (
     <div className="card-div row ">
       <div className="card-border-right col text-center">
@@ -36,8 +46,8 @@ function Card({
         <br/>
         <span className="mb-2">{arrivalTime}</span>
         <div className="mt-1">
-          <Link to='?' style={{textDecoration:'none'}}>
-        <span className="card-more-details">More Details</span>
+          <Link to={`/flights/flightDetail/${id}`} style={{textDecoration:'none'}}>
+            <button className="btn btn-md card-more-details" onClick={handleClick}>More Details</button>
           </Link>
         </div>
       </div>

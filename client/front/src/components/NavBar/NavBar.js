@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 export default function NavBar({ user }) {
     let url = window.location.pathname
-    console.log(user)
+    // console.log(user)
 
     function handleSubmitLogOut() {
         window.open("http://localhost:3001/auth/logout", "_self");
