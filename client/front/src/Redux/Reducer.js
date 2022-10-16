@@ -36,8 +36,11 @@ export default function reducer(state = initialState, action) {
             let filteringFlights = state.allFlights.slice();
             // console.log(action.payload)
             if (stopOvers !== "default") {
-                // console.log(stopOvers)
-                stopOvers === 1 ?
+                if(stopOvers == 0){
+                    filteringFlights = filteringFlights.filter(
+                        (flight) => flight.stopoversCount === Number(stopOvers)
+                    )
+                } else stopOvers == 1 ?
                     filteringFlights = filteringFlights.filter(
                         (flight) => flight.stopoversCount === Number(stopOvers)
                     )
@@ -80,9 +83,9 @@ export default function reducer(state = initialState, action) {
                     return a.stopoversCount - b.stopoversCount
                 })
             }
-            if (filteringFlights.length === 0) {
-                filteringFlights = 'Error'
-            }
+            // if (filteringFlights.length === 0) {
+            //     filteringFlights = 'Error'
+            // }
             return {
                 ...state,
                 flights: filteringFlights,

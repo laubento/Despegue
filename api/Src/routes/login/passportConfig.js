@@ -20,8 +20,25 @@ passport.use(
       callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      // console.log(profile);
-      done(null, profile);
+      // Busco en la DB si el usuario existe
+      User.findOne({ googleId: profile.id }).then((resp) => {
+        if (resp) {
+          done(null, profile);
+        } else {
+          // Si no existe lo agrego a la DB
+          new User({
+            name: profile.displayName,
+            googleId: profile.id,
+            password: "1",
+            email: "1",
+          })
+            .save()
+            .then((newUser) => {
+              console.log("newUserCreate" + newUser);
+              done(null, profile);
+            });
+        }
+      });
     }
   )
 );

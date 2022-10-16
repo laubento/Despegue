@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 export default function NavBar() {
   let url = window.location.pathname;
 
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
 
   function handleSubmitLogOut() {
     window.open("http://localhost:3001/auth/logout", "_self");
@@ -82,7 +82,8 @@ export default function NavBar() {
                   {user.name}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
-                      <img src={user ? user.photos : null } />
+                      {console.log(user)}
+                      <img src={user ? user.photos : null} alt="" />
                       <h6>{`Bienvenido ${user.firstName}!`}</h6>
                     </div>
                     <hr />
