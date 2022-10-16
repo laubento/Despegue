@@ -202,3 +202,7 @@ body{
 .Login-DesplegableBoton:hover{
     background-color: #EEE;
 }
+.Login-PhotoLog{
+    height: 25px;
+    border-radius: 30px;
+}

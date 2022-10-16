@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from './components/CardDetail/cardDetail'
+import  MiPerfil  from "./components/MiPerfil/MiPerfil";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -46,6 +47,7 @@ function App() {
         <Route path={"/"} render={() => <NavBar user={user} />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login user={user} />} />
+        <Route path="/user" render={() => <MiPerfil user={user}/>} />
         <Route
           exact
           path={"/register"}
