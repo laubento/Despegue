@@ -1,11 +1,12 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, SEARCH_AIRLINE } from "./Actions";
 
 const initialState = {
     flights: [],
     allFlights: [],
     filteredFlights: [],
     airportsFrom: [],
-    airportsTo: []
+    airportsTo: [],
+    prueba: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -27,7 +28,7 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration, stopOvers, order } =
+            const { minPrice, maxPrice, maxDuration, stopOvers, order, findAirline } =
                 action.payload;
 
             let filteringFlights = state.allFlights.slice();
@@ -70,6 +71,11 @@ export default function reducer(state = initialState, action) {
                 filteringFlights = filteringFlights.sort((a, b) => {
                     return a.stopoversCount - b.stopoversCount
                 })
+            }
+            if(findAirline.type === 'find'){
+                filteringFlights = filteringFlights.filter(e => 
+                        e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
+                        )
             }
             if (filteringFlights.length === 0) {
                 filteringFlights = 'Error'

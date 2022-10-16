@@ -12,7 +12,6 @@ export function getFlights(flight){
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, {flight})
-
         return dispatch({
             type: GET_FLIGHTS,
             payload: flights.data
