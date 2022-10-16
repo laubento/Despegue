@@ -21,7 +21,7 @@ export default function MiPerfil({ user }) {
 
                 <div className="MiPerfil-ContainerDatos">
                     <div className="MiPerfil-containerFoto">
-                        <img src={user ? user.photos[0].value : null} alt="perfil" />
+                        {/* <img src={user ? user.photos[0].value : ''} alt="perfil" /> */}
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.name.givenName.toUpperCase() : null}</h3>

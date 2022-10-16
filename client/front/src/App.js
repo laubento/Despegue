@@ -32,16 +32,7 @@ function App() {
         })
         .then((resObject) => {
           console.log(resObject);
-          let obj = {
-            name: resObject.user.displayName
-              ? resObject.user.displayName
-              : resObject.user.name,
-            photos: resObject.user.photos,
-            firstName: resObject.user.name.givenName
-              ? resObject.user.name.givenName
-              : resObject.user.name,
-          };
-          setUser(obj);
+          setUser(resObject.user);
         })
         .catch((err) => {
           console.log(err);
