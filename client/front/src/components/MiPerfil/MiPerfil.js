@@ -5,8 +5,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useState } from "react";
 import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
+import { useSelector } from "react-redux";
 
-export default function MiPerfil({ user }) {
+export default function MiPerfil() {
+
+    const user = useSelector(state => state.user)
+    
     let url = window.location.pathname
     const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
     function login() {
@@ -21,11 +25,11 @@ export default function MiPerfil({ user }) {
 
                 <div className="MiPerfil-ContainerDatos">
                     <div className="MiPerfil-containerFoto">
-                        {/* <img src={user ? user.photos[0].value : ''} alt="perfil" /> */}
+                        <img src={user ? user.photos : null } alt="perfil" />
                         <div>
                             <h4>Hola,</h4>
-                            <h3>{user ? user.name.givenName.toUpperCase() : null}</h3>
-                            <h3>{user ? user.name.familyName.toUpperCase() : null}</h3>
+                            <h3>{user ? user.name.toUpperCase() : null}</h3>
+                            {/* <h3>{user ? user.name.toUpperCase() : null}</h3> */}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">

@@ -7,8 +7,12 @@ import Portada from "../../Images/PortadaFormulario.png";
 import Google from "../../Images/google.png";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Login = ({ user }) => {
+const Login = () => {
+
+    const user = useSelector(state => state.user)
+
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [logUser, setLogUser] = useState({
     name: "",
@@ -23,7 +27,7 @@ const Login = ({ user }) => {
       console.log("a");
       history.push("/");
     }
-  }, [user]);
+  }, [user, history]);
 
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
@@ -50,7 +54,7 @@ const Login = ({ user }) => {
       url: "/login",
     }).then((res) => {
       console.log(res);
-      history.push("/");
+      window.location.reload()
     });
   };
   // const getUser = async () => {

@@ -36,6 +36,7 @@
     height: 100px;
     width: 100px;
     border: 2px solid rgb(255, 255, 255);
+    background-color: #e2e2e2;
 }
 .MiPerfil-containerFoto h3, .MiPerfil-containerFoto h4{
     margin: 0px;

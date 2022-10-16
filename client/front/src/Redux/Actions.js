@@ -6,6 +6,7 @@ export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
 export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
 export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
+export const STORE_USER_INFO = "STORE_USER_INFO"
 
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -60,5 +61,14 @@ export function searchAirportTo (name) {
     return async function(dispatch){
         let response = await axios.get(`http://localhost:3001/searchByName/to?nombre=${name}`)
         return dispatch({type: SEARCH_AIRPORT_TO, payload: response.data})
+    }
+}
+
+export const storeUserInfo = (user) => {
+    return (dispatch) => {
+        dispatch({
+            type: STORE_USER_INFO,
+            payload: user
+        })
     }
 }

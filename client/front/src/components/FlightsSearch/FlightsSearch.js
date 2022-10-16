@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
-import { useEffect } from 'react';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -248,7 +247,7 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
-              console.log(flights)
+            //   console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>
@@ -275,18 +274,18 @@ export default function FlightsSearch() {
             
                 </div >
                 <div className='d-flex justify-content-center'>
-                {activateFrom === false ? '' : 
-            <select className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
-                <option>Nearby Airports...</option>
+                 
+            <select hidden={!airportsFrom.length} className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
+                <option hidden>Nearby Airports...</option>
             {airportsFrom.length && airportsFrom.map((e,i) =>{
                 return(
                         <option key={i}>{e.name}, {e.iata}</option>
                 )
                 })}
                 </select> 
-                    }
-            {activateTo === false ? '' :  <select className='slc-ord' onChange={(e) => handleSelectTo(e)}>
-                <option>Nearby Airports...</option>
+                    
+            <select hidden={!airportsTo.length} className='slc-ord' onChange={(e) => handleSelectTo(e)}>
+                <option hidden >Nearby Airports...</option>
             {airportsTo.length && airportsTo.map((e,i) =>{
                     
                 return( 
@@ -294,7 +293,7 @@ export default function FlightsSearch() {
                         <option  key={i}>{e.name}, {e.iata}</option>
                 )
                 })}
-                </select>  }
+                </select>  
                 </div>
                 <div className='d-flex justify-content-center'>
                     
