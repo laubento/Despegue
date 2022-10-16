@@ -52,7 +52,9 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
     const flights = data.legs.map((flight) => {
         return {
             id: flight.id.split(":").slice(1, -1).join("-"),
+            departureAirportCode: flight.departureAirportCode,
             departureTime: flight.departureTime,
+            arrivalAirportCode: flight.arrivalAirportCode,
             arrivalTime: flight.arrivalTime,
             duration: flight.duration,
             airlinesNames: data.airlines
@@ -62,7 +64,6 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
                         : null
                 )
                 .filter((a) => a !== null),
-            stopoversCount: flight.stopoversCount,
             going:
                 flight.id.split(":")[0] === `${departurePlace}-${arrivalPlace}` ? true : false,
             returning:
@@ -82,6 +83,9 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
                 .toString()
                 .split(",")[0],
             cabinClass,
+            stopoversCount: flight.stopoversCount,
+            stopoverAirportCodes: flight.stopoverAirportCodes,
+            segments: flight.segments
         };
     });
     return flights;
