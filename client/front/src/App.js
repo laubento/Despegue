@@ -13,11 +13,12 @@ import CardDetail from "./components/CardDetail/cardDetail";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
+import { useState } from "react";
 
 function App() {
 
     const dispatch = useDispatch()
-//   const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 //   console.log(user);
   useEffect(() => {
     const getUser = () => {
@@ -44,6 +45,7 @@ function App() {
               ? resObject.user.name.givenName
               : resObject.user.name,
           };
+          setUser(obj)
           dispatch(storeUserInfo(obj))
         //   setUser(obj);
         })
@@ -57,7 +59,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar />} />
+        <Route path={"/"} render={() => <NavBar user={user}/>} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
         <Route path="/user" render={() => <MiPerfil/>} />
