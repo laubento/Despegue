@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Card from "../Card/Card";
+import Loader from "../Loader/Loader";
 import "../styles/Paginado.css";
 
 function Paginado({ data }) {
@@ -23,7 +24,7 @@ function Paginado({ data }) {
   return (
     <>
       <div className=" ">
-        {currentItems.map((e, i) => {
+        {currentItems.length !== 0 ? currentItems.map((e, i) => {
           return (
             <div key={i} className="p">
               <Card
@@ -38,7 +39,7 @@ function Paginado({ data }) {
               />
             </div>
           );
-        })}
+        }): <Loader/>}
       </div>
       <ReactPaginate
         breakLabel="..."

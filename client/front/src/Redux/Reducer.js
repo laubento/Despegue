@@ -79,9 +79,9 @@ export default function reducer(state = initialState, action) {
                     return a.stopoversCount - b.stopoversCount
                 })
             }
-            if (filteringFlights.length === 0) {
-                filteringFlights = 'Error'
-            }
+            // if (filteringFlights.length === 0) {
+            //     filteringFlights = 'Error'
+            // }
             return {
                 ...state,
                 flights: filteringFlights,

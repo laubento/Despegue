@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_KEY = "634b5558046255a726227fb4"
+const API_KEY = "6346eea92985d74fecfb407c"
 
 async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, returningDate, adults, childern, infants, cabinClass, currency }) {
     const data = await axios

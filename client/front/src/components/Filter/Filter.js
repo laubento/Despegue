@@ -41,9 +41,9 @@ export default function Filter() {
 
     const handleClick = () => {
         setFilters({
-            minPrice: 'default',
-            maxPrice: 'default',
-            maxDuration: 'default',
+            minPrice: valueSlide.minP,
+            maxPrice: valueSlide.maxP,
+            maxDuration: valueSlide.maxD,
             stopOvers: 'default',
         })
     }
