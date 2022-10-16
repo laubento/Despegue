@@ -36,7 +36,7 @@ function App() {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
-            photos: resObject.user.photos,
+            photos: resObject.user.photos ? resObject.user.photos : null,
             firstName: resObject.user.name.givenName
               ? resObject.user.name.givenName
               : resObject.user.name,

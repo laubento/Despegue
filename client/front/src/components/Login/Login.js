@@ -23,7 +23,7 @@ const Login = ({ user }) => {
       console.log("a");
       history.push("/");
     }
-  }, [user]);
+  }, [user, history]);
 
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
