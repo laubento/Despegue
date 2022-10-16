@@ -7,6 +7,7 @@ const initialState = {
     airportsFrom: [],
     airportsTo: [],
     currentUserInfo: null,
+    flightsToBuy:[],
 };
 
 export default function reducer(state = initialState, action) {
