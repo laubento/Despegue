@@ -5,8 +5,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useState } from "react";
 import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
+import { useSelector } from "react-redux";
 
-export default function MiPerfil({ user }) {
+export default function MiPerfil() {
+
+    const user = useSelector(state => state.user)
+    
     let url = window.location.pathname
     const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
     function login() {

@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO } from "./Actions";
 
 const initialState = {
     // flights: flightExample,
@@ -8,7 +8,7 @@ const initialState = {
     filteredFlights: [],
     airportsFrom: [],
     airportsTo: [],
-    currentUserInfo: null,
+    user: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -111,7 +111,7 @@ export default function reducer(state = initialState, action) {
         case STORE_USER_INFO:
             return{
                 ...state,
-                currentUserInfo: action.payload
+                user: action.payload
             }
 
         default:

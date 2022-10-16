@@ -10,10 +10,10 @@ import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function NavBar({ user }) {
+export default function NavBar() {
   let url = window.location.pathname;
 
-  
+  const user = useSelector(state => state.user)
 
   function handleSubmitLogOut() {
     window.open("http://localhost:3001/auth/logout", "_self");
