@@ -8,12 +8,15 @@ export default function Filter() {
     let [filters, setFilters] = useState({
         minPrice: 'default',
         maxPrice: 'default',
+        minHour: 'default',
+        maxHour: 'default',
         maxDuration: 'default',
         stopOvers: 'default',
     })
     let [valueSlide, setValueSlide] = useState({
         maxP: 0,
         maxD: 0,
+        maxHs: 0,
     })
 
     const rangeChange = (e) => {
@@ -28,24 +31,24 @@ export default function Filter() {
 
     const handleSelect = (e) => {
         e.preventDefault();
-        
+
         setFilters({
             ...filters,
-            order: e.target.value 
+            order: e.target.value
         })
         validate()
     }
 
     const handleClick = () => {
         setFilters({
-            minPrice: 'default',
-            maxPrice: 'default',
-            maxDuration: 'default',
+            minPrice: valueSlide.minP,
+            maxPrice: valueSlide.maxP,
+            maxDuration: valueSlide.maxD,
             stopOvers: 'default',
         })
     }
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
         setSlider({
             ...slider,
             [e.target.name]: e.target.value
@@ -63,7 +66,7 @@ export default function Filter() {
         try {
             flights.forEach(e => {
 
-                if (!valueSlide.minD && !valueSlide.minP) { setValueSlide({ ...valueSlide, minP: Number(e.price), minD: Number(e.duration.split('h')[0]) }) }
+                if (!valueSlide.minD && !valueSlide.minP && !valueSlide.minHs) { setValueSlide({ ...valueSlide, minP: Number(e.price), minD: Number(e.duration.split('h')[0]), minHs: Number(e.departureTime.split(':')[0]) }) }
 
                 if (valueSlide.maxP < Number(e.price)) {
                     setValueSlide({
@@ -87,20 +90,31 @@ export default function Filter() {
                         minD: Number(e.duration.split('h')[0])
                     })
                 }
-
+                
+                if (valueSlide.maxHs < Number(e.departureTime.split(':')[0])) {
+                    setValueSlide({
+                        ...valueSlide,
+                        maxHs: Number(e.departureTime.split(':')[0]) + 1
+                    })
+                } else if (valueSlide.minHs > Number(e.departureTime.split(':')[0])) {
+                    setValueSlide({
+                        ...valueSlide,
+                        minHs: Number(e.departureTime.split(':')[0])
+                    })
+                }
             })
         } catch (err) {
 
         }
     }
     validate()
-    
-    let [slider, setSlider] =useState({
+
+    let [slider, setSlider] = useState({
         minPrice: valueSlide.minP,
         maxPrice: valueSlide.maxP,
         maxDuration: valueSlide.maxD,
     })
-
+    console.log(slider)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">
@@ -109,15 +123,23 @@ export default function Filter() {
                     <li className="pb-2 border-top">
                         <h4>By Price</h4>
                         <label for="customRange2" className="d-flex" class="form-label">Max Price:<p>{slider.maxPrice}$</p></label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
+                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
 
                         <label for="customRange2" className="d-flex" class="form-label">Min Price:<p>{slider.minPrice}$</p></label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
+                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Duration:</h4>
                         <p>{slider.maxDuration}hs</p>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)}/>
+                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                    </li>
+                    <li className="pb-2 border-top">
+                        <h4>Schedule:</h4>
+                        <label for="customRange2" className="d-flex" class="form-label">Max hs:<p>{slider.maxHour}hs</p></label>
+                        <input type="range" name={'maxHour'} class="form-range" className="w-100" min={Number(filters.minHour)} max={Number(valueSlide.maxHs)} id="customRange2" defaultValue={valueSlide.maxHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+
+                        <label for="customRange2" className="d-flex" class="form-label">Min hs:<p>{slider.minHour}hs</p></label>
+                        <input type="range" name={'minHour'} class="form-range" className="w-100" min={Number(valueSlide.minHs)} max={Number(filters.maxHour)} id="customRange2" defaultValue={valueSlide.minHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Scales</h4>
@@ -126,6 +148,12 @@ export default function Filter() {
                                 <input className="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
                                 <label className="form-check-label" for="flexRadioDefault1">
                                     All Scales
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="stopOvers" value={0} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 0} />
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                    Direct
                                 </label>
                             </div>
                             <div className="form-check">

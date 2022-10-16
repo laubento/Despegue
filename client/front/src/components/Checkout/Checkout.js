@@ -15,28 +15,28 @@ export default function Checkout(){
    
         return (
             <>
-<h1>dsadas</h1>
-            <PayPalButton
-        options={{
-            clientId: "AUTQWKW83h4_sO_FXl0PzPqTyY1_qLTd-gyC8JrX6oVn6r8zVWj9mXBVTkwOjkSMeRB8DH4BoZUGsVuf",
-            currency: "EUR"
-        }}
-        amount={flightsData.price}
-                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        onSuccess={(details, data) => {
-          alert("Transaction completed by " + details.payer.name.given_name);
-          console.log({details, data})
+                <PayPalButton
+                    options={{
+                        clientId: "AUTQWKW83h4_sO_FXl0PzPqTyY1_qLTd-gyC8JrX6oVn6r8zVWj9mXBVTkwOjkSMeRB8DH4BoZUGsVuf",
+                        currency: "USD"
+                    }}
+                    // amount={flightsData.price}
+                    amount="10"
+                    // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                     onSuccess={(details, data) => {
+                        alert("Transaction completed by " + user.name);
+                        console.log({details, data})
 
-            // axios.post('/purchaseComplete', (user,flightsDetails))
-          // OPTIONAL: Call your server to save the transaction
-        //   return fetch("/paypal-transaction-complete", {
-        //     method: "post",
-        //     body: JSON.stringify({
-        //       orderID: data.orderID
-        //     })
-        //   });
-        }}
-      />
+                // axios.post('/purchaseComplete', (user,flightsDetails))
+            // OPTIONAL: Call your server to save the transaction
+            //   return fetch("/paypal-transaction-complete", {
+            //     method: "post",
+            //     body: JSON.stringify({
+            //       orderID: data.orderID
+            //     })
+            //   });
+            }}
+        />
             </>
     );
 }

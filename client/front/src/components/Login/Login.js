@@ -7,13 +7,12 @@ import Portada from '../../Images/PortadaFormulario.png'
 import Google from '../../Images/google.png'
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import {useSelector } from 'react-redux'
 
 const Login = () => {
-
-  const user = useSelector(state => state.currentUserInfo)
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const history = useHistory()
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     console.log('entre')
@@ -28,46 +27,16 @@ const Login = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-  
-
-  // const register = async () => {
-  //   axios({
-  //     method: "POST",
-  //     data: regUser,
-  //     withCredentials: true,
-  //     url: "/register",
-  //   }).then((res) => console.log(res));
-  // };
-
-  // const login = async () => {
-  //   axios({
-  //     method: "POST",
-  //     data: logUser,
-  //     withCredentials: true,
-  //     url: "/login",
-  //   }).then((res) => console.log(res));
-  // };
-  // const getUser = async () => {
-  //   const res = await axios.get("/user");
-  //   console.log(res);
-  // };
-  // const handleChange = (e) => {
-  //   e.preventDefault();
-  //   setRegUser({
-  //     ...regUser,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   setLogUser({
-  //     ...logUser,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
   function login(valores){
-
+    axios({
+      method: "POST",
+      data: valores,
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => {
+      console.log(res);
+      window.location.reload()
+    });
   }
 
 

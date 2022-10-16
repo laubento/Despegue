@@ -3,10 +3,12 @@ import axios from 'axios';
 export const GET_FLIGHTS = "GET_FLIGHTS"
 export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
+export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
 export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 export const STORE_USER_INFO = "STORE_USER_INFO"
-
+export const BUY_FLIGHTS = "BUY_FLIGHTS"
+ 
 export function getFlights(flight){
     const tripType = flight.tripType;
 
@@ -39,6 +41,15 @@ export const filterFlights = (filters) => {
     }
 }
 
+export function filterFlightById(id){
+    return function(dispatch){
+        dispatch({
+            type: FILTER_FLIGHT_BY_ID,
+            payload: id
+        })
+    }
+}
+
 export function searchAirportFrom (name) {
     return async function(dispatch){
         let response = await axios.get(`http://localhost:3001/searchByName/from?nombre=${name}`)
@@ -59,6 +70,15 @@ export const storeUserInfo = (user) => {
         dispatch({
             type: STORE_USER_INFO,
             payload: user
+        })
+    }
+}
+
+export const storeFlightsToBuy = (flights) => {
+    return function(dispatch){
+        dispatch({
+            type: BUY_FLIGHTS,
+            payload: flights
         })
     }
 }

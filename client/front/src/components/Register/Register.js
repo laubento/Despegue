@@ -7,12 +7,8 @@ import Portada from '../../Images/PortadaFormulario.png'
 import Google from '../../Images/google.png'
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
 
-const Register = () => {
-
-    const user = useSelector(state => state.currentUserInfo)
-
+const Register = ({user}) => {
     const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
     const history = useHistory()
 
@@ -29,7 +25,20 @@ const Register = () => {
     };
 
     const register = (valores) => {
-        console.log(valores)
+       axios({
+      method: "POST",
+      data: valores,
+      withCredentials: true,
+      url: "/register",
+    })
+      .then((res) => {
+        alert(res.data);
+        history.push("/login");
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        console.log(err);
+      });
     }
 
     return (

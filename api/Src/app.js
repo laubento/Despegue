@@ -65,8 +65,8 @@ app.use(
   })
 );
 app.use(cookieParser("secretcode"));
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/", index);
 
 app.use((err, req, res, next) => {
