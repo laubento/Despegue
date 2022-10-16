@@ -11,10 +11,14 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
-  const [user, setUser] = useState(null);
-  console.log(user);
+
+    const dispatch = useDispatch()
+//   const [user, setUser] = useState(null);
+//   console.log(user);
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:3001/auth/login/success", {
@@ -31,8 +35,8 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-          console.log(resObject);
-          let obj = {
+        //   console.log(resObject);
+          const obj = {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
@@ -41,7 +45,8 @@ function App() {
               ? resObject.user.name.givenName
               : resObject.user.name,
           };
-          setUser(obj);
+          dispatch(storeUserInfo(obj))
+        //   setUser(obj);
         })
         .catch((err) => {
           console.log(err);
@@ -53,14 +58,14 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar user={user} />} />
+        <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" render={() => <Login user={user} />} />
-        <Route path="/user" render={() => <MiPerfil user={user}/>} />
+        <Route exact path="/login" render={() => <Login />} />
+        <Route path="/user" render={() => <MiPerfil/>} />
         <Route
           exact
           path={"/register"}
-          render={() => <Register user={user} />}
+          render={() => <Register />}
         />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route path="/flights/flightDetail/:id" component={CardDetail} />

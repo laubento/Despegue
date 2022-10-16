@@ -7,8 +7,12 @@ import Portada from "../../Images/PortadaFormulario.png";
 import Google from "../../Images/google.png";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Login = ({ user }) => {
+const Login = () => {
+
+    const user = useSelector(state => state.user)
+
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [logUser, setLogUser] = useState({
     name: "",
