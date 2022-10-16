@@ -34,7 +34,15 @@ const Register = ({ user }) => {
       data: regUser,
       withCredentials: true,
       url: "/register",
-    }).then((res) => console.log(res));
+    })
+      .then((res) => {
+        alert(res.data);
+        history.push("/login");
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        console.log(err);
+      });
   };
   const handleRegister = (e) => {
     e.preventDefault();
@@ -60,7 +68,8 @@ const Register = ({ user }) => {
         validate={(valores) => {
           let errores = {};
 
-          if (!valores.name) {
+          console.log(valores.name);
+          if (!valores.name.length) {
             errores.name = "Por favor, introduzca un nombre";
           }
 

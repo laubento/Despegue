@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const router = Router();
 
 router.post("/", (req, res) => {
-  User.findOne({ name: req.body.email }, async (err, doc) => {
+  User.findOne({ email: req.body.email }, async (err, doc) => {
     if (err) throw err;
     if (doc) return res.status(400).send("User Already Exists");
     if (!doc) {
