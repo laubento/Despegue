@@ -1,8 +1,10 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO } from "./Actions";
 
 const initialState = {
+    // flights: flightExample,
     flights: [],
     allFlights: [],
+    flightDetail: [],
     filteredFlights: [],
     airportsFrom: [],
     airportsTo: [],
@@ -28,7 +30,7 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration, stopOvers, order } =
+            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order } =
                 action.payload;
 
             let filteringFlights = state.allFlights.slice();
@@ -49,6 +51,12 @@ export default function reducer(state = initialState, action) {
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
                         Number(flight.price) >= minPrice && Number(flight.price) <= maxPrice
+                );
+            }
+            if (minHour !== "default" && maxHour !== "default") {
+                filteringFlights = filteringFlights.filter(
+                    (flight) =>
+                        Number(flight.departureTime.split(':')[0]) >= minHour && Number(flight.departureTime.split(':')[0]) <= maxHour
                 );
             }
             if (maxDuration !== "default") {
@@ -79,6 +87,14 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: filteringFlights,
             };
+        case FILTER_FLIGHT_BY_ID:
+            const a = state.flights;
+            // console.log(`reducer - state flights ${a}`)
+            const flight = a.filter(el => el.id === action.payload);
+            return {
+                ...state,
+                flightDetail: flight
+            }
         case SEARCH_AIRPORT_FROM:
 
         return {

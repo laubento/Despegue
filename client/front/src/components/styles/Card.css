@@ -1,7 +1,7 @@
 .card-div{
     background-color: rgb(234, 233, 234);
     margin: 30px;
-    width: 900px;
+    width: 1150px
 }
 
  .card-border-left{
@@ -13,10 +13,11 @@
 } 
 
 .card-airline-box{
-    height: 90px;
+    height: 80px;
     font-family: 'Exo 2', sans-serif;
     height: max-content;
 }
+
 
 .card-airline-box-one{
     display: flex;

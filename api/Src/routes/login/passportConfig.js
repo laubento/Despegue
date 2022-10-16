@@ -3,10 +3,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 const GOOGLE_CLIENT_ID =
   "909365047101-qs6n7ap7lfqce2golts6kh46amfndqe5.apps.googleusercontent.com";
 const GOOGLE_CLIENT_SECRET = "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";
+
+const FACEBOOK_APP_ID = "825716382185580";
+const FACEBOOK_APP_SECRET = "c4e1da180a4451a1f3c8fc05fee5ad18";
 
 passport.use(
   new GoogleStrategy(
@@ -41,6 +45,18 @@ passport.use(
         return done(null, false, { message: "Incorrect Password." });
 
       return done(null, user);
+    }
+  )
+);
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: FACEBOOK_APP_ID,
+      clientSecret: FACEBOOK_APP_SECRET,
+      callbackURL: "/auth/facebook/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      done(null, profile);
     }
   )
 );

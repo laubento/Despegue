@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
 
@@ -6,11 +6,7 @@ import FlightsSearch from "../FlightsSearch/FlightsSearch";
 
 function Home({ user }) {
   return (
-    <div>
-      <h1>ASDASDASD</h1>
-      <Link to="/flights">
-        <button>Flights</button>
-      </Link>
+    <div className="p-4">
       <FlightsSearch />
     </div>
   );

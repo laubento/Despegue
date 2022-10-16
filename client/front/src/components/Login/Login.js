@@ -1,34 +1,37 @@
 import React, { useState } from "react";
 import axios from "axios";
-import '../styles/Login-Register.css'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom'
-import Portada from '../../Images/PortadaFormulario.png'
-import Google from '../../Images/google.png'
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import "../styles/Login-Register.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link } from "react-router-dom";
+import Portada from "../../Images/PortadaFormulario.png";
+import Google from "../../Images/google.png";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-const Login = () => {
-
-  const user = useSelector(state => state.currentUserInfo)
+const Login = ({ user }) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const history = useHistory()
+  const [logUser, setLogUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const history = useHistory();
 
   useEffect(() => {
-    console.log('entre')
-    if(user){
-      console.log('a')
-      history.push('/');
+    console.log("entre");
+    if (user) {
+      console.log("a");
+      history.push("/");
     }
-  }, [user])
-
+  }, [user, history]);
 
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-  
+  const facebook = () => {
+    window.open("http://localhost:3001/auth/facebook", "_self");
+  };
 
   // const register = async () => {
   //   axios({
@@ -39,14 +42,17 @@ const Login = () => {
   //   }).then((res) => console.log(res));
   // };
 
-  // const login = async () => {
-  //   axios({
-  //     method: "POST",
-  //     data: logUser,
-  //     withCredentials: true,
-  //     url: "/login",
-  //   }).then((res) => console.log(res));
-  // };
+  const loginFetch = async () => {
+    axios({
+      method: "POST",
+      data: logUser,
+      withCredentials: true,
+      url: "/login",
+    }).then((res) => {
+      console.log(res);
+      history.push("/");
+    });
+  };
   // const getUser = async () => {
   //   const res = await axios.get("/user");
   //   console.log(res);
@@ -58,18 +64,15 @@ const Login = () => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   setLogUser({
-  //     ...logUser,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLogUser({
+      ...logUser,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  function login(valores){
-
-  }
-
+  function login(valores) {}
 
   return (
     <>
@@ -121,6 +124,8 @@ const Login = () => {
                   id="email"
                   name="email"
                   placeholder="abc@email.com"
+                  value={logUser.email}
+                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="email"
@@ -134,6 +139,8 @@ const Login = () => {
                   id="password"
                   name="password"
                   placeholder="********"
+                  value={logUser.password}
+                  onChange={handleLogin}
                 />
                 <ErrorMessage
                   name="password"
@@ -143,10 +150,21 @@ const Login = () => {
                 />
               </div>
 
-              <button type="submit">Iniciar Sesion</button>
-              <button onClick={google} type="button" className="Login-ButtonGoogle"><img src={Google} alt="google"/>Iniciar Sesion con google</button>
+              <button onClick={loginFetch} type="submit">
+                Iniciar Sesion
+              </button>
+              <button
+                onClick={google}
+                type="button"
+                className="Login-ButtonGoogle"
+              >
+                <img src={Google} alt="google" />
+                Iniciar Sesion con google
+              </button>
 
-              {formularioEnviado && <p className="exito">Formulario enviado con exito!</p>}
+              {formularioEnviado && (
+                <p className="exito">Formulario enviado con exito!</p>
+              )}
               <div className="Login-containerRegister">
                 <h6>No tenes cuenta?</h6>
                 <div className="Login-BotonRegister">
