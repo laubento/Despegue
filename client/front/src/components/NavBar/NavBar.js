@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 export default function NavBar() {
     let url = window.location.pathname
-    console.log(url)
+    // console.log(url)
     return (
         <div className='NavBar-header'>
             <div className='container-fluid NavBar-ContainerPrincipal'>

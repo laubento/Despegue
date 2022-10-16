@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_FLIGHTS = "GET_FLIGHTS"
 export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
+export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
 
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -16,6 +17,16 @@ export function getFlights(flight){
         })
     }
 }
+
+export function filterFlightById(id){
+    return function(dispatch){
+        dispatch({
+            type: FILTER_FLIGHT_BY_ID,
+            payload: id
+        })
+    }
+}
+
 
 // filters = estado de los botones
 export const filterFlights = (filters) => {

@@ -7,9 +7,6 @@ import FlightsSearch from "../FlightsSearch/FlightsSearch";
 function Home() {
   return (
     <div>
-      <Link to="/flights">
-        <button>Flights</button>
-      </Link>
       <FlightsSearch />
     </div>
   );

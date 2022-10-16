@@ -55,7 +55,7 @@ export default function Filter() {
             })
         }
     });
-    console.log(valueSlide)
+    // console.log(valueSlide)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-2 pt-3 " id="side_nav_filter">

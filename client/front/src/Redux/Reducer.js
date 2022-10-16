@@ -1,9 +1,12 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID } from "./Actions";
+// import flightExample from '../components/CardDetail/flightExample'
 
 const initialState = {
+    // flights: flightExample,
     flights: [],
     allFlights: [],
     filteredFlights: [],
+    flightDetail: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -52,7 +55,14 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 filteredFlights: filteringFlights,
             };
-
+        case FILTER_FLIGHT_BY_ID:
+            const a = state.flights;
+            // console.log(`reducer - state flights ${a}`)
+            const flight = a.filter(el => el.id === action.payload);
+            return {
+                ...state,
+                flightDetail: flight
+            }
         default:
             return state;
     }
