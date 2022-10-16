@@ -30,7 +30,7 @@ passport.use(
             name: profile.displayName,
             googleId: profile.id,
             password: "1",
-            email: "1",
+            email: profile.id,
           })
             .save()
             .then((newUser) => {

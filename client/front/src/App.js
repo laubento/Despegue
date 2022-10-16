@@ -35,7 +35,6 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
-        //   console.log(resObject);
           const obj = {
             name: resObject.user.displayName
               ? resObject.user.displayName
