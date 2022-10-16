@@ -39,7 +39,10 @@ const User = mongoose.Schema({
   // admin: {
   //     type: Boolean,
   //     required: false
-  // }
+  // },
+  googleId: {
+    type: String,
+  },
 });
 User.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
