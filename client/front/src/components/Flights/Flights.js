@@ -24,8 +24,7 @@ function Flights() {
       <Filter />
       <div className="flights-cont position-relative ms-5">
         <div className="flights-container-cards">
-          {flights.length === 0 && allFlights.length !== 0? <h2>There are no flights with these characteristics</h2> : <Paginado data={flights} /> }
-          <button onClick={logout}>Logout</button>
+          {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> : <Paginado data={flights} /> }
         </div>
       </div>
     </div>

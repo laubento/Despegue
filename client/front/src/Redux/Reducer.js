@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order } =
+            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order, findAirline } =
                 action.payload;
 
             let filteringFlights = state.allFlights.slice();
@@ -83,6 +83,11 @@ export default function reducer(state = initialState, action) {
                 filteringFlights = filteringFlights.sort((a, b) => {
                     return a.stopoversCount - b.stopoversCount
                 })
+            }
+            if(findAirline.type === 'find'){
+                filteringFlights = filteringFlights.filter(e => 
+                        e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
+                        )
             }
             // if (filteringFlights.length === 0) {
             //     filteringFlights = 'Error'
