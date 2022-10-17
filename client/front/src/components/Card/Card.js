@@ -37,26 +37,26 @@ function Card({
         }
       </div>
       <div className="col-2 text-center mt-2">
-        <span className="font-weight-bold" >Departure</span>
+        <span className="font-weight-bold" >Salida</span>
         <br/>
         <span>{departureTime}</span>
       </div>
       <div className="col-2 text-center mt-2">
-        <span className="font-weight-bold"> Arrival</span>
+        <span className="font-weight-bold"> Llegada</span>
         <br/>
         <span className="mb-2">{arrivalTime}</span>
         <div className="mt-1">
           <Link to={`/flights/flightDetail/${id}`} style={{textDecoration:'none'}}>
-            <button className="btn btn-md card-more-details" onClick={handleClick}>More Details</button>
+            <button className="btn btn-md card-more-details" onClick={handleClick}>Más detalles</button>
           </Link>
         </div>
       </div>
       <div className="col-2 text-center mt-2">
-        <span className="font-weight-bold"> Duration</span>
+        <span className="font-weight-bold"> Duración</span>
         <br />
         <span>{duration}</span>
         <br />
-        <span className="font-weight-bold">Scales: {stopoversCount}</span>
+        <span className="font-weight-bold">Escalas: {stopoversCount}</span>
       </div>
       <div className="col-2 container card-border-left card-price-box">
       <div className="div-price-btn mt-1">
@@ -64,7 +64,7 @@ function Card({
       </div>
       <div className="card-div-price-btn">
       <Link to='/purchase'>
-        <button onClick={handleClick} className="card-btn">Buy</button>
+        <button onClick={handleClick} className="card-btn">Comprar!</button>
       </Link>
       </div>
       </div>
