@@ -13,9 +13,7 @@ const Register = ({user}) => {
     const history = useHistory()
 
     useEffect(() => {
-      console.log('entre')
       if(user){
-        console.log('a')
         history.push('/');
       }
     }, [user])
@@ -79,7 +77,6 @@ const Register = ({user}) => {
                 }}
                 onSubmit={(valores, { resetForm }) => {
                     resetForm();
-                    console.log('Form submitted');
                     cambiarFormularioEnviado(true);
                     setTimeout(() => cambiarFormularioEnviado(false), 5000);
                     register(valores)

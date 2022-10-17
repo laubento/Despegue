@@ -59,39 +59,7 @@ export default function FlightsSearch() {
         vacio: '',
         most: ''
     })
-
-    // function validate(input){
-    //     let errors = {}
-
-    //     if(!input.departurePlace){
-    //         errors.departurePlace = 'necesita rellenar'
-    //         errors.boolDeparturePlace = 'a'
-    //     }
-    //     else if(input.departurePlace.length < 3){
-    //         errors.departurePlace = '3 minimo'
-    //         errors.boolDeparturePlace = 'a'
-    //     }
-
-    //     if(!airportName.from){
-    //         errors.arrivalPlace = 'necesita rellenar'
-    //         errors.boolArrivalPlace = 'a'
-    //     }
-    //     else if(airportName.from.length < 3){
-    //         errors.arrivalPlace = '3 minimoo'
-    //         errors.boolArrivalPlace = 'a'
-    //     }
-    //     if(!input.departureDate){
-    //         errors.departureDate = 'completar fecha'
-    //         errors.boolDepartureDate = 'a'
-    //     }
-    //     if(input.tripType === 'roundtrip'){
-    //         if(!input.returningDate){
-    //             errors.returningDate = 'completar fecha'
-    //             errors.boolReturningDate = 'a'
-    //         }
-    //     }
-    //     return errors
-    // }
+    
 
     // Lugares disponibles
     const handleChangeSites = (num, age) => {
@@ -121,41 +89,8 @@ export default function FlightsSearch() {
         })
     }
 
-    // useEffect( () => {
-    //     setP(p + 1)
-    //     console.log(p)
-    //     console.log(error.boolArrivalPlace)
-    //     console.log(error.boolDeparturePlace)
-    //     if(p < 1 || error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolReturningDate) return
-    //     dispatch(clearFlights())
-    //     dispatch(getFlights(flights));
-    //     setFlights({
-    //         tripType:'onewaytrip',
-    //         departurePlace: '',
-    //         arrivalPlace: '',
-    //         departureDate: '',
-    //         returningDate: '',
-    //         cabinClass: 'Economy',
-    //         adults: 1,
-    //         children: 0,
-    //         infants: 0,
-    //         currency: 'USD'
-    //     });
-    //     history.push('/flights');
-    // }, [error, searchError])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setError(validate({
-        //     ...flights,
-        //     [e.target.name]: e.target.value
-        // }))
-        // if(airportName.from === '' || airportName.to === '' ){
-        //    setSearchError({
-        //         ...searchError,
-        //         vacio:'El input está vacio!'
-        //     })   
-        // }
         if(flights.departurePlace === '' || flights.arrivalPlace === ''){
             return setErrors({
                 allEmpty: 'faltan rellenar campos!',
@@ -205,7 +140,6 @@ export default function FlightsSearch() {
 
         const handleSubmitAirportFrom = (e) => {
             e.preventDefault();
-            console.log(airportName.from)
             if(airportName.from === "") {
                 return setSearchError({
                     ...searchError,
@@ -247,7 +181,6 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
-            //   console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>

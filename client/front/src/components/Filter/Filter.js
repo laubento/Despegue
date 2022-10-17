@@ -66,10 +66,7 @@ export default function Filter() {
 
 
 
-    useEffect(e => {
-        dispatch(filterFlights(filters))
-        validate()
-    }, [dispatch, filters])
+
 
     let flights = useSelector(state => state.flights)
     const validate = () => {
@@ -117,7 +114,9 @@ export default function Filter() {
 
         }
     }
-    validate()
+    useEffect(e => {
+        dispatch(filterFlights(filters))
+    }, [dispatch, filters])
     
     let [slider, setSlider] =useState({
         minPrice: valueSlide.minP,
@@ -146,7 +145,6 @@ export default function Filter() {
         // dispatch(searchAirline(airlineName.toLowerCase()))
         
     }
-    console.log('vuelosss', flights)
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">

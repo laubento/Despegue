@@ -19,7 +19,7 @@ function Card({
     dispatch(filterFlightById(id))
 
   }
-
+  
   return (
     <div className="card-div row ">
       <div className="card-border-right col text-center">
@@ -63,7 +63,9 @@ function Card({
       <span className="font-weight-bold text-success" >${price}</span>
       </div>
       <div className="card-div-price-btn">
-      <button className="card-btn">Buy</button>
+      <Link to='/purchase'>
+        <button onClick={handleClick} className="card-btn">Buy</button>
+      </Link>
       </div>
       </div>
     </div>
