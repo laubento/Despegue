@@ -68,7 +68,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="name"
                                                         name="name"
-                                                        placeholder="abc@email.com"
+                                                        placeholder="Nombre"
+                                                        disabled
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -77,7 +78,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="lastName"
                                                         name="lastName"
-                                                        placeholder="abc@email.com"
+                                                        placeholder="Apellido"
+                                                        disabled
                                                     />
                                                 </div>
                                             </div>
@@ -98,6 +100,7 @@ export default function DatosPersonales(){
                                                         id="email"
                                                         name="email"
                                                         placeholder="abc@email.com"
+                                                        disabled
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -106,7 +109,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="phone"
                                                         name="phone"
-                                                        placeholder="abc@email.com"
+                                                        placeholder="+54..."
+                                                        disabled
                                                     />
                                                 </div>
                                             </div>
@@ -126,6 +130,7 @@ export default function DatosPersonales(){
                                                         id="birthDate"
                                                         name="birthDate"
                                                         placeholder="DD/MM/YY"
+                                                        disabled
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -134,7 +139,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="dni"
                                                         name="dni"
-                                                        placeholder="abc@email.com"
+                                                        placeholder="DNI"
+                                                        disabled
                                                     />
                                                 </div>
                                             </div>
@@ -146,8 +152,6 @@ export default function DatosPersonales(){
                                                 name="birthDate"
                                                 component={() => <div className="error">{errors.birthDate}</div>}
                                             />
-
-                                            <button type="submit">Iniciar Sesion</button>
                                         </Form>
                                     </div>
                                 )}
