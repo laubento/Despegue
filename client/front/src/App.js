@@ -69,7 +69,7 @@ function App() {
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
-        <Route path="/p" render={() => <Checkout/>} />
+        <Route path="/purchase" render={() => <Checkout/>} />
       </BrowserRouter>
     </div>
   );
