@@ -100,18 +100,15 @@ export default function reducer(state = initialState, action) {
                 flightDetail: flight
             }
         case SEARCH_AIRPORT_FROM:
-
-        return {
-            ...state,
-            airportsFrom: action.payload
-        }
-
+            return {
+                ...state,
+                airportsFrom: action.payload
+            }
         case SEARCH_AIRPORT_TO:
-
-        return {
-            ...state,
-            airportsTo: action.payload
-        }
+            return {
+                ...state,
+                airportsTo: action.payload
+            }
         case STORE_USER_INFO:
             return{
                 ...state,
@@ -122,7 +119,6 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flightsToBuy: action.payload
             }
-
         default:
             return state;
     }
