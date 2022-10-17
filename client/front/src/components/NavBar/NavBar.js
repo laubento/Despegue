@@ -82,7 +82,6 @@ export default function NavBar() {
                   {user.name}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
-                      {console.log(user)}
                       <img src={user ? user.photos : null} alt="" />
                       <h6>{`Bienvenido ${user.firstName}!`}</h6>
                     </div>

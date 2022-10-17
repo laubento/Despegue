@@ -17,8 +17,6 @@ import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
     const dispatch = useDispatch()
-//   const [user, setUser] = useState(null);
-//   console.log(user);
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:3001/auth/login/success", {

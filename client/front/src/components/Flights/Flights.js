@@ -11,14 +11,12 @@ function Flights() {
   let flights = useSelector((state) => state.flights);
   let allFlights = useSelector((state) => state.allFlights);
   let infofiltrada = useSelector((state) => state.filteredFlights);
-  // console.log(infofiltrada)
   if (infofiltrada.length > 0) {
     flights = infofiltrada;
   }
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
-  console.log(flights,'--', allFlights)
   return (
     <div className="d-flex">
       <Filter />

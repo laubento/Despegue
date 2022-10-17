@@ -11,7 +11,6 @@ router.post("/purchaseComplete", async (req, res) => {
     user.historyPurchase.push(req.body.flight)
     await user.save()
     
-    console.log(user)
     }catch(err){console.log(err)}
 })
 
