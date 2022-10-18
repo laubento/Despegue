@@ -37,10 +37,14 @@ function App() {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
-            photos: resObject.user.photos ? resObject.user.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-            firstName: resObject.user.name.givenName
-              ? resObject.user.name.givenName
-              : resObject.user.name,
+            photos: resObject.user.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+            firstName: resObject.user.firstName,
+            lastname: resObject.user.lastname,
+            email: resObject.user.email,
+            id: resObject.user._id,
+            dni: resObject.user.dni,
+            phone: resObject.user.phone,
+            birthDate: resObject.user.birthDate
           };
           dispatch(storeUserInfo(obj))
         })
