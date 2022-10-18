@@ -23,6 +23,7 @@ passport.use(
       // Busco en la DB si el usuario existe
       User.findOne({ googleId: profile.id }).then((resp) => {
         if (resp) {
+          console.log(resp)
           done(null, resp);
         } else {
           // Si no existe lo agrego a la DB
@@ -40,7 +41,6 @@ passport.use(
           })
             .save()
             .then((newUser) => {
-              // console.log("newUserCreate" + newUser);
               done(null, newUser);
             });
         }

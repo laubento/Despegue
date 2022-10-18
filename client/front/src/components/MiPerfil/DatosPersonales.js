@@ -4,14 +4,16 @@ import '../MiPerfil/DatosPersonales.css'
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 export default function DatosPersonales(){
     const user = useSelector(state => state.user)
-    
+    console.log(user)
     const [active, setActive] = useState(true);
+
     function changeValue(valores) {
         let obj = {
-            firstName: valores.name  ?  valores.name : user.firstName ,
+            firstName: valores.name ? valores.name : user.firstName ,
             lastName: valores.lastName  ? valores.lastName : user.lastname ,
             email: valores.email  ? valores.email : user.email,
             birthDate: valores.birthDate ?  valores.birthDate : user.birthDate,
@@ -20,6 +22,14 @@ export default function DatosPersonales(){
             id: user.id
         }
         console.log(obj)
+        axios({
+            method: "PUT",
+            data: obj,
+            url: "/update",
+        }).then((res) => {
+            window.location.reload()
+        });
+        
     }
 
     return(
