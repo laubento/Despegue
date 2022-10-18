@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon "
+    "start": "nodemon -L"
   },
-  "author": "",
+  "author": "Despegue",
   "license": "ISC",
   "engines": {
     "node": ">=12.18.3",
