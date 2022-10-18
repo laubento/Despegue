@@ -22,11 +22,14 @@ const register = require("./login/register");
 const user = require("./login/user");
 const auth = require("./login/auth");
 const adminUsers = require("./admin/users");
+const offers = require("./admin/offers");
+
 router.use("/auth", auth);
 router.use("/login", login);
 router.use("/register", register);
 router.use("/user", user);
 router.use("/admin", adminUsers);
+router.use("/admin/offers", offers);
 
 // const filters = require('./filters')
 // router.use('/filters')

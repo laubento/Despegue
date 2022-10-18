@@ -47,8 +47,8 @@ const User = mongoose.Schema({
     type: String,
   },
   roles: {
-    type: String,
-    default: "user",
+    type: Array,
+    default: ["user"],
   },
 });
 User.methods.encryptPassword = async (password) => {
