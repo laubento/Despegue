@@ -5,9 +5,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "../../Redux/Actions";
 
 export default function DatosPersonales(){
     const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
     console.log(user)
     const [active, setActive] = useState(true);
 
@@ -21,13 +24,23 @@ export default function DatosPersonales(){
             phone: valores.phone ? valores.phone : user.phone, 
             id: user.id
         }
-        console.log(obj)
         axios({
             method: "PUT",
             data: obj,
             url: "/update",
-        }).then((res) => {
-            window.location.reload()
+        }).then((resObject) => {
+            const obj = {
+                name: resObject.data.name,
+                photos: resObject.data.photo ? resObject.data.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+                firstName: resObject.data.firstName,
+                lastname: resObject.data.lastname,
+                email: resObject.data.email,
+                id: resObject.data._id,
+                dni: resObject.data.dni,
+                phone: resObject.data.phone,
+                birthDate: resObject.data.birthDate
+              };
+            dispatch(storeUserInfo(obj))
         });
         
     }
@@ -174,7 +187,7 @@ export default function DatosPersonales(){
                                                 name="birthDate"
                                                 component={() => <div className="error">{errors.birthDate}</div>}
                                             />
-                                            <button type={"submit"} class="btn btn-primary btn-sm" disabled={active}>Guardar</button>
+                                            <button type={"submit"} className="btn btn-primary btn-sm" disabled={active}>Guardar</button>
                                         </Form>
                                     </div>
                                 )}
