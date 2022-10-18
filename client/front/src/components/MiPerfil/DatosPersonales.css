@@ -8,6 +8,13 @@
 .MiPerfil-ContainerTituloDatos{
     width: 770px;
     padding: 20px 0px 0px 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.MiPerfil-ContainerTituloDatos button{
+	margin-right: 20px;
+	border: 0;
+	background-color: #0084ff00;
 }
 .MiPerfil-hr{
     display: flex;

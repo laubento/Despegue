@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
+import Checkout from './components/Checkout/Checkout'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
@@ -16,10 +17,7 @@ import { storeUserInfo } from "./Redux/Actions";
 import { useState } from "react";
 
 function App() {
-
     const dispatch = useDispatch()
-  const [user, setUser] = useState(null);
-//   console.log(user);
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:3001/auth/login/success", {
@@ -40,14 +38,17 @@ function App() {
             name: resObject.user.displayName
               ? resObject.user.displayName
               : resObject.user.name,
-            photos: resObject.user.photos ? resObject.user.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-            firstName: resObject.user.name.givenName
-              ? resObject.user.name.givenName
-              : resObject.user.name,
+            photos: resObject.user.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+            firstName: resObject.user.firstName,
+            lastname: resObject.user.lastname,
+            email: resObject.user.email,
+            id: resObject.user._id,
+            dni: resObject.user.dni,
+            phone: resObject.user.phone,
+            birthDate: resObject.user.birthDate
           };
           setUser(obj)
           dispatch(storeUserInfo(obj))
-        //   setUser(obj);
         })
         .catch((err) => {
           console.log(err);
@@ -72,6 +73,7 @@ function App() {
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
+        <Route path="/purchase" render={() => <Checkout/>} />
       </BrowserRouter>
     </div>
   );

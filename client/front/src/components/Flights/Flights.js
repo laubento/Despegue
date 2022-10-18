@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
-import Card from "../Card/Card";
 import Filter from "../Filter/Filter.js";
 import Paginado from "../Paginado/Paginado";
+import Card from '../Card/Card'
+import Loader from "../Loader/Loader.js";
 import "../styles/Flights.css";
-import "../styles/Paginado.css";
 
-let number = 1;
 // se usa info de momento
+let number = 1
+
 function Flights() {
   let flights = useSelector((state) => state.flights);
   let allFlights = useSelector((state) => state.allFlights);
   let infofiltrada = useSelector((state) => state.filteredFlights);
-  // console.log(infofiltrada)
   if (infofiltrada.length > 0) {
     flights = infofiltrada;
   }
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
-
+  console.log(flights,'--', allFlights)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [flightsPerPage, setFlightsPerPage] = useState(5)
@@ -32,9 +32,9 @@ function Flights() {
       number = pageNumber
       setCurrentPage(pageNumber)
   }
-  console.log(currentPage)
+  // console.log(currentPage)
       //seteo el prev and next acá, en el componente Paginado tuve problemas.
-  console.log('number', number)
+  // console.log('number', number)
 
   let pageNumbers = [];
   for(let i = 1; i <= Math.ceil(flights.length/flightsPerPage); i++){
@@ -48,7 +48,6 @@ function Flights() {
     let prevPage = number
     return paginado(prevPage)
 }
-
 const nextHandler = (e) => {
     e.preventDefault()
     if(number === pageNumbers.length) return;
@@ -56,31 +55,24 @@ const nextHandler = (e) => {
     let nextPage = number
   return paginado(nextPage)
 }
-
-
   return (
     <div className="d-flex">
-      
       <Filter paginado={paginado} number={number} />
-
-      <div className="flights-cont">
-      <div className="paginado">
-          {flights.length === 0 && allFlights.length !== 0  ? <h2>There are no flights with these characteristics</h2> :
-          <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> }
-        
-        <div>
-        {flights !== 'Error' ?<div> 
-        <h4 className="text-center Flights-cp">{currentPage}</h4> 
+  {  allFlights.length !== 0  ?  <div className="flights-cont">
+        <div className="d-flex justify-content-center">
+          {/* {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> :  <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> } */}
+          {flights !== 0 ?
+          <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
         </div>
-        :''}
-        <button onClick={logout}>Logout</button>
-
+        <div>
         {
-          flights !==  'Error' ? 
+          flights.length !==  0 ? 
           currentFlights.map((e,i) => {
             return(
-              <div key={i} className='p d-flex flex-column'>
+              <div key={i} className='d-flex justify-content-center'>
               <Card 
+              id={e.id}
+              segments={e.segments}
               airlinesName={e.airlinesNames}
               departureTime={e.departureTime}
               arrivalTime={e.arrivalTime}
@@ -90,13 +82,17 @@ const nextHandler = (e) => {
               />
               </div>
             )})
-        : ''}
+        : 
+        <h2>There are no flights with these characteristics</h2>
+        }
         </div>
-        </div>
-        <div className="p-4">
-    {/* <button onClick={logout}>Logout</button> */}
-      </div>
-      </div>
+      </div> : <div className="flights-cont">
+        <Loader />
+       </div>  }
+
+        
+        
+        
     </div>
   );
 }

@@ -7,13 +7,15 @@ export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
 export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 export const STORE_USER_INFO = "STORE_USER_INFO"
-
+export const BUY_FLIGHTS = "BUY_FLIGHTS"
+ 
 export function getFlights(flight){
     const tripType = flight.tripType;
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, {flight})
+
         return dispatch({
             type: GET_FLIGHTS,
             payload: flights.data
@@ -69,5 +71,20 @@ export const storeUserInfo = (user) => {
             type: STORE_USER_INFO,
             payload: user
         })
+    }
+}
+
+export const storeFlightsToBuy = (flights) => {
+    return function(dispatch){
+        dispatch({
+            type: BUY_FLIGHTS,
+            payload: flights
+        })
+    }
+}
+
+export const storePurchase = (user, flight) => {
+    return async function(){
+        await axios.post(`http://localhost:3001/purchaseComplete`)
     }
 }

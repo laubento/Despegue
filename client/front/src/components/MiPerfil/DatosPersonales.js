@@ -3,58 +3,69 @@ import { useState } from "react";
 import '../MiPerfil/DatosPersonales.css'
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 export default function DatosPersonales(){
-
-    const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-    function login() {
-
+    const user = useSelector(state => state.user)
+    
+    const [active, setActive] = useState(true);
+    function changeValue(valores) {
+        let obj = {
+            firstName: valores.name  ?  valores.name : user.firstName ,
+            lastName: valores.lastName  ? valores.lastName : user.lastname ,
+            email: valores.email  ? valores.email : user.email,
+            birthDate: valores.birthDate ?  valores.birthDate : user.birthDate,
+            dni: valores.dni ? valores.dni: user.dni,
+            phone: valores.phone ? valores.phone : user.phone, 
+            id: user.id
+        }
+        console.log(obj)
     }
 
     return(
         <div className="MiPerfil-containerBox">
                     <div className="MiPerfil-DatosPersonalesContainer">
                         <div>
-                            <div className="MiPerfil-ContainerTituloDatos"><h1>Datos Personales</h1></div>
+                            <div className="MiPerfil-ContainerTituloDatos">
+                                <h1>Datos Personales</h1>
+                                <button onClick={() => setActive(false)} disabled={!active}>✏️</button>
+                            </div>
                             <div className='MiPerfil-hr'>
                                 <hr />
                             </div>
                             <Formik
                                 initialValues={{
-                                    name: "",
-                                    lastName: '',
-                                    email: "",
-                                    birthDate: '',
-                                    dni: '',
-                                    celular: ''
+                                    name: user ? user.firstName : '',
+                                    lastName: user ? user.lastname : '',
+                                    email: user ? user.email : '',
+                                    birthDate: user ? user.birthDate : '',
+                                    dni: user ? user.dni : '',
+                                    phone: user ? user.phone : ''
                                 }}
                                 validate={(valores) => {
                                     let errores = {};
 
-                                    // Validacion nombre
-                                    if (!valores.password) {
-                                        errores.password = "Por favor, introduzca una contraseña";
-                                    }
+                                    // // Validacion nombre
+                                    // if (!valores.password) {
+                                    //     errores.password = "Por favor, introduzca una contraseña";
+                                    // }
 
-                                    // Validacion correo
-                                    if (!valores.email) {
-                                        errores.email = "Introduzca una dirección de correo electrónico";
-                                    } else if (
-                                        !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-                                            valores.email
-                                        )
-                                    ) {
-                                        errores.email =
-                                            "El correo sólo puede contener letras, números, puntos, guiones y guiones bajos";
-                                    }
+                                    // // Validacion correo
+                                    // if (!valores.email) {
+                                    //     errores.email = "Introduzca una dirección de correo electrónico";
+                                    // } else if (
+                                    //     !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+                                    //         valores.email
+                                    //     )
+                                    // ) 
 
                                     return errores;
                                 }}
                                 onSubmit={(valores, { resetForm }) => {
                                     resetForm();
-                                    cambiarFormularioEnviado(true);
-                                    setTimeout(() => cambiarFormularioEnviado(false), 5000);
-                                    login(valores);
+                                    setActive(true)
+                                    alert('datos guardados')
+                                    changeValue(valores);
                                 }}
                             >
                                 {({ errors }) => (
@@ -68,7 +79,9 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="name"
                                                         name="name"
-                                                        placeholder="abc@email.com"
+                                                        placeholder={user ? user.firstName : ''}
+                                                        disabled={active}
+                                                        
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -77,7 +90,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="lastName"
                                                         name="lastName"
-                                                        placeholder="abc@email.com"
+                                                        placeholder={user ? user.lastname : ''}
+                                                        disabled={active}
                                                     />
                                                 </div>
                                             </div>
@@ -97,7 +111,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="email"
                                                         name="email"
-                                                        placeholder="abc@email.com"
+                                                        placeholder={user ? user.email : ''}
+                                                        disabled={active}
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -106,7 +121,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="phone"
                                                         name="phone"
-                                                        placeholder="abc@email.com"
+                                                        placeholder={user ? user.phone : ''}
+                                                        disabled={active}
                                                     />
                                                 </div>
                                             </div>
@@ -125,7 +141,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="birthDate"
                                                         name="birthDate"
-                                                        placeholder="DD/MM/YY"
+                                                        placeholder={user ? user.birthDate : ''}
+                                                        disabled={active}
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -134,7 +151,8 @@ export default function DatosPersonales(){
                                                         type="text"
                                                         id="dni"
                                                         name="dni"
-                                                        placeholder="abc@email.com"
+                                                        placeholder={user ? user.dni : ''}
+                                                        disabled={active}
                                                     />
                                                 </div>
                                             </div>
@@ -146,8 +164,7 @@ export default function DatosPersonales(){
                                                 name="birthDate"
                                                 component={() => <div className="error">{errors.birthDate}</div>}
                                             />
-
-                                            <button type="submit">Iniciar Sesion</button>
+                                            <button type={"submit"} class="btn btn-primary btn-sm" disabled={active}>Guardar</button>
                                         </Form>
                                     </div>
                                 )}

@@ -21,7 +21,6 @@ export default function FlightsSearch() {
 
     const handleChange = (e) => {
         // e.preventDefault();
-        console.log(e);
         setFlights({...flights, [e.target.name]: e.target.value});
     }
 

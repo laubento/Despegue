@@ -1,7 +1,7 @@
 .card-div{
     background-color: rgb(234, 233, 234);
     margin: 20px;
-    width: 1220px
+    width: 1320px
 }
 
  .card-border-left{
@@ -49,9 +49,7 @@
     border-radius: 12px;
     cursor: pointer;
 }
-button:hover{
-    background-color: rgb(75, 1, 96);
-}
+
 .font-weight-bold{
     font-weight: bold;
 }
@@ -68,4 +66,3 @@ button:hover{
     padding-bottom: 3px;
     text-decoration: none;
 }
-
