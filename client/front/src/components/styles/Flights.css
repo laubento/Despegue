@@ -32,13 +32,17 @@
 
 .flights-li{
     list-style: none;
-    font-size: 25px;
+    font-size: 30px;
     color: rgb(110, 17, 197);
     background-color: white;
     font-weight: bold;
     border-radius: 20px;
     margin-bottom: 12px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
     cursor: pointer;
+    height: max-content;
 }
 .flights-li-40{
     list-style: none;
@@ -49,5 +53,8 @@
     border-radius: 20px;
     margin-bottom: 12px;
     cursor: pointer;
+    height: max-content;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
