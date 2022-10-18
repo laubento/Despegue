@@ -4,7 +4,6 @@ const passport = require("passport");
 const CLIENT_URL = "http://localhost:3000/";
 
 router.get("/login/success", (req, res) => {
-
   if (req.user) {
     res.status(200).send({
       success: true,
@@ -28,7 +27,7 @@ router.get("/logout", (req, res) => {
   res.redirect(CLIENT_URL);
 });
 
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 router.get(
   "/google/callback",
