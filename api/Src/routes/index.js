@@ -37,4 +37,10 @@ router.use("/searchByName", searchByName)
 const users = require("../routes/purchaseRelationship")
 router.use("/users", users)
 
+//updateUserInfo
+const update = require("./updateUser")
+router.use("/update", update)
+
+
+
 module.exports = router;

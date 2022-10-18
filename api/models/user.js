@@ -22,6 +22,10 @@ const User = mongoose.Schema({
     required: true,
   },
 
+  purchaseHistory: {
+    type: mongoose.Schema.Types.ObjectId,ref:'History'
+  },
+
   email: {
     type: String,
     required: true,
