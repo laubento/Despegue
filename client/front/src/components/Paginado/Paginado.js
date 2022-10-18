@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import "../styles/Paginado.css";
 
-function Paginado({ paginado, allFlights, flightsPerPage, prevHandler, nextHandler }) {
+function Paginado({currentPage, paginado, allFlights, flightsPerPage, prevHandler, nextHandler }) {
   let pageNumbers = [];
   for(let i = 1; i <= Math.ceil(allFlights/flightsPerPage); i++){
       pageNumbers.push(i)
@@ -10,20 +10,26 @@ function Paginado({ paginado, allFlights, flightsPerPage, prevHandler, nextHandl
 
 
   return (
-  <nav className="w-100 p-4 pag-cont"> 
-    <ul className="pag-nav">
-      {allFlights !== 0 && <li className={ allFlights > 35 ? "flights-li-40" : "flights-li"} onClick={(e) => prevHandler(e) }>{'<'}</li> }
-      {pageNumbers && 
-      pageNumbers.map((n,i) => {
-         return (
-          <li className="page-num " key = {i}>
-              <span className={allFlights > 35 ? "pag-link-40" : "pag-link"} onClick={() => paginado(n)}>{n}</span>
-          </li>
-          )
-      })}
-      {allFlights !== 0 && <li className={ allFlights > 35 ? "flights-li-40" : "flights-li"} onClick={(e) => nextHandler(e) } >{'>'}</li> }
-      </ul>
-  </nav>
+    <div>
+
+    {
+      pageNumbers.length === 0 ? '' :
+      <nav className="w-100 p-4 pag-cont"> 
+      <ul className="pag-nav">
+        {allFlights !== 0 && <li className={currentPage === 1 ? "display-none" : "flights-li"} onClick={(e) => prevHandler(e) }>{'<'}</li> }
+        <div className="d-flex justify-content-around pag-pages">
+        <li className={ currentPage === 1 ? "display-none" :"page-num first-page"} onClick={() => paginado(1)}>{pageNumbers[0]}</li>
+        <li className={pageNumbers.length === 1 ? "page-only-one" :"page-num current-page"} >
+          {currentPage}
+        </li>
+        <li className={ currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "page-num last-page"} onClick={() => paginado(pageNumbers[pageNumbers.length - 1])} >{pageNumbers[pageNumbers.length - 1]}</li>
+        </div>
+        {allFlights !== 0 && <li className={currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "flights-li"} onClick={(e) => nextHandler(e) } >{'>'}</li> }
+        </ul>
+    </nav>
+    }
+    </div>
+  
 )
 }
 
