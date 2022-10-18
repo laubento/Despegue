@@ -59,39 +59,7 @@ export default function FlightsSearch() {
         vacio: '',
         most: ''
     })
-
-    // function validate(input){
-    //     let errors = {}
-
-    //     if(!input.departurePlace){
-    //         errors.departurePlace = 'necesita rellenar'
-    //         errors.boolDeparturePlace = 'a'
-    //     }
-    //     else if(input.departurePlace.length < 3){
-    //         errors.departurePlace = '3 minimo'
-    //         errors.boolDeparturePlace = 'a'
-    //     }
-
-    //     if(!airportName.from){
-    //         errors.arrivalPlace = 'necesita rellenar'
-    //         errors.boolArrivalPlace = 'a'
-    //     }
-    //     else if(airportName.from.length < 3){
-    //         errors.arrivalPlace = '3 minimoo'
-    //         errors.boolArrivalPlace = 'a'
-    //     }
-    //     if(!input.departureDate){
-    //         errors.departureDate = 'completar fecha'
-    //         errors.boolDepartureDate = 'a'
-    //     }
-    //     if(input.tripType === 'roundtrip'){
-    //         if(!input.returningDate){
-    //             errors.returningDate = 'completar fecha'
-    //             errors.boolReturningDate = 'a'
-    //         }
-    //     }
-    //     return errors
-    // }
+    
 
     // Lugares disponibles
     const handleChangeSites = (num, age) => {
@@ -121,41 +89,8 @@ export default function FlightsSearch() {
         })
     }
 
-    // useEffect( () => {
-    //     setP(p + 1)
-    //     console.log(p)
-    //     console.log(error.boolArrivalPlace)
-    //     console.log(error.boolDeparturePlace)
-    //     if(p < 1 || error.boolArrivalPlace || error.boolDeparturePlace || error.boolDepartureDate || error.boolReturningDate) return
-    //     dispatch(clearFlights())
-    //     dispatch(getFlights(flights));
-    //     setFlights({
-    //         tripType:'onewaytrip',
-    //         departurePlace: '',
-    //         arrivalPlace: '',
-    //         departureDate: '',
-    //         returningDate: '',
-    //         cabinClass: 'Economy',
-    //         adults: 1,
-    //         children: 0,
-    //         infants: 0,
-    //         currency: 'USD'
-    //     });
-    //     history.push('/flights');
-    // }, [error, searchError])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setError(validate({
-        //     ...flights,
-        //     [e.target.name]: e.target.value
-        // }))
-        // if(airportName.from === '' || airportName.to === '' ){
-        //    setSearchError({
-        //         ...searchError,
-        //         vacio:'El input está vacio!'
-        //     })   
-        // }
         if(flights.departurePlace === '' || flights.arrivalPlace === ''){
             return setErrors({
                 allEmpty: 'faltan rellenar campos!',
@@ -205,7 +140,6 @@ export default function FlightsSearch() {
 
         const handleSubmitAirportFrom = (e) => {
             e.preventDefault();
-            console.log(airportName.from)
             if(airportName.from === "") {
                 return setSearchError({
                     ...searchError,
@@ -247,18 +181,17 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
-            //   console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>
         <div className='text-left' onChange={handleChange}>
                 <div className="form-check form-check-inline">
                     <input className="form-check-input" type="radio" name="tripType" id="oneway" value='onewaytrip' defaultChecked={flights.tripType === 'onewaytrip'}/>
-                    <label className="form-check-label " htmlFor="tripType">One way</label>
+                    <label className="form-check-label " htmlFor="tripType">Ida</label>
                 </div>
                 <div className="form-check form-check-inline">
                     <input className="form-check-input" type="radio" name="tripType" id="roundtrip" value='roundtrip' defaultChecked={flights.tripType === 'roundtrip'}/>
-                    <label className="form-check-label" htmlFor="roundtrip">Round trip</label>
+                    <label className="form-check-label" htmlFor="roundtrip">Ida y vuelta</label>
                 </div>
             </div>
             </div>
@@ -276,7 +209,7 @@ export default function FlightsSearch() {
                 <div className='d-flex justify-content-center'>
                  
             <select hidden={!airportsFrom.length} className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
-                <option hidden>Nearby Airports...</option>
+                <option hidden>Aeropuertos cercanos...</option>
             {airportsFrom.length && airportsFrom.map((e,i) =>{
                 return(
                         <option key={i}>{e.name}, {e.iata}</option>
@@ -285,7 +218,7 @@ export default function FlightsSearch() {
                 </select> 
                     
             <select hidden={!airportsTo.length} className='slc-ord' onChange={(e) => handleSelectTo(e)}>
-                <option hidden >Nearby Airports...</option>
+                <option hidden>Aeropuertos cercanos...</option>
             {airportsTo.length && airportsTo.map((e,i) =>{
                     
                 return( 
@@ -305,7 +238,7 @@ export default function FlightsSearch() {
                     <div className='row '>
                         <div className='d-flex justify-content-center'>
                         <div className='col-2 m-2 text-center'>
-                    <label>Depart</label>
+                    <label>Fecha de salida</label>
                     <input className={ errors.departureEmpty ? 'FlightSearch-error form-control' : 'form-control'} min={Today} type='date' name='departureDate' id='depart' value={flights.departureDate} onChange={handleChange}></input>
                     {errors.departureEmpty ? <p className={'FlightSearch-errorsText font-weight-bold m-2'}>{errors.departureEmpty}</p> : null}
                     </div>
@@ -313,14 +246,14 @@ export default function FlightsSearch() {
                     flights.tripType === 'roundtrip' 
                         ?                 
                             <div className='col-2 m-2'>
-                                <label>Arrive</label>
+                                <label>Fecha de llegada</label>
                                 <input className={ errors.returningEmpty ? 'FlightSearch-error form-control' : 'form-control'} disabled={flights.departureDate === ''} min={flights.departureDate} type='date' name='returningDate' id={'arrive'} value={flights.returningDate} onChange={handleChange}></input>
                                 {errors.returningEmpty ? <p className={'FlightSearch-errorsText font-weight-bold m-2'}>{errors.returningEmpty}</p> : null}
                             </div>
                         : null
                 }
                 <div className='col-2 m-2 text-center'>
-                    <label>Cabin class</label>
+                    <label>Clase</label>
                     <select name='cabinClass' id='cabinClass' className='form-control' onChange={handleChange}>
                         <option value='Economy'>Economy</option>
                         <option value='Business'>Business</option>
@@ -334,7 +267,7 @@ export default function FlightsSearch() {
                 <div className='row'>
                     <div className='d-flex justify-content-center m-1'>
                 <div className='col-2 m-2 text-center'>
-                    <label>Adults</label>
+                    <label>Adultos</label>
                     <div className='form-control FlightSearch-containerConteo'>
                         <button disabled={flights.adults === 1} type='button' onClick={() => {handleChangeSites(0, 'adults')}} className='FlightSearch-Menos'>-</button>
                         <div className='FlightSearch-conteo'>{flights.adults}</div>
@@ -342,7 +275,7 @@ export default function FlightsSearch() {
                     </div>
                 </div>
                 <div className='col-2 m-2 text-center'>
-                    <label>Children</label>
+                    <label>Niños</label>
                     <div className='form-control FlightSearch-containerConteo'>
                         <button disabled={flights.children === 0} type='button' onClick={() => {handleChangeSites(0, 'children')}} className='FlightSearch-Menos'>-</button>
                         <div className='FlightSearch-conteo'>{flights.children}</div>
@@ -350,7 +283,7 @@ export default function FlightsSearch() {
                     </div>
                 </div>
                 <div className='col-2 m-2 text-center'>
-                    <label >Infants</label>
+                    <label >Infantes</label>
                     <div className='form-control FlightSearch-containerConteo'>
                         <button disabled={flights.infants === 0} type='button' onClick={() => {handleChangeSites(0, 'infants')}} className='FlightSearch-Menos'>-</button>
                         <div className='FlightSearch-conteo'>{flights.infants}</div>
@@ -363,7 +296,7 @@ export default function FlightsSearch() {
                
                 </div>
                 <div className='d-flex justify-content-center'>
-                <input type='submit' className="mx-auto  btn btn FlightSearch-btn-search" value='Search!'/>
+                <input type='submit' className="mx-auto  btn btn FlightSearch-btn-search" value='Buscar!'/>
                 </div>
                 <div className='d-flex justify-content-center'>
                     {errors.allEmpty && <span className='FlightSearch-errorsText font-weight-bold'>{errors.allEmpty}</span>}

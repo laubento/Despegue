@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Flights from "./components/Flights/Flights";
 import FlightsSearch from "./components/FlightsSearch/FlightsSearch";
 import NavBar from "./components/NavBar/NavBar";
+import Checkout from './components/Checkout/Checkout'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
@@ -15,10 +16,7 @@ import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 
 function App() {
-
     const dispatch = useDispatch()
-//   const [user, setUser] = useState(null);
-//   console.log(user);
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:3001/auth/login/success", {
@@ -45,7 +43,6 @@ function App() {
               : resObject.user.name,
           };
           dispatch(storeUserInfo(obj))
-        //   setUser(obj);
         })
         .catch((err) => {
           console.log(err);
@@ -70,6 +67,7 @@ function App() {
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
+        <Route path="/purchase" render={() => <Checkout/>} />
       </BrowserRouter>
     </div>
   );

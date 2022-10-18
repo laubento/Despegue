@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS } from "./Actions";
 
 const initialState = {
     // flights: flightExample,
@@ -9,6 +9,7 @@ const initialState = {
     airportsFrom: [],
     airportsTo: [],
     user: null,
+    flightsToBuy: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -30,11 +31,10 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order } =
+            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order, findAirline } =
                 action.payload;
 
             let filteringFlights = state.allFlights.slice();
-            // console.log(action.payload)
             if (stopOvers !== "default") {
                 if(stopOvers == 0){
                     filteringFlights = filteringFlights.filter(
@@ -49,7 +49,6 @@ export default function reducer(state = initialState, action) {
                         (flight) => flight.stopoversCount >= Number(stopOvers)
                     )
             }
-            // console.log(minPrice,'-------', maxPrice)   
             if (minPrice !== "default" && maxPrice !== "default") {
                 filteringFlights = filteringFlights.filter(
                     (flight) =>
@@ -63,7 +62,6 @@ export default function reducer(state = initialState, action) {
                 );
             }
             if (maxDuration !== "default") {
-                // console.log(maxDuration)
                 filteringFlights = filteringFlights.filter(
                     (flight) => flight.duration.split('h')[0] <= maxDuration);
             }
@@ -83,6 +81,11 @@ export default function reducer(state = initialState, action) {
                     return a.stopoversCount - b.stopoversCount
                 })
             }
+            if(findAirline.type === 'find'){
+                filteringFlights = filteringFlights.filter(e => 
+                        e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
+                        )
+            }
             // if (filteringFlights.length === 0) {
             //     filteringFlights = 'Error'
             // }
@@ -92,31 +95,31 @@ export default function reducer(state = initialState, action) {
             };
         case FILTER_FLIGHT_BY_ID:
             const a = state.flights;
-            // console.log(`reducer - state flights ${a}`)
             const flight = a.filter(el => el.id === action.payload);
             return {
                 ...state,
                 flightDetail: flight
             }
         case SEARCH_AIRPORT_FROM:
-
-        return {
-            ...state,
-            airportsFrom: action.payload
-        }
-
+            return {
+                ...state,
+                airportsFrom: action.payload
+            }
         case SEARCH_AIRPORT_TO:
-
-        return {
-            ...state,
-            airportsTo: action.payload
-        }
+            return {
+                ...state,
+                airportsTo: action.payload
+            }
         case STORE_USER_INFO:
             return{
                 ...state,
                 user: action.payload
             }
-
+        case BUY_FLIGHTS:
+            return{
+                ...state,
+                flightsToBuy: action.payload
+            }
         default:
             return state;
     }

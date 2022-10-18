@@ -15,9 +15,7 @@ const Login = () => {
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-    console.log('entre')
     if(user){
-      console.log('a')
       history.push('/');
     }
   }, [user])
@@ -34,7 +32,6 @@ const Login = () => {
       withCredentials: true,
       url: "/login",
     }).then((res) => {
-      console.log(res);
       window.location.reload()
     });
   }
@@ -71,7 +68,6 @@ const Login = () => {
         }}
         onSubmit={(valores, { resetForm }) => {
           resetForm();
-          console.log("Form submitted");
           cambiarFormularioEnviado(true);
           setTimeout(() => cambiarFormularioEnviado(false), 5000);
           login(valores);
