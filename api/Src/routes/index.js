@@ -8,6 +8,7 @@ const axios = require("axios");
 // router.use('/prices', prices)
 
 
+
 const flightRouter = require("./flights");
 router.use("/flights", flightRouter);
 
@@ -36,5 +37,9 @@ router.use("/searchByName", searchByName)
 
 const users = require("../routes/purchaseRelationship")
 router.use("/users", users)
+
+//mercadopago
+const mercadopago = require('./mercadopago/mercadopago.js')
+router.use("/mercadopago", mercadopago)
 
 module.exports = router;
