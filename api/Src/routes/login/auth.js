@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const passport = require("passport");
+require("dotenv").config()
 
-const CLIENT_URL = process.env.VERCEL_URL || "http://localhost:3000/";
+const CLIENT_URL = process.env.VERCEL_URL_2 || "http://localhost:3000/";
+
+console.log(CLIENT_URL);
 
 router.get("/login/success", (req, res) => {
   if (req.user) {

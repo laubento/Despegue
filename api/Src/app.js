@@ -14,13 +14,15 @@ const { URI, USER, PASSWORD } = process.env;
 const app = express();
 require("./routes/login/passportConfig");
 
-app.use(
-    cors({
-        origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
-        methods: "GET,POST,PUT,DELETE",
-        credentials: true,
-    })
-);
+console.log(process.env.VERCEL_URL);
+
+// app.use(
+//     cors({
+//         origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
+//         methods: "GET,POST,PUT,DELETE",
+//         credentials: true,
+//     })
+// );
 
 app.use(
     cookieSession({
@@ -32,16 +34,18 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-//   next();
-// });
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+
 // app.use(
 //   cors({
 //     origin: "https://localhost:3000",
