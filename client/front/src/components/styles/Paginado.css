@@ -45,6 +45,8 @@
     background-color: rgb(206, 145, 231);
     border-radius: 12px;
     height: max-content;
+    padding-left: 10px;
+    padding-right: 10px;
     transition: 1s;
 }
 

@@ -10,19 +10,26 @@ function Paginado({currentPage, paginado, allFlights, flightsPerPage, prevHandle
 
 
   return (
-  <nav className="w-100 p-4 pag-cont"> 
-    <ul className="pag-nav">
-      {allFlights !== 0 && <li className={currentPage === 1 ? "display-none" : "flights-li"} onClick={(e) => prevHandler(e) }>{'<'}</li> }
-      <div className="d-flex justify-content-around pag-pages">
-      <li className={ currentPage === 1 ? "display-none" :"page-num first-page"} onClick={() => paginado(1)}>{pageNumbers[0]}</li>
-      <li className={pageNumbers.length === 1 ? "page-only-one" :"page-num current-page"} >
-        {currentPage}
-      </li>
-      <li className={ currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "page-num last-page"} onClick={() => paginado(pageNumbers[pageNumbers.length - 1])} >{pageNumbers[pageNumbers.length - 1]}</li>
-      </div>
-      {allFlights !== 0 && <li className={currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "flights-li"} onClick={(e) => nextHandler(e) } >{'>'}</li> }
-      </ul>
-  </nav>
+    <div>
+
+    {
+      pageNumbers.length === 0 ? '' :
+      <nav className="w-100 p-4 pag-cont"> 
+      <ul className="pag-nav">
+        {allFlights !== 0 && <li className={currentPage === 1 ? "display-none" : "flights-li"} onClick={(e) => prevHandler(e) }>{'<'}</li> }
+        <div className="d-flex justify-content-around pag-pages">
+        <li className={ currentPage === 1 ? "display-none" :"page-num first-page"} onClick={() => paginado(1)}>{pageNumbers[0]}</li>
+        <li className={pageNumbers.length === 1 ? "page-only-one" :"page-num current-page"} >
+          {currentPage}
+        </li>
+        <li className={ currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "page-num last-page"} onClick={() => paginado(pageNumbers[pageNumbers.length - 1])} >{pageNumbers[pageNumbers.length - 1]}</li>
+        </div>
+        {allFlights !== 0 && <li className={currentPage === pageNumbers[pageNumbers.length - 1] ? "display-none" : "flights-li"} onClick={(e) => nextHandler(e) } >{'>'}</li> }
+        </ul>
+    </nav>
+    }
+    </div>
+  
 )
 }
 
