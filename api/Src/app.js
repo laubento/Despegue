@@ -64,6 +64,8 @@ const whitelist = [
     "https://despegue.vercel.app",
     "https://despegue.vercel.app/login",
     "https://despegue.vercel.app/register",
+    "https://despegue.herokuapp.com/",
+    "https://despegue.herokuapp.com"
 ];
 
 const corsOptions = {
