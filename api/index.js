@@ -1,7 +1,7 @@
-const app = require("./src/app");
-const db = require("./src/db");
+const app = require("./Src/app.js");
+const db = require("./Src/db.js");
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("listening on port 3001");
   db();
 });

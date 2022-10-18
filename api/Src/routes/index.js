@@ -34,7 +34,7 @@ router.use("/user", user);
 const searchByName = require('./searchByName/getAirportsByName.js')
 router.use("/searchByName", searchByName)
 
-const users = require("../routes/purchaseRelationship")
+const users = require("./purchaseRelationship")
 router.use("/users", users)
 
 module.exports = router;

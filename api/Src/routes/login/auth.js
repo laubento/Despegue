@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
+require("dotenv").config()
 
 const CLIENT_URL = "https://despegue.vercel.app/"
 
