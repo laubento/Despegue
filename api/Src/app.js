@@ -50,31 +50,31 @@ app.use(morgan("dev"));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(
-//     cors({
-//         origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
-//         methods: "GET,POST,PUT,DELETE",
-//         credentials: true,
-//     })
-// );
+app.use(
+    cors({
+        origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
+        methods: "GET,POST,PUT,DELETE",
+        credentials: true,
+    })
+);
 
-const whitelist = [
-    "http://localhost:3000",
-    "https://despegue.vercel.app/",
-    "https://despegue.vercel.app",
-    "https://despegue.vercel.app/login",
-    "https://despegue.vercel.app/register",
-    "https://despegue.herokuapp.com/",
-    "https://despegue.herokuapp.com"
-];
+// const whitelist = [
+//     "http://localhost:3000",
+//     "https://despegue.vercel.app/",
+//     "https://despegue.vercel.app",
+//     "https://despegue.vercel.app/login",
+//     "https://despegue.vercel.app/register",
+//     "https://despegue.herokuapp.com/",
+//     "https://despegue.herokuapp.com"
+// ];
 
-const corsOptions = {
-    credentials: true,
-    origin: function(origin, callback) {
-        if(whitelist.indexOf(origin) !== -1) callback(null, true)
-        else callback(new Error('Not allowed by CORS'))
-    }
-}
+// const corsOptions = {
+//     credentials: true,
+//     origin: function(origin, callback) {
+//         if(whitelist.indexOf(origin) !== -1) callback(null, true)
+//         else callback(new Error('Not allowed by CORS'))
+//     }
+// }
 
 app.use(cors(corsOptions))
 
