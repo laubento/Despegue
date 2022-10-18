@@ -47,7 +47,6 @@ function App() {
             phone: resObject.user.phone,
             birthDate: resObject.user.birthDate
           };
-          setUser(obj)
           dispatch(storeUserInfo(obj))
         })
         .catch((err) => {
@@ -60,7 +59,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar user={user}/>} />
+        <Route path={"/"} render={() => <NavBar/>} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
         <Route path="/user" render={() => <MiPerfil/>} />
