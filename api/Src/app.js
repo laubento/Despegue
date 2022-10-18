@@ -15,11 +15,11 @@ const app = express();
 require("./routes/login/passportConfig");
 
 app.use(
-  cookieSession({
-    name: "session",
-    keys: ["secretcode"],
-    maxAge: 24 * 60 * 60 * 100,
-  })
+    cookieSession({
+        name: "session",
+        keys: ["secretcode"],
+        maxAge: 24 * 60 * 60 * 100,
+    })
 );
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -50,19 +50,38 @@ app.use(morgan("dev"));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
-    methods: "GET,POST,PUT,DELETE",
+// app.use(
+//     cors({
+//         origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
+//         methods: "GET,POST,PUT,DELETE",
+//         credentials: true,
+//     })
+// );
+
+const whitelist = [
+    "http://localhost:3000",
+    "https://despegue.vercel.app/",
+    "https://despegue.vercel.app",
+    "https://despegue.vercel.app/login",
+    "https://despegue.vercel.app/register",
+];
+
+const corsOptions = {
     credentials: true,
-  })
-);
+    origin: function(origin, callback) {
+        if(whitelist.indexOf(origin) !== -1) callback(null, true)
+        else callback(new Error('Not allowed by CORS'))
+    }
+}
+
+app.cors(corsOptions);
+
 app.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
+    session({
+        secret: "secretcode",
+        resave: true,
+        saveUninitialized: true,
+    })
 );
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
@@ -70,11 +89,11 @@ app.use(passport.session());
 app.use("/", index);
 
 app.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
-  res.status(status).send(message);
+    // eslint-disable-line no-unused-vars
+    const status = err.status || 500;
+    const message = err.message || err;
+    console.error(err);
+    res.status(status).send(message);
 });
 
 module.exports = app;
