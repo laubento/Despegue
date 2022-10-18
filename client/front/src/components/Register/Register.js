@@ -19,7 +19,7 @@ const Register = ({user}) => {
     }, [user])
 
     const google = () => {
-        window.open("http://localhost:3001/auth/google", "_self");
+        window.open("https://despegue.herokuapp.com/auth/google", "_self");
     };
 
     const register = (valores) => {

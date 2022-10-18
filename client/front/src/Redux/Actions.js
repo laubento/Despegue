@@ -52,7 +52,7 @@ export function filterFlightById(id){
 
 export function searchAirportFrom (name) {
     return async function(dispatch){
-        let response = await axios.get(`http://localhost:3001/searchByName/from?nombre=${name}`)
+        let response = await axios.get(`/searchByName/from?nombre=${name}`)
         return dispatch({type: SEARCH_AIRPORT_FROM, payload: response.data})
     }
 }
@@ -60,7 +60,7 @@ export function searchAirportFrom (name) {
 
 export function searchAirportTo (name) {
     return async function(dispatch){
-        let response = await axios.get(`http://localhost:3001/searchByName/to?nombre=${name}`)
+        let response = await axios.get(`/searchByName/to?nombre=${name}`)
         return dispatch({type: SEARCH_AIRPORT_TO, payload: response.data})
     }
 }
@@ -85,6 +85,6 @@ export const storeFlightsToBuy = (flights) => {
 
 export const storePurchase = (user, flight) => {
     return async function(){
-        await axios.post(`http://localhost:3001/purchaseComplete`)
+        await axios.post(`/purchaseComplete`)
     }
 }

@@ -14,20 +14,17 @@ import CardDetail from "./components/CardDetail/cardDetail";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
+import axios from "axios";
 
 function App() {
     const dispatch = useDispatch()
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:3001/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
+        axios({
+            method: "GET",
+            withCredentials: true,
+            url: "/auth/login/success",
+        })
         .then((response) => {
           if (response.status === 200) return response.json();
           throw new Error("authentication has been failed!");
