@@ -74,7 +74,7 @@ const corsOptions = {
     }
 }
 
-app.cors(corsOptions);
+app.use(cors(corsOptions))
 
 app.use(
     session({
