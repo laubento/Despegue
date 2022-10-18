@@ -18,35 +18,35 @@ import axios from "axios";
 
 function App() {
     const dispatch = useDispatch()
-  useEffect(() => {
-    const getUser = () => {
-        axios({
-            method: "GET",
-            withCredentials: true,
-            url: "/auth/login/success",
-        })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          const obj = {
-            name: resObject.user.displayName
-              ? resObject.user.displayName
-              : resObject.user.name,
-            photos: resObject.user.photos ? resObject.user.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-            firstName: resObject.user.name.givenName
-              ? resObject.user.name.givenName
-              : resObject.user.name,
-          };
-          dispatch(storeUserInfo(obj))
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, [dispatch]);
+    useEffect(() => {
+        const getUser = () => {
+            axios({
+                method: "GET",
+                withCredentials: true,
+                url: "/auth/login/success",
+                })
+            .then((response) => {
+              if (response.status === 200) return response.data;
+              throw new Error("authentication has been failed!");
+            })
+            .then((resObject) => {
+              const obj = {
+                name: resObject.user.displayName
+                  ? resObject.user.displayName
+                  : resObject.user.name,
+                photos: resObject.user.photos ? resObject.user.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+                firstName: resObject.user.name.givenName
+                  ? resObject.user.name.givenName
+                  : resObject.user.name,
+              };
+              dispatch(storeUserInfo(obj))
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        getUser();
+      }, [dispatch]);
 
   return (
     <div className="App">
