@@ -52,8 +52,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(
   cors({
-    origin: "http://localhost:3000", // <-- location of the react app were connecting to
-    methods: "GET,POST,PUT,DELETE",
+    origin: ['http://localhost:3000','https://despegue.vercel.app/','https://despegue.vercel.app'], // <-- location of the react app were connecting to
+    methods: "GET,POST,PUT,DELETE,UPDATE,PATCH",
     credentials: true,
   })
 );
