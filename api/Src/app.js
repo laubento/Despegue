@@ -15,6 +15,14 @@ const app = express();
 require("./routes/login/passportConfig");
 
 app.use(
+    cors({
+        origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
+        methods: "GET,POST,PUT,DELETE",
+        credentials: true,
+    })
+);
+
+app.use(
     cookieSession({
         name: "session",
         keys: ["secretcode"],
@@ -50,13 +58,7 @@ app.use(morgan("dev"));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-    cors({
-        origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
-        methods: "GET,POST,PUT,DELETE",
-        credentials: true,
-    })
-);
+
 
 // const whitelist = [
 //     "http://localhost:3000",
