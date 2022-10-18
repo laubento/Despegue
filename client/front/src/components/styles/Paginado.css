@@ -32,6 +32,70 @@
     font-weight: bold;
 }
 
+.current-page{
+    font-size: 30px;
+    color: rgb(69, 4, 130);
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.current-page:hover{
+    background-color: rgb(206, 145, 231);
+    border-radius: 12px;
+    height: max-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: 1s;
+}
+
+.display-none{
+    opacity: 0;
+}
+
+
+.first-page{
+    font-size: 20px;
+    color:rgb(109, 27, 185) ;
+    background-color: white;
+    border-radius: 12px;
+    height: max-content;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.last-page{
+    font-size: 20px;
+    color:rgb(109, 27, 185) ;
+    background-color: white;
+    border-radius: 12px;
+    padding: 3px;
+    height: max-content;
+    cursor: pointer;
+
+}
+
+.page-only-one{
+    list-style: none;
+    color: rgb(69, 4, 130);
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.page-only-one:hover{
+    background-color: rgb(206, 145, 231);
+    border-radius: 12px;
+    height: max-content;
+    transition: 1s;
+}
+
+.pag-pages{
+    padding-bottom: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 .pag-link{
     text-decoration: none;
     color: rgb(148, 18, 212);

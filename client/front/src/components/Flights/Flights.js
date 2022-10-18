@@ -62,10 +62,9 @@ const nextHandler = (e) => {
         <div className="d-flex justify-content-center">
           {/* {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> :  <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> } */}
           {flights !== 0 ?
-          <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
+          <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
         </div>
         <div>
-          {flights.length !== 0 ? <h4 className="text-center Flights-cp">{currentPage}</h4>  : ''}
         {
           flights.length !==  0 ? 
           currentFlights.map((e,i) => {
