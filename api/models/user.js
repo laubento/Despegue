@@ -27,7 +27,10 @@ const User = mongoose.Schema({
     required: true,
     unique: true,
   },
-
+  active: {
+    type: Boolean,
+    default: true,
+  },
   // gender: {
   //     type: String,
   //     required: true
@@ -42,6 +45,10 @@ const User = mongoose.Schema({
   // },
   googleId: {
     type: String,
+  },
+  roles: {
+    type: String,
+    default: "user",
   },
 });
 User.methods.encryptPassword = async (password) => {
