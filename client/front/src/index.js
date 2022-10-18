@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./Redux/Store.js";
 import axios from 'axios'
 
-axios.defaults.baseURL ="https://despegue.herokuapp.com" || "http://localhost:3001";
+axios.defaults.baseURL ="https://despegue.herokuapp.com"
 
 ReactDOM.render(
   <Provider store={store}>
