@@ -15,17 +15,16 @@ function Home(props) {
   //binarymode
   let vuelo = JSON.parse(localStorage.getItem('detail'))
   if(status === 'approved' ) {
-  swal('Felicidades!', 'Has realizado una compra.', 'success')
+    let price = vuelo.map(e => e.price).join('')
+  swal('Felicidades!', `Has comprado tu pasaje a ${price}`, 'success')
     history.push('/')
     //info del vuelo
-    let vuelo = JSON.parse(localStorage.getItem('detail'))
+    let vueloDetail = JSON.parse(localStorage.getItem('detail'))
     // en items esta la info de los vuelos!
     //guardar base de datos
-    console.log(vuelo)
-   localStorage.clear('sinLog')
+  //  localStorage.clear('sinLog')
 
   }
-
   if(status === 'null') {
   swal('Algo ha salido mal!', 'Presiona el botón para volver a la página.', 'error')
     history.push('/')
@@ -38,7 +37,6 @@ function Home(props) {
     localStorage.setItem('display', display)
     return history.push('/purchase')
   }
-  console.log(display)
   // localStorage.clear('sinLog')
   return (
     <div className="p-4">
