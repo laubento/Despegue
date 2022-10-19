@@ -31,7 +31,7 @@ router.post("/user", async (req, res) => {
 router.put("/userupdate", async (req, res) => {
   try {
     let { email, name, roles, active } = req.body.user;
-    console.log(email, name, roles, active)
+
     await User.updateOne(
       { email },
       { $set: { name: name, roles: roles, active: active } }

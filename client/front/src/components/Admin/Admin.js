@@ -130,7 +130,7 @@ export default function Admin() {
                                     dispatch(offersCreate(newRow))
                                     console.log(newRow)
                                     resolve()
-                                    // window.location.reload()
+                                    window.location.reload()
                                 })
                             }}
                         />
