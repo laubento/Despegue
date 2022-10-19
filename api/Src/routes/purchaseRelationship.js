@@ -5,7 +5,7 @@ const router = Router()
 
 router.post("/purchaseComplete", async (req, res) => {
     try{
-    const {_id} = req.body.user
+    const {id} = req.body.user
     const flight = req.body.flight
     
     const history = await new History({
@@ -20,7 +20,7 @@ router.post("/purchaseComplete", async (req, res) => {
 
     })
     await history.save()
-    const user = await User.findById(_id).populate("purchaseHistory")
+    const user = await User.find({"_id:":id}).populate("purchaseHistory")
     
     await user.save()
     res.status(200).send("Succesfull Saved in User History")
