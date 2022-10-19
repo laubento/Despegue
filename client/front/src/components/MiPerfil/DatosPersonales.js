@@ -5,11 +5,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "../../Redux/Actions";
 
 export default function DatosPersonales(){
     const user = useSelector(state => state.user)
-    console.log(user)
+    const dispatch = useDispatch()
     const [active, setActive] = useState(true);
+    let today = new Date();
+    let year = today.getFullYear();
 
     function changeValue(valores) {
         let obj = {
@@ -21,13 +25,23 @@ export default function DatosPersonales(){
             phone: valores.phone ? valores.phone : user.phone, 
             id: user.id
         }
-        console.log(obj)
         axios({
             method: "PUT",
             data: obj,
             url: "/update",
-        }).then((res) => {
-            window.location.reload()
+        }).then((resObject) => {
+            const obj = {
+                name: resObject.data.name,
+                photos: resObject.data.photo ? resObject.data.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+                firstName: resObject.data.firstName,
+                lastname: resObject.data.lastname,
+                email: resObject.data.email,
+                id: resObject.data._id,
+                dni: resObject.data.dni,
+                phone: resObject.data.phone,
+                birthDate: resObject.data.birthDate
+              };
+            dispatch(storeUserInfo(obj))
         });
         
     }
@@ -55,19 +69,61 @@ export default function DatosPersonales(){
                                 validate={(valores) => {
                                     let errores = {};
 
-                                    // // Validacion nombre
-                                    // if (!valores.password) {
-                                    //     errores.password = "Por favor, introduzca una contraseña";
-                                    // }
+                                    // Validacion nombre
+                                    if (valores.name.length === 1 || valores.name.length === 2) {
+                                        errores.name = "Nombre demaciado corto";
+                                    }
+                                    else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.name)){
+                                        errores.name = "Solo se permiten letras"
+                                    }
+                                    else if(valores.name.length > 30){
+                                        errores.name = "Demaciado caracteres"
+                                    }
 
-                                    // // Validacion correo
-                                    // if (!valores.email) {
-                                    //     errores.email = "Introduzca una dirección de correo electrónico";
-                                    // } else if (
-                                    //     !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-                                    //         valores.email
-                                    //     )
-                                    // ) 
+                                    // Validacion Apellido
+                                    if (valores.lastName.length === 1 || valores.lastName.length === 2) {
+                                        errores.lastName = "Apellido demaciado corto";
+                                    }
+                                    else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)){
+                                        errores.lastName = "Solo se permiten letras"
+                                    }
+                                    else if(valores.lastName.length > 30){
+                                        errores.lastName = "Demaciado caracteres"
+                                    }
+
+                                    // Validaciones Telefono
+                                    if(!/^[ 0-9]*$/.test(valores.phone)){
+                                        errores.phone = "Solo numeros"
+                                    }
+                                    if(valores.phone.length > 20){
+                                        errores.phone = "Demaciados caracteres"
+                                    }
+                                    
+                                    // Validacion cumplenos
+                                    if(!valores.birthDate){}
+                                    else if(!/^(3[01]|[12][0-9]|0?[1-9])\/(1[0-2]|0?[1-9])\/(?:[0-9]{2})?[0-9]{2}$/.test(valores.birthDate)){
+                                        errores.birthDate = 'Ingresa una fecha valida (DD/MM/YYYY)'
+                                    }
+                                    else if(valores.birthDate.length < 10){
+                                        errores.birthDate = 'Ingresa una fecha valida (DD/MM/YYYY)'
+                                    }
+                                    else{
+                                        let comprobacion = ''
+                                        for(let i = 6; i < valores.birthDate.length; i++){
+                                            comprobacion += valores.birthDate[i]
+                                        }
+                                        if(comprobacion > year - 18){
+                                            errores.birthDate = 'Edad no valida'
+                                        }
+                                    }
+                                    
+                                    // // Validacion dni
+                                    if(!/^[ 0-9]*$/.test(valores.dni)){
+                                        errores.dni = "Solo numeros"
+                                    }
+                                    if(valores.dni.length > 8){
+                                        errores.dni = "Demaciados caracteres"
+                                    }
 
                                     return errores;
                                 }}
@@ -93,6 +149,10 @@ export default function DatosPersonales(){
                                                         disabled={active}
                                                         
                                                     />
+                                                    <ErrorMessage
+                                                        name="name"
+                                                        component={() => <div className="error">{errors.name}</div>}
+                                                    />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
                                                     <label htmlFor="lastName">Apellido</label>
@@ -103,17 +163,12 @@ export default function DatosPersonales(){
                                                         placeholder={user ? user.lastname : ''}
                                                         disabled={active}
                                                     />
+                                                    <ErrorMessage
+                                                        name="lastName"
+                                                        component={() => <div className="error">{errors.lastName}</div>}
+                                                    />
                                                 </div>
                                             </div>
-                                            <ErrorMessage
-                                                name="name"
-                                                component={() => <div className="error">{errors.name}</div>}
-                                            />
-                                            <ErrorMessage
-                                                name="lastName"
-                                                component={() => <div className="error">{errors.lastName}</div>}
-                                            />
-                        
                                             <div className="MiPerfil-Container2Input">
                                                 <div className="MiPerfil-ContainerInput">
                                                     <label htmlFor="email">Email</label>
@@ -122,7 +177,11 @@ export default function DatosPersonales(){
                                                         id="email"
                                                         name="email"
                                                         placeholder={user ? user.email : ''}
-                                                        disabled={active}
+                                                        disabled
+                                                    />
+                                                    <ErrorMessage
+                                                        name="email"
+                                                        component={() => <div className="error">{errors.email}</div>}
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -134,16 +193,12 @@ export default function DatosPersonales(){
                                                         placeholder={user ? user.phone : ''}
                                                         disabled={active}
                                                     />
+                                                    <ErrorMessage
+                                                        name="phone"
+                                                        component={() => <div className="error">{errors.phone}</div>}
+                                                    />
                                                 </div>
                                             </div>
-                                            <ErrorMessage
-                                                name="email"
-                                                component={() => <div className="error">{errors.email}</div>}
-                                            />
-                                            <ErrorMessage
-                                                name="phone"
-                                                component={() => <div className="error">{errors.phone}</div>}
-                                            />
                                             <div className="MiPerfil-Container2Input">
                                                 <div className="MiPerfil-ContainerInput">
                                                     <label htmlFor="birthDate">Fecha Nacimiento</label>
@@ -153,6 +208,10 @@ export default function DatosPersonales(){
                                                         name="birthDate"
                                                         placeholder={user ? user.birthDate : ''}
                                                         disabled={active}
+                                                    />
+                                                    <ErrorMessage
+                                                        name="birthDate"
+                                                        component={() => <div className="error">{errors.birthDate}</div>}
                                                     />
                                                 </div>
                                                 <div className="MiPerfil-ContainerInput">
@@ -164,17 +223,13 @@ export default function DatosPersonales(){
                                                         placeholder={user ? user.dni : ''}
                                                         disabled={active}
                                                     />
+                                                    <ErrorMessage
+                                                        name="dni"
+                                                        component={() => <div className="error">{errors.dni}</div>}
+                                                    />
                                                 </div>
                                             </div>
-                                            <ErrorMessage
-                                                name="dni"
-                                                component={() => <div className="error">{errors.dni}</div>}
-                                            />
-                                            <ErrorMessage
-                                                name="birthDate"
-                                                component={() => <div className="error">{errors.birthDate}</div>}
-                                            />
-                                            <button type={"submit"} class="btn btn-primary btn-sm" disabled={active}>Guardar</button>
+                                            <button type={"submit"} className="btn btn-primary btn-sm MiPerfil-sub" disabled={active}>Guardar</button>
                                         </Form>
                                     </div>
                                 )}

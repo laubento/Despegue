@@ -12,11 +12,14 @@
 .MiPerfil-containerInfoPrincipal{
     display: flex; 
     justify-content: center;
+    margin-top: 50px;
+    /* align-items: center; */
 }
 .MiPerfil-ContainerDatos{
     width: 370px;
     height: 470px;
     /* border: solid 1px black; */
+    margin-right: 30px;
 }
 .MiPerfil-containerFoto{
     max-width: 370px;
@@ -59,4 +62,10 @@
 }
 .MiPerfil-ChangeBoxActive{
     color: #3700ff;
+}
+.MiPerfil-Ofertas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
 }
