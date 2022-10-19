@@ -5,18 +5,19 @@ const { isAuthenticate } = require("./validate-session");
 const router = Router();
 
 router.post("/", isAuthenticate, async (req, res) => {
+  console.log(req.body)
   try {
     await Offers.create({
-      airport: req.body.airport,
-      airlines: req.body.airlines,
-      scales: req.body.scales,
-      arrive: req.bodyarrive,
-      departureDate: req.body.departureDate,
-      prevPrice: req.body.prevPrice,
-      price: req.body.price,
-      returnDate: req.body.returnDate,
-      from: req.body.from,
-      to: req.body.to,
+      airport: req.body.offer.airport,
+      airlines: req.body.offer.airlines,
+      scales: req.body.offer.scales,
+      arrive: req.body.offer.arrive,
+      departureDate: req.body.offer.departureDate,
+      prevPrice: req.body.offer.prevPrice,
+      price: req.body.offer.price,
+      returnDate: req.body.offer.returnDate,
+      from: req.body.offer.from,
+      to: req.body.offer.to,
     });
     res.send("Oferta creada");
   } catch (e) {

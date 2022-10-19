@@ -12,7 +12,7 @@ export default function Admin() {
 
     useEffect(e => {
         dispatch(listUsers())
-        dispatch(listOffers())
+        // dispatch(listOffers())
         setRender('chau')
     }, [dispatch])
 
@@ -57,23 +57,29 @@ export default function Admin() {
         },
         {
             title: 'Escalas',
-            field: 'scales'
+            field: 'scales',
+            type: 'numeric'
         },
         {
             title: 'Salida',
-            field: 'departureDate'
+            field: 'departureDate',
+            type: 'time'
+
         },
         {
             title: 'Llegada',
-            field: 'arrive'
+            field: 'arrive',
+            type: 'time'
         },
         {
             title: 'Precio Anterior',
-            field: 'prevPrice'
+            field: 'prevPrice',
+            type: 'currency'
         },
         {
             title: 'Precio',
-            field: 'price'
+            field: 'price',
+            type: 'currency'
         },
         {
             title: 'Regreso',
@@ -118,9 +124,13 @@ export default function Admin() {
                             title={'Lista de Ofertas'}
                             columns={columnsOffers}
                             data={offers}
+                            options={{addRowPosition: 'first', actionsColumnIndex: -1}}
                             editable={{
                                 onRowAdd:(newRow)=>new Promise((resolve, reject) =>{
-                                    
+                                    dispatch(offersCreate(newRow))
+                                    console.log(newRow)
+                                    resolve()
+                                    // window.location.reload()
                                 })
                             }}
                         />
