@@ -48,7 +48,7 @@ const User = mongoose.Schema({
   },
 
   purchaseHistory: {
-    type: mongoose.Schema.Types.ObjectId,ref:'History'
+    type: mongoose.Schema.Types.ObjectId,ref:'History',
   },
 
   email: {
