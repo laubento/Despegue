@@ -5,15 +5,24 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const index = require("./routes/index");
 const session = require("express-session");
-const passportLocal = require("passport-local").Strategy;
 const cors = require("cors");
 const passport = require("passport");
+const { auth } = require("express-openid-connect");
 require("dotenv").config();
-const { URI, USER, PASSWORD } = process.env;
 
 const app = express();
 require("./routes/login/passportConfig");
 
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.issuerBaseURL,
+    baseURL: process.env.baseURL,
+    clientID: process.env.clientID,
+    secret: process.env.secret,
+  })
+);
 app.use(
   cookieSession({
     name: "session",

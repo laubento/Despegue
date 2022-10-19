@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 // send mail with defined transport object
 let transporter = nodemailer.createTransport({
@@ -7,7 +8,7 @@ let transporter = nodemailer.createTransport({
   secure: true, // true for 465, false for other ports
   auth: {
     user: "nehuenxtreem6@gmail.com", // generated ethereal user
-    pass: "zphsvnijzrlkqfun", // generated ethereal password
+    pass: process.env.MAILERPASS, // generated ethereal password
   },
 });
 
@@ -17,7 +18,7 @@ transporter
     console.log("Listo para enviar!");
   })
   .catch();
-  
+
 /////////////////FUNC LISTA PARA ENVIAR MAILS/////////////////////////
 const infoTransporter = async (fromTitle, toList, subject, html) => {
   transporter
