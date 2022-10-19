@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const index = require("./routes/index");
 const session = require("express-session");
-const passportLocal = require("passport-local").Strategy;
 const cors = require("cors");
 const passport = require("passport");
 require("dotenv").config();

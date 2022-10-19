@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { requiresAuth } = require("express-openid-connect");
 const User = require("../../../models/user");
 
 const router = Router();
@@ -36,14 +35,14 @@ router.post("/getUser", async (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? "Logged In" : "Logged out");
-});
-router.get("/profile", requiresAuth(), (req, res) => {
-    console.log(req.oidc.user);
-    res.send(req.oidc.user);
-});
+// router.get("/", (req, res) => {
+//     res.send(req.oidc.isAuthenticated() ? "Logged In" : "Logged out");
+// });
+// router.get("/profile", requiresAuth(), (req, res) => {
+//     console.log(req.oidc.user);
+//     res.send(req.oidc.user);
+// });
 
-router.get("/lo", (req, res) => {});
+// router.get("/lo", (req, res) => {});
 
 module.exports = router;
