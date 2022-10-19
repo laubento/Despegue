@@ -9,7 +9,8 @@ import Asistencias from "../../Images/botiquin.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { ReactReduxContext, useSelector } from "react-redux";
+import React from "react";
 
 export default function NavBar() {
 
@@ -20,6 +21,8 @@ export default function NavBar() {
   let url = window.location.pathname;
 
   const user = useSelector((state) => state.user);
+
+  console.log(user);
 
   function handleSubmitLogOut() {
     window.open("http://localhost:3001/auth/logout", "_self");
@@ -76,14 +79,14 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <li style={{cursor:"pointer"}} onClick={() => loginWithRedirect()} className="NavBar-IniciarSesion">
+            <li style={{cursor:"pointer"}} className="NavBar-IniciarSesion">
               {!user ? (
-                <>
+                <b onClick={() => loginWithRedirect()}>
                 {/* <Link to={"/login"}> */}
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
                 {/* </Link> */}
-                </>
+                </b>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/"}>
                   <img alt="ventas" src={Persona} />

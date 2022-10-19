@@ -24,6 +24,9 @@ const auth = require("./login/auth");
 const adminUsers = require("./admin/users");
 const offers = require("./admin/offers");
 
+const auth0 = require('./login/auth0')
+router.use('/auth0', auth0)
+
 router.use("/auth", auth);
 router.use("/login", login);
 router.use("/register", register);
