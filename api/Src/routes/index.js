@@ -38,8 +38,7 @@ router.use("/admin/offers", offers);
 const searchByName = require("./searchByName/getAirportsByName.js");
 router.use("/searchByName", searchByName);
 
-const searchByName = require('./searchByName/getAirportsByName.js')
-router.use("/searchByName", searchByName)
+
 //History & Purchase
 const users = require("../routes/purchaseRelationship")
 const getHistory = require("../routes/historyGet")

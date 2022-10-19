@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function MiPerfil() {
   const user = useSelector((state) => state.user);
-    
+    console.log(user)
     let url = window.location.pathname
     function enviar() {
 
@@ -24,7 +24,7 @@ export default function MiPerfil() {
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.firstName.toUpperCase() : null}</h3>
-                            <h3>{user ? user.lastname.toUpperCase() : null}</h3>
+                           {user ? <h3>{user.lastname ? user.lastname.toUpperCase() : null}</h3> : null}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">
