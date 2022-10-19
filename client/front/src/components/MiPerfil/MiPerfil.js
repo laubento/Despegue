@@ -7,8 +7,6 @@ import { useSelector } from "react-redux";
 
 export default function MiPerfil() {
   const user = useSelector((state) => state.user);
-
-    const user = useSelector(state => state.user)
     
     let url = window.location.pathname
     function enviar() {
