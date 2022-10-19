@@ -13,16 +13,16 @@ require("dotenv").config();
 const app = express();
 require("./routes/login/passportConfig");
 
-app.use(
-  auth({
-    authRequired: false,
-    auth0Logout: true,
-    issuerBaseURL: process.env.issuerBaseURL,
-    baseURL: process.env.baseURL,
-    clientID: process.env.clientID,
-    secret: process.env.secret,
-  })
-);
+// app.use(
+//   auth({
+//     authRequired: false,
+//     auth0Logout: true,
+//     issuerBaseURL: process.env.issuerBaseURL,
+//     baseURL: process.env.baseURL,
+//     clientID: process.env.clientID,
+//     secret: process.env.secret,
+//   })
+// );
 app.use(
   cookieSession({
     name: "session",
