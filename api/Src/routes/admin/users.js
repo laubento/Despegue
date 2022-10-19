@@ -3,7 +3,7 @@ const User = require("../../../models/user");
 const router = Router();
 const { isAuthenticate } = require("./validate-session");
 
-router.get("/users", isAuthenticate, async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     let users = await User.find({});
     res.send(users);
@@ -15,11 +15,11 @@ router.get("/users", isAuthenticate, async (req, res) => {
 router.post("/user", async (req, res) => {
   try {
     if (req.body.email) {
-      let user = User.findOne({ email: req.body.email });
+      let user = await User.findOne({ email: req.body.email });
       return res.send(user);
     }
     if (req.body.name) {
-      let user = User.findOne({ email: req.body.name });
+      let user = await User.findOne({ email: req.body.name });
       return res.send(user);
     }
     res.send("Este usuario no existe");

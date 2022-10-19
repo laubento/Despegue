@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const passport = require("passport");
+require("dotenv").config()
 
-const CLIENT_URL = "http://localhost:3000/";
+const CLIENT_URL = "http://localhost:3000/"
 
 router.get("/login/success", (req, res) => {
+    console.log(res.user);
   if (req.user) {
     res.status(200).send({
       success: true,
@@ -27,15 +29,16 @@ router.get("/logout", (req, res) => {
   res.redirect(CLIENT_URL);
 });
 
-router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+router.get("/google", passport.authenticate("google", { scope: ["profile",'email'] }));
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: CLIENT_URL,
-    failureRedirect: "/login/failed",
-  })
-);
+  passport.authenticate("google", { failureRedirect: "/login/failed" }), 
+  (req, res) => {
+      res.redirect(CLIENT_URL)
+    }
+)
+
 router.get(
   "/facebook",
   passport.authenticate("facebook", { scope: ["profile"] })
