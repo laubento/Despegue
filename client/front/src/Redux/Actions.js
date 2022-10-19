@@ -8,6 +8,8 @@ export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 export const STORE_USER_INFO = "STORE_USER_INFO"
 export const BUY_FLIGHTS = "BUY_FLIGHTS"
+export const USERS_LIST = "USERS_LIST"
+
  
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -86,5 +88,18 @@ export const storeFlightsToBuy = (flights) => {
 export const storePurchase = (user, flight) => {
     return async function(){
         await axios.post(`http://localhost:3001/purchaseComplete`)
+    }
+}
+
+export function listUsers () {
+    return async function(dispatch){
+        let response = await axios.get(`http://localhost:3001/admin/users`)
+        return dispatch({type: USERS_LIST, payload: response.data})
+    }
+}
+
+export const updateUser = (user) => {
+    return async function(){
+        await axios.put(`http://localhost:3001/admin/userupdate`,{user})
     }
 }

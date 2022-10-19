@@ -15,6 +15,7 @@ import  MiPerfil  from "./components/MiPerfil/MiPerfil";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import { useState } from "react";
+import Admin from "./components/Admin/Admin";
 
 function App() {
     const dispatch = useDispatch()
@@ -70,6 +71,7 @@ function App() {
           render={() => <Register />}
         />
         <Route exact path="/flights" component={Flights} />
+        <Route exact path="/admin" component={Admin} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
