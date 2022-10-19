@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 // import Card from "./components/Card/Card.js";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
@@ -67,21 +67,27 @@ function App() {
 
 const {user} = useAuth0()
 
-// console.log(user);
-    useEffect(() => {
-        if(user){
+// const history = useHistory()
 
-            const user2 = {
-                // name: user.name,
-                firstName: user.family_name,
-                lastName: user.given_name,
-                email: user.email,
-                photo: user.picture,
-                id: user.sub.split('|')[1]
-            }
-        }
-        dispatch(storeUserInfo(user2))
-    },[user])
+// useEffect(() => {
+//     history.
+
+// },[history])
+
+//     useEffect(() => {
+//         if(user){
+
+//             const user2 = {
+//                 // name: user.name,
+//                 firstName: user.family_name,
+//                 lastName: user.given_name,
+//                 email: user.email,
+//                 photo: user.picture,
+//                 id: user.sub.split('|')[1]
+//             }
+//         }
+//         dispatch(storeUserInfo(user2))
+//     },[user])
 
 
 
