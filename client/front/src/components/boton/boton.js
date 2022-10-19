@@ -1,17 +1,17 @@
-import axios from "axios";
+// import axios from "axios";
 
-const Boton = () => {
+// const Boton = () => {
 
-    const a = () => {
-        axios.get('/auth/login/success')
-        .then((res) => {
-            console.log(res.data);
-        })
-    }
+//     const a = () => {
+//         axios.get('/auth/login/success')
+//         .then((res) => {
+//             console.log(res.data);
+//         })
+//     }
 
-    return (
-        <button onClick={a}>dsadasd</button>
-    );
-}
+//     return (
+//         <button onClick={a}>dsadasd</button>
+//     );
+// }
  
-export default Boton;
+// export default Boton;

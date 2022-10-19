@@ -113,9 +113,9 @@ function App() {
             <BrowserRouter>
                 <Route path={"/"} render={() => <NavBar />} />
                 <Route exact path='/' component={Home} />
-                <Route exact path='/login' render={() => <Login />} />
+                {/* <Route exact path='/login' render={() => <Login />} /> */}
                 <Route path='/user' render={() => <MiPerfil />} />
-                <Route exact path={"/register"} render={() => <Register />} />
+                {/* <Route exact path={"/register"} render={() => <Register />} /> */}
                 <Route exact path='/flights' component={Flights} />
                 <Route exact path='/flightSearch' component={FlightsSearch} />
                 <Route
@@ -125,7 +125,6 @@ function App() {
                 />
                 <Route path='/' component={Footer} />
                 <Route path='/purchase' render={() => <Checkout />} />
-                <Route path='/d' render={() => <LogInButton />} />
             </BrowserRouter>
         </div>
     );
