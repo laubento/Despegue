@@ -4,6 +4,7 @@ import style from "./Checkout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { storePurchase } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
@@ -27,6 +28,7 @@ export default function Checkout() {
     };
     const onApprove = (data, actions) => {
         // dispatch(storePurchase(user, flight))
+        axios.post('/users/purchaseComplete',{user, flight})
         history.push('/')
         alert("Transaccion completada");
         // console.log(actions.order.capture());
