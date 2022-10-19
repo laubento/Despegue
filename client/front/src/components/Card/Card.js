@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { filterFlightById } from "../../Redux/Actions";
+import { filterFlightById, getPayment, getPaymentInfo } from "../../Redux/Actions";
 import '../styles/Card.css'
 
 function Card({
@@ -13,13 +13,58 @@ function Card({
   stopoversCount,
   price
 }) {
-
   const dispatch = useDispatch();
-  const handleClick = (e) => {
+  let exactprice = Number(price)
+  // const [prueba, setPrueba] = useState({
+  //   body: {
+  //     payer_email : "test_user_47008967@testuser.com",
+  //         items:[
+  //             {
+  //                 title: 'vuelo',
+  //                 description:'Description',
+  //                 picture_url: "http://www.myapp.com/myimage.jpg",
+  //                 category_id:"category123",
+  //                 quantity: 1,
+  //                 unit_price: exactprice
+  //             }
+  //         ],
+  //         back_urls : {
+  //             failure: "http://localhost:3000",
+  //             pending: "http://localhost:3000",
+  //             success: "http://localhost:3000"
+  //         },
+  //         notification_url: "https://www.your-site.com/ipn"
+  //   }
+  // })
+  const handleClick = async (e) => {
     dispatch(filterFlightById(id))
-
+    const prueba = {
+      body: {
+        payer_email : "test_user_47008967@testuser.com",
+            items:[
+                {
+                    title: airlinesName.map(e => e + ' ').join('') ,
+                    description:'Description',
+                    picture_url: "http://www.myapp.com/myimage.jpg",
+                    category_id:"category123",
+                    quantity: 1,
+                    unit_price: exactprice
+                }
+            ],
+            back_urls : {
+                failure: "http://localhost:3000",
+                pending: "http://localhost:3000",
+                success: "http://localhost:3000"
+            },
+            notification_url: "https://www.your-site.com/ipn"
+      }
+    }
+    console.log(prueba)
+    dispatch(getPayment(prueba))
+    dispatch(getPaymentInfo(prueba))
   }
-  
+
+  console.log(price)
   return (
     <div className="card-div row ">
       <div className="card-border-right col text-center">

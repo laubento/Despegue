@@ -11,8 +11,11 @@ const PaymentInstace = new PaymenController(new PaymentService())
 // para generar links de pago esto debe ser un router.post
 
 
-router.get('/payment', async function(req, res, next) {
-    PaymentInstace.getPaymentLink(req,res)
+router.post('/payment', function(req, res, next) {
+    const {bodyx} = req.body
+    console.log(req.body)
+    PaymentInstace.getPaymentLink(req.body.body,res)
+
 });
 
 

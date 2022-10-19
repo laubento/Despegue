@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import style from "./Checkout.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { storePurchase } from "../../Redux/Actions";
+import { getPaymentInfo, storePurchase } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom";
+import mp from '../../Images/mercadopago.png'
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
-    const dispatch = useDispatch();
     const history = useHistory()
 
     const user = useSelector((state) => state.user);
     const flight = useSelector((state) => state.flightDetail);
-
-
+    const payment = useSelector(state => state.getPayment)
+    const handlePayment = (e) => {
+        e.preventDefault();
+        let link = {}
+        payment.map(e => {
+          link.init_point = e.init_point
+        })
+        localStorage.setItem('payment', payment[0])
+        window.location.href = link.init_point
+      }
+    console.log(payment)
     const createOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [
@@ -40,9 +49,18 @@ export default function Checkout() {
         history.push('/')
         alert("Ha ocurrido un error con la compra");
     };
+
     return (
+
+        
         <div className={style.box}>
+
             <div className={style.wrapper}>
+            <div  className={style.btnmp}>
+            <button className={style.btnlink} onClick={(e) => handlePayment(e)} > 
+            <img src={mp} className={style.btnimg} /> 
+            </button>
+            </div>
                 <PayPalButton
                     createOrder={(data, actions) => createOrder(data, actions)}
                     onApprove={(data, actions) => onApprove(data, actions)}

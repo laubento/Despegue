@@ -68,6 +68,7 @@ const nextHandler = (e) => {
         {
           flights.length !==  0 ? 
           currentFlights.map((e,i) => {
+            console.log(e.price)
             return(
               <div key={i} className='d-flex justify-content-center'>
               <Card 

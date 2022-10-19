@@ -88,3 +88,18 @@ export const storePurchase = (user, flight) => {
         await axios.post(`http://localhost:3001/purchaseComplete`)
     }
 }
+
+export const getPayment = (body) => {
+    console.log(body)
+    return async function(dispatch){
+        const response = await axios.post(`http://localhost:3001/mercadopago/payment`, body)
+        return dispatch({type: "GET_PAYMENT", payload: response.data })
+    }
+}
+
+export const getPaymentInfo = (info) => {
+    return {
+        type : "GET_PAYMENT_INFO",
+        payload : info
+    }
+}
