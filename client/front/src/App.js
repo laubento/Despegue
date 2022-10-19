@@ -18,7 +18,7 @@ import axios from "axios";
 
 function App() {
     const dispatch = useDispatch()
-    // useEffect(() => {
+    useEffect(() => {
     //     const getUser = () => {
     //         axios({
     //             method: "GET",
@@ -46,12 +46,12 @@ function App() {
     //         });
     //     };
     //     getUser();
-    //   }, [dispatch]);
+        const user = window.location.href = "http://localhost:3001/auth/google" 
+        console.log(user);
+      }, [dispatch]);
 
 
-    const user = window.location.href = "http://localhost:3001/auth/google" 
 
-    console.log(user);
 
   return (
     <div className="App">
