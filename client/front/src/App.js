@@ -20,47 +20,59 @@ import axios from "axios";
 
 function App() {
     const dispatch = useDispatch()
-  useEffect(() => {
-    const getUser = () => {
-      fetch("http://localhost:3001/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          axios({
-            method: "POST",
-            data: {id: resObject.user._id},
-            url: "/update",
-        }).then((data) => {
-          const obj = {
-            name: data.data.name,
-            photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-            firstName: data.data.firstName,
-            lastname: data.data.lastname,
-            email: data.data.email,
-            id: data.data._id,
-            dni: data.data.dni,
-            phone: data.data.phone,
-            birthDate: data.data.birthDate
-          };
-          dispatch(storeUserInfo(obj))
-        })
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, [dispatch]);
+//   useEffect(() => {
+//     const getUser = () => {
+//       fetch("http://localhost:3001/auth/login/success", {
+//         method: "GET",
+//         credentials: "include",
+//         headers: {
+//           Accept: "application/json",
+//           "Content-Type": "application/json",
+//           "Access-Control-Allow-Credentials": true,
+//         },
+//       })
+//         .then((response) => {
+//           if (response.status === 200) return response.json();
+//           throw new Error("authentication has been failed!");
+//         })
+//         .then((resObject) => {
+//           axios({
+//             method: "POST",
+//             data: {id: resObject.user._id},
+//             url: "/update",
+//         }).then((data) => {
+//           const obj = {
+//             name: data.data.name,
+//             photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+//             firstName: data.data.firstName,
+//             lastname: data.data.lastname,
+//             email: data.data.email,
+//             id: data.data._id,
+//             dni: data.data.dni,
+//             phone: data.data.phone,
+//             birthDate: data.data.birthDate
+//           };
+//           dispatch(storeUserInfo(obj))
+//         })
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//         });
+//     };
+//     getUser();
+//   }, [dispatch]);
+
+
+useEffect(() => {
+    axios.get('/auth0/profile')
+    .then((response) => {
+        if(response.status == 200) return response.data
+    })
+    .then((response) => {
+        console.log(response);
+    })
+},[])
+
 
   return (
     <div className="App">

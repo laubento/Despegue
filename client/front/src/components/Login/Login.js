@@ -24,19 +24,34 @@ const Login = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-  function login(valores) {
+  async function login(valores) {
+
     // axios({
     //   method: "POST",
     //   data: valores,
     //   withCredentials: true,
     //   url: "/login",
     // }).then((res) => {
-    //   window.location.reload();
-    // });
-    const domain = process.env.REACT_APP_AUTH0_DOMAIN
-    const audience = process.env.REACT_APP_
-    
+        //   window.location.reload();
+        // });
 
+
+
+    // const domain = process.env.REACT_APP_AUTH0_DOMAIN
+    // const audience = process.env.REACT_APP_AUDIENCE
+    // const scope = "read:despegue"
+    // const clientId = process.env.REACT_APP_CLIENT_ID
+    // const responseType = 'code'
+    // const redirectUri = process.env.REACT_APP_VERCEL_LINK || "http://localhost:3000"
+
+    // const response = axios.get(
+    //     `https://${domain}/authorize?` + 
+    //     `audience=${audience}&` + 
+    //     `scope=${scope}&` + 
+    //     `response_type=${responseType}&` +
+    //     `client_id=${clientId}&` +
+    //     `redirect_uri=${redirectUri} `
+    // )
   }
 
   return (

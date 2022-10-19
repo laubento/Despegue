@@ -72,10 +72,12 @@ export default function NavBar() {
 
             <li className="NavBar-IniciarSesion">
               {!user ? (
-                <Link to={"/login"}>
+                <>
+                {/* <Link to={"/login"}> */}
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
-                </Link>
+                {/* </Link> */}
+                </>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/"}>
                   <img alt="ventas" src={Persona} />
