@@ -11,56 +11,79 @@ import Checkout from './components/Checkout/Checkout'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
+import LogInButton from "./components/Login auth0/LogInAuth0";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 
 import { useState } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
     const dispatch = useDispatch()
-  useEffect(() => {
-    const getUser = () => {
-      fetch("http://localhost:3001/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          axios({
-            method: "POST",
-            data: {id: resObject.user._id},
-            url: "/update",
-        }).then((data) => {
-          const obj = {
-            name: data.data.name,
-            photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-            firstName: data.data.firstName,
-            lastname: data.data.lastname,
-            email: data.data.email,
-            id: data.data._id,
-            dni: data.data.dni,
-            phone: data.data.phone,
-            birthDate: data.data.birthDate
-          };
-          dispatch(storeUserInfo(obj))
-        })
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, [dispatch]);
+//   useEffect(() => {
+//     const getUser = () => {
+//       fetch("http://localhost:3001/auth/login/success", {
+//         method: "GET",
+//         credentials: "include",
+//         headers: {
+//           Accept: "application/json",
+//           "Content-Type": "application/json",
+//           "Access-Control-Allow-Credentials": true,
+//         },
+//       })
+//         .then((response) => {
+//           if (response.status === 200) return response.json();
+//           throw new Error("authentication has been failed!");
+//         })
+//         .then((resObject) => {
+//           axios({
+//             method: "POST",
+//             data: {id: resObject.user._id},
+//             url: "/update",
+//         }).then((data) => {
+//           const obj = {
+//             name: data.data.name,
+//             photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
+//             firstName: data.data.firstName,
+//             lastname: data.data.lastname,
+//             email: data.data.email,
+//             id: data.data._id,
+//             dni: data.data.dni,
+//             phone: data.data.phone,
+//             birthDate: data.data.birthDate
+//           };
+//           dispatch(storeUserInfo(obj))
+//         })
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//         });
+//     };
+//     getUser();
+//   }, [dispatch]);
+
+
+const {user} = useAuth0()
+
+// console.log(user);
+    useEffect(() => {
+        if(user){
+
+            const user2 = {
+                // name: user.name,
+                firstName: user.family_name,
+                lastName: user.given_name,
+                email: user.email,
+                photo: user.picture,
+                id: user.sub.split('|')[1]
+            }
+        }
+        dispatch(storeUserInfo(user2))
+    },[user])
+
+
 
   return (
     <div className="App">
@@ -79,6 +102,7 @@ function App() {
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout/>} />
+        <Route path='/d' render={() => <LogInButton/>}/>
       </BrowserRouter>
     </div>
   );

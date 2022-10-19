@@ -6,11 +6,17 @@ import Ayuda from "../../Images/boton-web-de-ayuda.png";
 import Valija from "../../Images/valija.png";
 import Ofertas from "../../Images/fuego.png";
 import Asistencias from "../../Images/botiquin.png";
+import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function NavBar() {
+
+    const { loginWithRedirect } = useAuth0()
+    const { logout } = useAuth0()
+
+
   let url = window.location.pathname;
 
   const user = useSelector((state) => state.user);
@@ -70,12 +76,14 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <li className="NavBar-IniciarSesion">
+            <li style={{cursor:"pointer"}} onClick={() => loginWithRedirect()} className="NavBar-IniciarSesion">
               {!user ? (
-                <Link to={"/login"}>
+                <>
+                {/* <Link to={"/login"}> */}
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
-                </Link>
+                {/* </Link> */}
+                </>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/"}>
                   <img alt="ventas" src={Persona} />
@@ -99,7 +107,7 @@ export default function NavBar() {
                       </Link>
                       <hr />
                       <button
-                        onClick={handleSubmitLogOut}
+                        onClick={() => logout({ returnTo: window.location.origin})}
                         className="Login-DesplegableBoton"
                       >
                         Cerrar sesion
