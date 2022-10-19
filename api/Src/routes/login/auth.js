@@ -32,11 +32,12 @@ router.get("/google", passport.authenticate("google", { scope: ["profile",'email
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: CLIENT_URL,
-    failureRedirect: "/login/failed",
-  })
-);
+  passport.authenticate("google", { failureRedirect: "/login/failed" }), 
+  (req, res) => {
+      res.redirect(CLIENT_URL)
+    }
+)
+
 router.get(
   "/facebook",
   passport.authenticate("facebook", { scope: ["profile"] })

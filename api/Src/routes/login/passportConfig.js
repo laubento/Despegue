@@ -17,7 +17,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://despegue.herokuapp.com/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       // Busco en la DB si el usuario existe
