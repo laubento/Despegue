@@ -25,14 +25,18 @@ const Login = () => {
   };
 
   function login(valores) {
-    axios({
-      method: "POST",
-      data: valores,
-      withCredentials: true,
-      url: "/login",
-    }).then((res) => {
-      window.location.reload();
-    });
+    // axios({
+    //   method: "POST",
+    //   data: valores,
+    //   withCredentials: true,
+    //   url: "/login",
+    // }).then((res) => {
+    //   window.location.reload();
+    // });
+    const domain = process.env.REACT_APP_AUTH0_DOMAIN
+    const audience = process.env.REACT_APP_
+    
+
   }
 
   return (
