@@ -14,13 +14,12 @@ const { URI, USER, PASSWORD } = process.env;
 const app = express();
 require("./routes/login/passportConfig");
 
-console.log(process.env.VERCEL_URL);
+// console.log(process.env.VERCEL_URL);
 
 app.use(
     cors({
-        origin: process.env.VERCEL_URL || "http://localhost:3000", // <-- location of the react app were connecting to
+        origin: "https://despegue.vercel.app/", // <-- location of the react app were connecting to
         methods: "GET,POST,PUT,DELETE",
-        credentials: true,
         allowedHeaders: "Content-Type, Authorization"
     })
 );
