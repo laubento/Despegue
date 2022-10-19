@@ -48,19 +48,18 @@ app.use(cors())
 //   next();
 // });
 
-// app.use(
-//   cors({
-//     origin: "https://localhost:3000",
-//     credentials: true,
-//   })
-// );
-// app.use(
-//   session({
-//     secret: "secretcode",
-//     resave: true,
-//     saveUninitialized: false,
-//   })
-// );
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+app.use(
+  session({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -86,22 +85,23 @@ app.use(passport.session());
 
 // app.use(cors(corsOptions))
 
-app.use(
-  cors({
-    origin: ['https://despegue.vercel.app','https://despegue.vercel.app/','http://localhost:3000'], // <-- location of the react app were connecting to
-    methods: "GET,POST,PUT,DELETE,UPDATE,PATCH",
-  })
-);
-app.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-app.use(cookieParser("secretcode"));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(
+//   cors({
+//     origin: ['https://despegue.vercel.app','https://despegue.vercel.app/','http://localhost:3000'], // <-- location of the react app were connecting to
+//     methods: "GET,POST,PUT,DELETE,UPDATE,PATCH",
+//   })
+// );
+// app.use(
+//   session({
+//     secret: "secretcode",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
+
+// app.use(cookieParser("secretcode"));
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use("/", index);
 
 app.use((err, req, res, next) => {

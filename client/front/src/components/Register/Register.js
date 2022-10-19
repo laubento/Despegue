@@ -26,7 +26,7 @@ const Register = ({user}) => {
        axios({
       method: "POST",
       data: valores,
-      withCredentials: true,
+    //   withCredentials: true,
       url: "/register",
     })
       .then((res) => {

@@ -5,6 +5,7 @@ require("dotenv").config()
 const CLIENT_URL = "https://despegue.vercel.app/"
 
 router.get("/login/success", (req, res) => {
+    console.log(res.user);
   if (req.user) {
     res.status(200).send({
       success: true,

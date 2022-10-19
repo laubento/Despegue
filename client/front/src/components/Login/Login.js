@@ -29,7 +29,7 @@ const Login = () => {
     axios({
       method: "POST",
       data: valores,
-      withCredentials: true,
+    //   withCredentials: true,
       url: "/login",
     }).then((res) => {
       window.location.reload()

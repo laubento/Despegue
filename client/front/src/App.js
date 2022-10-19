@@ -20,10 +20,7 @@ function App() {
     const dispatch = useDispatch()
     useEffect(() => {
         const getUser = () => {
-            axios({
-                method: "GET",
-                url: "/auth/login/success",
-                })
+            axios.get('/auth/login/success')
             .then((response) => {
               if (response.status === 200) return response.data;
               throw new Error("authentication has been failed!");
