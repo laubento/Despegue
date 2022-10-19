@@ -22,7 +22,6 @@ function App() {
         const getUser = () => {
             axios({
                 method: "GET",
-                withCredentials: true,
                 url: "/auth/login/success",
                 })
             .then((response) => {
