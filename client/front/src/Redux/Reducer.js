@@ -1,5 +1,7 @@
 import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS } from "./Actions";
 
+import jsonData from '../data.js'
+
 const initialState = {
     // flights: flightExample,
     flights: [],
@@ -23,8 +25,8 @@ export default function reducer(state = initialState, action) {
         case GET_FLIGHTS:
             return {
                 ...state,
-                flights: action.payload,
-                allFlights: action.payload,
+                flights: jsonData,
+                allFlights: jsonData,
             };
         case CLEAR_FLIGHTS:
             return {

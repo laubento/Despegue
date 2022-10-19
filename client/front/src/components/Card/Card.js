@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { filterFlightById, getPayment, getPaymentInfo } from "../../Redux/Actions";
 import '../styles/Card.css'
@@ -15,7 +15,7 @@ function Card({
 }) {
   const dispatch = useDispatch();
   let exactprice = Number(price)
-  
+  const payment = useSelector(state => state.getPayment)
   const handleClick = async (e) => {
     dispatch(filterFlightById(id))
     const infoPago = {
@@ -30,14 +30,6 @@ function Card({
                     category_id:"category123",
                     quantity: 1,
                     unit_price: exactprice
-                },
-                {
-                  title: airlinesName.map(e => e + ' ').join('') ,
-                  description:'Description',
-                  picture_url: "http://www.myapp.com/myimage.jpg",
-                  category_id:"category123",
-                  quantity: 1,
-                  unit_price: 1000
                 }
             ],
             back_urls : {
@@ -55,7 +47,8 @@ function Card({
             notification_url: "https://www.your-site.com/ipn"
       }
     }
-    dispatch(getPayment(infoPago))
+    await dispatch(getPayment(infoPago))
+    await localStorage.setItem('infoCompra', JSON.stringify(payment))
   }
 
   console.log(price)

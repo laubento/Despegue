@@ -9,19 +9,42 @@ import mp from '../../Images/mercadopago.png'
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
+    
     const history = useHistory()
-
     const user = useSelector((state) => state.user);
     const flight = useSelector((state) => state.flightDetail);
     const payment = useSelector(state => state.getPayment)
-    const handlePayment = (e) => {
+    let sinLog;
+    console.log(user)
+    const handlePayment = async (e) => {
         e.preventDefault();
-        let link = {}
-        payment.map(e => {
-          link.init_point = e.init_point
-        })
+        if(user !== null){
+            sinLog = false
+             localStorage.setItem('sinLog', sinLog)
+            console.log(payment)
+            if(payment.length === 0){
+                let infoCompra = JSON.parse(localStorage.getItem('init_point'))
+                console.log(infoCompra)
+                let link = {}
+                infoCompra.map(e => {
+                    link.init_point = e.init_point
+                })
+                return  window.location.href = link.init_point
+            }
+            console.log(payment)
+            let link = {}
+            payment.map(e => {
+              link.init_point = e.init_point
+            })
+            localStorage.setItem('detail', JSON.stringify(flight))
+            return  window.location.href = link.init_point
+        }
+        await swal('Necesitas estar logueado para comprar', '', 'error')
+        sinLog = true
+        localStorage.setItem('init_point', JSON.stringify(payment))
         localStorage.setItem('detail', JSON.stringify(flight))
-        window.location.href = link.init_point
+        localStorage.setItem('sinLog', sinLog)
+        return history.push('/login')
       }
       
     console.log(payment)
