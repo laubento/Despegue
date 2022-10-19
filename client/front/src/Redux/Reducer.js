@@ -11,7 +11,6 @@ const initialState = {
     user: null,
     flightsToBuy: [],
     getPayment: [],
-    getPaymentInfo: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -127,11 +126,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 getPayment: [action.payload]
             }
-        case  "GET_PAYMENT_INFO":
-            return {
-                ...state,
-                getPaymentInfo: [...state.getPaymentInfo, action.payload]
-            }
+
         default:
             return state;
     }

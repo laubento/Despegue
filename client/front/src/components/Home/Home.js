@@ -1,63 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { getPaymentInfo } from "../../Redux/Actions";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
-
+import swal from 'sweetalert'
 // se usa info de momento
 
 function Home(props) {
-  // const [searchParams, setSearchParams] = useSearchParams();
   // searchParams.get("__firebase_request_key")
-  const dispatch = useDispatch()
   const history = useHistory()
   const query = new URLSearchParams(props.location.search);
-  const vueloToSave = useSelector(state => state.getPaymentInfo)
   const status = query.get('status')
-  // useEffect(() => {
-  //   dispatch(getPaymentInfo('hola'))
-  // })
-  console.log(vueloToSave)
+  //binarymode
   if(status === 'approved' ) {
-    alert('approved')
+  swal('Felicidades!', 'Has realizado una compra.', 'success')
     history.push('/')
     //info del vuelo
-    let vuelo = localStorage.getItem('payment')
+    let vuelo = JSON.parse(localStorage.getItem('detail'))
     // en items esta la info de los vuelos!
-    // let real = JSON.stringify(vuelo)
+    //guardar base de datos
     console.log(vuelo)
+
   }
-  if(status === 'pending') {
-    alert('pending')
-    history.push('/')
-  }
+
   if(status === 'null') {
-    alert('failure')
+  swal('Algo ha salido mal!', 'Presiona el botón para volver a la página.', 'error')
     history.push('/')
     // si el pago sale mal no guardo nada y borro lo que se guardo en local storage!
     localStorage.clear('payment')
   }
-  console.log(localStorage.getItem('payment'))
-  /*prueba localStorage */
 
-  // const [input , setInput] = useState('')
-
-  // const handleChange = (e) => {
-  //   setInput(e.target.value)
-  // }
-
-  // const handleClick = (e) => {
-  //   e.preventDefault()
-  //   localStorage.setItem('nombre', input)
-  // }
-
-  // const handleName = (e) => {
-  //   e.preventDefault()
-  //   console.log(localStorage.getItem('nombre'))
-  // }
   // localStorage.clear('payment')
-  // console.log(localStorage)
-
   return (
     <div className="p-4">
       <FlightsSearch />

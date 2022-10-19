@@ -15,32 +15,13 @@ function Card({
 }) {
   const dispatch = useDispatch();
   let exactprice = Number(price)
-  // const [prueba, setPrueba] = useState({
-  //   body: {
-  //     payer_email : "test_user_47008967@testuser.com",
-  //         items:[
-  //             {
-  //                 title: 'vuelo',
-  //                 description:'Description',
-  //                 picture_url: "http://www.myapp.com/myimage.jpg",
-  //                 category_id:"category123",
-  //                 quantity: 1,
-  //                 unit_price: exactprice
-  //             }
-  //         ],
-  //         back_urls : {
-  //             failure: "http://localhost:3000",
-  //             pending: "http://localhost:3000",
-  //             success: "http://localhost:3000"
-  //         },
-  //         notification_url: "https://www.your-site.com/ipn"
-  //   }
-  // })
+  
   const handleClick = async (e) => {
     dispatch(filterFlightById(id))
-    const prueba = {
+    const infoPago = {
       body: {
         payer_email : "test_user_47008967@testuser.com",
+        "purpose": "wallet_purchase",
             items:[
                 {
                     title: airlinesName.map(e => e + ' ').join('') ,
@@ -49,19 +30,32 @@ function Card({
                     category_id:"category123",
                     quantity: 1,
                     unit_price: exactprice
+                },
+                {
+                  title: airlinesName.map(e => e + ' ').join('') ,
+                  description:'Description',
+                  picture_url: "http://www.myapp.com/myimage.jpg",
+                  category_id:"category123",
+                  quantity: 1,
+                  unit_price: 1000
                 }
             ],
             back_urls : {
                 failure: "http://localhost:3000",
-                pending: "http://localhost:3000",
-                success: "http://localhost:3000"
+                success: "http://localhost:3000",
             },
+            "payment_methods": {
+              "excluded_payment_types": [
+                  {
+                      "id": "ticket"
+                  }
+              ],
+              "installments": 12
+          },
             notification_url: "https://www.your-site.com/ipn"
       }
     }
-    console.log(prueba)
-    dispatch(getPayment(prueba))
-    dispatch(getPaymentInfo(prueba))
+    dispatch(getPayment(infoPago))
   }
 
   console.log(price)

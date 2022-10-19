@@ -97,9 +97,3 @@ export const getPayment = (body) => {
     }
 }
 
-export const getPaymentInfo = (info) => {
-    return {
-        type : "GET_PAYMENT_INFO",
-        payload : info
-    }
-}
