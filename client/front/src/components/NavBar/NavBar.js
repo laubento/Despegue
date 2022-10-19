@@ -70,7 +70,7 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <li className="NavBar-IniciarSesion">
+            <li onClick={window.open('http://localhost:3001/login', '_self')} className="NavBar-IniciarSesion">
               {!user ? (
                 <>
                 {/* <Link to={"/login"}> */}
