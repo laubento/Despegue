@@ -9,7 +9,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import dotenv from "dotenv";
 dotenv.config();
 
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = process.env.REACT_APP_HEROKU_URL || "http://localhost:3001";
 
 ReactDOM.render(
     <Provider store={store}>
