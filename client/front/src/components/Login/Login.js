@@ -22,14 +22,14 @@ const Login = () => {
 
 
   const google = () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open("https://despegue.herokuapp.com/auth/google", "_self");
   };
 
   function login(valores){
     axios({
       method: "POST",
       data: valores,
-      withCredentials: true,
+    //   withCredentials: true,
       url: "/login",
     }).then((res) => {
       window.location.reload()

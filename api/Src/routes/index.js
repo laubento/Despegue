@@ -47,4 +47,8 @@ router.use("/update", update)
 
 
 
+const users = require("./purchaseRelationship")
+router.use("/users", users)
+
+
 module.exports = router;
