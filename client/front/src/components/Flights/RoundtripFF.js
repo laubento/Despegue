@@ -16,8 +16,9 @@ let number = 1
 function RoundtripFF() {
 
   // global states
+  let apiResponse = useSelector(state => state.allFlights);
   let flights = useSelector((state) => state.firstFlights);
-  let allFlights = useSelector((state) => state.firstFlights);
+  let allFlights = useSelector((state) => state.allFlights);
 
   // local states
   const [orden, setOrden] = useState('')
@@ -44,7 +45,7 @@ function RoundtripFF() {
     dispatch(getRoundTripFF())
     dispatch(getRoundTripSF())
     dispatch(onFirstFlightRoute());
-  }, [dispatch])
+  }, [dispatch, apiResponse])
 
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");

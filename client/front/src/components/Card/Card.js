@@ -9,8 +9,6 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
   const dispatch = useDispatch();
   const flightDetail = useSelector((state) => state.flightDetail);
   const history = useHistory();
-  let exactprice = Number(price)
-  
   const handleClick = async (e) => {
     
     dispatch(filterFlightById(id))
@@ -21,7 +19,7 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
       history.push('/flights/roundtrip/cart');
     }
   }
-
+  console.log(going)
   return (
     <div className="card-div row ">
       {

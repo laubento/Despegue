@@ -18,6 +18,8 @@ import Cart from "./components/Cart/Cart";
 
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
+import Success from "./components/Compras/Success";
+import Failure from "./components/Compras/Failure";
 
 function App() {
     const dispatch = useDispatch()
@@ -73,6 +75,8 @@ function App() {
         <Route exact path="/flights/roundtrip/cart" component={Cart}/>
         <Route exact path="/flightSearch" component={FlightsSearch}/>
         <Route exact path="/flights/flightDetail/:id" component={CardDetail}/>
+        <Route exact path="/success" component={Success} />
+        <Route exact path="/failure" component={Failure} />
         <Route path="/" component={Footer}/>
         <Route path="/purchase" render={() => <Checkout/>}/>
       </BrowserRouter>

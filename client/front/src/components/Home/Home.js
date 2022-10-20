@@ -13,24 +13,7 @@ function Home(props) {
   let display = localStorage.getItem('display')
   const status = query.get('status')
   //binarymode
-  let vuelo = JSON.parse(localStorage.getItem('detail'))
-  if(status === 'approved' ) {
-    let price = vuelo.map(e => e.price).join('')
-  swal('Felicidades!', `Has comprado tu pasaje a ${price}`, 'success')
-    history.push('/')
-    //info del vuelo
-    let vueloDetail = JSON.parse(localStorage.getItem('detail'))
-    // en items esta la info de los vuelos!
-    //guardar base de datos
-  //  localStorage.clear('sinLog')
 
-  }
-  if(status === 'null') {
-  swal('Algo ha salido mal!', 'Presiona el botón para volver a la página.', 'error')
-    history.push('/')
-    // si el pago sale mal no guardo nada y borro lo que se guardo en local storage!
-    localStorage.clear('payment')
-  }
   const handleClick = (e) => {
     e.preventDefault();
     display = false
@@ -46,7 +29,7 @@ function Home(props) {
         <div className="d-flex justify-content-center">
         <button onClick ={ handleClick } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
         </div>
-        {display === true || display !== null ? vuelo.length && vuelo.map(e => {
+        {/* {display === true || display !== null ? vuelo.length && vuelo.map(e => {
           return (
             <div className="d-flex justify-content-center ">
               <div className="flex-column bg-success mt-3 p-4 rounded"> 
@@ -60,7 +43,7 @@ function Home(props) {
               </div>
             </div>
           )
-        }): ''}
+        }): ''} */}
         </div>)}
     </div>
   );

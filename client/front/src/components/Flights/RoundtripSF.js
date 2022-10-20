@@ -17,7 +17,7 @@ function RoundtripSF() {
 
   // global states
   let flights = useSelector((state) => state.secondFlighs);
-  let allFlights = useSelector((state) => state.secondFlighs);
+  let allFlights = useSelector((state) => state.allFlights);
   let selectedFlight = useSelector((state) => state.flightDetail);
 
   // local states

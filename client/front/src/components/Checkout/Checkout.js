@@ -14,6 +14,7 @@ export default function Checkout() {
     const user = useSelector((state) => state.user);
     const flight = useSelector((state) => state.flightDetail);
     const payment = useSelector(state => state.getPayment)
+    const flightCart = useSelector(state => state.flightsCart)
     let sinLog;
     console.log(user)
     const handlePayment = async (e) => {
@@ -36,18 +37,26 @@ export default function Checkout() {
             payment.map(e => {
               link.init_point = e.init_point
             })
-            localStorage.setItem('detail', JSON.stringify(flight))
+            if(flightCart.length === 2){
+                localStorage.setItem('detail', JSON.stringify(flightCart))
+            }else{
+                localStorage.setItem('detail', JSON.stringify(flight))
+            }
             return  window.location.href = link.init_point
         }
         await swal('Necesitas estar logueado para comprar', '', 'error')
         sinLog = true
         localStorage.setItem('init_point', JSON.stringify(payment))
-        localStorage.setItem('detail', JSON.stringify(flight))
+        if(flightCart.length === 2){
+        localStorage.setItem('detail', JSON.stringify(flightCart))
+            }else{
+                localStorage.setItem('detail', JSON.stringify(flight))
+            }
         localStorage.setItem('sinLog', sinLog)
         return history.push('/login')
       }
-      
-    console.log(payment)
+    console.log(flightCart)
+    console.log(flight)
     const createOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [

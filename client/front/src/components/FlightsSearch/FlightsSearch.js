@@ -26,26 +26,26 @@ export default function FlightsSearch() {
     const [p, setP] = useState(0)
 
     const [flights, setFlights] = useState({
-        // tripType:'onewaytrip',
-        // departurePlace: '',
-        // arrivalPlace: '',
-        // departureDate: '',
-        // returningDate: '',
-        // cabinClass: 'Economy',
-        // adults: 1,
-        // children: 0,
-        // infants: 0,
-        // currency: 'USD'
-        tripType:'roundtrip',
-        departurePlace: 'EZE',
-        arrivalPlace: 'GIG',
-        departureDate: '2022-11-15',
-        returningDate: '2022-12-15',
+        tripType:'onewaytrip',
+        departurePlace: '',
+        arrivalPlace: '',
+        departureDate: '',
+        returningDate: '',
         cabinClass: 'Economy',
         adults: 1,
         children: 0,
         infants: 0,
         currency: 'USD'
+        // tripType:'roundtrip',
+        // departurePlace: 'EZE',
+        // arrivalPlace: 'GIG',
+        // departureDate: '2022-11-15',
+        // returningDate: '2022-12-15',
+        // cabinClass: 'Economy',
+        // adults: 1,
+        // children: 0,
+        // infants: 0,
+        // currency: 'USD'
     })
 
     const [errors, setErrors] = useState({
@@ -107,7 +107,7 @@ export default function FlightsSearch() {
             history.push('/flights/roundtrip/firstFlight');
         }
         setFlights({
-            tripType:'onewaytrip',
+            tripType:'',
             departurePlace: '',
             arrivalPlace: '',
             departureDate: '',
@@ -139,34 +139,34 @@ export default function FlightsSearch() {
 
         const handleSubmitAirportFrom = (e) => {
             e.preventDefault();
-            // if(airportName.from === "") {
-            //     return setSearchError({
-            //         ...searchError,
-            //         vacio: 'El input está vacio!'
-            //       })
-            // }
-            // setActivateFrom(true)
-            // dispatch(searchAirportFrom(airportName.from))
+            if(airportName.from === "") {
+                return setSearchError({
+                    ...searchError,
+                    vacio: 'El input está vacio!'
+                  })
+            }
             setFlights({
                 ...flights,
-                departurePlace: 'EZE'
+                departurePlace: airportName.from
             })
+            setActivateFrom(true)
+            dispatch(searchAirportFrom(airportName.from));
         }
 
         const handleSubmitAirportTo = (e) => {
                 e.preventDefault();
-                // if (airportName.to === "") {
-                //   return setSearchError({
-                //     ...searchError,
-                //     vacio: 'El input está vacio!'
-                //   })
-                // }
+                if (airportName.to === "") {
+                  return setSearchError({
+                    ...searchError,
+                    vacio: 'El input está vacio!'
+                  })
+                }
                 setFlights({
                     ...flights,
-                    arrivalPlace: 'MIA'
+                    arrivalPlace: airportName.to
                 })
-                // setActivateTo(true)
-                // dispatch(searchAirportTo(airportName.to));
+                setActivateTo(true)
+                dispatch(searchAirportTo(airportName.to));
               };
             
             
@@ -188,6 +188,7 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
+              console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>

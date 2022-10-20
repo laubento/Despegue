@@ -5,7 +5,9 @@ const initialState = {
     allFlights: [],
     flights: [],
     firstFlights: [],
+    allFirstFlights: [],
     secondFlighs: [],
+    allSecondFlighs: [],
     onFirstFlightRoute: false,
     onSecondFlightRoute: false,
     flightDetail: [],
@@ -23,8 +25,10 @@ export default function reducer(state = initialState, action) {
         case GET_FLIGHTS:
             return {
                 ...state,
-                flights: roundTripExample,
-                allFlights: roundTripExample,
+                // flights: roundTripExample,
+                // allFlights: roundTripExample,
+                flights: action.payload,
+                allFlights: action.payload
             };
         case CLEAR_FLIGHTS:
             return {
@@ -39,9 +43,9 @@ export default function reducer(state = initialState, action) {
 
             // roundtrip - me quedo con los vuelos de ida o vuelta dependiendo en que ruta del front estoy
             if (state.onFirstFlightRoute) {
-                filteringFlights = state.firstFlights.slice();
+                filteringFlights = state.allFirstFlights.slice();
             } else if (state.onSecondFlightRoute){
-                filteringFlights = state.secondFlighs.slice();
+                filteringFlights = state.allSecondFlighs.slice();
             } else {
                 filteringFlights = state.allFlights.slice();
             }
@@ -98,10 +102,20 @@ export default function reducer(state = initialState, action) {
                         e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
                         )
             }
-
+            if(state.onSecondFlightRoute){
+                return {
+                    ...state,
+                    secondFlighs: filteringFlights
+                }
+            }else if(state.onFirstFlightRoute){
+                return {
+                    ...state,
+                firstFlights: filteringFlights
+            }
+            }
             return {
                 ...state,
-                firstFlights: filteringFlights,
+                flights: filteringFlights,
             };
         case FILTER_FLIGHT_BY_ID:
             const a = state.flights;
@@ -144,13 +158,15 @@ export default function reducer(state = initialState, action) {
             const b = state.allFlights.filter(el => el.going);
             return{
                 ...state,
-                firstFlights: b
+                firstFlights: b,
+                allFirstFlights: b
             }
         case GET_ROUNDTRIP_SF:
             const c = state.allFlights.filter(el => !el.going);
             return{
                 ...state,
-                secondFlighs: c
+                secondFlighs: c,
+                allSecondFlighs: c
             }
         case ADD_FLIGHT_TO_CART:
             return{

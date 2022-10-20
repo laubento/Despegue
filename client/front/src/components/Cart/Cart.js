@@ -10,7 +10,6 @@ export default function Cart() {
 
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
-
     let items = cart.map((el) => ({
         title: "Title",
         description:'Description',
@@ -25,11 +24,12 @@ export default function Cart() {
           payer_email: "test_user_47008967@testuser.com",
           items,
           notification_url: "https://www.your-site.com/ipn",
-          purpose: "wallet_purchase",
           back_urls : {
-            failure: "http://localhost:3000",
-            success: "http://localhost:3000",
+            failure: "http://localhost:3000/failure",
+            success: "http://localhost:3000/success",
             },
+          "purpose": "wallet_purchase",
+
             "payment_methods": {
             "excluded_payment_types": [
                 {
@@ -49,7 +49,6 @@ export default function Cart() {
         dispatch(getPayment(prueba))
         // dispatch(getPaymentInfo(prueba))
         history.push('/purchase');
-        await localStorage.setItem('infoCompra', JSON.stringify(payment))
     }
     
     return(

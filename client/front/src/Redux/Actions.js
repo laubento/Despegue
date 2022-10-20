@@ -19,11 +19,11 @@ export function getFlights(flight){
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        // const flights = await axios.post(`/flights/${tripType}`, {flight})
+        const flights = await axios.post(`/flights/${tripType}`, {flight})
 
         return dispatch({
             type: GET_FLIGHTS,
-            // payload: flights.data
+            payload: flights.data
         })
     }
 }
@@ -102,3 +102,35 @@ export const getPayment = (body) => {
     }
 }
 
+export const getRoundTripFF = () => {
+    return {
+        type: GET_ROUNDTRIP_FF
+    }
+}
+
+export const getRoundTripSF = () => {
+    return {
+        type: GET_ROUNDTRIP_SF
+    }
+}
+
+export const addFlightToCart = (flightDetail) => {
+    return{
+        type: ADD_FLIGHT_TO_CART,
+        payload: flightDetail[0]
+    }
+}
+
+export const onFirstFlightRoute = () => {
+    return {
+        type: SET_FF_TRUE,
+        payload: true
+    }
+}
+
+export const onSecondFlightRoute = () => {
+    return {
+        type: SET_SF_TRUE,
+        payload: true
+    }
+}
