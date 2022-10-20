@@ -24,23 +24,32 @@ export default function Cart() {
         body: {
           payer_email: "test_user_47008967@testuser.com",
           items,
-          back_urls: {
+          notification_url: "https://www.your-site.com/ipn",
+          purpose: "wallet_purchase",
+          back_urls : {
             failure: "http://localhost:3000",
-            pending: "http://localhost:3000",
-            success: "http://localhost:3000"
-          },
-          notification_url: "https://www.your-site.com/ipn"
+            success: "http://localhost:3000",
+            },
+            "payment_methods": {
+            "excluded_payment_types": [
+                {
+                    "id": "ticket"
+                }
+            ],
+            "installments": 12
+            },
         }
-      }
+    }
 
     useEffect(() => {
         dispatch(addFlightToCart(selectedFlight))
     }, [dispatch])
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         dispatch(getPayment(prueba))
         // dispatch(getPaymentInfo(prueba))
         history.push('/purchase');
+        await localStorage.setItem('infoCompra', JSON.stringify(payment))
     }
     
     return(
