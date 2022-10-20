@@ -107,6 +107,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 airportsFrom: action.payload
             }
+        case GET_USER_HISTORY:
+            return {
+                ...state,
+                userHistory: action.payload
+            }
+
         case SEARCH_AIRPORT_TO:
             return {
                 ...state,

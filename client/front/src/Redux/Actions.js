@@ -86,6 +86,19 @@ export const storeFlightsToBuy = (flights) => {
     }
 }
 
+export const getUserHistory = (userId) => {
+    return async function(dispatch){
+        let route = await axios.get(`http://localhost:3001/users/getHistory?id=${userId}`)
+        return dispatch(
+                {
+                    type: GET_USER_HISTORY,
+                    payload: route.data
+                }
+            )
+        
+    }
+}
+
 export const storePurchase = (user, flight) => {
     return async function(){
         await axios.post(`/purchaseComplete`)
