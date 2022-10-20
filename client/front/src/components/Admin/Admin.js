@@ -12,13 +12,13 @@ export default function Admin() {
 
     useEffect(e => {
         dispatch(listUsers())
-        // dispatch(listOffers())
+        dispatch(listOffers())
         setRender('chau')
     }, [dispatch])
 
     const users = useSelector(state => state.listUsers);
-    const offers = useSelector(state => state.listOffers);
-
+    const offers = useSelector(state => state.offersList);
+    
     const columns = [
         {
             title: 'Nombre',
@@ -69,7 +69,7 @@ export default function Admin() {
         {
             title: 'Llegada',
             field: 'arrive',
-            type: 'time'
+            type: 'time',
         },
         {
             title: 'Precio Anterior',
@@ -105,7 +105,7 @@ export default function Admin() {
                             title={'Lista de usuarios'}
                             columns={columns}
                             data={users}
-                            options={{ filtering: true }}
+                            options={{ filtering: true}}
                             editable={{
                                 onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
                                     dispatch(updateUser(newRow))
@@ -128,7 +128,7 @@ export default function Admin() {
                             editable={{
                                 onRowAdd:(newRow)=>new Promise((resolve, reject) =>{
                                     dispatch(offersCreate(newRow))
-                                    console.log(newRow)
+                                    
                                     resolve()
                                     window.location.reload()
                                 })

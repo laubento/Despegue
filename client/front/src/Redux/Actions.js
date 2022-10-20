@@ -107,7 +107,7 @@ export const updateUser = (user) => {
 
 export function listOffers () {
     return async function(dispatch){
-        let response = await axios.get(`http://localhost:3001/admin/offers`)
+        let response = await axios.get(`http://localhost:3001/admin/offers/getoffers`)
         return dispatch({type: OFFERS_LIST, payload: response.data})
     }
 }
