@@ -1,31 +1,30 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE } from "./Actions";
+import roundTripExample from "./roundTripExapmle";
 
 const initialState = {
-    // flights: flightExample,
-    flights: [],
     allFlights: [],
+    flights: [],
+    firstFlights: [],
+    secondFlighs: [],
+    onFirstFlightRoute: false,
+    onSecondFlightRoute: false,
     flightDetail: [],
-    filteredFlights: [],
     airportsFrom: [],
     airportsTo: [],
-    user: null,
     flightsToBuy: [],
+    flightsCart: [],
     getPayment: [],
-    getPaymentInfo: []
+    getPaymentInfo: [],
+    user: null
 };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        // case GET_ALL_FLIGHTS:
-        //   return {
-        //     ...state,
-        //     allFlights: action.payload,
-        //   };
         case GET_FLIGHTS:
             return {
                 ...state,
-                flights: action.payload,
-                allFlights: action.payload,
+                flights: roundTripExample,
+                allFlights: roundTripExample,
             };
         case CLEAR_FLIGHTS:
             return {
@@ -33,10 +32,21 @@ export default function reducer(state = initialState, action) {
                 flights: []
             }
         case FILTER_FLIGHTS:
-            const { minPrice, maxPrice, maxDuration,maxHour,minHour, stopOvers, order, findAirline } =
+            const { minPrice, maxPrice, maxDuration, maxHour, minHour, stopOvers, order, findAirline } =
                 action.payload;
 
-            let filteringFlights = state.allFlights.slice();
+            let filteringFlights;
+
+            // roundtrip - me quedo con los vuelos de ida o vuelta dependiendo en que ruta del front estoy
+            if (state.onFirstFlightRoute) {
+                filteringFlights = state.firstFlights.slice();
+            } else if (state.onSecondFlightRoute){
+                filteringFlights = state.secondFlighs.slice();
+            } else {
+                filteringFlights = state.allFlights.slice();
+            }
+            
+            // logica de filtros
             if (stopOvers !== "default") {
                 if(stopOvers == 0){
                     filteringFlights = filteringFlights.filter(
@@ -88,12 +98,10 @@ export default function reducer(state = initialState, action) {
                         e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
                         )
             }
-            // if (filteringFlights.length === 0) {
-            //     filteringFlights = 'Error'
-            // }
+
             return {
                 ...state,
-                flights: filteringFlights,
+                firstFlights: filteringFlights,
             };
         case FILTER_FLIGHT_BY_ID:
             const a = state.flights;
@@ -131,6 +139,35 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 getPaymentInfo: [...state.getPaymentInfo, action.payload]
+            }
+        case GET_ROUNDTRIP_FF:
+            const b = state.allFlights.filter(el => el.going);
+            return{
+                ...state,
+                firstFlights: b
+            }
+        case GET_ROUNDTRIP_SF:
+            const c = state.allFlights.filter(el => !el.going);
+            return{
+                ...state,
+                secondFlighs: c
+            }
+        case ADD_FLIGHT_TO_CART:
+            return{
+                ...state,
+                flightsCart: [...state.flightsCart, action.payload]
+            }
+        case SET_FF_TRUE:
+            return{
+                ...state,
+                onFirstFlightRoute: action.payload,
+                onSecondFlightRoute: !action.payload
+            }
+        case SET_SF_TRUE:
+            return{
+                ...state,
+                onFirstFlightRoute: !action.payload,
+                onSecondFlightRoute: action.payload
             }
         default:
             return state;

@@ -65,27 +65,28 @@ const nextHandler = (e) => {
           <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
         </div>
         <div>
-        {
-          flights.length !==  0 ? 
-          currentFlights.map((e,i) => {
-            console.log(e.price)
-            return(
-              <div key={i} className='d-flex justify-content-center'>
-              <Card 
-              id={e.id}
-              segments={e.segments}
-              airlinesName={e.airlinesNames}
-              departureTime={e.departureTime}
-              arrivalTime={e.arrivalTime}
-              duration={e.duration}
-              stopoversCount={e.stopoversCount}
-              price={e.price}
-              />
-              </div>
-            )})
-        : 
-        <h2>There are no flights with these characteristics</h2>
-        }
+          {
+            flights.length !==  0 ? 
+            currentFlights.map((e,i) => {
+              console.log(e.price)
+              return(
+                <div key={i} className='d-flex justify-content-center'>
+                <Card 
+                id={e.id}
+                segments={e.segments}
+                airlinesName={e.airlinesNames}
+                departureTime={e.departureTime}
+                arrivalTime={e.arrivalTime}
+                duration={e.duration}
+                stopoversCount={e.stopoversCount}
+                price={e.price}
+                going={e.going}
+                />
+                </div>
+              )})
+          : 
+          <h2>There are no flights with these characteristics</h2>
+          }
         </div>
       </div> : <div className="flights-cont">
         <Loader />

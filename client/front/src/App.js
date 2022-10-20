@@ -12,6 +12,10 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
+import RoundtripFF from "./components/Flights/RoundtripFF";
+import RoundtripSF from "./components/Flights/RoundtripSF";
+import Cart from "./components/Cart/Cart";
+
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 
@@ -54,20 +58,23 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <NavBar />} />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" render={() => <Login />} />
-        <Route path="/user" render={() => <MiPerfil/>} />
+        <Route path={"/"} render={() => <NavBar/>} />
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/login" render={() => <Login/>} />
+        <Route path="/user" render={() => <MiPerfil/>}/>
         <Route
           exact
           path={"/register"}
           render={() => <Register />}
         />
-        <Route exact path="/flights" component={Flights} />
-        <Route exact path="/flightSearch" component={FlightsSearch} />
-        <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
-        <Route path="/" component={Footer} />
-        <Route path="/purchase" render={() => <Checkout/>} />
+        <Route exact path="/flights" component={Flights}/>
+        <Route exact path="/flights/roundtrip/firstFlight" component={RoundtripFF}/>
+        <Route exact path="/flights/roundtrip/secondFlight" component={RoundtripSF}/>
+        <Route exact path="/flights/roundtrip/cart" component={Cart}/>
+        <Route exact path="/flightSearch" component={FlightsSearch}/>
+        <Route exact path="/flights/flightDetail/:id" component={CardDetail}/>
+        <Route path="/" component={Footer}/>
+        <Route path="/purchase" render={() => <Checkout/>}/>
       </BrowserRouter>
     </div>
   );

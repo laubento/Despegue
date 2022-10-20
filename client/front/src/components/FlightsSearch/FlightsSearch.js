@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, getRoundTripFF, getRoundTripSF } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -26,11 +26,21 @@ export default function FlightsSearch() {
     const [p, setP] = useState(0)
 
     const [flights, setFlights] = useState({
-        tripType:'onewaytrip',
-        departurePlace: '',
-        arrivalPlace: '',
-        departureDate: '',
-        returningDate: '',
+        // tripType:'onewaytrip',
+        // departurePlace: '',
+        // arrivalPlace: '',
+        // departureDate: '',
+        // returningDate: '',
+        // cabinClass: 'Economy',
+        // adults: 1,
+        // children: 0,
+        // infants: 0,
+        // currency: 'USD'
+        tripType:'roundtrip',
+        departurePlace: 'EZE',
+        arrivalPlace: 'GIG',
+        departureDate: '2022-11-15',
+        returningDate: '2022-12-15',
         cabinClass: 'Economy',
         adults: 1,
         children: 0,
@@ -44,32 +54,17 @@ export default function FlightsSearch() {
         returningEmpty:''
     })
 
-    // const [error, setError] = useState({
-    //     departurePlace: '',
-    //     boolDeparturePlace: '',
-    //     arrivalPlace: '',
-    //     boolArrivalPlace: '',
-    //     departureDate: '',
-    //     boolDepartureDate: '',
-    //     returningDate: '',
-    //     boolReturningDate: ''
-    // })
-
     const [searchError, setSearchError] = useState({
         vacio: '',
         most: ''
     })
     
-
     // Lugares disponibles
     const handleChangeSites = (num, age) => {
         if(num){ setFlights({...flights, [age]: flights[age] + 1}) }
         else{ setFlights({...flights, [age]: flights[age] - 1}) }
     }
 
-
-    
-    
     const handleChange = (e) => {
         // Seteo de la fecha arrive en caso de cambio
         if(e.target.name === 'departureDate'){
@@ -106,6 +101,11 @@ export default function FlightsSearch() {
         }
         dispatch(clearFlights())
         dispatch(getFlights(flights));
+        if (flights.tripType === 'onewaytrip') {
+            history.push('/flights');
+        } else {
+            history.push('/flights/roundtrip/firstFlight');
+        }
         setFlights({
             tripType:'onewaytrip',
             departurePlace: '',
@@ -118,7 +118,6 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
-        history.push('/flights');
     }
         const handleChangeAirport = (e) => {
             e.preventDefault();
