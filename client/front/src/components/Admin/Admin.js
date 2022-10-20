@@ -4,8 +4,7 @@ import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
 import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import '../styles/Admin.css'
-import { Link, useHistory } from "react-router-dom";
-import { grey } from "@mui/material/colors";
+
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -43,7 +42,6 @@ export default function Admin() {
             title: 'Status',
             field: 'active',
             lookup: { true: 'Activo', false: 'Desactivo' },
-            editable: false,
             filtering: false
         },
     ]

@@ -18,6 +18,7 @@ import { storeUserInfo } from "./Redux/Actions";
 import { useState } from "react";
 import axios from "axios";
 import Admin from "./components/Admin/Admin";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
     const dispatch = useDispatch()
@@ -77,6 +78,7 @@ function App() {
         />
         <Route exact path="/flights" component={Flights} />
         <Route exact path="/admin" component={Admin} />
+        {/* <PrivateRoute exact path="/admin" component={Admin} /> */}
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />

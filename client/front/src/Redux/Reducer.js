@@ -10,7 +10,7 @@ const initialState = {
     airportsTo: [],
     user: null,
     flightsToBuy: [],
-    listUsers: [],
+    listUsers: null,
     offersList: [],
 };
 
@@ -123,6 +123,7 @@ export default function reducer(state = initialState, action) {
                 flightsToBuy: action.payload
             }
         case USERS_LIST:
+            // console.log(action.payload)
             return {
                 ...state,
                 listUsers: action.payload
