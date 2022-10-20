@@ -78,7 +78,7 @@ export default function NavBar() {
                 </Link>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/"}>
-                  <img alt="ventas" src={Persona} />
+                  <img className="NavBar-UsuarioLogo" alt="foto" src={user ? user.photos : null} />
                   {user.firstName}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">

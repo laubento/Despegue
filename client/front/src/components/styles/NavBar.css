@@ -123,8 +123,12 @@ body{
     color: black;
     text-decoration: none;
 }
-.NavBar-Ul li img{
-    padding-right: 5px;
+
+.NavBar-UsuarioLogo{
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    margin-right: 5px;
 }
 .NavBar-LinBotonActive{
     display: flex;

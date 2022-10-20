@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import '../MiPerfil/MiPerfil.css'
 import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
+import Configuracion from "./Configuracion";
 import { useSelector } from "react-redux";
+
 
 export default function MiPerfil() {
   const user = useSelector((state) => state.user);
@@ -37,6 +39,7 @@ export default function MiPerfil() {
                 </div>
                 <div>
                     <Route exact path="/user" render={() => <DatosPersonales/>} />
+                    <Route exact path={'/user/config'} render={() => <Configuracion />} />
                 </div>
             </div>
             <div className="MiPerfil-Ofertas">

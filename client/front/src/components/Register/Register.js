@@ -59,6 +59,11 @@ const Register = ({ user }) => {
           if (!valores.password) {
             errores.password = "Por favor, introduzca una contraseña";
           }
+          else if(!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(valores.password)){
+            errores.password = `Minimo 8 caracteres, Maximo 16 caracteres`
+            errores.passwordd = 'Al menos un digito, al menos una minuscula y una mayuscula'
+            errores.passworddd = 'Sin espacios'
+        }
 
           if (!valores.passwordRepet) {
             errores.passwordRepet = "Por favor, introduzca una contraseña";
@@ -132,6 +137,14 @@ const Register = ({ user }) => {
                   component={() => (
                     <div className="error">{errors.password}</div>
                   )}
+                />
+                <ErrorMessage
+                  name="password"
+                  component={() => <div className="error">{errors.passwordd}</div>}
+                />
+                <ErrorMessage
+                  name="password"
+                  component={() => <div className="error">{errors.passworddd}</div>}
                 />
               </div>
               <div>

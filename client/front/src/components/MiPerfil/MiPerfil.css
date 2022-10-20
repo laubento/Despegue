@@ -17,7 +17,7 @@
 }
 .MiPerfil-ContainerDatos{
     width: 370px;
-    height: 470px;
+    /* height: 470px; */
     /* border: solid 1px black; */
     margin-right: 30px;
 }
@@ -68,4 +68,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 40px;
+}
+.MiPerfil-BotonCancelar button{
+ margin: 10px 5px   
 }
