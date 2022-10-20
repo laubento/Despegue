@@ -23,5 +23,14 @@ router.post("/", isAuthenticate, async (req, res) => {
     res.status(400).send("No se pudo crear la oferta");
   }
 });
+router.get("/getoffers", isAuthenticate, async (req, res) => {
+  try {
+    const offers = await Offers.find({});
+    if (offers.length) return res.send(offers);
+    res.send("No hay ofertas disponibles");
+  } catch (e) {
+    res.status(400).send({ message: e });
+  }
+});
 
 module.exports = router;
