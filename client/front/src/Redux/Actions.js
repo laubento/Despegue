@@ -113,21 +113,6 @@ export const getRoundTripSF = () => {
         type: GET_ROUNDTRIP_SF
     }
 }
-
-export const addFlightToCart = (flightDetail) => {
-    return{
-        type: ADD_FLIGHT_TO_CART,
-        payload: flightDetail[0]
-    }
-}
-
-export const onFirstFlightRoute = () => {
-    return {
-        type: SET_FF_TRUE,
-        payload: true
-    }
-}
-
 export const onSecondFlightRoute = () => {
     return {
         type: SET_SF_TRUE,
@@ -147,13 +132,6 @@ export const addFlightToCart = (flightDetail) => {
 export const onFirstFlightRoute = () => {
     return {
         type: SET_FF_TRUE,
-        payload: true
-    }
-}
-
-export const onSecondFlightRoute = () => {
-    return {
-        type: SET_SF_TRUE,
         payload: true
     }
 }
