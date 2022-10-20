@@ -35,9 +35,6 @@ router.use("/admin/offers", offers);
 // router.use('/filters')
 
 //getAirportByName
-const searchByName = require("./searchByName/getAirportsByName.js");
-router.use("/searchByName", searchByName);
-
 const searchByName = require('./searchByName/getAirportsByName.js')
 router.use("/searchByName", searchByName)
 //History & Purchase

@@ -30,6 +30,10 @@ const historySchema = mongoose.Schema({
   flightId: {
     type:String,
     required: true
+  },
+  package: {
+    type: Object,
+    required:false
   }
 });
 

@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS } from "./Actions";
+import { GET_FLIGHTS, GET_USER_HISTORY ,FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS } from "./Actions";
 
 const initialState = {
     // flights: flightExample,
@@ -10,6 +10,7 @@ const initialState = {
     airportsTo: [],
     user: null,
     flightsToBuy: [],
+    userHistory: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -105,6 +106,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 airportsFrom: action.payload
             }
+        case GET_USER_HISTORY:
+            return {
+                ...state,
+                userHistory: action.payload
+            }
+
         case SEARCH_AIRPORT_TO:
             return {
                 ...state,
@@ -120,6 +127,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flightsToBuy: action.payload
             }
+        
         default:
             return state;
     }

@@ -2,19 +2,20 @@ const {Router} = require("express")
 const User = require("../../models/user")
 const router = Router()
 const History = require("../../models/history")
+const mongoose = require("mongoose")
 
 router.get("/getHistory", async (req,res) => {
     const {id} = req.query
-    try{
-        const requestedHistory = await History.find({userId: id})
-        if(requestedHistory.length){
-            res.status(200).send(requestedHistory)
+    console.log(id)
+    History.find({userId:id}).then((data) => {
+        if(!data){
+            res.status(404).send("No History for requested User")
         } else {
-            res.status(400).send("Sorry, no History for this user")
+            res.status(200).send(data)
         }
-    }catch(err){
-        console.log(err)
-    }
+    }).catch((err) => {
+        res.status(500).send("No History")
+    })
 })
 
 module.exports= router

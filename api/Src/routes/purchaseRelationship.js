@@ -2,6 +2,7 @@ const {Router} = require("express")
 const User = require("../../models/user")
 const History = require("../../models/history")
 const router = Router()
+const mongoose = require("mongoose")
 
 router.post("/purchaseComplete", async (req, res) => {
     try{
@@ -22,7 +23,7 @@ router.post("/purchaseComplete", async (req, res) => {
     await history.save()
     const user = await User.find({"_id:":id}).populate("purchaseHistory")
     
-    await user.save()
+
     res.status(200).send("Succesfull Saved in User History")
     
     }catch(err){console.log(err)}

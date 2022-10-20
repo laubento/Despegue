@@ -8,6 +8,7 @@ export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
 export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
 export const STORE_USER_INFO = "STORE_USER_INFO"
 export const BUY_FLIGHTS = "BUY_FLIGHTS"
+export const GET_USER_HISTORY = "GET_USER_HISTORY"
  
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -80,6 +81,19 @@ export const storeFlightsToBuy = (flights) => {
             type: BUY_FLIGHTS,
             payload: flights
         })
+    }
+}
+
+export const getUserHistory = (userId) => {
+    return async function(dispatch){
+        let route = await axios.get(`http://localhost:3001/users/getHistory?id=${userId}`)
+        return dispatch(
+                {
+                    type: GET_USER_HISTORY,
+                    payload: route.data
+                }
+            )
+        
     }
 }
 

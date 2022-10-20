@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 
 import { useState } from "react";
+import UserHistory from "./components/MiPerfil/userHistory";
 
 function App() {
     const dispatch = useDispatch()
@@ -65,6 +66,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
         <Route path="/user" render={() => <MiPerfil/>} />
+        <Route path="/user/travels" render={() => <UserHistory/>} />
         <Route
           exact
           path={"/register"}
