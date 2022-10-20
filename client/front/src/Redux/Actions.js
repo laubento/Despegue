@@ -10,6 +10,7 @@ export const STORE_USER_INFO = "STORE_USER_INFO"
 export const BUY_FLIGHTS = "BUY_FLIGHTS"
 export const USERS_LIST = "USERS_LIST"
 export const OFFERS_LIST = "OFFERS_LIST"
+export const ADD_USER_ROLE = "ADD_USER_ROLE"
 
  
 export function getFlights(flight){
@@ -122,5 +123,14 @@ export const offersCreate = (offer) => {
 export const updateOffer = (offer) => {
     return async function(){
         await axios.put(`http://localhost:3001/admin/offers/offer`,{offer})
+    }
+}
+
+export const addUserRole = (user) => {
+    return function(dispatch){
+        dispatch({
+            type: ADD_USER_ROLE,
+            payload: user
+        })
     }
 }
