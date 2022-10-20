@@ -94,7 +94,7 @@ export default function Admin() {
             field: 'to'
         },
     ]
-
+    console.log(offers)
     return (
         <div className="d-flex">
             <div className="usersTable">
