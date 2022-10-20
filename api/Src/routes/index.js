@@ -19,7 +19,7 @@ router.use("/duration", flightDurationFilter);
 //login
 // const login = require("./login/login");
 // const register = require("./login/register");
-// const user = require("./login/user");
+const user = require("./login/user");
 // const auth = require("./login/auth");
 
 const adminUsers = require("./admin/users");
@@ -34,6 +34,8 @@ router.use('/auth0', auth0)
 // router.use("/login", login);
 // router.use("/register", register);
 // router.use("/user", user);
+// router.use("/admin", adminUsers);
+// router.use("/admin/offers", offers);
 
 // getAirportByName
 const searchByName = require("./searchByName/getAirportsByName.js");
