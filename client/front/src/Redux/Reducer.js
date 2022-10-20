@@ -10,7 +10,7 @@ const initialState = {
     airportsTo: [],
     user: null,
     flightsToBuy: [],
-    listUsers: null,
+    listUsers: [],
     offersList: [],
 };
 

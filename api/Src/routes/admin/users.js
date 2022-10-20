@@ -34,7 +34,7 @@ router.put("/userupdate", async (req, res) => {
 
     await User.updateOne(
       { email },
-      { $set: { name: name, roles: roles, active: active } }
+      { $set: { name: name, roles: [roles], active: active } }
     );
     // await User.updateOne(
     //   { email },

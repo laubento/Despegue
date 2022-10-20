@@ -77,8 +77,8 @@ function App() {
           render={() => <Register />}
         />
         <Route exact path="/flights" component={Flights} />
-        <Route exact path="/admin" component={Admin} />
-        {/* <PrivateRoute exact path="/admin" component={Admin} /> */}
+        {/* <Route exact path="/admin" component={Admin} /> */}
+        <PrivateRoute exact path="/admin" component={Admin} />
         <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route path="/" component={Footer} />
