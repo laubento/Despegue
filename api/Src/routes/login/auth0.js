@@ -17,9 +17,9 @@ router.post("/getUser", async (req, res) => {
         } else {
             // Si no existe lo agrego a la DB
             const newUser = new User({
-                name: user.name,
-                firstName: user.given_name,
-                lastname: user.family_name,
+                name: user.name || user.nickname,
+                firstName: user.given_name || user.nickname,
+                lastname: user.family_name || user.nickname,
                 photo: user.picture,
                 id: user.sub.slice("|")[1],
                 password: "1",
