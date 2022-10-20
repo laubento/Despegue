@@ -86,6 +86,7 @@ export const storeFlightsToBuy = (flights) => {
     }
 }
 
+
 export const storePurchase = (user, flight) => {
     return async function(){
         await axios.post(`/purchaseComplete`)
