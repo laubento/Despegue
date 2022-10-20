@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const User = require("../../../models/user");
+const auth = require('../admin/validate-session')
 
 const router = Router();
 
@@ -18,10 +19,9 @@ router.post("/getUser", async (req, res) => {
             new User({
                 name: user.name || user.nickname,
                 firstName: user.given_name || user.nickname,
-                lastname: user.family_name || user.nickname,
+                lastname: user.family_name || null,
                 photo: user.picture,
                 id: user.sub.slice("|")[1],
-                password: "1",
                 email: user.email,
                 dni: "",
                 phone: "",
@@ -39,6 +39,19 @@ router.post("/getUser", async (req, res) => {
         }
     })
 });
+
+router.put('/delete',auth.isUser,(req, res) => {
+
+    const {user} = req.body
+
+    User.updateOne({_id: user.id, email: user.email}, {
+        $set: {active: false}
+    })
+    .catch((er) =>{
+        console.log(er);
+    })
+})
+
 
 // router.get("/", (req, res) => {
 //     res.send(req.oidc.isAuthenticated() ? "Logged In" : "Logged out");

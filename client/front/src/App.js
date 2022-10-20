@@ -67,6 +67,8 @@ function App() {
 
 
     const { user } = useAuth0();
+
+    console.log(user);
     
     useEffect(() => {
         axios.post('/auth0/getUser', {user})
