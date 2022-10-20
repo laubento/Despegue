@@ -139,26 +139,34 @@ export default function FlightsSearch() {
 
         const handleSubmitAirportFrom = (e) => {
             e.preventDefault();
-            if(airportName.from === "") {
-                return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-            }
-            setActivateFrom(true)
-            dispatch(searchAirportFrom(airportName.from))
+            // if(airportName.from === "") {
+            //     return setSearchError({
+            //         ...searchError,
+            //         vacio: 'El input está vacio!'
+            //       })
+            // }
+            // setActivateFrom(true)
+            // dispatch(searchAirportFrom(airportName.from))
+            setFlights({
+                ...flights,
+                departurePlace: 'EZE'
+            })
         }
 
         const handleSubmitAirportTo = (e) => {
                 e.preventDefault();
-                if (airportName.to === "") {
-                  return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-                }
-                setActivateTo(true)
-                dispatch(searchAirportTo(airportName.to));
+                // if (airportName.to === "") {
+                //   return setSearchError({
+                //     ...searchError,
+                //     vacio: 'El input está vacio!'
+                //   })
+                // }
+                setFlights({
+                    ...flights,
+                    arrivalPlace: 'MIA'
+                })
+                // setActivateTo(true)
+                // dispatch(searchAirportTo(airportName.to));
               };
             
             
