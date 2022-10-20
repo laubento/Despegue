@@ -17,9 +17,7 @@ function Flights() {
   if (infofiltrada.length > 0) {
     flights = infofiltrada;
   }
-  const logout = () => {
-    window.open("http://localhost:3001/auth/logout", "_self");
-  };
+
   console.log(flights,'--', allFlights)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
