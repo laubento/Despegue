@@ -65,14 +65,9 @@ function App() {
     //     getUser();
     //   }, [dispatch]);
 
-    
     const auth0 = useAuth0()
-    // const [user, setuser] = useState(auth0.user)
 
-    let { user } = auth0;
-    // console.log(user);
-
-    // if(!user) user = null
+    const { user } = auth0;
 
     axios.post('/auth0/getUser', {user})
     .then((data) => {
