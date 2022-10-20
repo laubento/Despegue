@@ -6,8 +6,6 @@ const router = Router();
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
 
-    console.log(user);
-
     if(!user) return res.status(400)
 
     User.findOne({ email: user.email }).then((resp) => {

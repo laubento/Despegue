@@ -65,16 +65,26 @@ function App() {
     //     getUser();
     //   }, [dispatch]);
 
-    const auth0 = useAuth0()
 
-    const { user } = auth0;
+    const { user } = useAuth0();
 
-    axios.post('/auth0/getUser', {user})
-    .then((data) => {
-        if(data.status === 200) return data.data
-    })
-    .then((user) => {
-        console.log(user);
+
+    useEffect(() => {
+        axios.post('/auth0/getUser', {user})
+        .then((data) => {
+            if(data.status === 200) return data.data
+        })
+        .then((user) => {
+            console.log(user);
+        })
+        .catch(() => {
+            
+        })
+    },[user])
+
+
+
+
         // const obj = {
         //     name: user.name,
         //     photos: user.photo ? data.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
@@ -89,10 +99,7 @@ function App() {
         // console.log(obj);
         dispatch(storeUserInfo(user))
         
-    })
-    .catch(() => {
-        
-    })
+
     
     // useEffect(() => {
     //     const getUser = () => {

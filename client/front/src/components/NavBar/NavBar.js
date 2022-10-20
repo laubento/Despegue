@@ -22,8 +22,6 @@ export default function NavBar() {
 
   const user = useSelector((state) => state.user);
 
-  console.log(user);
-
   function handleSubmitLogOut() {
     window.open("http://localhost:3001/auth/logout", "_self");
     alert("Cerrando sesion");
