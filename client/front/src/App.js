@@ -70,7 +70,6 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
         <Route path="/user" render={() => <MiPerfil/>} />
-        <Route path="/user/travels" render={() => <UserHistory/>} />
         <Route
           exact
           path={"/register"}
