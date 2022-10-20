@@ -34,4 +34,18 @@ router.get("/getoffers", isAuthenticate, async (req, res) => {
   }
 });
 
+router.put("/offer", async (req, res) => {
+  try {
+    const { _id, prevPrice, price } = req.body;
+    if (!_id) return res.send("Datos incorrects");
+    const offer = await Offers.updateOne(
+      { _id: _id },
+      { $set: { prevPrice: prevPrice, price: price } }
+    );
+    res.send("Oferta actualizada");
+  } catch (e) {
+    res.status(400).send("Datos no actualizados");
+  }
+});
+
 module.exports = router;
