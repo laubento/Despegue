@@ -10,6 +10,7 @@ export const STORE_USER_INFO = "STORE_USER_INFO"
 export const BUY_FLIGHTS = "BUY_FLIGHTS"
 export const USERS_LIST = "USERS_LIST"
 export const OFFERS_LIST = "OFFERS_LIST"
+export const GET_HISTORY = "GET_HISTORY"
 
  
 export function getFlights(flight){
@@ -116,5 +117,12 @@ export function listOffers () {
 export const offersCreate = (offer) => {
     return async function(){
         await axios.post(`http://localhost:3001/admin/offers`,{offer})
+    }
+}
+
+export function getHistory(id){
+    return async function(dispatch){
+        let response = await axios.get(`http://localhost:3001/users/getHistory?id=${id}`)
+        return dispatch({type: GET_HISTORY, payload: response.data})
     }
 }

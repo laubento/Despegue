@@ -1,0 +1,93 @@
+.CardHistory-vuelo{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.CardHistory-vueloBoton{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #270570;
+}
+.CardHistory-vueloBoton:hover{
+    background-color: #4001c7;
+}
+.btn.show{
+    background-color: #4001c7;
+}
+.dropdown-menu{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.CardHistory-Info{
+    background-color: rgb(232, 232, 232);
+    width: 100%;
+    padding: 0px;
+}
+.CardHistory-ContainerLogo{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.CardHistory-Logo{
+    height: 40px;
+    margin-right: 5px;
+}
+.CardHistory-ContainerInfoEspe{
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+}
+.CardHistory-ContainerIdaTitulo{
+    display: flex;
+    align-items: center;
+}
+.CardHistory-ContainerIdaTitulo h3{
+    font-size: 12px;
+}
+.CardHistory-IdaTitulo{
+    background-color: #8b77c8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+.CardHistory-Ida h3, .CardHistory-Ida h4{
+    font-size: 12px;
+}
+.CardHistory-IdaScales h5{
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0px;
+}
+.CardHistory-IdaScales ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.CardHistory-IdaScales ul li{
+    font-size: 12px;
+}
+.CardHistory-IdaExtra h6{
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.CardHistory-IdaExtra{
+    margin-top: 5px;
+}
+.CarHistory-InfoTotalVuelo{
+    display: flex;
+    justify-content: space-between;
+}
+.CardHistory-ContainerPrincipalVuelta{
+    margin-right: 10px;
+}
+.CardHistory-IdaVuelta{
+    background-color: rgb(252, 164, 161);
+}
+.CardHistory-PrecioYLugar{
+    display: flex;
+    justify-content: space-between;
+}
+.CardHistory-Precio{
+    margin-right: 10px;
+}

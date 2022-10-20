@@ -12,10 +12,23 @@ router.post("/purchaseComplete", async (req, res) => {
         // const extras = req.body.asistant
 
         if (Array.isArray(flight)) {
+
             let vuelos = flight.map((e) => {
                 return ({
                     destination: e.arrivalAirportCode,
-                    scales: e.segments,
+                    scales: e.segments.length ? e.segments.map((e) => {
+                        return({
+                            cabin: e.cabin,
+                            arrival: e.arrivalDateTime.slice(0,10),
+                            arrivalTime: e.arrivalDateTime.slice(11,16),
+                            departure: e.departureDateTime.slice(0,10),
+                            departureTime: e.departureDateTime.slice(11,16),
+                            duration: e.durationMinutes,
+                            arrivalAirport: e.arrivalAirportCode,
+                            departureAirport: e.departureAirportCode,
+                            airline: e.airlineCode
+                        })
+                    }) : [],
                     schedule: e.departureTime + " | " + e.arrivalTime,
                     exit: e.departureAirportCode,
                     type: e.cabinClass,
@@ -23,7 +36,7 @@ router.post("/purchaseComplete", async (req, res) => {
                     flightId: e.id
                 })
             })
-
+            console.log(vuelos)
             const history = new History({
                 package: vuelos,
                 userId: id
@@ -34,7 +47,19 @@ router.post("/purchaseComplete", async (req, res) => {
         }else{
             let vuelos = [{
                 destination: flight.arrivalAirportCode,
-                scales: flight.segments,
+                scales: flight.segments.length ? flight.segments.map((e) => {
+                        return({
+                            cabin: e.cabin,
+                            arrival: e.arrivalDateTime.slice(0,10),
+                            arrivalTime: e.arrivalDateTime.slice(11,16),
+                            departure: e.departureDateTime.slice(0,10),
+                            departureTime: e.departureDateTime.slice(11,16),
+                            duration: e.durationMinutes,
+                            arrivalAirport: e.arrivalAirportCode,
+                            departureAirport: e.departureAirportCode,
+                            airline: e.airlineCode
+                        })
+                    }) : [],
                 schedule: flight.departureTime + " | " + flight.arrivalTime,
                 exit: flight.departureAirportCode,
                 type: flight.cabinClass,

@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
 import Configuracion from "./Configuracion";
 import { useSelector } from "react-redux";
+import UserHistory from "./userHistory";
 
 
 export default function MiPerfil() {
@@ -40,6 +41,7 @@ export default function MiPerfil() {
                 <div>
                     <Route exact path="/user" render={() => <DatosPersonales/>} />
                     <Route exact path={'/user/config'} render={() => <Configuracion />} />
+                    <Route exact path={'/user/travels'} render={() => <UserHistory />} />
                 </div>
             </div>
             <div className="MiPerfil-Ofertas">
