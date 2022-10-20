@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 // import MuiDataTable from 'mui-datatables'
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
-import { listOffers, listUsers, offersCreate, updateUser } from "../../Redux/Actions";
+import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import '../styles/Admin.css'
 import { Link, useHistory } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -36,6 +37,7 @@ export default function Admin() {
             title: 'Rol',
             field: 'roles',
             lookup: { admin: 'admin', user: 'user' },
+            filterPlaceholder: 'Filtro por Rol'
         },
         {
             title: 'Status',
@@ -48,28 +50,38 @@ export default function Admin() {
 
     const columnsOffers = [
         {
+            title: 'ID',
+            field: '_id',
+            editable: false,
+        },
+        {
             title: 'Aeropuerto',
-            field: 'airport'
+            field: 'airport',
+            editable: false,
         },
         {
             title: 'Aerolinea',
-            field: 'airlines'
+            field: 'airlines',
+            editable: false,
         },
         {
             title: 'Escalas',
             field: 'scales',
-            type: 'numeric'
+            type: 'numeric',
+            editable: false,
         },
         {
             title: 'Salida',
             field: 'departureDate',
-            type: 'time'
+            type: 'time',
+            editable: false,
 
         },
         {
             title: 'Llegada',
             field: 'arrive',
             type: 'time',
+            editable: false,
         },
         {
             title: 'Precio Anterior',
@@ -83,18 +95,21 @@ export default function Admin() {
         },
         {
             title: 'Regreso',
-            field: 'returnDate'
+            field: 'returnDate',
+            editable: false,
         },
         {
             title: 'Desde',
-            field: 'from'
+            field: 'from',
+            editable: false,
         },
         {
             title: 'Hasta',
-            field: 'to'
+            field: 'to',
+            editable: false,
         },
     ]
-    console.log(offers)
+    
     return (
         <div className="d-flex">
             <div className="usersTable">
@@ -105,7 +120,7 @@ export default function Admin() {
                             title={'Lista de usuarios'}
                             columns={columns}
                             data={users}
-                            options={{ filtering: true}}
+                            options={{ filtering: true, columnsButton:true, rowStyle: {background:'#f5f5f5'}}}
                             editable={{
                                 onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
                                     dispatch(updateUser(newRow))
@@ -124,11 +139,23 @@ export default function Admin() {
                             title={'Lista de Ofertas'}
                             columns={columnsOffers}
                             data={offers}
-                            options={{addRowPosition: 'first', actionsColumnIndex: -1}}
+                            options={{addRowPosition: 'first', actionsColumnIndex: -1, columnsButton:true, rowStyle: {background:'#f5f5f5'}, selection:true}}
                             editable={{
                                 onRowAdd:(newRow)=>new Promise((resolve, reject) =>{
                                     dispatch(offersCreate(newRow))
                                     
+                                    resolve()
+                                    window.location.reload()
+                                }),
+                                onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
+                                    dispatch(updateOffer(newRow))
+                                
+                                    resolve()
+                                    window.location.reload()
+                                }),
+                                onRowDelete: (selectedRow) => new Promise((resolve, reject) =>{
+                                    // dispatch(deleteOffer(selectedRow))
+                                
                                     resolve()
                                     window.location.reload()
                                 })

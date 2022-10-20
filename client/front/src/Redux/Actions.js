@@ -118,3 +118,9 @@ export const offersCreate = (offer) => {
         await axios.post(`http://localhost:3001/admin/offers`,{offer})
     }
 }
+
+export const updateOffer = (offer) => {
+    return async function(){
+        await axios.put(`http://localhost:3001/admin/offers/offer`,{offer})
+    }
+}
