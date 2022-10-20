@@ -23,19 +23,25 @@ passport.use(
       // Busco en la DB si el usuario existe
       User.findOne({ googleId: profile.id }).then((resp) => {
         if (resp) {
-          done(null, profile);
+          console.log(resp)
+          done(null, resp);
         } else {
           // Si no existe lo agrego a la DB
           new User({
             name: profile.displayName,
+            firstName: profile.name.givenName,
+            lastname: profile.name.familyName,
+            photo: profile.photos[0].value,
             googleId: profile.id,
             password: "1",
-            email: profile.id,
+            email: profile.emails[0].value,
+            dni: '',
+            phone: '',
+            birthDate: ''
           })
             .save()
             .then((newUser) => {
-              console.log("newUserCreate" + newUser);
-              done(null, profile);
+              done(null, newUser);
             });
         }
       });
@@ -79,6 +85,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+  console.log(user);
   done(null, user);
 });
 

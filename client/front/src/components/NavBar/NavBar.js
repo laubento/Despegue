@@ -6,14 +6,23 @@ import Ayuda from "../../Images/boton-web-de-ayuda.png";
 import Valija from "../../Images/valija.png";
 import Ofertas from "../../Images/fuego.png";
 import Asistencias from "../../Images/botiquin.png";
+import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { ReactReduxContext, useSelector } from "react-redux";
+import React from "react";
 
 export default function NavBar() {
+
+    const { loginWithRedirect } = useAuth0()
+    const { logout } = useAuth0()
+
+
   let url = window.location.pathname;
 
   const user = useSelector((state) => state.user);
+
+  console.log(user);
 
   function handleSubmitLogOut() {
     window.open("http://localhost:3001/auth/logout", "_self");
@@ -70,16 +79,18 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <li className="NavBar-IniciarSesion">
+            <li style={{cursor:"pointer"}} className="NavBar-IniciarSesion">
               {!user ? (
-                <Link to={"/login"}>
+                <b onClick={() => loginWithRedirect()}>
+                {/* <Link to={"/login"}> */}
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
-                </Link>
+                {/* </Link> */}
+                </b>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/"}>
                   <img alt="ventas" src={Persona} />
-                  {user.name}
+                  {user.firstName}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
                       <img src={user ? user.photos : null} alt="" />
@@ -99,7 +110,7 @@ export default function NavBar() {
                       </Link>
                       <hr />
                       <button
-                        onClick={handleSubmitLogOut}
+                        onClick={() => logout({ returnTo: window.location.origin})}
                         className="Login-DesplegableBoton"
                       >
                         Cerrar sesion
