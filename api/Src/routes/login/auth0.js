@@ -4,35 +4,42 @@ const User = require("../../../models/user");
 const router = Router();
 
 router.post("/getUser", async (req, res) => {
-    const { user } = req.body;
+  const { user } = req.body;
 
-    console.log(user);
+  console.log(user);
 
-    if(!user) return res.status(400)
+  if (!user) return res.status(400);
 
-    User.findOne({ email: user.email }).then((resp) => {
-        if (resp) {
-            console.log("1er entrada" + resp);
-            return res.status(200).send(resp);
-        } else {
-            // Si no existe lo agrego a la DB
-            const newUser = new User({
-                name: user.name || user.nickname,
-                firstName: user.given_name || user.nickname,
-                lastname: user.family_name || user.nickname,
-                photo: user.picture,
-                id: user.sub.slice("|")[1],
-                password: "1",
-                email: user.email,
-                dni: "",
-                phone: "",
-                birthDate: "",
-            });
-            newUser.save()
-            console.log('nuevo' + newUser);
-            res.status(200).send(newUser);
-        }
-    });
+  User.findOne({ email: user.email }).then((resp) => {
+    if (resp) {
+      console.log("1er entrada" + resp);
+      return res.status(200).send(resp);
+    } else {
+      // Si no existe lo agrego a la DB
+      const newUser = new User({
+        name: user.name || user.nickname,
+        firstName: user.given_name || user.nickname,
+        lastname: user.family_name || user.nickname,
+        photo: user.picture,
+        id: user.sub.slice("|")[1],
+        password: "1",
+        email: user.email,
+        dni: "",
+        phone: "",
+        birthDate: "",
+      });
+      newUser
+        .save()
+        .then(() => {
+          console.log("nuevo" + newUser);
+          res.status(200).send(newUser);
+        })
+        .catch(() => {
+          console.log("CATCH AUTH0");
+          res.status(400).send("No se pudo crear");
+        });
+    }
+  });
 });
 
 // router.get("/", (req, res) => {
