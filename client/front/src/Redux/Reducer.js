@@ -1,5 +1,5 @@
 import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE } from "./Actions";
-import roundTripExample from "./roundTripExapmle";
+
 
 const initialState = {
     allFlights: [],
@@ -23,8 +23,8 @@ export default function reducer(state = initialState, action) {
         case GET_FLIGHTS:
             return {
                 ...state,
-                flights: roundTripExample,
-                allFlights: roundTripExample,
+                flights: action.payload,
+                allFlights: action.payload,
             };
         case CLEAR_FLIGHTS:
             return {

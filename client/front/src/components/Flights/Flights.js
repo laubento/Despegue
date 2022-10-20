@@ -13,10 +13,7 @@ let number = 1
 function Flights() {
   let flights = useSelector((state) => state.flights);
   let allFlights = useSelector((state) => state.allFlights);
-  // let infofiltrada = useSelector((state) => state.filteredFlights);
-  // if (infofiltrada.length > 0) {
-  //   flights = infofiltrada;
-  // }
+
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
@@ -32,9 +29,6 @@ function Flights() {
       number = pageNumber
       setCurrentPage(pageNumber)
   }
-  // console.log(currentPage)
-      //seteo el prev and next acá, en el componente Paginado tuve problemas.
-  // console.log('number', number)
 
   let pageNumbers = [];
   for(let i = 1; i <= Math.ceil(flights.length/flightsPerPage); i++){
@@ -60,7 +54,6 @@ const nextHandler = (e) => {
       <Filter paginado={paginado} number={number} />
   {  allFlights.length !== 0  ?  <div className="flights-cont">
         <div className="d-flex justify-content-center">
-          {/* {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> :  <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> } */}
           {flights !== 0 ?
           <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
         </div>
@@ -91,10 +84,6 @@ const nextHandler = (e) => {
       </div> : <div className="flights-cont">
         <Loader />
        </div>  }
-
-        
-        
-        
     </div>
   );
 }
