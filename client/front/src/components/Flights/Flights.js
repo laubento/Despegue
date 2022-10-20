@@ -73,15 +73,15 @@ const nextHandler = (e) => {
               return(
                 <div key={i} className='d-flex justify-content-center'>
                 <Card 
-                id={e.id}
-                segments={e.segments}
-                airlinesName={e.airlinesNames}
-                departureTime={e.departureTime}
-                arrivalTime={e.arrivalTime}
-                duration={e.duration}
-                stopoversCount={e.stopoversCount}
-                price={e.price}
-                going={e.going}
+                  id={e.id}
+                  segments={e.segments}
+                  airlinesName={e.airlinesNames}
+                  departureTime={e.departureTime}
+                  arrivalTime={e.arrivalTime}
+                  duration={e.duration}
+                  stopoversCount={e.stopoversCount}
+                  price={e.price}
+                  going={e.going}
                 />
                 </div>
               )})

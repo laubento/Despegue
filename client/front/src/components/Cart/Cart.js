@@ -7,6 +7,7 @@ import Card from '../Card/Card';
 export default function Cart() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const payment = useSelector((state) => state.getPayment);
 
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
@@ -46,7 +47,7 @@ export default function Cart() {
     }, [dispatch])
 
     const handleClick = async (e) => {
-        dispatch(getPayment(prueba))
+        await dispatch(getPayment(prueba))
         // dispatch(getPaymentInfo(prueba))
         history.push('/purchase');
     }
