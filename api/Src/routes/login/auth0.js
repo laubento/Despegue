@@ -6,15 +6,16 @@ const router = Router();
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
 
-    if(!user) return res.status(400)
+    if (!user) return res.sendStatus(400);
 
-    User.findOne({ email: user.email }).then((resp) => {
+    User.findOne({ email: user.email })
+    .then((resp) => {
         if (resp) {
             console.log("1er entrada" + resp);
             return res.status(200).send(resp);
         } else {
             // Si no existe lo agrego a la DB
-            const newUser = new User({
+            new User({
                 name: user.name || user.nickname,
                 firstName: user.given_name || user.nickname,
                 lastname: user.family_name || user.nickname,
@@ -25,12 +26,18 @@ router.post("/getUser", async (req, res) => {
                 dni: "",
                 phone: "",
                 birthDate: "",
+            })
+            .save()
+            .then((newUser) => {
+                console.log("nuevo" + newUser);
+                res.status(200).send(newUser);
+            })
+            .catch((err) => {
+                console.log("CATCH AUTH0" + err);
+                res.status(400).send("No se pudo crear");
             });
-            newUser.save()
-            console.log('nuevo' + newUser);
-            res.status(200).send(newUser);
         }
-    });
+    })
 });
 
 // router.get("/", (req, res) => {

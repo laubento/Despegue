@@ -67,20 +67,20 @@ function App() {
 
 
     const { user } = useAuth0();
-
-
+    
     useEffect(() => {
         axios.post('/auth0/getUser', {user})
         .then((data) => {
             if(data.status === 200) return data.data
         })
         .then((user) => {
-            console.log(user);
+            window.localStorage.setItem('user', JSON.stringify(user))
+            dispatch(storeUserInfo(user))
         })
-        .catch(() => {
-            
+        .catch((err) => {
+            console.log('chau');
         })
-    },[user])
+    },[dispatch, user])
 
 
 
@@ -97,7 +97,6 @@ function App() {
         //     birthDate: data.data.birthDate
         // };
         // console.log(obj);
-        dispatch(storeUserInfo(user))
         
 
     
