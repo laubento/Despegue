@@ -13,10 +13,10 @@ let number = 1
 function Flights() {
   let flights = useSelector((state) => state.flights);
   let allFlights = useSelector((state) => state.allFlights);
-  let infofiltrada = useSelector((state) => state.filteredFlights);
-  if (infofiltrada.length > 0) {
-    flights = infofiltrada;
-  }
+  // let infofiltrada = useSelector((state) => state.filteredFlights);
+  // if (infofiltrada.length > 0) {
+  //   flights = infofiltrada;
+  // }
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
@@ -72,15 +72,15 @@ const nextHandler = (e) => {
               return(
                 <div key={i} className='d-flex justify-content-center'>
                 <Card 
-                id={e.id}
-                segments={e.segments}
-                airlinesName={e.airlinesNames}
-                departureTime={e.departureTime}
-                arrivalTime={e.arrivalTime}
-                duration={e.duration}
-                stopoversCount={e.stopoversCount}
-                price={e.price}
-                going={e.going}
+                  id={e.id}
+                  segments={e.segments}
+                  airlinesName={e.airlinesNames}
+                  departureTime={e.departureTime}
+                  arrivalTime={e.arrivalTime}
+                  duration={e.duration}
+                  stopoversCount={e.stopoversCount}
+                  price={e.price}
+                  going={e.going}
                 />
                 </div>
               )})

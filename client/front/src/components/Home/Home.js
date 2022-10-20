@@ -17,7 +17,7 @@ function Home(props) {
   if(status === 'approved' ) {
     let price = vuelo.map(e => e.price).join('')
   swal('Felicidades!', `Has comprado tu pasaje a ${price}`, 'success')
-    history.push('/')
+    // history.push('/')
     //info del vuelo
     let vueloDetail = JSON.parse(localStorage.getItem('detail'))
     // en items esta la info de los vuelos!
