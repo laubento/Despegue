@@ -48,4 +48,8 @@ router.use("/users", getHistory);
 const update = require("./updateUser");
 router.use("/update", update);
 
+//membership
+const member = require("./memberUpdate")
+router.use("/users", member)
+
 module.exports = router;

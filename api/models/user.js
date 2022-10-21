@@ -37,6 +37,12 @@ const User = mongoose.Schema({
     required: false
   },
 
+  membership: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
+
   // age:{
   //     type: Number,
   //     required: true
