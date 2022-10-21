@@ -52,4 +52,8 @@ router.use("/update", update);
 const mercadopago = require('./mercadopago/mercadopago.js')
 router.use("/mercadopago", mercadopago)
 
+//mail compra
+const sendMailCompra = require('./sendMailCompra/sendMailCompra.js')
+router.use('/sendmailpago', sendMailCompra)
+
 module.exports = router;

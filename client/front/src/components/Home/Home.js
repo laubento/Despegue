@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { addUserRole, listUsers } from "../../Redux/Actions";
+import { addUserRole, listUsers, sendMailCompra } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom"; 
 import swal from 'sweetalert'
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
@@ -23,8 +23,8 @@ function Home(props) {
   let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
   if (userRole) {
     dispatch(addUserRole(userRole))
-  }
-  // console.log(userRole)
+  } 
+
   const handleClick = (e) => {
     e.preventDefault();
     display = false

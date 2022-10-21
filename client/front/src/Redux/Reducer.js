@@ -210,6 +210,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 history: action.payload
             }
+        case "SEND_MAIL_COMPRA":
+        
+        return{
+
+        }
+
         default:
             return state;
     }

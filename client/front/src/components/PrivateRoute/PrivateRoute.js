@@ -15,7 +15,8 @@ export default function PrivateRoute({ component, ...rest }) {
     let usersList = useSelector(state => state.listUsers)
     let user = useSelector(state => state.user)
     // console.log(userRole)
-    let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
+    console.log(usersList)
+    let userRole = usersList === undefined ? ''  : usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
     if (userRole) {
         dispatch(addUserRole(userRole))
       }
