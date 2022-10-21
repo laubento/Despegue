@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
-import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/Admin.css'
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Admin() {
     const dispatch = useDispatch()
