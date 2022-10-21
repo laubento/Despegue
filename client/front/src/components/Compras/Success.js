@@ -17,6 +17,7 @@ function Success(props) {
     console.log(vuelo)
     if(vuelo !== null){
         //dentro de este if guardar en base de datos el historial de compra.
+        console.log(vuelo)
         vuelo.map(e => console.log(e.price))
     }
     swal('Felicidades!', `Has comprado tu pasaje`, 'success')
