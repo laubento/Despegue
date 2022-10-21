@@ -42,6 +42,12 @@ const User = mongoose.Schema({
   //     required: true
   // },
 
+  banned:{
+    type: Boolean,
+    default: false,
+    required: true
+  },
+
   password: {
     type: String,
     required: true,
@@ -90,8 +96,8 @@ User.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-User.pre("findOne", function () {
-  this.where({ active: true });
-});
+// User.pre("findOne", function () {
+//   this.where({ active: true });
+// });
 
 module.exports = mongoose.model("User", User);

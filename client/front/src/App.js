@@ -65,17 +65,29 @@ function App() {
     //     getUser();
     //   }, [dispatch]);
 
+    const { user, logout } = useAuth0();
 
-    const { user } = useAuth0();
+    console.log(user);
 
     useEffect(() => {
+        console.log('hola');
         axios.post('/auth0/getUser', {user})
         .then((data) => {
             if(data.status === 200) return data.data
         })
         .then((user) => {
-            window.localStorage.setItem('user', JSON.stringify(user))
-            dispatch(storeUserInfo(user))
+            if(user.active && !user.banned){
+                window.localStorage.setItem('user', JSON.stringify(user))
+                dispatch(storeUserInfo(user))
+            }
+            else if(!user.active && !user.banned){
+                logout({returnTo:process.env.VERCEL_URL || "http://localhost:3000"}) //return to localhost/activar cuenta
+                return alert('Usuario desactivado')
+            }
+            else if(!user.active && user.banned){
+                logout({returnTo:process.env.VERCEL_URL || "http://localhost:3000"}) // return to locahost/ rickroll
+                return alert('Usuario baneado')
+            }
         })
         .catch((err) => {
             console.log('usuario no logueado');

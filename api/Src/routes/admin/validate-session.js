@@ -10,11 +10,7 @@ helpers.isAuthenticated = (req, res, next) => {
 
 helpers.isUser = (req, res, next) => {
 
-    console.log('ho');
-
     const {user} = req.body
-
-    console.log(user);
     
     if(!user || !user.roles.length || !user.roles.includes("user")) return res.redirect(process.env.HOME_URL || "http://localhost:3000")
     
