@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import MuiDataTable from 'mui-datatables'
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
-import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
+import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import '../styles/Admin.css'
 
 
@@ -35,7 +35,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { admin: 'admin', user: 'user' },
+            lookup: { admin: 'admin', user: 'user', vip: 'vip' },
             filterPlaceholder: 'Filtro por Rol'
         },
         {
@@ -152,7 +152,7 @@ export default function Admin() {
                                     window.location.reload()
                                 }),
                                 onRowDelete: (selectedRow) => new Promise((resolve, reject) =>{
-                                    // dispatch(deleteOffer(selectedRow))
+                                    dispatch(deleteOffer(selectedRow))
                                 
                                     resolve()
                                     window.location.reload()

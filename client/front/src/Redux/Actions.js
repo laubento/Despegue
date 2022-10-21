@@ -123,6 +123,12 @@ export const updateUser = (user) => {
     }
 }
 
+export const deleteOffer = (offer) => {
+    return async function () {
+        await axios.put(`http://localhost:3001/login/auth0/delete`, { offer })
+    }
+}
+
 export function listOffers() {
     return async function (dispatch) {
         let response = await axios.get(`http://localhost:3001/admin/offers/getoffers`)
@@ -132,7 +138,7 @@ export function listOffers() {
 
 export const offersCreate = (offer) => {
     return async function () {
-        await axios.post(`http://localhost:3001/admin/offers`, { offer })
+        await axios.post(`http://localhost:3001/admin/offers`, offer )
     }
 }
 

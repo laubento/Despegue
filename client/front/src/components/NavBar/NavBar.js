@@ -87,6 +87,19 @@ export default function NavBar() {
             <div className="NavBar-Boton1">Asistencia</div>
             {/* <div className='NavBar-Nuevo'>Nuevo</div> */}
           </Link>
+          {user? user.roles ? user.roles[0] === 'admin' ?
+            <Link
+              to={"/admin"}
+              className={
+                url == "/admin"
+                  ? "NavBar-LinBotonActive"
+                  : "NavBar-LinkBoton"
+              }
+            >
+              <DashboardIcon />
+              <div className="NavBar-Boton1">Admin</div>
+            </Link>:null:null:null
+          }
         </div>
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">
