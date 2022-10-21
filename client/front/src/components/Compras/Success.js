@@ -15,6 +15,7 @@ function Success(props) {
     const user = useSelector(state => state.user)
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
+    console.log(user)
     useEffect(() => {
       if(user){
         let obj = {
@@ -30,9 +31,8 @@ function Success(props) {
       }).catch((e) => {
         console.log(e)
       })
-      let id = user !== null ? user._id : ''
-      console.log(id)
-      dispatch(sendMailCompra(id,payment_id))
+      let id = user !== null ? user.id : ''
+      dispatch(sendMailCompra(id, payment_id))
       swal('Felicidades!', `Has comprado tu pasaje`, 'success')
       history.push('/user')
       }
