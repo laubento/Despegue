@@ -11,7 +11,6 @@ import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 import { ReactReduxContext, useSelector } from "react-redux";
 import React from "react";
-import { useSelector } from "react-redux";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function NavBar() {

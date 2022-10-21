@@ -13,7 +13,6 @@ import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
 import LogInButton from "./components/Login auth0/LogInAuth0";
 import MiPerfil from "./components/MiPerfil/MiPerfil";
-import MiPerfil from "./components/MiPerfil/MiPerfil";
 import RoundtripFF from "./components/Flights/RoundtripFF";
 import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
