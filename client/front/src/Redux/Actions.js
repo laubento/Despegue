@@ -17,6 +17,7 @@ export const USERS_LIST = "USERS_LIST"
 export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
+export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
 
 
 export function getFlights(flight) {
@@ -24,7 +25,7 @@ export function getFlights(flight) {
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        const flights = await axios.post(`/flights/${tripType}`, { flight })
+        const flights = await axios.post(`/flights/${tripType}`, {flight})
 
         return dispatch({
             type: GET_FLIGHTS,
@@ -182,14 +183,6 @@ export const getRoundTripSF = () => {
         type: GET_ROUNDTRIP_SF
     }
 }
-export const onSecondFlightRoute = () => {
-    return {
-        type: SET_SF_TRUE,
-        payload: true
-    }
-}
-
-
 
 export const addFlightToCart = (flightDetail) => {
     return {
@@ -205,6 +198,13 @@ export const onFirstFlightRoute = () => {
     }
 }
 
+export const onSecondFlightRoute = () => {
+    return {
+        type: SET_SF_TRUE,
+        payload: true
+    }
+}
+
 
 export const sendMailCompra = (id, idPago) => {
     return async function (dispatch){
@@ -213,3 +213,11 @@ export const sendMailCompra = (id, idPago) => {
        return dispatch({type: "SEND_MAIL_COMPRA", payload:response.data })
     }
 }
+
+export const clearFlightDetail = () => {
+    return{
+        type: CLEAR_FLIGHT_DETAIL
+    }
+}
+
+

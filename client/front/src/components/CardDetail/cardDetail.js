@@ -1,15 +1,33 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useDebugValue } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { clearFlightDetail } from "../../Redux/Actions";
 
 import '../styles/CardDetail.css';
 
 export default function CardDetail(){
-
+    const dispatch = useDispatch();
     const flightDetail = useSelector( (state) => state.flightDetail);
+    const flightsCart = useSelector((state) => state.flightsCart);
+    const onFirstFlightRoute = useSelector((state) => state.onFirstFlightRoute);
+    const onSecondFlightRoute = useSelector((state) => state.onSecondFlightRoute);
     const history = useHistory();
     const handleClick = () => {
-        history.push('/flights');
+        dispatch(clearFlightDetail());
+        // one way
+        if ((flightsCart.length === 1 && !onSecondFlightRoute) || flightsCart.length >=2) {
+            return history.push('/flights/roundtrip/cart')
+        }
+        if (!onFirstFlightRoute && !onSecondFlightRoute) {
+            return history.push('/flights')
+        }
+        if (onFirstFlightRoute && !onSecondFlightRoute) {
+            return history.push('/flights/roundtrip/firstFlight')
+        }
+        if (!onFirstFlightRoute && onSecondFlightRoute) {
+            return history.push('/flights/roundtrip/secondFlight')
+        }
+
     }
 
     const minutesToHrsMins = (time) => {
