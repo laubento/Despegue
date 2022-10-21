@@ -76,7 +76,7 @@ export default function DatosPersonales(){
                                     else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.name)){
                                         errores.name = "Solo se permiten letras"
                                     }
-                                    else if(valores.name.length > 30){
+                                    else if(valores.name.length > 15){
                                         errores.name = "Demaciado caracteres"
                                     }
 
@@ -87,7 +87,7 @@ export default function DatosPersonales(){
                                     else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)){
                                         errores.lastName = "Solo se permiten letras"
                                     }
-                                    else if(valores.lastName.length > 30){
+                                    else if(valores.lastName.length > 15){
                                         errores.lastName = "Demaciado caracteres"
                                     }
 

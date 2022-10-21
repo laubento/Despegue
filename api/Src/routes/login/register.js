@@ -14,6 +14,11 @@ router.post("/", (req, res) => {
         firstName: req.body.name,
         password: hashedPassword,
         email: req.body.email,
+        lastname: '',
+        photo: '',
+        dni: '',
+        phone: '',
+        birthDate: ''
       });
       await newUser.save();
       res.send("User Created");

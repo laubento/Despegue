@@ -26,10 +26,6 @@ import axios from "axios";
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
-import { useState } from "react";
-import axios from "axios";
-import Admin from "./components/Admin/Admin";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
     const dispatch = useDispatch()
