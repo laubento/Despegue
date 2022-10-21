@@ -204,3 +204,12 @@ export const onFirstFlightRoute = () => {
         payload: true
     }
 }
+
+
+export const sendMailCompra = (id, idPago) => {
+    return async function (dispatch){
+        console.log(id)
+       let response =  await axios.post(`http://localhost:3001/sendmailpago/${id}/${idPago}`)
+       return dispatch({type: "SEND_MAIL_COMPRA", payload:response.data })
+    }
+}
