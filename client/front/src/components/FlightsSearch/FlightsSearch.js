@@ -150,61 +150,62 @@ export default function FlightsSearch() {
         });
     }
 
-        const handleSubmitAirportFrom = (e) => {
-            e.preventDefault();
-            if(airportName.from === "") {
-                return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-            }
-            setFlights({
-                ...flights,
-                departurePlace: airportName.from
-            })
-            setActivateFrom(true)
-            dispatch(searchAirportFrom(airportName.from));
+    const handleSubmitAirportFrom = (e) => {
+        e.preventDefault();
+        if(airportName.from === "") {
+            return setSearchError({
+                ...searchError,
+                vacio: 'El input está vacio!'
+                })
         }
+        setFlights({
+            ...flights,
+            departurePlace: airportName.from
+        })
+        setActivateFrom(true)
+        dispatch(searchAirportFrom(airportName.from));
+    }
+    // setActivateFrom(true)
+    // dispatch(searchAirportFrom(airportName.from))
+    
+
+    const handleSubmitAirportTo = (e) => {
+        e.preventDefault();
+        if (airportName.to === "") {
+            return setSearchError({
+            ...searchError,
+            vacio: 'El input está vacio!'
+            })
+        }
+        setFlights({
+            ...flights,
+            arrivalPlace: airportName.to
+        })
+        setActivateTo(true)
+        dispatch(searchAirportTo(airportName.to));
+    };
+            
+            
+    const handleSelectFrom = (e) => {
+        let codeIata = e.target.value.substr(-3)
+        if(codeIata === '...') return;
+        setFlights({
+            ...flights,
+            departurePlace: codeIata
+        })
         setActivateFrom(true)
         dispatch(searchAirportFrom(airportName.from))
     }
 
-        const handleSubmitAirportTo = (e) => {
-                e.preventDefault();
-                if (airportName.to === "") {
-                  return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-                }
-                setFlights({
-                    ...flights,
-                    arrivalPlace: airportName.to
-                })
-                setActivateTo(true)
-                dispatch(searchAirportTo(airportName.to));
-              };
-            
-            
-              const handleSelectFrom = (e) => {
-                let codeIata = e.target.value.substr(-3)
-                if(codeIata === '...') return;
-                setFlights({
-                    ...flights,
-                    departurePlace: codeIata
-                })
-                setActivateFrom(true)
-                dispatch(searchAirportFrom(airportName.from))
-              }
-              const handleSelectTo = (e) => {
-                let codeIata = e.target.value.substr(-3)
-                if(codeIata === '...') return;
-                setFlights({
-                    ...flights,
-                    arrivalPlace: codeIata
-                })
-              }
-              console.log(flights)
+    const handleSelectTo = (e) => {
+        let codeIata = e.target.value.substr(-3)
+        if(codeIata === '...') return;
+        setFlights({
+            ...flights,
+            arrivalPlace: codeIata
+        })
+    }
+    
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>

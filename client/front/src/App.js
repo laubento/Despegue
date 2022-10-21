@@ -50,7 +50,6 @@ function App() {
             data: {id: resObject.user._id},
             url: "/update",
         }).then((data) => {
-          console.log('entre')
           const obj = {
             name: data.data.name,
             photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
