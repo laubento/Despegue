@@ -48,7 +48,7 @@ export default function Admin() {
             title: 'Banned',
             field: 'banned',
             lookup: { true: 'Banneado', false: 'No Baneado' },
-            filtering: false
+            filterPlaceholder: 'Filtro por Banneado'
         },
     ]
 
