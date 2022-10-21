@@ -8,12 +8,12 @@ import '../styles/Admin.css'
 
 export default function Admin() {
     const dispatch = useDispatch()
-    const [render, setRender] = useState('')
+    // const [render, setRender] = useState('')
 
     useEffect(e => {
-        dispatch(listUsers())
+        // dispatch(listUsers())
         dispatch(listOffers())
-        setRender('chau')
+        // setRender('chau')
     }, [dispatch])
 
     const users = useSelector(state => state.listUsers);
@@ -122,7 +122,7 @@ export default function Admin() {
                             editable={{
                                 onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
                                     dispatch(updateUser(newRow))
-                                    setRender('hola')
+                                    // setRender('hola')
                                     resolve()
                                     window.location.reload()
                                 })
