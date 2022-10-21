@@ -104,9 +104,14 @@ export function listUsers() {
     return async function (dispatch) {
         let response = await axios.get(`http://localhost:3001/admin/users`)
         let obj = response.data.map((e) => {
+            let userName;
+            if(e.lastname){
+                userName = `${e.firstName} ${e.lastname}`
+            } else {
+                userName = `${e.firstName}`
+            }
             return ({
-                firstName: e.firstName,
-                lastname: e.lastname,
+                name: userName,
                 email: e.email,
                 id: e._id,
                 roles: e.roles,
