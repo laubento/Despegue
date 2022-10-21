@@ -24,7 +24,7 @@ function Home(props) {
   if (userRole) {
     dispatch(addUserRole(userRole))
   }
-  console.log(userRole)
+  // console.log(userRole)
   const handleClick = (e) => {
     e.preventDefault();
     display = false
