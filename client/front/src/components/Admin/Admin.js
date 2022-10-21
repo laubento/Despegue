@@ -4,7 +4,7 @@ import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import '../styles/Admin.css'
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -18,7 +18,7 @@ export default function Admin() {
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
-    console.log(users)
+    // console.log(users)
     const columns = [
         {
             title: 'Nombre',
@@ -42,6 +42,12 @@ export default function Admin() {
             title: 'Status',
             field: 'active',
             lookup: { true: 'Activo', false: 'Desactivo' },
+            filtering: false
+        },
+        {
+            title: 'Banned',
+            field: 'banned',
+            lookup: { true: 'Banneado', false: 'No Baneado' },
             filtering: false
         },
     ]
@@ -137,6 +143,11 @@ export default function Admin() {
                             title={'Lista de Ofertas'}
                             columns={columnsOffers}
                             data={offers}
+                            actions={[{
+                                icon: () =><DeleteIcon/>,
+                                tooltip: 'Click me',
+                                // onClick: (e, data) => deleteOffer(data),
+                            }]}
                             options={{addRowPosition: 'first', actionsColumnIndex: -1, columnsButton:true, rowStyle: {background:'#f5f5f5'}, selection:true}}
                             editable={{
                                 onRowAdd:(newRow)=>new Promise((resolve, reject) =>{

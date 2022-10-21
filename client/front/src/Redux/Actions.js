@@ -110,7 +110,8 @@ export function listUsers() {
                 email: e.email,
                 id: e._id,
                 roles: e.roles,
-                active: e.active
+                active: e.active,
+                banned: e.banned,
             })
         })
         return dispatch({ type: USERS_LIST, payload: obj })
