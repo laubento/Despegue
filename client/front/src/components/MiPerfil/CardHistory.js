@@ -25,7 +25,7 @@ export default function CardHistory({ paquete }) {
                             </div>
                             <div className="CardHistory-Precio">
                                 <h6>TOTAL</h6>
-                                <h6>{paquete.length > 1 ? `$${Number(paquete[0].price) + Number(paquete[1].price)}`: paquete[0].price}</h6>
+                                <h6>{paquete.length > 1 ? `$${Number(paquete[0].price) + Number(paquete[1].price)}`: `$${paquete[0].price}`}</h6>
                             </div>
                         </div>
                         <hr />
