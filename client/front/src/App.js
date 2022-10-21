@@ -50,6 +50,7 @@ function App() {
             data: {id: resObject.user._id},
             url: "/update",
         }).then((data) => {
+          console.log('entre')
           const obj = {
             name: data.data.name,
             photos: data.data.photo ? resObject.user.photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
@@ -59,7 +60,9 @@ function App() {
             id: data.data._id,
             dni: data.data.dni,
             phone: data.data.phone,
-            birthDate: data.data.birthDate
+            birthDate: data.data.birthDate,
+            roles: data.data.roles,
+            active: data.data.active
           };
           dispatch(storeUserInfo(obj))
         })

@@ -13,18 +13,19 @@ function Home(props) {
   let display = localStorage.getItem('display')
   const status = query.get('status')
 
-  useEffect(e => {
-    dispatch(listUsers())
-  }, [dispatch])
+  // useEffect(e => {
+  //   dispatch(listUsers())
+  // }, [dispatch])
 
-  let usersList = useSelector(state => state.listUsers)
+  // let usersList = useSelector(state => state.listUsers)
   let user = useSelector(state => state.user)
 
-  let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
-  if (userRole) {
-    dispatch(addUserRole(userRole))
-  }
+  // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
+  // if (userRole) {
+  //   dispatch(addUserRole(userRole))
+  // }
   // console.log(userRole)
+  
   const handleClick = (e) => {
     e.preventDefault();
     display = false

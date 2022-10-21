@@ -8,21 +8,21 @@ import Admin from "../Admin/Admin";
 export default function PrivateRoute({ component, ...rest }) {
     let dispatch = useDispatch();
 
-    useEffect(e => {
-        dispatch(listUsers())
-    }, [dispatch])
+    // useEffect(e => {
+    //     dispatch(listUsers())
+    // }, [dispatch])
 
-    let usersList = useSelector(state => state.listUsers)
+    // let usersList = useSelector(state => state.listUsers)
     let user = useSelector(state => state.user)
     // console.log(userRole)
-    let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
-    if (userRole) {
-        dispatch(addUserRole(userRole))
-      }
+    // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
+    // if (userRole) {
+    //     dispatch(addUserRole(userRole))
+    //   }
     // console.log(userRole)
     return (
         <Route {...rest}>
-            {userRole ? userRole.roles ? userRole.roles[0] === 'admin' ? <Admin /> : <Redirect to={'/'} /> : null : null}
+            {user ? user.roles[0] === 'admin' ? <Admin /> : <Redirect to={'/'} /> : null}
         </Route>
     )
 }

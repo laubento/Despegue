@@ -18,13 +18,13 @@ export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
 
- 
-export function getFlights(flight){
+
+export function getFlights(flight) {
     const tripType = flight.tripType;
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        const flights = await axios.post(`/flights/${tripType}`, {flight})
+        const flights = await axios.post(`/flights/${tripType}`, { flight })
 
         return dispatch({
             type: GET_FLIGHTS,
@@ -34,7 +34,7 @@ export function getFlights(flight){
 }
 
 export const clearFlights = () => {
-    return function(dispatch){
+    return function (dispatch) {
         dispatch({
             type: CLEAR_FLIGHTS
         })
@@ -43,7 +43,7 @@ export const clearFlights = () => {
 
 // filters = estado de los botones
 export const filterFlights = (filters) => {
-    return function(dispatch){
+    return function (dispatch) {
         dispatch({
             type: FILTER_FLIGHTS,
             payload: filters
@@ -51,8 +51,8 @@ export const filterFlights = (filters) => {
     }
 }
 
-export function filterFlightById(id){
-    return function(dispatch){
+export function filterFlightById(id) {
+    return function (dispatch) {
         dispatch({
             type: FILTER_FLIGHT_BY_ID,
             payload: id
@@ -60,18 +60,18 @@ export function filterFlightById(id){
     }
 }
 
-export function searchAirportFrom (name) {
-    return async function(dispatch){
+export function searchAirportFrom(name) {
+    return async function (dispatch) {
         let response = await axios.get(`/searchByName/from?nombre=${name}`)
-        return dispatch({type: SEARCH_AIRPORT_FROM, payload: response.data})
+        return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
     }
 }
 
 
-export function searchAirportTo (name) {
-    return async function(dispatch){
+export function searchAirportTo(name) {
+    return async function (dispatch) {
         let response = await axios.get(`/searchByName/to?nombre=${name}`)
-        return dispatch({type: SEARCH_AIRPORT_TO, payload: response.data})
+        return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })
     }
 }
 
@@ -85,7 +85,7 @@ export const storeUserInfo = (user) => {
 }
 
 export const storeFlightsToBuy = (flights) => {
-    return function(dispatch){
+    return function (dispatch) {
         dispatch({
             type: BUY_FLIGHTS,
             payload: flights
@@ -95,64 +95,74 @@ export const storeFlightsToBuy = (flights) => {
 
 
 export const storePurchase = (user, flight) => {
-    return async function(){
+    return async function () {
         await axios.post(`/purchaseComplete`)
     }
 }
- 
-export function listUsers () {
-    return async function(dispatch){
+
+export function listUsers() {
+    return async function (dispatch) {
         let response = await axios.get(`http://localhost:3001/admin/users`)
-        return dispatch({type: USERS_LIST, payload: response.data})
+        let obj = response.data.map((e) => {
+            return ({
+                firstName: e.firstName,
+                lastname: e.lastname,
+                email: e.email,
+                id: e._id,
+                roles: e.roles,
+                active: e.active
+            })
+        })
+        return dispatch({ type: USERS_LIST, payload: obj })
     }
 }
 
 export const updateUser = (user) => {
-    return async function(){
-        await axios.put(`http://localhost:3001/admin/userupdate`,{user})
+    return async function () {
+        await axios.put(`http://localhost:3001/admin/userupdate`, { user })
     }
 }
 
-export function listOffers () {
-    return async function(dispatch){
+export function listOffers() {
+    return async function (dispatch) {
         let response = await axios.get(`http://localhost:3001/admin/offers/getoffers`)
-        return dispatch({type: OFFERS_LIST, payload: response.data})
+        return dispatch({ type: OFFERS_LIST, payload: response.data })
     }
 }
 
 export const offersCreate = (offer) => {
-    return async function(){
-        await axios.post(`http://localhost:3001/admin/offers`,{offer})
+    return async function () {
+        await axios.post(`http://localhost:3001/admin/offers`, { offer })
     }
 }
 
-export function getHistory(id){
-    return async function(dispatch){
+export function getHistory(id) {
+    return async function (dispatch) {
         let response = await axios.get(`http://localhost:3001/users/getHistory?id=${id}`)
-        return dispatch({type: GET_HISTORY, payload: response.data})
+        return dispatch({ type: GET_HISTORY, payload: response.data })
     }
 }
 
 export const updateOffer = (offer) => {
-    return async function(){
-        await axios.put(`http://localhost:3001/admin/offers/offer`,{offer})
+    return async function () {
+        await axios.put(`http://localhost:3001/admin/offers/offer`, { offer })
     }
 }
 
-export const addUserRole = (user) => {
-    return function(dispatch){
-        dispatch({
-            type: ADD_USER_ROLE,
-            payload: user
-        })
-    }
-}
+// export const addUserRole = (user) => {
+//     return function(dispatch){
+//         dispatch({
+//             type: ADD_USER_ROLE,
+//             payload: user
+//         })
+//     }
+// }
 
 export const getPayment = (body) => {
     // console.log(body)
-    return async function(dispatch){
+    return async function (dispatch) {
         const response = await axios.post(`http://localhost:3001/mercadopago/payment`, body)
-        return dispatch({type: "GET_PAYMENT", payload: response.data })
+        return dispatch({ type: "GET_PAYMENT", payload: response.data })
     }
 }
 
@@ -177,7 +187,7 @@ export const onSecondFlightRoute = () => {
 
 
 export const addFlightToCart = (flightDetail) => {
-    return{
+    return {
         type: ADD_FLIGHT_TO_CART,
         payload: flightDetail[0]
     }

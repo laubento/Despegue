@@ -23,7 +23,8 @@ export default function DatosPersonales(){
             birthDate: valores.birthDate ?  valores.birthDate : user.birthDate,
             dni: valores.dni ? valores.dni: user.dni,
             phone: valores.phone ? valores.phone : user.phone, 
-            id: user.id
+            id: user.id,
+            roles: user.roles 
         }
         axios({
             method: "PUT",
@@ -39,7 +40,8 @@ export default function DatosPersonales(){
                 id: resObject.data._id,
                 dni: resObject.data.dni,
                 phone: resObject.data.phone,
-                birthDate: resObject.data.birthDate
+                birthDate: resObject.data.birthDate,
+                roles: resObject.data.roles
               };
             dispatch(storeUserInfo(obj))
         });

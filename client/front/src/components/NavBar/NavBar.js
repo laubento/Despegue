@@ -66,7 +66,7 @@ export default function NavBar() {
             <Link
               to={"/admin"}
               className={
-                url == "/asistencias"
+                url == "/admin"
                   ? "NavBar-LinBotonActive"
                   : "NavBar-LinkBoton"
               }

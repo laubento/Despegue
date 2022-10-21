@@ -11,18 +11,18 @@ export default function Admin() {
     // const [render, setRender] = useState('')
 
     useEffect(e => {
-        // dispatch(listUsers())
+        dispatch(listUsers())
         dispatch(listOffers())
         // setRender('chau')
     }, [dispatch])
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
-    
+    console.log(users)
     const columns = [
         {
             title: 'Nombre',
-            field: 'name',
+            field: 'firstName',
             editable: false,
             filtering: false
         },
