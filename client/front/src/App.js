@@ -12,12 +12,24 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
 import  MiPerfil  from "./components/MiPerfil/MiPerfil";
+import RoundtripFF from "./components/Flights/RoundtripFF";
+import RoundtripSF from "./components/Flights/RoundtripSF";
+import Cart from "./components/Cart/Cart";
+
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
+import Success from "./components/Compras/Success";
+import Failure from "./components/Compras/Failure"; 
 
 import { useState } from "react";
 import axios from "axios";
 import Admin from "./components/Admin/Admin";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+
+import { useState } from "react";
+import axios from "axios";
+import Admin from "./components/Admin/Admin";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
     const dispatch = useDispatch()
@@ -75,12 +87,17 @@ function App() {
           path={"/register"}
           render={() => <Register />}
         />
-        <Route exact path="/flights" component={Flights} />
-        <Route exact path="/admin" component={Admin} />
-        <Route exact path="/flightSearch" component={FlightsSearch} />
-        <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
-        <Route path="/" component={Footer} />
-        <Route path="/purchase" render={() => <Checkout/>} />
+        <Route exact path="/flights" component={Flights}/>
+        <PrivateRoute exact path="/admin" component={Admin} />
+        <Route exact path="/flights/roundtrip/firstFlight" component={RoundtripFF}/>
+        <Route exact path="/flights/roundtrip/secondFlight" component={RoundtripSF}/>
+        <Route exact path="/flights/roundtrip/cart" component={Cart}/>
+        <Route exact path="/flightSearch" component={FlightsSearch}/>
+        <Route exact path="/flights/flightDetail/:id" component={CardDetail}/>
+        <Route exact path="/success" component={Success} />
+        <Route exact path="/failure" component={Failure} />
+        <Route path="/" component={Footer}/>
+        <Route path="/purchase" render={() => <Checkout/>}/>
       </BrowserRouter>
     </div>
   );

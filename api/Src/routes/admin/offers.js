@@ -36,7 +36,7 @@ router.get("/getoffers", isAuthenticate, async (req, res) => {
 
 router.put("/offer", async (req, res) => {
   try {
-    const { _id, prevPrice, price } = req.body;
+    const { _id, prevPrice, price } = req.body.offer;
     if (!_id) return res.send("Datos incorrects");
     const offer = await Offers.updateOne(
       { _id: _id },

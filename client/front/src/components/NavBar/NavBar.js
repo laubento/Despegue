@@ -9,13 +9,15 @@ import Asistencias from "../../Images/botiquin.png";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function NavBar() {
   let url = window.location.pathname;
 
   const user = useSelector((state) => state.user);
-
+  
   function handleSubmitLogOut() {
+    localStorage.clear()
     window.open("http://localhost:3001/auth/logout", "_self");
     alert("Cerrando sesion");
   }
@@ -60,6 +62,19 @@ export default function NavBar() {
             <div className="NavBar-Boton1">Asistencia</div>
             {/* <div className='NavBar-Nuevo'>Nuevo</div> */}
           </Link>
+          {user? user.roles ? user.roles[0] === 'admin' ?
+            <Link
+              to={"/admin"}
+              className={
+                url == "/asistencias"
+                  ? "NavBar-LinBotonActive"
+                  : "NavBar-LinkBoton"
+              }
+            >
+              <DashboardIcon />
+              <div className="NavBar-Boton1">Admin</div>
+            </Link>:null:null:null
+          }
         </div>
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">

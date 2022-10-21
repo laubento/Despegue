@@ -3,7 +3,7 @@ const User = require("../../../models/user");
 const router = Router();
 const { isAuthenticate } = require("./validate-session");
 
-router.get("/users", async (req, res) => {
+router.get("/users", isAuthenticate, async (req, res) => {
   try {
     let users = await User.find({});
     res.send(users);
@@ -12,7 +12,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/user", async (req, res) => {
+router.post("/user", isAuthenticate, async (req, res) => {
   try {
     if (req.body.email) {
       let user = await User.findOne({ email: req.body.email });
@@ -28,13 +28,13 @@ router.post("/user", async (req, res) => {
   }
 });
 
-router.put("/userupdate", async (req, res) => {
+router.put("/userupdate", isAuthenticate, async (req, res) => {
   try {
     let { email, name, roles, active } = req.body.user;
 
     await User.updateOne(
       { email },
-      { $set: { name: name, roles: roles, active: active } }
+      { $set: { name: name, roles: [roles], active: active } }
     );
     // await User.updateOne(
     //   { email },

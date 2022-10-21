@@ -12,12 +12,15 @@ let number = 1
 
 function Flights() {
   let flights = useSelector((state) => state.flights);
-  let allFlights = useSelector((state) => state.allFlights);
-  let infofiltrada = useSelector((state) => state.filteredFlights);
-  if (infofiltrada.length > 0) {
-    flights = infofiltrada;
-  }
 
+  let allFlights = useSelector((state) => state.allFlights);
+  // let infofiltrada = useSelector((state) => state.filteredFlights);
+  // if (infofiltrada.length > 0) {
+  //   flights = infofiltrada;
+  // }
+  const logout = () => {
+    window.open("http://localhost:3001/auth/logout", "_self");
+  };
   console.log(flights,'--', allFlights)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -63,26 +66,28 @@ const nextHandler = (e) => {
           <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
         </div>
         <div>
-        {
-          flights.length !==  0 ? 
-          currentFlights.map((e,i) => {
-            return(
-              <div key={i} className='d-flex justify-content-center'>
-              <Card 
-              id={e.id}
-              segments={e.segments}
-              airlinesName={e.airlinesNames}
-              departureTime={e.departureTime}
-              arrivalTime={e.arrivalTime}
-              duration={e.duration}
-              stopoversCount={e.stopoversCount}
-              price={e.price}
-              />
-              </div>
-            )})
-        : 
-        <h2>There are no flights with these characteristics</h2>
-        }
+          {
+            flights.length !==  0 ? 
+            currentFlights.map((e,i) => {
+              console.log(e.price)
+              return(
+                <div key={i} className='d-flex justify-content-center'>
+                <Card 
+                  id={e.id}
+                  segments={e.segments}
+                  airlinesName={e.airlinesNames}
+                  departureTime={e.departureTime}
+                  arrivalTime={e.arrivalTime}
+                  duration={e.duration}
+                  stopoversCount={e.stopoversCount}
+                  price={e.price}
+                  going={e.going}
+                />
+                </div>
+              )})
+          : 
+          <h2>There are no flights with these characteristics</h2>
+          }
         </div>
       </div> : <div className="flights-cont">
         <Loader />
