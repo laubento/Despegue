@@ -12,7 +12,7 @@ export default function Cart() {
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
     let items = cart.map((el) => ({
-        title: "Title",
+        title: "Pasaje de vuelo",
         description:'Description',
         picture_url: "http://www.myapp.com/myimage.jpg",
         category_id:"category123",
@@ -54,7 +54,7 @@ export default function Cart() {
     
     return(
         <div>
-            <h1>CARRITO DE COMPRAAAAS!</h1>
+            <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
             {
                 cart.length !==  0 ? 
                 cart.map((e,i) => {
@@ -80,8 +80,9 @@ export default function Cart() {
                 <div className='col-md-4'></div>
                 <div className='col-md-4'></div>
                 <div className='col-md-4 text-right'>
-                    <button className='btn btn-md btn-default' onClick={handleClick}>Comprar!</button>
-                    <h1></h1>
+                    <div className='container'>
+                    <button className='btn btn-success' onClick={handleClick}>Comprar</button>
+                    </div>
                 </div>
             </div>
         </div>

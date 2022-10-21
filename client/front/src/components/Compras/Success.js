@@ -23,11 +23,13 @@ function Success(props) {
           url: "/users/purchaseComplete",
       }).then((e) => {
         console.log(e)
-        swal('Felicidades!', `Has comprado tu pasaje`, 'success')
-          history.push('/user')
+        // swal('Felicidades!', `Has comprado tu pasaje`, 'success')
+        //   history.push('/user')
       }).catch((e) => {
         console.log(e)
       })
+      swal('Felicidades!', `Has comprado tu pasaje`, 'success')
+          history.push('/user')
       }
     }, [user])
     console.log(user)
@@ -35,14 +37,16 @@ function Success(props) {
     const status = query.get('status')
     if(status === 'approved' ) {
       // let price = vuelo.map(e => e.price).join('')
-    console.log(vuelo)
+    
     if(vuelo !== null){
         //dentro de este if guardar en base de datos el historial de compra.
+        console.log(vuelo)
         if(user){
           let obj = {
             id: user ? user.id : null,
             flight: vuelo
           }
+          console.log(obj)
           axios({
             method: "POST",
             data: obj,
