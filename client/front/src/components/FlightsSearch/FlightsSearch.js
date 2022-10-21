@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, getRoundTripFF, getRoundTripSF } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
+
     const dispatch = useDispatch();
     const history = useHistory()
+    // global states
     let airportsFrom = useSelector((state) => state.airportsFrom);
     let airportsTo = useSelector((state) => state.airportsTo);
   
-   const [airportName, setAirportName] = useState({
-     from: '',
-     to: ''
-   });
-   const [activateFrom, setActivateFrom] = useState(false)
-   const [activateTo, setActivateTo] = useState(false)
-    //Fecha actual
-    let today = new Date();
-    let day = today.getDate();
-    let month = today.getMonth() + 1;
-    let year = today.getFullYear();
-    const Today = `${year}-${month}-${day}`
-    // let p = 0;
+    // local states
+    const [airportName, setAirportName] = useState({
+        from: '', 
+        to: ''
+    });
+    const [activateFrom, setActivateFrom] = useState(false)
+    const [activateTo, setActivateTo] = useState(false)
     const [p, setP] = useState(0)
-
     const [flights, setFlights] = useState({
         tripType:'onewaytrip',
         departurePlace: '',
@@ -38,33 +33,45 @@ export default function FlightsSearch() {
         currency: 'USD'
         // tripType:'roundtrip',
         // departurePlace: 'EZE',
-        // arrivalPlace: 'GIG',
-        // departureDate: '2022-11-15',
+        // arrivalPlace: 'LIM',
+        // departureDate: '2022-12-01',
         // returningDate: '2022-12-15',
         // cabinClass: 'Economy',
         // adults: 1,
         // children: 0,
         // infants: 0,
         // currency: 'USD'
+        // tripType:'onewaytrip',
+        // departurePlace: 'EZE',
+        // arrivalPlace: 'LIM',
+        // departureDate: '2022-12-01',
+        // returningDate: '',
+        // cabinClass: 'Economy',
+        // adults: 1,
+        // children: 0,
+        // infants: 0,
+        // currency: 'USD'
     })
-
     const [errors, setErrors] = useState({
         allEmpty: '',
         departureEmpty: '',
         returningEmpty:''
     })
-
     const [searchError, setSearchError] = useState({
         vacio: '',
         most: ''
     })
-    
-    // Lugares disponibles
-    const handleChangeSites = (num, age) => {
-        if(num){ setFlights({...flights, [age]: flights[age] + 1}) }
-        else{ setFlights({...flights, [age]: flights[age] - 1}) }
-    }
 
+    // variables
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    const Today = `${year}-${month}-${day}`
+    // let p = 0;
+    
+    // functions
+    // Lugares disponibles
     const handleChange = (e) => {
         // Seteo de la fecha arrive en caso de cambio
         if(e.target.name === 'departureDate'){
@@ -77,6 +84,29 @@ export default function FlightsSearch() {
             return setFlights({...flights, returningDate: '', [e.target.name]: e.target.value})
         }
         setFlights({...flights, [e.target.name]: e.target.value});
+        setErrors({
+            allEmpty: '',
+            departureEmpty:'',
+            returningEmpty: ''
+        })
+    }
+
+    const handleChangeSites = (num, age) => {
+        if(num){ setFlights({...flights, [age]: flights[age] + 1}) }
+        else{ setFlights({...flights, [age]: flights[age] - 1}) }
+    }
+
+    const handleChangeAirport = (e) => {
+        e.preventDefault();
+
+        setAirportName({
+            ...airportName,
+            [e.target.name] : e.target.value
+        })
+        setSearchError({
+            vacio: '',
+
+        })
         setErrors({
             allEmpty: '',
             departureEmpty:'',
@@ -99,7 +129,7 @@ export default function FlightsSearch() {
                 returningEmpty:  'Falta fecha de vuelta!'
             })
         }
-        dispatch(clearFlights())
+        // dispatch(clearFlights())
         dispatch(getFlights(flights));
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
@@ -119,79 +149,67 @@ export default function FlightsSearch() {
             currency: 'USD'
         });
     }
-        const handleChangeAirport = (e) => {
-            e.preventDefault();
 
-            setAirportName({
-                ...airportName,
-                [e.target.name] : e.target.value
-            })
-            setSearchError({
-                vacio: '',
+    const handleSubmitAirportFrom = (e) => {
+        e.preventDefault();
+        if(airportName.from === "") {
+            return setSearchError({
+                ...searchError,
+                vacio: 'El input está vacio!'
+                })
+        }
+        setFlights({
+            ...flights,
+            departurePlace: airportName.from
+        })
+        setActivateFrom(true)
+        dispatch(searchAirportFrom(airportName.from));
+    }
+    // setActivateFrom(true)
+    // dispatch(searchAirportFrom(airportName.from))
+    
 
-            })
-            setErrors({
-                allEmpty: '',
-                departureEmpty:'',
-                returningEmpty: ''
+    const handleSubmitAirportTo = (e) => {
+        e.preventDefault();
+        if (airportName.to === "") {
+            return setSearchError({
+            ...searchError,
+            vacio: 'El input está vacio!'
             })
         }
-
-        const handleSubmitAirportFrom = (e) => {
-            e.preventDefault();
-            if(airportName.from === "") {
-                return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-            }
-            setFlights({
-                ...flights,
-                departurePlace: airportName.from
-            })
-            setActivateFrom(true)
-            dispatch(searchAirportFrom(airportName.from));
-        }
-
-        const handleSubmitAirportTo = (e) => {
-                e.preventDefault();
-                if (airportName.to === "") {
-                  return setSearchError({
-                    ...searchError,
-                    vacio: 'El input está vacio!'
-                  })
-                }
-                setFlights({
-                    ...flights,
-                    arrivalPlace: airportName.to
-                })
-                setActivateTo(true)
-                dispatch(searchAirportTo(airportName.to));
-              };
+        setFlights({
+            ...flights,
+            arrivalPlace: airportName.to
+        })
+        setActivateTo(true)
+        dispatch(searchAirportTo(airportName.to));
+    };
             
             
-              const handleSelectFrom = (e) => {
-                let codeIata = e.target.value.substr(-3)
-                if(codeIata === '...') return;
-                setFlights({
-                    ...flights,
-                    departurePlace: codeIata
-                })
-                setActivateFrom(true)
-                dispatch(searchAirportFrom(airportName.from))
-              }
-              const handleSelectTo = (e) => {
-                let codeIata = e.target.value.substr(-3)
-                if(codeIata === '...') return;
-                setFlights({
-                    ...flights,
-                    arrivalPlace: codeIata
-                })
-              }
+    const handleSelectFrom = (e) => {
+        let codeIata = e.target.value.substr(-3)
+        if(codeIata === '...') return;
+        setFlights({
+            ...flights,
+            departurePlace: codeIata
+        })
+        setActivateFrom(true)
+        dispatch(searchAirportFrom(airportName.from))
+    }
+
+    const handleSelectTo = (e) => {
+        let codeIata = e.target.value.substr(-3)
+        if(codeIata === '...') return;
+        setFlights({
+            ...flights,
+            arrivalPlace: codeIata
+        })
+    }
+    
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>
-        <div className='text-left' onChange={handleChange}>
+            <div className='text-left' onChange={handleChange}>
                 <div className="form-check form-check-inline">
                     <input className="form-check-input" type="radio" name="tripType" id="oneway" value='onewaytrip' defaultChecked={flights.tripType === 'onewaytrip'}/>
                     <label className="form-check-label " htmlFor="tripType">Ida</label>
@@ -202,11 +220,12 @@ export default function FlightsSearch() {
                 </div>
             </div>
             </div>
-            <div className='d-flex justify-content-center'>
-                <div className='d-flex justify-content-center p-2'>
-                <input className={ searchError.vacio === 'vacio' ? 'FlightSearch-error font-weight-bold ' : 'Flightsearch-input'}  placeholder='ORIGEN'  type='text' name='from'  onChange={(e) => handleChangeAirport(e)}  />
-            <button type='submit' className='btn FlightSearch-btn p-2' onClick={(e) => handleSubmitAirportFrom(e)}>Buscar</button>
-                </div>
+                <div className='d-flex justify-content-center'>
+                    <div className='d-flex justify-content-center p-2'>
+                        <input  className={ searchError.vacio === 'vacio' ? 'FlightSearch-error font-weight-bold ' : 'Flightsearch-input'}  
+                                placeholder='ORIGEN'  type='text' name='from'  onChange={(e) => handleChangeAirport(e)}/>
+                        <button type='submit' className='btn FlightSearch-btn p-2' onClick={(e) => handleSubmitAirportFrom(e)}>Buscar</button>
+                    </div>
                 <div className='d-flex justify-content-center p-2'>
                 <input className={ searchError.vacio === 'vacio' ? 'FlightSearch-error font-weight-bold' : 'Flightsearch-input'} placeholder='DESTINO' type='text' name='to'  onChange={(e) => handleChangeAirport(e)}  />
             <button className='btn FlightSearch-btn p-2' onClick={(e) => handleSubmitAirportTo(e)}>Buscar</button>

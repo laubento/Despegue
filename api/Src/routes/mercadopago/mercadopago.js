@@ -12,10 +12,7 @@ const PaymentInstace = new PaymenController(new PaymentService())
 
 
 router.post('/payment', function(req, res, next) {
-    const {bodyx} = req.body
-    console.log(req.body)
     PaymentInstace.getPaymentLink(req.body.body,res)
-
 });
 
 

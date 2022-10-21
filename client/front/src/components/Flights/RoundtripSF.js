@@ -43,7 +43,9 @@ function RoundtripSF() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(onSecondFlightRoute());
-    dispatch(addFlightToCart(selectedFlight))
+    if (selectedFlight.length > 0) {
+      dispatch(addFlightToCart(selectedFlight))
+    }
   }, [dispatch, selectedFlight])
 
   const logout = () => {
@@ -103,6 +105,7 @@ function RoundtripSF() {
                                 stopoversCount={e.stopoversCount}
                                 price={e.price}
                                 going={e.going}
+                                onSecondFlight={true}
                               />
                             </div>
                           )})

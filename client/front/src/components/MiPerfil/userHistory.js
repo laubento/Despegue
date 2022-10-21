@@ -18,7 +18,7 @@ export default function UserHistory() {
     }, [user])
     return (
         <div>
-            {history.length === 0 ? <div className="UserHistory-containerPrincipalImg">
+        { history.length === 0 ? <div className="UserHistory-containerPrincipalImg">
                 <img src={Logo} alt="No Vuelo" />
             </div> :
             <div className="UserHistory-containerPrincipalVuelos">  

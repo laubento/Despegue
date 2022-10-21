@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { addUserRole, listUsers } from "../../Redux/Actions";
+import { addUserRole, listUsers, sendMailCompra } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom"; 
 import swal from 'sweetalert'
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
