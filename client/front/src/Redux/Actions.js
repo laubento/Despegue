@@ -1,13 +1,18 @@
 import axios from 'axios';
 
-export const GET_FLIGHTS = "GET_FLIGHTS"
-export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS"
-export const FILTER_FLIGHTS = "FILTER_FLIGHTS"
-export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID"
-export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM"
-export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO"
-export const STORE_USER_INFO = "STORE_USER_INFO"
-export const BUY_FLIGHTS = "BUY_FLIGHTS"
+export const GET_FLIGHTS = "GET_FLIGHTS";
+export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS";
+export const FILTER_FLIGHTS = "FILTER_FLIGHTS";
+export const FILTER_FLIGHT_BY_ID = "FILTER_FLIGHT_BY_ID";
+export const SEARCH_AIRPORT_FROM = "SEARCH_AIRPORT_FROM";
+export const SEARCH_AIRPORT_TO = "SEARCH_AIRPORT_TO";
+export const STORE_USER_INFO = "STORE_USER_INFO";
+export const BUY_FLIGHTS = "BUY_FLIGHTS";
+export const GET_ROUNDTRIP_FF = 'GET_ROUNDTRIP_FF';
+export const GET_ROUNDTRIP_SF = 'GET_ROUNDTRIP_SF';
+export const ADD_FLIGHT_TO_CART = 'ADD_FLIGHT_TO_CART';
+export const SET_FF_TRUE = 'SET_FF_TRUE';
+export const SET_SF_TRUE = 'SET_SF_TRUE';
 export const USERS_LIST = "USERS_LIST"
 export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
@@ -93,7 +98,7 @@ export const storePurchase = (user, flight) => {
         await axios.post(`/purchaseComplete`)
     }
 }
-
+ 
 export function listUsers () {
     return async function(dispatch){
         let response = await axios.get(`http://localhost:3001/admin/users`)
@@ -132,5 +137,47 @@ export const addUserRole = (user) => {
             type: ADD_USER_ROLE,
             payload: user
         })
+    }
+}
+
+export const getPayment = (body) => {
+    // console.log(body)
+    return async function(dispatch){
+        const response = await axios.post(`http://localhost:3001/mercadopago/payment`, body)
+        return dispatch({type: "GET_PAYMENT", payload: response.data })
+    }
+}
+
+export const getRoundTripFF = () => {
+    return {
+        type: GET_ROUNDTRIP_FF
+    }
+}
+
+export const getRoundTripSF = () => {
+    return {
+        type: GET_ROUNDTRIP_SF
+    }
+}
+export const onSecondFlightRoute = () => {
+    return {
+        type: SET_SF_TRUE,
+        payload: true
+    }
+}
+
+
+
+export const addFlightToCart = (flightDetail) => {
+    return{
+        type: ADD_FLIGHT_TO_CART,
+        payload: flightDetail[0]
+    }
+}
+
+export const onFirstFlightRoute = () => {
+    return {
+        type: SET_FF_TRUE,
+        payload: true
     }
 }

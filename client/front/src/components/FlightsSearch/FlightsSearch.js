@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, getRoundTripFF, getRoundTripSF } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -36,6 +36,16 @@ export default function FlightsSearch() {
         children: 0,
         infants: 0,
         currency: 'USD'
+        // tripType:'roundtrip',
+        // departurePlace: 'EZE',
+        // arrivalPlace: 'GIG',
+        // departureDate: '2022-11-15',
+        // returningDate: '2022-12-15',
+        // cabinClass: 'Economy',
+        // adults: 1,
+        // children: 0,
+        // infants: 0,
+        // currency: 'USD'
     })
 
     const [errors, setErrors] = useState({
@@ -44,32 +54,17 @@ export default function FlightsSearch() {
         returningEmpty:''
     })
 
-    // const [error, setError] = useState({
-    //     departurePlace: '',
-    //     boolDeparturePlace: '',
-    //     arrivalPlace: '',
-    //     boolArrivalPlace: '',
-    //     departureDate: '',
-    //     boolDepartureDate: '',
-    //     returningDate: '',
-    //     boolReturningDate: ''
-    // })
-
     const [searchError, setSearchError] = useState({
         vacio: '',
         most: ''
     })
     
-
     // Lugares disponibles
     const handleChangeSites = (num, age) => {
         if(num){ setFlights({...flights, [age]: flights[age] + 1}) }
         else{ setFlights({...flights, [age]: flights[age] - 1}) }
     }
 
-
-    
-    
     const handleChange = (e) => {
         // Seteo de la fecha arrive en caso de cambio
         if(e.target.name === 'departureDate'){
@@ -106,8 +101,13 @@ export default function FlightsSearch() {
         }
         dispatch(clearFlights())
         dispatch(getFlights(flights));
+        if (flights.tripType === 'onewaytrip') {
+            history.push('/flights');
+        } else {
+            history.push('/flights/roundtrip/firstFlight');
+        }
         setFlights({
-            tripType:'onewaytrip',
+            tripType:'',
             departurePlace: '',
             arrivalPlace: '',
             departureDate: '',
@@ -118,7 +118,6 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
-        history.push('/flights');
     }
         const handleChangeAirport = (e) => {
             e.preventDefault();
@@ -146,8 +145,12 @@ export default function FlightsSearch() {
                     vacio: 'El input está vacio!'
                   })
             }
+            setFlights({
+                ...flights,
+                departurePlace: airportName.from
+            })
             setActivateFrom(true)
-            dispatch(searchAirportFrom(airportName.from))
+            dispatch(searchAirportFrom(airportName.from));
         }
 
         const handleSubmitAirportTo = (e) => {
@@ -158,6 +161,10 @@ export default function FlightsSearch() {
                     vacio: 'El input está vacio!'
                   })
                 }
+                setFlights({
+                    ...flights,
+                    arrivalPlace: airportName.to
+                })
                 setActivateTo(true)
                 dispatch(searchAirportTo(airportName.to));
               };
@@ -181,6 +188,7 @@ export default function FlightsSearch() {
                     arrivalPlace: codeIata
                 })
               }
+              console.log(flights)
     return(
     <div className='container FlightSearch-cont p-4 '>
         <div className='d-flex justify-content-center'>
