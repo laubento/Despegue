@@ -55,31 +55,31 @@ export default function Admin() {
         {
             title: 'Aeropuerto',
             field: 'airport',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Aerolinea',
             field: 'airlines',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Escalas',
             field: 'scales',
             type: 'numeric',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Salida',
             field: 'departureDate',
             type: 'time',
-            editable: false,
+            // editable: false,
 
         },
         {
             title: 'Llegada',
             field: 'arrive',
             type: 'time',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Precio Anterior',
@@ -94,17 +94,17 @@ export default function Admin() {
         {
             title: 'Regreso',
             field: 'returnDate',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Desde',
             field: 'from',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Hasta',
             field: 'to',
-            editable: false,
+            // editable: false,
         },
     ]
     
