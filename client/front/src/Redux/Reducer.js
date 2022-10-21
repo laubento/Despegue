@@ -158,11 +158,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 offersList: action.payload
             }
-        // case ADD_USER_ROLE:
-        //     return{
-        //         ...state,
-        //         user: action.payload
-        //     }
+        case ADD_USER_ROLE:
+            return{
+                ...state,
+                user: action.payload
+            }
         case "GET_PAYMENT": 
             return{
                 ...state,
@@ -213,7 +213,7 @@ export default function reducer(state = initialState, action) {
         case "SEND_MAIL_COMPRA":
         
         return{
-
+            ...state,
         }
 
         default:
