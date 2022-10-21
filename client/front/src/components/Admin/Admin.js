@@ -19,7 +19,7 @@ export default function Admin() {
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
-    console.log(users)
+    
     const columns = [
         {
             title: 'Nombre',
@@ -42,7 +42,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { admin: 'admin', user: 'user' },
+            lookup: { admin: 'admin', user: 'user', vip: 'vip'},
             filterPlaceholder: 'Filtro por Rol'
         },
         {
