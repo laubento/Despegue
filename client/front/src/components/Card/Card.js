@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { addFlightToCart, filterFlightById, getPayment, getPaymentInfo } from "../../Redux/Actions";
+import { addFlightToCart, filterFlightById } from "../../Redux/Actions";
 import '../styles/Card.css'
 
 function Card({id, airlinesName, departureTime, arrivalTime, duration, stopoversCount, price, going, hideButton}) {
@@ -12,14 +12,21 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
   let exactprice = Number(price)
   
   const handleClick = async (e) => {
-    
+
+    await dispatch(filterFlightById(id))
+    console.log('card --->', flightDetail);
+    await dispatch(addFlightToCart(flightDetail));
+    // await dispatch(addFlightToCart(selectedFlight))
+    // if (going === true) {
+
+    //   history.push('/flights/roundtrip/secondFlight');
+    // } else {
+    //   history.push('/flights/roundtrip/cart');
+    // }
+  }
+
+  const handleClickDetail = (e) => {
     dispatch(filterFlightById(id))
-    
-    if (going === true) {
-      history.push('/flights/roundtrip/secondFlight');
-    } else {
-      history.push('/flights/roundtrip/cart');
-    }
   }
 
   return (
@@ -52,7 +59,7 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
         <span className="mb-2">{arrivalTime}</span>
         <div className="mt-1">
           <Link to={`/flights/flightDetail/${id}`} style={{textDecoration:'none'}}>
-            <button className="btn btn-md card-more-details" onClick={handleClick}>Más detalles</button>
+            <button className="btn btn-md card-more-details" onClick={handleClickDetail}>Más detalles</button>
           </Link>
         </div>
       </div>

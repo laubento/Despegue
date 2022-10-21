@@ -13,6 +13,7 @@ export const GET_ROUNDTRIP_SF = 'GET_ROUNDTRIP_SF';
 export const ADD_FLIGHT_TO_CART = 'ADD_FLIGHT_TO_CART';
 export const SET_FF_TRUE = 'SET_FF_TRUE';
 export const SET_SF_TRUE = 'SET_SF_TRUE';
+export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
  
 export function getFlights(flight){
     const tripType = flight.tripType;
@@ -132,6 +133,12 @@ export const onSecondFlightRoute = () => {
     return {
         type: SET_SF_TRUE,
         payload: true
+    }
+}
+
+export const clearFlightDetail = () => {
+    return{
+        type: CLEAR_FLIGHT_DETAIL
     }
 }
 

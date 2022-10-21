@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS,SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL } from "./Actions";
 
 
 const initialState = {
@@ -31,6 +31,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: []
             }
+            case CLEAR_FLIGHT_DETAIL:
+                return {
+                    ...state,
+                    flightDetail: []
+                }
         case FILTER_FLIGHTS:
             const { minPrice, maxPrice, maxDuration, maxHour, minHour, stopOvers, order, findAirline } =
                 action.payload;
