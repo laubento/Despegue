@@ -23,6 +23,7 @@ router.post("/getUser", async (req, res) => {
                 photo: user.picture,
                 id: user.sub.slice("|")[1],
                 email: user.email,
+                password: '1',
                 dni: "",
                 phone: "",
                 birthDate: "",
