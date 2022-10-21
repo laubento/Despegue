@@ -27,6 +27,8 @@ router.post("/getUser", async (req, res) => {
                 dni: "",
                 phone: "",
                 birthDate: "",
+                membership: false,
+                verifiy: false
             })
             .save()
             .then((newUser) => {

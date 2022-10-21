@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 export default function MiPerfil() {
   const user = useSelector((state) => state.user);
-    console.log(user)
     let url = window.location.pathname
     function enviar() {
 
@@ -20,11 +19,11 @@ export default function MiPerfil() {
             <div className="MiPerfil-containerInfoPrincipal">
                 <div className="MiPerfil-ContainerDatos">
                     <div className="MiPerfil-containerFoto">
-                        <img src={user ? user.photos : null } alt="perfil" />
+                        <img src={user ? user.photos : undefined } alt="perfil" />
                         <div>
                             <h4>Hola,</h4>
-                            <h3>{user ? user.firstName.toUpperCase() : null}</h3>
-                           {user ? <h3>{user.lastname ? user.lastname.toUpperCase() : null}</h3> : null}
+                            <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>
+                           {user ? <h3>{user.lastname ? user.lastname.toUpperCase() : undefined}</h3> : undefined}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">

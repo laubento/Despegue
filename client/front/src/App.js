@@ -68,8 +68,6 @@ function App() {
 
     const { user } = useAuth0();
 
-    console.log(user);
-    
     useEffect(() => {
         axios.post('/auth0/getUser', {user})
         .then((data) => {
@@ -80,7 +78,7 @@ function App() {
             dispatch(storeUserInfo(user))
         })
         .catch((err) => {
-            console.log('chau');
+            console.log('usuario no logueado');
         })
     },[dispatch, user])
 
