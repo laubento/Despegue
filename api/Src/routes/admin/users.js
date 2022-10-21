@@ -3,7 +3,7 @@ const User = require("../../../models/user");
 const router = Router();
 const { isAuthenticate } = require("./validate-session");
 
-router.get("/users", isAuthenticate, async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     let users = await User.find({});
     res.send(users);
@@ -28,7 +28,7 @@ router.post("/user", isAuthenticate, async (req, res) => {
   }
 });
 
-router.put("/userupdate", isAuthenticate, async (req, res) => {
+router.put("/userupdate", async (req, res) => {
   try {
     let { email, name, roles, active } = req.body.user;
 
