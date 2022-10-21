@@ -52,7 +52,8 @@ router.use("/users", getHistory)
 const update = require("./updateUser")
 router.use("/update", update)
 
-
-
+//mercadopago
+const mercadopago = require('./mercadopago/mercadopago.js')
+router.use("/mercadopago", mercadopago)
 
 module.exports = router;

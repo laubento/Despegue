@@ -1,0 +1,90 @@
+.Configuracion-containerBox{
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    /* max-width: 370px; */
+    /* min-height: 470px; */
+    background: #fff;
+    border-radius: 20px;
+}
+.Configuracion-ContainerTituloDatos{
+    width: 770px;
+    padding: 20px 0px 0px 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.Configuracion-ContainerTituloDatos button{
+	margin-right: 20px;
+	border: 0;
+	background-color: #0084ff00;
+}
+.Configuracion-hr{
+    display: flex;
+    justify-content: center;
+}
+.Configuracion-hr hr{
+    width: 92%;
+    margin: 0px;
+    color: rgba(0, 0, 0, 0.432);
+}
+
+.Configuracion-formulario {
+	padding: 5px 20px 20px 20px;
+	/* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+}
+.Configuracion-ContainerInput{
+    width: 50%;
+}
+.Configuracion-Container2Input{
+    display: flex;
+    margin: 15px 0px 0px 0px;
+}
+
+.Configuracion-formulario label {
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.Configuracion-formulario input{
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+	border-radius: 5px;
+	border: 2px solid #e2e2e2;
+	font-size: 18px;
+	padding: 10px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.Configuracion-formulario input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+.Configuracion-formulario .error {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.Configuracion-formulario button[type="submit"] {
+	display: block;
+	background: #0085FF;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	/* width: 100%; */
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	transition: .3s ease all;
+}
+.Configuracion-formulario button[type="submit"]:hover {
+    background: #036fd4;
+}
+.Configuracion-sub{
+	margin-top: 10px;
+}

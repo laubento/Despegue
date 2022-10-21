@@ -23,7 +23,8 @@ export default function DatosPersonales(){
             birthDate: valores.birthDate ?  valores.birthDate : user.birthDate,
             dni: valores.dni ? valores.dni: user.dni,
             phone: valores.phone ? valores.phone : user.phone, 
-            id: user.id
+            id: user.id,
+            roles: user.roles 
         }
         axios({
             method: "PUT",
@@ -39,7 +40,8 @@ export default function DatosPersonales(){
                 id: resObject.data._id,
                 dni: resObject.data.dni,
                 phone: resObject.data.phone,
-                birthDate: resObject.data.birthDate
+                birthDate: resObject.data.birthDate,
+                roles: resObject.data.roles
               };
             dispatch(storeUserInfo(obj))
         });
@@ -76,7 +78,7 @@ export default function DatosPersonales(){
                                     else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.name)){
                                         errores.name = "Solo se permiten letras"
                                     }
-                                    else if(valores.name.length > 30){
+                                    else if(valores.name.length > 15){
                                         errores.name = "Demaciado caracteres"
                                     }
 
@@ -87,7 +89,7 @@ export default function DatosPersonales(){
                                     else if(!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)){
                                         errores.lastName = "Solo se permiten letras"
                                     }
-                                    else if(valores.lastName.length > 30){
+                                    else if(valores.lastName.length > 15){
                                         errores.lastName = "Demaciado caracteres"
                                     }
 

@@ -75,13 +75,29 @@
 	font-family: 'Open Sans', sans-serif;
 	border: none;
 	cursor: pointer;
-	width: 100%;
 	padding: 10px;
 	border-radius: 5px;
 	color: #fff;
 	font-size: 16px;
 	transition: .3s ease all;
 }
-.MiPerfil-sub{
+
+.Configuracion-sub{
 	margin-top: 10px;
+	display: block;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	transition: .3s ease all;
+}
+.Configuracion-BotonCancelar button{
+	margin: 10px 5px;
+}
+.Configuracion-BotonCancelar {
+	display: flex;
 }

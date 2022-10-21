@@ -1,0 +1,17 @@
+.usersTable{
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-bottom: 10%;
+    width: 90%;
+}
+
+.usersTable h2{
+    margin-left: 43%;
+    color: whitesmoke;
+}
+
+.tableUsers{
+    margin-bottom: 5%;
+    background-color: gray;
+    border-radius: 10px;
+}
