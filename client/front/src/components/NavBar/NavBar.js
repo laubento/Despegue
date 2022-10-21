@@ -24,10 +24,10 @@ export default function NavBar() {
 
     if (!user && user2) user = user2;
 
-    function handleSubmitLogOut() {
-        window.open("http://localhost:3001/auth/logout", "_self");
-        alert("Cerrando sesion");
-    }
+    // function handleSubmitLogOut() {
+    //     window.open("http://localhost:3001/auth/logout", "_self");
+    //     alert("Cerrando sesion");
+    // }
 
     return (
         <div className='NavBar-header'>
@@ -147,6 +147,7 @@ export default function NavBar() {
                                                     window.localStorage.removeItem(
                                                         "user"
                                                     );
+                                                    alert('Cerrando sesion') //Todo sweet alert
                                                 }}
                                                 className='Login-DesplegableBoton'
                                             >
@@ -181,6 +182,7 @@ export default function NavBar() {
             </div>
         </div>
     );
+}
 //   const user = useSelector((state) => state.user);
   
 //   function handleSubmitLogOut() {
