@@ -13,8 +13,7 @@ import { ReactReduxContext, useSelector } from "react-redux";
 import React from "react";
 
 export default function NavBar() {
-    const { loginWithRedirect } = useAuth0();
-    const { logout } = useAuth0();
+    const { loginWithRedirect, logout } = useAuth0();
 
     let url = window.location.pathname;
 
