@@ -4,25 +4,24 @@ import { Link, useHistory } from "react-router-dom";
 import { addFlightToCart, filterFlightById } from "../../Redux/Actions";
 import '../styles/Card.css'
 
-function Card({id, airlinesName, departureTime, arrivalTime, duration, stopoversCount, price, going, hideButton}) {
+function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopoversCount, price, going, 
+                hideButton, onFlights, onFirstFlight, onSecondFlight}) {
 
   const dispatch = useDispatch();
   const flightDetail = useSelector((state) => state.flightDetail);
   const history = useHistory();
   let exactprice = Number(price)
   
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
 
-    await dispatch(filterFlightById(id))
-    console.log('card --->', flightDetail);
-    await dispatch(addFlightToCart(flightDetail));
-    // await dispatch(addFlightToCart(selectedFlight))
-    // if (going === true) {
+    dispatch(filterFlightById(id))
+    if (onFlights || onSecondFlight) {
+      return history.push('/flights/roundtrip/cart');
+    }
 
-    //   history.push('/flights/roundtrip/secondFlight');
-    // } else {
-    //   history.push('/flights/roundtrip/cart');
-    // }
+    if (onFirstFlight) {
+      return history.push('/flights/roundtrip/secondFlight');
+    }
   }
 
   const handleClickDetail = (e) => {
@@ -32,11 +31,10 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
   return (
     <div className="card-div row ">
       {
-        going 
+        (onFlights || onFirstFlight) 
         ? <div className="card-airline-box col">Ida</div>
         : <div className="card-airline-box">Vuelta</div>
       }
-      <div>{going}</div>
       <div className="card-border-right col text-center">
         {
           airlinesName.length > 1 

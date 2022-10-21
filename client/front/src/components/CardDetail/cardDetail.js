@@ -14,18 +14,20 @@ export default function CardDetail(){
     const history = useHistory();
     const handleClick = () => {
         dispatch(clearFlightDetail());
+        // one way
+        if ((flightsCart.length === 1 && !onSecondFlightRoute) || flightsCart.length >=2) {
+            return history.push('/flights/roundtrip/cart')
+        }
         if (!onFirstFlightRoute && !onSecondFlightRoute) {
-            history.push('/flights')
+            return history.push('/flights')
         }
         if (onFirstFlightRoute && !onSecondFlightRoute) {
-            history.push('/flights/roundtrip/firstFlight')
+            return history.push('/flights/roundtrip/firstFlight')
         }
         if (!onFirstFlightRoute && onSecondFlightRoute) {
-            history.push('/flights/roundtrip/secondFlight')
+            return history.push('/flights/roundtrip/secondFlight')
         }
-        if (flightsCart.length > 1) {
-            history.push('/flights/roundtrip/cart')
-        }
+
     }
 
     const minutesToHrsMins = (time) => {

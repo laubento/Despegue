@@ -17,7 +17,7 @@ function Flights() {
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
-  console.log(flights,'--', allFlights)
+  // console.log(flights,'--', allFlights)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [flightsPerPage, setFlightsPerPage] = useState(5)
@@ -61,7 +61,7 @@ const nextHandler = (e) => {
           {
             flights.length !==  0 ? 
             currentFlights.map((e,i) => {
-              console.log(e.price)
+              // console.log(e.price)
               return(
                 <div key={i} className='d-flex justify-content-center'>
                 <Card 
@@ -73,7 +73,8 @@ const nextHandler = (e) => {
                   duration={e.duration}
                   stopoversCount={e.stopoversCount}
                   price={e.price}
-                  going={e.going}
+                  // going={e.going}
+                  onFlights={true}
                 />
                 </div>
               )})

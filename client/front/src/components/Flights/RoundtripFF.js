@@ -104,6 +104,7 @@ function RoundtripFF() {
                                 stopoversCount={e.stopoversCount}
                                 price={e.price}
                                 going={e.going}
+                                onFirstFlight={true}
                               />
                             </div>
                           )})

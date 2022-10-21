@@ -42,12 +42,12 @@ export default function Cart() {
         }
     }
 
-    const test = cart.filter(el => el.id === selectedFlight.id)
+    // const test = cart.filter(el => el.id === selectedFlight.id)
     useEffect(() => {
-        // if (test.length === 0) {
-        //     dispatch(addFlightToCart(selectedFlight))
-        // }
-    }, [dispatch])
+        if (selectedFlight.length > 0) {
+            dispatch(addFlightToCart(selectedFlight));
+        }
+    }, [dispatch, selectedFlight])
 
     const handleClick = async (e) => {
         await dispatch(getPayment(prueba))
