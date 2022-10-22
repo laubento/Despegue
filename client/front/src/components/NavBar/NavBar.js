@@ -41,6 +41,10 @@ export default function NavBar() {
       if (result.isConfirmed) {
         logout({ returnTo: window.location.origin });
         window.localStorage.removeItem("user");
+        window.localStorage.removeItem("sinLog")
+        window.localStorage.removeItem("init_point")
+        window.localStorage.removeItem("detail")
+        window.localStorage.removeItem("display")
       } else if (result.isDenied) {
         Swal.fire("Gracias por quedarse");
       }
