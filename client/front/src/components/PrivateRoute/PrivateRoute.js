@@ -22,7 +22,7 @@ export default function PrivateRoute({ component, ...rest }) {
     // console.log(userRole)
     return (
         <Route {...rest}>
-            {user ? user.roles[0] === 'admin' ? <Admin /> : <Redirect to={'/'} /> : null}
+            {user && user.roles.includes('admin') ? <Admin /> : <Redirect to={'/'} />}
         </Route>
     )
 }
