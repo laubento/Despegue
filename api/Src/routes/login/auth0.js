@@ -6,7 +6,6 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
-    console.log(user);
 
     if (!user) return res.sendStatus(400);
 
@@ -49,7 +48,6 @@ router.post("/getUser", async (req, res) => {
             })
             .save()
             .then((newUser) => {
-                console.log("nuevo" + newUser);
                 res.status(200).send(newUser);
             })
             .catch((err) => {

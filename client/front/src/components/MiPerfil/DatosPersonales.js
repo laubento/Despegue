@@ -12,12 +12,9 @@ import { succesAlert } from "../../utils/alerts";
 export default function DatosPersonales() {
     
     const user = JSON.parse(window.localStorage.getItem("user"));
-    console.log(user);
-  
 
-  const dispatch = useDispatch();
   const [active, setActive] = useState(true);
-  const [update, setUpdate] = useState(true);
+  const [updatePage, setUpdatePage] = useState(true);
   let today = new Date();
   let year = today.getFullYear();
 
@@ -33,7 +30,6 @@ export default function DatosPersonales() {
       id: user.id,
       roles: user.roles,
     };
-    // user = updateUser
     axios({
       method: "PUT",
       data: updateUser,
@@ -41,7 +37,7 @@ export default function DatosPersonales() {
     }).then(() => {
         window.localStorage.removeItem('user')
         window.localStorage.setItem('user', JSON.stringify(updateUser))
-        setUpdate(!update)
+        setUpdatePage(!updatePage)
     })
     .catch((err) => {
         console.log(err);
@@ -62,6 +58,7 @@ export default function DatosPersonales() {
             <hr />
           </div>
           <Formik
+            enableReinitialize={true}
             initialValues={{
               name: user ? user.firstName : "",
               lastName: user ? user.lastName : "",
