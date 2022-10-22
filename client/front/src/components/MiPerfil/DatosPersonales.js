@@ -52,7 +52,7 @@ export default function DatosPersonales() {
             <h1>Datos Personales</h1>
             <button onClick={() => setActive(false)} disabled={!active}>
               ✏️
-            </button>nombre
+            </button>
           </div>
           <div className="MiPerfil-hr">
             <hr />
