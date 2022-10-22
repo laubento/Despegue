@@ -13,7 +13,12 @@ export default function PrivateRoute({ component, ...rest }) {
     // }, [dispatch])
 
     // let usersList = useSelector(state => state.listUsers)
-    let user = useSelector(state => state.user)
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+    
     // console.log(userRole)
     // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
     // if (userRole) {

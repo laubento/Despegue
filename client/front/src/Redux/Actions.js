@@ -103,7 +103,7 @@ export const storePurchase = (user, flight) => {
 
 export function listUsers() {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/admin/users`)
+        let response = await axios.get(`/admin/users`)
         let obj = response.data.map((e) => {
             let userName;
             if(e.lastname){
@@ -126,39 +126,39 @@ export function listUsers() {
 
 export const updateUser = (user) => {
     return async function () {
-        await axios.put(`http://localhost:3001/admin/userupdate`, { user })
+        await axios.put(`/admin/userupdate`, { user })
     }
 }
 
 export const deleteOffer = (offer) => {
     return async function () {
-        await axios.put(`http://localhost:3001/login/auth0/delete`, { offer })
+        await axios.put(`/login/auth0/delete`, { offer })
     }
 }
 
 export function listOffers() {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/admin/offers/getoffers`)
+        let response = await axios.get(`/admin/offers/getoffers`)
         return dispatch({ type: OFFERS_LIST, payload: response.data })
     }
 }
 
 export const offersCreate = (offer) => {
     return async function () {
-        await axios.post(`http://localhost:3001/admin/offers`, offer )
+        await axios.post(`/admin/offers`, offer )
     }
 }
 
 export function getHistory(id) {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/users/getHistory?id=${id}`)
+        let response = await axios.get(`/users/getHistory?id=${id}`)
         return dispatch({ type: GET_HISTORY, payload: response.data })
     }
 }
 
 export const updateOffer = (offer) => {
     return async function () {
-        await axios.put(`http://localhost:3001/admin/offers/offer`, { offer })
+        await axios.put(`/admin/offers/offer`, { offer })
     }
 }
 
@@ -174,7 +174,7 @@ export const updateOffer = (offer) => {
 export const getPayment = (body) => {
     // console.log(body)
     return async function (dispatch) {
-        const response = await axios.post(`http://localhost:3001/mercadopago/payment`, body)
+        const response = await axios.post(`/mercadopago/payment`, body)
         return dispatch({ type: "GET_PAYMENT", payload: response.data })
     }
 }
@@ -216,7 +216,7 @@ export const onSecondFlightRoute = () => {
 export const sendMailCompra = (id, idPago) => {
     return async function (dispatch){
         console.log(id)
-       let response =  await axios.post(`http://localhost:3001/sendmailpago/${id}/${idPago}`)
+       let response =  await axios.post(`/sendmailpago/${id}/${idPago}`)
        return dispatch({type: "SEND_MAIL_COMPRA", payload:response.data })
     }
 }

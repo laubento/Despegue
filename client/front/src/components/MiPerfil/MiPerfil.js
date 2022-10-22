@@ -9,7 +9,12 @@ import UserHistory from "./userHistory";
 
 
 export default function MiPerfil() {
-  const user = useSelector((state) => state.user);
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
     let url = window.location.pathname
     function enviar() {
 

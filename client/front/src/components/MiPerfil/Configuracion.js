@@ -8,7 +8,12 @@ import { storeUserInfo } from "../../Redux/Actions";
 import { succesAlert } from "../../utils/alerts";
 
 export default function Configuracion() {
-  const user = useSelector((state) => state.user);
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
   const [active, setActive] = useState(true);
 
   function changeValue(valores) {

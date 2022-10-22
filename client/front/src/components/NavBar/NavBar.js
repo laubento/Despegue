@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 // import swal from "sweetalert";
-import { ReactReduxContext, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Swal from "sweetalert2";
@@ -87,7 +87,7 @@ export default function NavBar() {
             <div className="NavBar-Boton1">Asistencia</div>
             {/* <div className='NavBar-Nuevo'>Nuevo</div> */}
           </Link>
-          {user? user.roles ? user.roles[0] === 'admin' ?
+          {user && user.roles.includes('admin') ?
             <Link
               to={"/admin"}
               className={
@@ -98,7 +98,7 @@ export default function NavBar() {
             >
               <DashboardIcon />
               <div className="NavBar-Boton1">Admin</div>
-            </Link>:null:null:null
+            </Link> : null
           }
         </div>
         <div className="NavBar-Info">
