@@ -27,8 +27,6 @@ export default function DatosPersonales() {
       birthDate: valores.birthDate ? valores.birthDate : user.birthDate,
       dni: valores.dni ? valores.dni : user.dni,
       phone: valores.phone ? valores.phone : user.phone,
-      id: user.id,
-      roles: user.roles,
     };
     axios({
       method: "PUT",
@@ -38,6 +36,10 @@ export default function DatosPersonales() {
         window.localStorage.removeItem('user')
         window.localStorage.setItem('user', JSON.stringify(updateUser))
         setUpdatePage(!updatePage)
+        succesAlert("datos guardados");
+        setTimeout(function() {
+            window.location.reload()
+        }, 3000);
     })
     .catch((err) => {
         console.log(err);
@@ -140,7 +142,6 @@ export default function DatosPersonales() {
               changeValue(valores);
               resetForm();
               setActive(true);
-              succesAlert("datos guardados");
             }}
           >
             {({ errors }) => (
