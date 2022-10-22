@@ -16,7 +16,7 @@ let number = 1
 function RoundtripFF() {
 
   // global states
-  let apiResponse = useSelector(state => state.allFlights);
+  let apiResponse = useSelector((state) => state.allFlights);
   let flights = useSelector((state) => state.firstFlights);
   let allFlights = useSelector((state) => state.allFlights);
 
@@ -104,6 +104,7 @@ function RoundtripFF() {
                                 stopoversCount={e.stopoversCount}
                                 price={e.price}
                                 going={e.going}
+                                onFirstFlight={true}
                               />
                             </div>
                           )})

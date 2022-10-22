@@ -17,6 +17,7 @@ export const USERS_LIST = "USERS_LIST"
 export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
+export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
 
 
 export function getFlights(flight) {
@@ -24,7 +25,7 @@ export function getFlights(flight) {
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        const flights = await axios.post(`/flights/${tripType}`, { flight })
+        const flights = await axios.post(`/flights/${tripType}`, {flight})
 
         return dispatch({
             type: GET_FLIGHTS,
@@ -102,15 +103,21 @@ export const storePurchase = (user, flight) => {
 
 export function listUsers() {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/admin/users`)
+        let response = await axios.get(`/admin/users`)
         let obj = response.data.map((e) => {
+            let userName;
+            if(e.lastname){
+                userName = `${e.firstName} ${e.lastname}`
+            } else {
+                userName = `${e.firstName}`
+            }
             return ({
-                firstName: e.firstName,
-                lastname: e.lastname,
+                name: userName,
                 email: e.email,
                 id: e._id,
                 roles: e.roles,
-                active: e.active
+                active: e.active,
+                banned: e.banned,
             })
         })
         return dispatch({ type: USERS_LIST, payload: obj })
@@ -119,33 +126,39 @@ export function listUsers() {
 
 export const updateUser = (user) => {
     return async function () {
-        await axios.put(`http://localhost:3001/admin/userupdate`, { user })
+        await axios.put(`/admin/userupdate`, { user })
+    }
+}
+
+export const deleteOffer = (offer) => {
+    return async function () {
+        await axios.put(`/login/auth0/delete`, { offer })
     }
 }
 
 export function listOffers() {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/admin/offers/getoffers`)
+        let response = await axios.get(`/admin/offers/getoffers`)
         return dispatch({ type: OFFERS_LIST, payload: response.data })
     }
 }
 
 export const offersCreate = (offer) => {
     return async function () {
-        await axios.post(`http://localhost:3001/admin/offers`, { offer })
+        await axios.post(`/admin/offers`, offer )
     }
 }
 
 export function getHistory(id) {
     return async function (dispatch) {
-        let response = await axios.get(`http://localhost:3001/users/getHistory?id=${id}`)
+        let response = await axios.get(`/users/getHistory?id=${id}`)
         return dispatch({ type: GET_HISTORY, payload: response.data })
     }
 }
 
 export const updateOffer = (offer) => {
     return async function () {
-        await axios.put(`http://localhost:3001/admin/offers/offer`, { offer })
+        await axios.put(`/admin/offers/offer`, { offer })
     }
 }
 
@@ -161,7 +174,7 @@ export const updateOffer = (offer) => {
 export const getPayment = (body) => {
     // console.log(body)
     return async function (dispatch) {
-        const response = await axios.post(`http://localhost:3001/mercadopago/payment`, body)
+        const response = await axios.post(`/mercadopago/payment`, body)
         return dispatch({ type: "GET_PAYMENT", payload: response.data })
     }
 }
@@ -177,14 +190,6 @@ export const getRoundTripSF = () => {
         type: GET_ROUNDTRIP_SF
     }
 }
-export const onSecondFlightRoute = () => {
-    return {
-        type: SET_SF_TRUE,
-        payload: true
-    }
-}
-
-
 
 export const addFlightToCart = (flightDetail) => {
     return {
@@ -199,3 +204,27 @@ export const onFirstFlightRoute = () => {
         payload: true
     }
 }
+
+export const onSecondFlightRoute = () => {
+    return {
+        type: SET_SF_TRUE,
+        payload: true
+    }
+}
+
+
+export const sendMailCompra = (id, idPago) => {
+    return async function (dispatch){
+        console.log(id)
+       let response =  await axios.post(`/sendmailpago/${id}/${idPago}`)
+       return dispatch({type: "SEND_MAIL_COMPRA", payload:response.data })
+    }
+}
+
+export const clearFlightDetail = () => {
+    return{
+        type: CLEAR_FLIGHT_DETAIL
+    }
+}
+
+

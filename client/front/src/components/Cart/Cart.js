@@ -11,14 +11,29 @@ export default function Cart() {
 
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
-    let items = cart.map((el) => ({
+    let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
+    if(cart.length > 0){
+        localStorage.setItem('cartRespaldo', JSON.stringify(cart))
+    }
+    console.log(cart)
+    console.log(cartRespaldo)
+    let items = 
+    cart.length > 0 ? cart.map((el) => ({
         title: "Pasaje de vuelo",
         description:'Description',
         picture_url: "http://www.myapp.com/myimage.jpg",
         category_id:"category123",
         quantity: 1,
         unit_price: parseInt(el.price)
-    }))
+    })) : cartRespaldo !== null ? cartRespaldo.map((el) => ({
+            title: "Pasaje de vuelo",
+            description:'Description',
+            picture_url: "http://www.myapp.com/myimage.jpg",
+            category_id:"category123",
+            quantity: 1,
+            unit_price: parseInt(el.price)
+        })) : ''
+    console.log(items)
 
     const prueba = {
         body: {
@@ -42,9 +57,15 @@ export default function Cart() {
         }
     }
 
+    // const test = cart.filter(el => el.id === selectedFlight.id)
+
+
+
     useEffect(() => {
-        dispatch(addFlightToCart(selectedFlight))
-    }, [dispatch])
+        if (selectedFlight.length > 0) {
+            dispatch(addFlightToCart(selectedFlight));
+        }
+    }, [dispatch, selectedFlight])
 
     const handleClick = async (e) => {
         await dispatch(getPayment(prueba))
@@ -56,7 +77,8 @@ export default function Cart() {
         <div>
             <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
             {
-                cart.length !==  0 ? 
+                items !== '' ?
+                cart.length >  0 ? 
                 cart.map((e,i) => {
                     return(
                         <div key={i} className='d-flex justify-content-center'>
@@ -74,7 +96,23 @@ export default function Cart() {
                             />
                         </div>
                     )})
-                : <h2>No hay vuelos con estas características</h2>
+                : cartRespaldo.map((e,i) => {
+                    return(
+                        <div key={i} className='d-flex justify-content-center'>
+                            <Card 
+                                id={e.id}
+                                segments={e.segments}
+                                airlinesName={e.airlinesNames}
+                                departureTime={e.departureTime}
+                                arrivalTime={e.arrivalTime}
+                                duration={e.duration}
+                                stopoversCount={e.stopoversCount}
+                                price={e.price}
+                                going={e.going}
+                                hideButton={true}
+                            />
+                        </div>
+                    )}) : ''
             }
             <div className='row'>
                 <div className='col-md-4'></div>

@@ -1,16 +1,26 @@
 import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import swal from 'sweetalert'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
+import { sendMailCompra } from "../../Redux/Actions";
 
 
 function Success(props) {
+    const dispatch = useDispatch()
     const history = useHistory()
     const query = new URLSearchParams(props.location.search);
-    const user = useSelector(state => state.user)
+    const status = query.get('status')
+    const payment_id = query.get('payment_id')
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
+    console.log(user)
     useEffect(() => {
       if(user){
         let obj = {
@@ -23,24 +33,20 @@ function Success(props) {
           url: "/users/purchaseComplete",
       }).then((e) => {
         console.log(e)
-        // swal('Felicidades!', `Has comprado tu pasaje`, 'success')
-        //   history.push('/user')
       }).catch((e) => {
         console.log(e)
       })
+      let id = user !== null ? user.id : ''
+      dispatch(sendMailCompra(id, payment_id))
       swal('Felicidades!', `Has comprado tu pasaje`, 'success')
-          history.push('/user')
+      history.push('/user')
       }
-    }, [user])
+    }, [user, dispatch, swal])
     console.log(user)
     let display = localStorage.getItem('display')
-    const status = query.get('status')
     if(status === 'approved' ) {
-      // let price = vuelo.map(e => e.price).join('')
-    
-    if(vuelo !== null){
+    if(vuelo !== undefined || vuelo !== null){
         //dentro de este if guardar en base de datos el historial de compra.
-        console.log(vuelo)
         if(user){
           let obj = {
             id: user ? user.id : null,
@@ -53,8 +59,8 @@ function Success(props) {
             url: "/users/purchaseComplete",
         }).then((e) => {
           console.log(e)
-          swal('Felicidades!', `Has comprado tu pasaje`, 'success')
-            history.push('/user')
+          // swal('Felicidades!', `Has comprado tu pasaje`, 'success')
+          // history.push('/user')
         }).catch((e) => {
           console.log(e)
         })

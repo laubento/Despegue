@@ -1,9 +1,14 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY } from "./Actions";
-import roundTripExample from "./roundTripExapmle";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY } from "./Actions";
+// import roundTripExample from './roundTripExapmle';
+// import oneWayTripExample from './oneWayTripExample';
 
 const initialState = {
     allFlights: [],
     flights: [],
+    // allFlights: roundTripExample,
+    // flights: roundTripExample,
+    // allFlights: oneWayTripExample,
+    // flights: oneWayTripExample,
     firstFlights: [],
     allFirstFlights: [],
     secondFlighs: [],
@@ -38,6 +43,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: []
             }
+            case CLEAR_FLIGHT_DETAIL:
+                return {
+                    ...state,
+                    flightDetail: []
+                }
         case FILTER_FLIGHTS:
             const { minPrice, maxPrice, maxDuration, maxHour, minHour, stopOvers, order, findAirline } =
                 action.payload;
@@ -158,11 +168,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 offersList: action.payload
             }
-        // case ADD_USER_ROLE:
-        //     return{
-        //         ...state,
-        //         user: action.payload
-        //     }
+        case ADD_USER_ROLE:
+            return{
+                ...state,
+                user: action.payload
+            }
         case "GET_PAYMENT": 
             return{
                 ...state,
@@ -210,6 +220,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 history: action.payload
             }
+        case "SEND_MAIL_COMPRA":
+        
+        return{
+            ...state,
+        }
+
         default:
             return state;
     }

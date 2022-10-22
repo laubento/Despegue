@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Route } from "react-router-dom";
 import '../MiPerfil/MiPerfil.css'
-import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
 import Configuracion from "./Configuracion";
 import { useSelector } from "react-redux";
@@ -9,11 +8,15 @@ import UserHistory from "./userHistory";
 
 
 export default function MiPerfil() {
-  const user = useSelector((state) => state.user);
-    let url = window.location.pathname
-    function enviar() {
 
-    }
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
+    let url = window.location.pathname
+
     return (
         <div>
             <div className="MiPerfil-containerTituloPrincipal">
@@ -26,7 +29,7 @@ export default function MiPerfil() {
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>
-                           {user ? <h3>{user.lastname ? user.lastname.toUpperCase() : undefined}</h3> : undefined}
+                           {user ? <h3>{user.lastName ? user.lastName.toUpperCase() : undefined}</h3> : undefined}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">

@@ -16,12 +16,15 @@ export default function Checkout() {
     const payment = useSelector(state => state.getPayment)
     const flightCart = useSelector(state => state.flightsCart)
     let sinLog;
+    let display;
     console.log(user)
     const handlePayment = async (e) => {
         e.preventDefault();
         if(user !== null){
             sinLog = false
+            display = false
              localStorage.setItem('sinLog', sinLog)
+            localStorage.setItem('display', display)
             console.log(payment)
             if(payment.length === 0){
                 let infoCompra = JSON.parse(localStorage.getItem('init_point'))
@@ -32,29 +35,30 @@ export default function Checkout() {
                 })
                 return  window.location.href = link.init_point
             }
-            console.log(payment)
+            
             let link = {}
             payment.map(e => {
               link.init_point = e.init_point
             })
-            if(flightCart.length === 2){
-                localStorage.setItem('detail', JSON.stringify(flightCart))
-            }else{
-                localStorage.setItem('detail', JSON.stringify(flight))
-            }
             return  window.location.href = link.init_point
         }
-        await swal('Necesitas estar logueado para comprar', '', 'error')
+        await swal('Necesitas iniciar sesión o tener una cuenta para comprar.', '', 'error')
         sinLog = true
+        display = true;
+        localStorage.setItem('display', display)
+        localStorage.setItem('sinLog', sinLog)
+      }
+      
+      if(payment.length){
         localStorage.setItem('init_point', JSON.stringify(payment))
         if(flightCart.length === 2){
-        localStorage.setItem('detail', JSON.stringify(flightCart))
-            }else{
-                localStorage.setItem('detail', JSON.stringify(flight))
-            }
-        localStorage.setItem('sinLog', sinLog)
-        return history.push('/login')
+            localStorage.setItem('detail', JSON.stringify(flightCart))
+        }else{
+            let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
+            localStorage.setItem('detail', JSON.stringify(cartRespaldo))
+        }
       }
+
     console.log(flightCart)
     console.log(flight)
     const createOrder = (data, actions) => {
@@ -68,6 +72,7 @@ export default function Checkout() {
             ],
         });
     };
+
     const onApprove = (data, actions) => {
         // dispatch(storePurchase(user, flight))
   swal('Felicidades!', 'Has realizado una compra.', 'success')

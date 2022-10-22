@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 // import MuiDataTable from 'mui-datatables'
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
-import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
+import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
+import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/Admin.css'
-
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -18,14 +18,20 @@ export default function Admin() {
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
-    console.log(users)
+    
     const columns = [
         {
             title: 'Nombre',
-            field: 'firstName',
+            field: 'name',
             editable: false,
             filtering: false
         },
+        // {
+        //     title: 'Apellido',
+        //     field: 'lastname',
+        //     editable: false,
+        //     filtering: false
+        // },
         {
             title: 'Email',
             field: 'email',
@@ -35,7 +41,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { admin: 'admin', user: 'user' },
+            lookup: { admin: 'admin', user: 'user', vip: 'vip' },
             filterPlaceholder: 'Filtro por Rol'
         },
         {
@@ -43,6 +49,12 @@ export default function Admin() {
             field: 'active',
             lookup: { true: 'Activo', false: 'Desactivo' },
             filtering: false
+        },
+        {
+            title: 'Banned',
+            field: 'banned',
+            lookup: { true: 'Banneado', false: 'No Baneado' },
+            filterPlaceholder: 'Filtro por Banneado'
         },
     ]
 
@@ -107,7 +119,7 @@ export default function Admin() {
             // editable: false,
         },
     ]
-    
+
     return (
         <div className="d-flex">
             <div className="usersTable">
@@ -118,7 +130,7 @@ export default function Admin() {
                             title={'Lista de usuarios'}
                             columns={columns}
                             data={users}
-                            options={{ filtering: true, columnsButton:true, rowStyle: {background:'#f5f5f5'}}}
+                            options={{ filtering: true, actionsColumnIndex: -1, columnsButton: true, rowStyle: { background: '#f5f5f5' }, paginationType: 'stepped' }}
                             editable={{
                                 onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
                                     dispatch(updateUser(newRow))
@@ -137,23 +149,28 @@ export default function Admin() {
                             title={'Lista de Ofertas'}
                             columns={columnsOffers}
                             data={offers}
-                            options={{addRowPosition: 'first', actionsColumnIndex: -1, columnsButton:true, rowStyle: {background:'#f5f5f5'}, selection:true}}
+                            actions={[{
+                                icon: () =><DeleteIcon/>,
+                                tooltip: 'Click me',
+                                // onClick: (e, data) => dispatch(deleteOffer(selectedRow))
+                            }]}
+                            options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: true }}
                             editable={{
-                                onRowAdd:(newRow)=>new Promise((resolve, reject) =>{
+                                onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                     dispatch(offersCreate(newRow))
-                                    
+
                                     resolve()
                                     window.location.reload()
                                 }),
                                 onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
                                     dispatch(updateOffer(newRow))
-                                
+
                                     resolve()
                                     window.location.reload()
                                 }),
-                                onRowDelete: (selectedRow) => new Promise((resolve, reject) =>{
+                                onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
                                     // dispatch(deleteOffer(selectedRow))
-                                
+
                                     resolve()
                                     window.location.reload()
                                 })

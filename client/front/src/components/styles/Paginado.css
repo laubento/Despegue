@@ -54,6 +54,10 @@
     opacity: 0;
 }
 
+.display-none-btn{
+    display: none;
+}
+
 
 .first-page{
     font-size: 20px;
