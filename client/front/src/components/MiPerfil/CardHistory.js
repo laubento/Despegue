@@ -2,6 +2,7 @@ import React from "react";
 import '../MiPerfil/CardHistory.css'
 import Logo from "../../Images/Logo.png"
 
+
 export default function CardHistory({ paquete }) {
     console.log(paquete)
     return (
