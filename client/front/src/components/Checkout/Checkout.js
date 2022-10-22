@@ -15,6 +15,7 @@ export default function Checkout() {
 
     const history = useHistory()
     const flight = useSelector((state) => state.flightDetail);
+    console.log(flight);
     const payment = useSelector(state => state.getPayment)
     const flightCart = useSelector(state => state.flightsCart)
     console.log(flightCart);
@@ -68,7 +69,7 @@ export default function Checkout() {
             purchase_units: [
                 {
                     amount: {
-                        value: flightCart.map((flights) => flights.price),
+                        value: flight.price,
                     },
                 },
             ],
