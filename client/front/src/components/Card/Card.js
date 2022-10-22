@@ -31,9 +31,9 @@ function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopove
   return (
     <div className="card-div row ">
       {
-        (onFlights || onFirstFlight) 
-        ? <div className="card-airline-box col">Ida</div>
-        : <div className="card-airline-box">Vuelta</div>
+        (going === undefined || going === true)
+          ? <div className="card-airline-box col">Ida</div>
+          : <div className="card-airline-box col">Vuelta</div>
       }
       <div className="card-border-right col text-center">
         {
