@@ -14,11 +14,8 @@ export default function Checkout() {
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const history = useHistory()
-    const flight = useSelector((state) => state.flightDetail);
-    console.log(flight);
     const payment = useSelector(state => state.getPayment)
     const flightCart = useSelector(state => state.flightsCart)
-    console.log(flightCart);
     let sinLog;
     let display;
     const handlePayment = async (e) => {
@@ -62,14 +59,22 @@ export default function Checkout() {
         }
       }
 
-    console.log(flightCart)
-    console.log(flight)
+
+      
+    const values = flightCart.map((flight) => parseInt(flight.price))
+    const sumValues = values.reduce((a, b) => a + b, 0)
+    let flight = flightCart
+
+    if(!flight[1]){
+        flight = flightCart[0]
+    }
+
     const createOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [
                 {
                     amount: {
-                        value: flight.price,
+                        value: sumValues.toString()
                     },
                 },
             ],
@@ -82,6 +87,7 @@ export default function Checkout() {
         .then((e) => swal('Felicidades!', 'Has realizado una compra.', 'success') )
         .catch((e) => swal('Ha ocurrido un error'))
   
+        // swal('Felicidades!', 'Has realizado una compra.', 'success')
         history.push('/')
         return actions.order.capture();
     };
