@@ -10,16 +10,22 @@ import { storeUserInfo } from "../../Redux/Actions";
 import { succesAlert } from "../../utils/alerts";
 
 export default function DatosPersonales() {
-  const user = useSelector((state) => state.user);
+    
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    console.log(user);
+  
+
   const dispatch = useDispatch();
   const [active, setActive] = useState(true);
+  const [update, setUpdate] = useState(true);
   let today = new Date();
   let year = today.getFullYear();
 
   function changeValue(valores) {
-    let obj = {
+    const updateUser = {
+      ...user,  
       firstName: valores.name ? valores.name : user.firstName,
-      lastName: valores.lastName ? valores.lastName : user.lastname,
+      lastName: valores.lastName ? valores.lastName : user.lastName,
       email: valores.email ? valores.email : user.email,
       birthDate: valores.birthDate ? valores.birthDate : user.birthDate,
       dni: valores.dni ? valores.dni : user.dni,
@@ -27,27 +33,19 @@ export default function DatosPersonales() {
       id: user.id,
       roles: user.roles,
     };
+    // user = updateUser
     axios({
       method: "PUT",
-      data: obj,
+      data: updateUser,
       url: "/update",
-    }).then((resObject) => {
-      const obj = {
-        name: resObject.data.name,
-        photos: resObject.data.photo
-          ? resObject.data.photo
-          : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png",
-        firstName: resObject.data.firstName,
-        lastname: resObject.data.lastname,
-        email: resObject.data.email,
-        id: resObject.data._id,
-        dni: resObject.data.dni,
-        phone: resObject.data.phone,
-        birthDate: resObject.data.birthDate,
-        roles: resObject.data.roles,
-      };
-      dispatch(storeUserInfo(obj));
-    });
+    }).then(() => {
+        window.localStorage.removeItem('user')
+        window.localStorage.setItem('user', JSON.stringify(updateUser))
+        setUpdate(!update)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
   }
 
   return (
@@ -58,7 +56,7 @@ export default function DatosPersonales() {
             <h1>Datos Personales</h1>
             <button onClick={() => setActive(false)} disabled={!active}>
               ✏️
-            </button>
+            </button>nombre
           </div>
           <div className="MiPerfil-hr">
             <hr />
@@ -66,7 +64,7 @@ export default function DatosPersonales() {
           <Formik
             initialValues={{
               name: user ? user.firstName : "",
-              lastName: user ? user.lastname : "",
+              lastName: user ? user.lastName : "",
               email: user ? user.email : "",
               birthDate: user ? user.birthDate : "",
               dni: user ? user.dni : "",
@@ -85,15 +83,22 @@ export default function DatosPersonales() {
               }
 
               // Validacion Apellido
-              if (
-                valores.lastName.length === 1 ||
-                valores.lastName.length === 2
-              ) {
-                errores.lastName = "Apellido demaciado corto";
-              } else if (!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)) {
-                errores.lastName = "Solo se permiten letras";
-              } else if (valores.lastName.length > 15) {
-                errores.lastName = "Demaciado caracteres";
+              // Validacion logueo manual no tiene apellido
+
+              if(valores.lastName){
+                if (
+                    valores.lastName.length === 1 ||
+                    valores.lastName.length === 2
+                ) {
+                    errores.lastName = "Apellido demaciado corto";
+                } else if (!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)) {
+                    errores.lastName = "Solo se permiten letras";
+                } else if (valores.lastName.length > 15) {
+                    errores.lastName = "Demaciado caracteres";
+                }
+              }
+              else{
+                errores.lastName = "Por favor proporcione un apellido"
               }
 
               // Validaciones Telefono
@@ -135,10 +140,10 @@ export default function DatosPersonales() {
               return errores;
             }}
             onSubmit={(valores, { resetForm }) => {
+              changeValue(valores);
               resetForm();
               setActive(true);
               succesAlert("datos guardados");
-              changeValue(valores);
             }}
           >
             {({ errors }) => (
@@ -151,7 +156,7 @@ export default function DatosPersonales() {
                         type="text"
                         id="name"
                         name="name"
-                        placeholder={user ? user.firstName : ""}
+                        placeholder={ user ? user.firstName : ""}
                         disabled={active}
                       />
                       <ErrorMessage
@@ -167,7 +172,7 @@ export default function DatosPersonales() {
                         type="text"
                         id="lastName"
                         name="lastName"
-                        placeholder={user ? user.lastname : ""}
+                        placeholder={user ? user.lastName : ""}
                         disabled={active}
                       />
                       <ErrorMessage

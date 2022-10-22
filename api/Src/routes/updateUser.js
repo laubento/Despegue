@@ -4,6 +4,7 @@ const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 
 router.put("/", async (req, res) => {
+    console.log(req.body);
     const { id, firstName, lastName, birthDate, dni, phone, email } = req.body;
     try {
         const updateUser = await User.updateOne(
@@ -11,7 +12,7 @@ router.put("/", async (req, res) => {
             {
                 $set: {
                     firstName: firstName,
-                    lastname: lastName,
+                    lastName: lastName,
                     dni: dni,
                     phone: phone,
                     email: email,
@@ -21,7 +22,7 @@ router.put("/", async (req, res) => {
         );
         User.findOne({ _id: id })
             .then((rep) => {
-                console.log("pepe");
+                console.log(rep);
                 return res.send(rep);
             })
             .catch(() => res.send(updateUser));

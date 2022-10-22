@@ -12,7 +12,7 @@ const User = mongoose.Schema({
     required: true,
   },
 
-  lastname: {
+  lastName: {
     type: String,
     required: false,
   },
@@ -48,8 +48,15 @@ const User = mongoose.Schema({
     required: true
   },
 
+  membership: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+
   password: {
     type: String,
+    default: '1',
     required: true,
   },
 
@@ -86,6 +93,11 @@ const User = mongoose.Schema({
     type: Array,
     default: ["user"],
   },
+  verify:{
+    type: Boolean,
+    default: false,
+    required: true
+  }
 });
 User.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);

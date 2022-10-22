@@ -6,7 +6,12 @@ import Logo from '../../Images/NoVuelo.png'
 import CardHistory from "./CardHistory"
 
 export default function UserHistory() {
-    const user = useSelector((state) => state.user)
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
+
     const history = useSelector((state) => state.history)
     console.log(history)
     console.log(user)
