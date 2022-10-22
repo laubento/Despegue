@@ -12,7 +12,12 @@ function Success(props) {
     const query = new URLSearchParams(props.location.search);
     const status = query.get('status')
     const payment_id = query.get('payment_id')
-    const user = useSelector(state => state.user)
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
+
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
     console.log(user)

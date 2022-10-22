@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const User = require("../../../models/user");
 const router = Router();
-const { isAuthenticate } = require("./validate-session");
+const { isAuthenticated } = require("./validate-session");
 
 router.get("/users", async (req, res) => {
   try {
@@ -12,7 +12,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/user", isAuthenticate, async (req, res) => {
+router.post("/user", isAuthenticated, async (req, res) => {
   try {
     if (req.body.email) {
       let user = await User.findOne({ email: req.body.email });

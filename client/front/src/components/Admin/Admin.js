@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 // import MuiDataTable from 'mui-datatables'
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
-import { listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
+import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/Admin.css'
-
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -42,7 +41,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { admin: 'admin', user: 'user', vip: 'vip'},
+            lookup: { admin: 'admin', user: 'user', vip: 'vip' },
             filterPlaceholder: 'Filtro por Rol'
         },
         {
@@ -50,6 +49,12 @@ export default function Admin() {
             field: 'active',
             lookup: { true: 'Activo', false: 'Desactivo' },
             filtering: false
+        },
+        {
+            title: 'Banned',
+            field: 'banned',
+            lookup: { true: 'Banneado', false: 'No Baneado' },
+            filterPlaceholder: 'Filtro por Banneado'
         },
     ]
 
