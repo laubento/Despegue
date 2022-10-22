@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Route } from "react-router-dom";
 import '../MiPerfil/MiPerfil.css'
 import DatosPersonales from "./DatosPersonales";
@@ -9,15 +9,14 @@ import UserHistory from "./userHistory";
 
 export default function MiPerfil() {
 
+
     let user = useSelector((state) => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
   
     if (!user && user2) user = user2;
 
     let url = window.location.pathname
-    function enviar() {
 
-    }
     return (
         <div>
             <div className="MiPerfil-containerTituloPrincipal">
@@ -30,7 +29,7 @@ export default function MiPerfil() {
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>
-                           {user ? <h3>{user.lastname ? user.lastname.toUpperCase() : undefined}</h3> : undefined}
+                           {user ? <h3>{user.lastName ? user.lastName.toUpperCase() : undefined}</h3> : undefined}
                         </div>
                     </div>
                     <div className="MiPerfil-containerChangeBox">
