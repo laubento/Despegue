@@ -6,18 +6,20 @@ import swal from 'sweetalert'
 import { getPaymentInfo, storePurchase } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom";
 import mp from '../../Images/mercadopago.png'
+import axios from "axios";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
     
+    const user = JSON.parse(window.localStorage.getItem('user'))
+
     const history = useHistory()
-    const user = useSelector((state) => state.user);
     const flight = useSelector((state) => state.flightDetail);
     const payment = useSelector(state => state.getPayment)
     const flightCart = useSelector(state => state.flightsCart)
+    console.log(flightCart);
     let sinLog;
     let display;
-    console.log(user)
     const handlePayment = async (e) => {
         e.preventDefault();
         if(user !== null){
@@ -66,7 +68,7 @@ export default function Checkout() {
             purchase_units: [
                 {
                     amount: {
-                        value: flight[0].price.toString(),
+                        value: flightCart.map((flights) => flights.price),
                     },
                 },
             ],
@@ -75,20 +77,20 @@ export default function Checkout() {
 
     const onApprove = (data, actions) => {
         // dispatch(storePurchase(user, flight))
-  swal('Felicidades!', 'Has realizado una compra.', 'success')
+        axios.post('/users/purchaseComplete', {user, flight})
+        .then((e) => swal('Felicidades!', 'Has realizado una compra.', 'success') )
+        .catch((e) => swal('Ha ocurrido un error'))
+  
         history.push('/')
-        // console.log(actions.order.capture());
         return actions.order.capture();
     };
     const onCancel = (data, actions) => {
         swal('Compra cancelada', 'Presiona el boton para volver a la pagina', 'warning')
         history.push('/')
-        // alert("Compra cancelada");
     };
     const onError = (data, actions) => {
         swal('Algo ha salido mal!', 'Presiona el botón para volver a la página.', 'error')
         history.push('/')
-        // alert("Ha ocurrido un error con la compra");
     };
 
     
