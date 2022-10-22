@@ -11,7 +11,7 @@ router.put("/", async (req, res) => {
             {
                 $set: {
                     firstName: firstName,
-                    lastname: lastName,
+                    lastName: lastName,
                     dni: dni,
                     phone: phone,
                     email: email,
@@ -20,9 +20,8 @@ router.put("/", async (req, res) => {
             }
         );
         User.findOne({ _id: id })
-            .then((rep) => {
-                console.log("pepe");
-                return res.send(rep);
+            .then(() => {
+                return res.status(200).send('ok');
             })
             .catch(() => res.send(updateUser));
     } catch (err) {

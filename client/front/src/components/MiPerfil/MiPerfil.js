@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import '../MiPerfil/MiPerfil.css'
-import { Route } from "react-router-dom";
 import DatosPersonales from "./DatosPersonales";
 import Configuracion from "./Configuracion";
 import { useSelector } from "react-redux";

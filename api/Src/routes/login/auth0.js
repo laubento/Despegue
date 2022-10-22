@@ -6,44 +6,38 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
-    console.log(user);
 
     if (!user) return res.sendStatus(400);
 
-    console.log(user.email);
-
     User.findOne({ email: user.email })
     .then((userDB) => {
-        console.log(userDB);
         if (userDB) {
             const userData = {
                 name: userDB.name || userDB.nickname,
                 firstName: userDB.firstName || userDB.nickname,
-                lastname: userDB.lastname || undefined,
+                lastName: userDB.lastName || "",
+                dni: userDB.dni,
+                phone: userDB.phone,
+                birthDate: userDB.birthDate,
                 photo: userDB.picture || userDB.photo,
-                id: userDB.id,
-                email: userDB.email,
-                dni: userDB.dni || undefined,
-                phone: userDB.phone || undefined,
-                birthDate: userDB.birthDate || undefined,
-                membership: userDB.membership || undefined,
-                verifiy: userDB.verifiy || undefined,
-                active: userDB.active,
                 banned: userDB.banned,
-                roles: userDB.roles || [],
+                membership: userDB.membership,
+                email: userDB.email,
+                active: userDB.active,
+                roles: userDB.roles,
+                verify: userDB.verify,
+                id: userDB.id,
             }
-            console.log('te mando user');
             return res.status(200).send(userData);
         } else {
             // Si no existe lo agrego a la DB
             new User({
                 name: user.name || user.nickname,
                 firstName: user.given_name || user.nickname,
-                lastname: user.family_name || null,
+                lastName: user.family_name,
                 photo: user.picture,
                 id: user.sub.split("|")[1],
                 email: user.email,
-                password: '1',
                 dni: "",
                 phone: "",
                 birthDate: "",
@@ -54,7 +48,6 @@ router.post("/getUser", async (req, res) => {
             })
             .save()
             .then((newUser) => {
-                console.log("nuevo" + newUser);
                 res.status(200).send(newUser);
             })
             .catch((err) => {
