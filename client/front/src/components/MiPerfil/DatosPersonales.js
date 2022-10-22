@@ -84,6 +84,7 @@ export default function DatosPersonales() {
               // Validacion Apellido
               // Validacion logueo manual no tiene apellido
 
+
               if(valores.lastName){
                 if (
                     valores.lastName.length === 1 ||
