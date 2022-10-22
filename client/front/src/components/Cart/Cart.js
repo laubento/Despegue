@@ -5,47 +5,52 @@ import { addFlightToCart, getPayment, getPaymentInfo } from '../../Redux/Actions
 import Card from '../Card/Card';
 
 export default function Cart() {
+
     const dispatch = useDispatch();
     const history = useHistory();
-    const payment = useSelector((state) => state.getPayment);
 
+    // global states
+    const payment = useSelector((state) => state.getPayment);
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
+
     let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
     if(cart.length > 0){
         localStorage.setItem('cartRespaldo', JSON.stringify(cart))
     }
-    console.log(cart)
-    console.log(cartRespaldo)
+    // console.log(cart)
+    // console.log(cartRespaldo)
     let items = 
-    cart.length > 0 ? cart.map((el) => ({
-        title: "Pasaje de vuelo",
-        description:'Description',
-        picture_url: "http://www.myapp.com/myimage.jpg",
-        category_id:"category123",
-        quantity: 1,
-        unit_price: parseInt(el.price)
-    })) : cartRespaldo !== null ? cartRespaldo.map((el) => ({
-            title: "Pasaje de vuelo",
-            description:'Description',
-            picture_url: "http://www.myapp.com/myimage.jpg",
-            category_id:"category123",
-            quantity: 1,
-            unit_price: parseInt(el.price)
-        })) : ''
-    console.log(items)
+            cart.length > 0
+                ? cart.map((el) => ({
+                    title: "Pasaje de vuelo",
+                    description:'Description',
+                    picture_url: "http://www.myapp.com/myimage.jpg",
+                    category_id:"category123",
+                    quantity: 1,
+                    unit_price: parseInt(el.price)
+                    })) 
+                : cartRespaldo !== null 
+                    ? cartRespaldo.map((el) => ({
+                        title: "Pasaje de vuelo",
+                        description:'Description',
+                        picture_url: "http://www.myapp.com/myimage.jpg",
+                        category_id:"category123",
+                        quantity: 1,
+                        unit_price: parseInt(el.price)})) 
+                    : ''
+    // console.log(items)
 
     const prueba = {
         body: {
-          payer_email: "test_user_47008967@testuser.com",
-          items,
-          notification_url: "https://www.your-site.com/ipn",
-          back_urls : {
-            failure: "http://localhost:3000/failure",
-            success: "http://localhost:3000/success",
-            },
-          "purpose": "wallet_purchase",
-
+            payer_email: "test_user_47008967@testuser.com",
+            items,
+            notification_url: "https://www.your-site.com/ipn",
+            back_urls : {
+                failure: "http://localhost:3000/failure",
+                success: "http://localhost:3000/success",
+                },
+            "purpose": "wallet_purchase",
             "payment_methods": {
             "excluded_payment_types": [
                 {
@@ -58,8 +63,6 @@ export default function Cart() {
     }
 
     // const test = cart.filter(el => el.id === selectedFlight.id)
-
-
 
     useEffect(() => {
         if (selectedFlight.length > 0) {
@@ -77,42 +80,43 @@ export default function Cart() {
         <div>
             <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
             {
-                items !== '' ?
-                cart.length >  0 ? 
-                cart.map((e,i) => {
-                    return(
-                        <div key={i} className='d-flex justify-content-center'>
-                            <Card 
-                                id={e.id}
-                                segments={e.segments}
-                                airlinesName={e.airlinesNames}
-                                departureTime={e.departureTime}
-                                arrivalTime={e.arrivalTime}
-                                duration={e.duration}
-                                stopoversCount={e.stopoversCount}
-                                price={e.price}
-                                going={e.going}
-                                hideButton={true}
-                            />
-                        </div>
-                    )})
-                : cartRespaldo.map((e,i) => {
-                    return(
-                        <div key={i} className='d-flex justify-content-center'>
-                            <Card 
-                                id={e.id}
-                                segments={e.segments}
-                                airlinesName={e.airlinesNames}
-                                departureTime={e.departureTime}
-                                arrivalTime={e.arrivalTime}
-                                duration={e.duration}
-                                stopoversCount={e.stopoversCount}
-                                price={e.price}
-                                going={e.going}
-                                hideButton={true}
-                            />
-                        </div>
-                    )}) : ''
+                items !== '' 
+                    ? cart.length >  0 
+                        ? cart.map((e,i) => {
+                            return(
+                                <div key={i} className='d-flex justify-content-center'>
+                                    <Card 
+                                        id={e.id}
+                                        segments={e.segments}
+                                        airlinesName={e.airlinesNames}
+                                        departureTime={e.departureTime}
+                                        arrivalTime={e.arrivalTime}
+                                        duration={e.duration}
+                                        stopoversCount={e.stopoversCount}
+                                        price={e.price}
+                                        going={e.going}
+                                        hideButton={true}
+                                    />
+                                </div>
+                            )})
+                        : cartRespaldo.map((e,i) => {
+                            return(
+                                <div key={i} className='d-flex justify-content-center'>
+                                    <Card 
+                                        id={e.id}
+                                        segments={e.segments}
+                                        airlinesName={e.airlinesNames}
+                                        departureTime={e.departureTime}
+                                        arrivalTime={e.arrivalTime}
+                                        duration={e.duration}
+                                        stopoversCount={e.stopoversCount}
+                                        price={e.price}
+                                        going={e.going}
+                                        hideButton={true}
+                                    />
+                                </div>
+                            )}) 
+                    : ''
             }
             <div className='row'>
                 <div className='col-md-4'></div>
