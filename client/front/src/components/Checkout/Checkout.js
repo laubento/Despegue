@@ -32,29 +32,38 @@ export default function Checkout() {
                 })
                 return  window.location.href = link.init_point
             }
-            console.log(payment)
+            
             let link = {}
             payment.map(e => {
               link.init_point = e.init_point
             })
-            if(flightCart.length === 2){
-                localStorage.setItem('detail', JSON.stringify(flightCart))
-            }else{
-                localStorage.setItem('detail', JSON.stringify(flight))
-            }
+
+            // if(flightCart.length === 2){
+            //     localStorage.setItem('detail', JSON.stringify(flightCart))
+            // }else{
+            //     localStorage.setItem('detail', JSON.stringify(flight))
+            // }
             return  window.location.href = link.init_point
         }
         await swal('Necesitas estar logueado para comprar', '', 'error')
         sinLog = true
-        localStorage.setItem('init_point', JSON.stringify(payment))
-        if(flightCart.length === 2){
-        localStorage.setItem('detail', JSON.stringify(flightCart))
-            }else{
-                localStorage.setItem('detail', JSON.stringify(flight))
-            }
+        // if(flightCart.length === 2){
+        // localStorage.setItem('detail', JSON.stringify(flightCart))
+        //     }else{
+        //         localStorage.setItem('detail', JSON.stringify(flight))
+        //     }
         localStorage.setItem('sinLog', sinLog)
         return history.push('/login')
       }
+      if(payment.length){
+        localStorage.setItem('init_point', JSON.stringify(payment))
+        if(flightCart.length === 2){
+            localStorage.setItem('detail', JSON.stringify(flightCart))
+        }else{
+            localStorage.setItem('detail', JSON.stringify(flight))
+        }
+      }
+
     console.log(flightCart)
     console.log(flight)
     const createOrder = (data, actions) => {
@@ -68,6 +77,7 @@ export default function Checkout() {
             ],
         });
     };
+
     const onApprove = (data, actions) => {
         // dispatch(storePurchase(user, flight))
   swal('Felicidades!', 'Has realizado una compra.', 'success')

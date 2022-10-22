@@ -24,8 +24,8 @@ function Card({id, airlinesName, departureTime, arrivalTime, duration, stopovers
     <div className="card-div row ">
       {
         going 
-        ? <div className="card-airline-box col">Ida</div>
-        : <div className="card-airline-box">Vuelta</div>
+        ? <div className="card-airline-box col-1">Ida</div>
+        : <div className="card-airline-box col-1">Vuelta</div>
       }
       <div>{going}</div>
       <div className="card-border-right col text-center">
