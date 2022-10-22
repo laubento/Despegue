@@ -37,7 +37,7 @@ function Home(props) {
     <div className="p-4">
       <FlightsSearch />
       { user !== null && (
-      <div className={display === false || display === null ? "display-none" : 'mt-4'}>
+      <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
         <div className="d-flex justify-content-center">
         <button onClick ={ handleClick } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
         </div>
