@@ -13,8 +13,10 @@ function Success(props) {
     const status = query.get('status')
     const payment_id = query.get('payment_id')
 
-    const user = JSON.parse(window.localStorage.getItem("user"));
-
+    let user = useSelector(state => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
     console.log(user)
