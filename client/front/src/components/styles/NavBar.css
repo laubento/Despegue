@@ -107,6 +107,11 @@ body{
     color: rgb(95, 95, 95);
     animation: all 0.2s;
 }
+.NavBar-Ventas button{
+    display: flex;
+    border: 0;
+    font-weight: bold;
+}
 .NavBar-LogoBoton{
     height: 20px;
     width: 20px;

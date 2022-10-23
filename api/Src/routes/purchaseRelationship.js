@@ -15,7 +15,7 @@ router.post("/purchaseComplete", async (req, res) => {
 
             let vuelos = flight.map((e) => {
                 return ({
-                    destination: e.arrivalAirportCode,
+                    exit: e.arrivalAirportCode,
                     scales: e.segments.length ? e.segments.map((e) => {
                         return({
                             cabin: e.cabin,
@@ -30,7 +30,7 @@ router.post("/purchaseComplete", async (req, res) => {
                         })
                     }) : [],
                     schedule: e.departureTime + " | " + e.arrivalTime,
-                    exit: e.departureAirportCode,
+                    destination: e.departureAirportCode,
                     type: e.cabinClass,
                     price: e.price,
                     flightId: e.id
@@ -46,7 +46,7 @@ router.post("/purchaseComplete", async (req, res) => {
             res.status(200).send("Succesfull Saved in User History")
         }else{
             let vuelos = [{
-                destination: flight.arrivalAirportCode,
+                exit: flight.arrivalAirportCode,
                 scales: flight.segments.length ? flight.segments.map((e) => {
                         return({
                             cabin: e.cabin,
@@ -61,7 +61,7 @@ router.post("/purchaseComplete", async (req, res) => {
                         })
                     }) : [],
                 schedule: flight.departureTime + " | " + flight.arrivalTime,
-                exit: flight.departureAirportCode,
+                destination: flight.departureAirportCode,
                 type: flight.cabinClass,
                 price: flight.price,
                 flightId: flight.id

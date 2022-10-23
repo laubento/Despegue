@@ -30,6 +30,14 @@ export default function NavBar() {
   //     alert("Cerrando sesion");
   // }
 
+  function Atencion(){
+    Swal.fire({
+      title: "Atencion al cliente",
+      text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
+      confirmButtonText: "Cerrar",
+    })
+  }
+
   const closeSession = () => {
     Swal.fire({
       title: "¿Seguro que quieres cerrar sesion?",
@@ -108,10 +116,10 @@ export default function NavBar() {
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">
             <li className="NavBar-Ventas">
-              <Link to={"/"}>
+              <button onClick={Atencion}>
                 <img alt="ventas" src={Auriculares} />
                 Ventas <p> 0810 810 9992</p>
-              </Link>
+              </button>
             </li>
 
             <li style={{ cursor: "pointer" }} className="NavBar-IniciarSesion">
