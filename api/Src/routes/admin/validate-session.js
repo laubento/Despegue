@@ -1,7 +1,8 @@
 const helpers = {};
 
 helpers.isAuthenticated = (req, res, next) => {
-  if (req.user.roles.includes("admin")) {
+    const {user} = req.body
+  if (user.roles.includes("admin")) {
     return next();
   } else {
     res.redirect(process.env.HOME_URL ||'http://localhost:3000');
