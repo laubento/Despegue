@@ -123,8 +123,8 @@ export default function NavBar() {
                   {/* </Link> */}
                 </b>
               ) : (
-                <Link className="Login-UsuarioDesplegable" to={"/"}>
-                  <img alt="ventas" src={Persona} />
+                <Link className="Login-UsuarioDesplegable" to={"/user"}>
+                  <img alt="user" src={user.photos} />
                   {user.firstName}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
@@ -169,7 +169,7 @@ export default function NavBar() {
               )}
             </li>
             <li className="NavBar-Ayuda">
-              <Link to={"/"}>
+              <Link to={"/help"}>
                 <img alt="ventas" src={Ayuda} />
                 Ayuda
               </Link>

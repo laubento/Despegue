@@ -61,6 +61,9 @@ body{
     display: flex;
     align-items: center;
 }
+.NavBar-Ventas img{
+    margin-right: 5px;
+}
 .NavBar-Ventas p{
     margin: 0px 0px 0px 5px;
     font-family: 'Acme';
@@ -86,6 +89,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.NavBar-Ayuda img{
+    margin-right: 5px;
 }
 .NavBar-Boton1{
     padding: 0px 10px;
@@ -113,9 +119,6 @@ body{
 .NavBar-LinkBoton:hover{
     color: blueviolet;
 }   
-.NavBar-Nuevo{
-
-}
 .NavBar-Ul a{
     display: flex;
     justify-content: center;

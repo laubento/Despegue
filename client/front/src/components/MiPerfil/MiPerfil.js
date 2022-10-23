@@ -17,6 +17,13 @@ export default function MiPerfil() {
 
     let url = window.location.pathname
 
+    function suscribirme(){
+        
+    }
+    function desSuscribirme(){
+
+    }
+
     return (
         <div>
             <div className="MiPerfil-containerTituloPrincipal">
@@ -48,8 +55,8 @@ export default function MiPerfil() {
             </div>
             <div className="MiPerfil-Ofertas">
                 <h2>Desea que se le notifique por gmail las ofertas?</h2>
-                <button>Suscribirme</button>
-                <button>Desuscribirme</button>
+                <button onClick={suscribirme} className="MiPerfil-Sub">SUSCRIBIRME</button>
+                <button onClick={desSuscribirme} className="MiPerfil-DesSub">DESUSCRIBIRME</button>
             </div>
         </div>
     )
