@@ -15,13 +15,14 @@ function Success(props) {
 
     let user = useSelector(state => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
+    let display = localStorage.getItem('display')
   
     if (!user && user2) user = user2;
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
-    console.log(user)
+
     useEffect(() => {
-      if(user){
+      if(user && vuelo !== null){
         let obj = {
           user: user ? user : null,
           flight: vuelo
@@ -36,38 +37,13 @@ function Success(props) {
       dispatch(sendMailCompra(id, payment_id))
       swal('Felicidades!', `Has comprado tu pasaje`, 'success')
       history.push('/user')
-      }
-    }, [user, dispatch, swal])
-    console.log(user)
-    let display = localStorage.getItem('display')
-    if(status === 'approved' ) {
-    if(vuelo !== undefined || vuelo !== null){
-        //dentro de este if guardar en base de datos el historial de compra.
-        if(user){
-          let obj = {
-            id: user ? user.id : null,
-            flight: vuelo
-          }
-          console.log(obj)
-          axios({
-            method: "POST",
-            data: obj,
-            url: "/users/purchaseComplete",
-        }).then((e) => {
-          console.log(e)
-          // swal('Felicidades!', `Has comprado tu pasaje`, 'success')
-          // history.push('/user')
-        }).catch((e) => {
-          console.log(e)
-        })
-        }
-    }
-    
-
       if(display === 'false'){
-        localStorage.clear('sinLog')
+        window.localStorage.clear('sinLog')
       }
-    }
+    
+      }
+    }, [user, dispatch, swal, display])
+ 
   return (
     <div>{user ? user.firstName : null}</div>
   )
