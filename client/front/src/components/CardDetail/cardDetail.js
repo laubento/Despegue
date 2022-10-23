@@ -45,7 +45,7 @@ export default function CardDetail(){
             </div>
             {
                 flightDetail[0].segments.map( (el, i) => {
-                    const {airlineCode, arrivalAirportCode, arrivalDateTime, cabin, departureAirportCode, departureDateTime, designatorCode, durationMinutes, stopoverDurationMinutes} = el;
+                    const {airlineCode, arrivalAirportCode, arrivalAirportName, arrivalDateTime, cabin, departureAirportCode, departureAirportName, departureDateTime, designatorCode, durationMinutes, stopoverDurationMinutes} = el;
                     let departureDate = departureDateTime.slice(0,10);
                     let departureTime = departureDateTime.slice(11,16);
                     let departureUTM = departureDateTime.slice(23,26);
@@ -65,10 +65,11 @@ export default function CardDetail(){
                                             <div className="p-4 bg-top">
                                                 <div className="d-flex flex-row justify-content-between">
                                                     <div className="d-flex flex-column justify-content-between align-items-center">
-                                                        <h1>{departureAirportCode}</h1><span>{departureDate}</span><span>{departureTime} hs UTM{departureUTM}</span></div>
-                                                    <div className="d-flex flex-column justify-content-center"><i className="fa fa-plane fa-3x">{airlineCode}</i></div>
+                                                        <h1>{departureAirportCode}</h1><span>{departureAirportName[0]}</span><span>{departureDate}</span><span>{departureTime} hs UTM{departureUTM}</span></div>
+                                                    {/* <div className="d-flex flex-column justify-content-center"><i className="fa fa-plane fa-3x">{airlineCode}</i></div> */}
                                                     <div className="d-flex flex-column justify-content-between align-items-center">
-                                                        <h1>{arrivalAirportCode}</h1><span>{arrivalDate}</span><span>{arrivalTime} hs UTM{arrivalUTM}</span></div>
+                                                        <h1>{arrivalAirportCode}</h1><span>{arrivalAirportName[0]}</span><span>{arrivalDate}</span><span>{arrivalTime} hs UTM{arrivalUTM}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="bg-danger p-4">

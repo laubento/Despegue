@@ -13,11 +13,10 @@ function Success(props) {
     const status = query.get('status')
     const payment_id = query.get('payment_id')
 
-    let user = useSelector((state) => state.user);
+    let user = useSelector(state => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
   
     if (!user && user2) user = user2;
-
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
     console.log(user)
@@ -27,11 +26,8 @@ function Success(props) {
           user: user ? user : null,
           flight: vuelo
         }
-        axios({
-          method: "POST",
-          data: obj,
-          url: "/users/purchaseComplete",
-      }).then((e) => {
+        axios.post('/users/purchaseComplete', obj)
+        .then((e) => {
         console.log(e)
       }).catch((e) => {
         console.log(e)
