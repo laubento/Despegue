@@ -15,7 +15,7 @@ export const activeAcc = (log) => {
         swal2.fire("Cuenta Reactivada");
       } else if (result.isDenied) {
         log({
-          returnTo: process.env.VERCEL_URL || "http://localhost:3000",
+          returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000",
         }); //return to localhost/activar cuenta
       }
     });
@@ -33,7 +33,7 @@ export const bannedAcc = (log) => {
     .then((result) => {
       if (result.isDenied) {
         log({
-          returnTo: process.env.VERCEL_URL || "http://localhost:3000",
+          returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000",
         }); //return to localhost/activar cuenta
       }
     });
