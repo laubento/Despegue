@@ -5,7 +5,8 @@ import DatosPersonales from "./DatosPersonales";
 import Configuracion from "./Configuracion";
 import { useSelector } from "react-redux";
 import UserHistory from "./userHistory";
-
+import axios from "axios";
+import { succesAlert } from "../../utils/alerts";
 
 export default function MiPerfil() {
 
@@ -17,6 +18,25 @@ export default function MiPerfil() {
 
     let url = window.location.pathname
 
+    function suscribirme(){
+        axios({
+            method: "PUT",
+            data: user,
+            url: "/users/membership",
+          }).then((e) => {
+            succesAlert("Usuario suscripto");
+          })
+    }
+    function desSuscribirme(){
+        axios({
+            method: "PUT",
+            data: user,
+            url: "/users/membershipDisable",
+          }).then((e) => {
+            succesAlert("Usuario desuscripto");
+          })
+    }
+
     return (
         <div>
             <div className="MiPerfil-containerTituloPrincipal">
@@ -25,7 +45,7 @@ export default function MiPerfil() {
             <div className="MiPerfil-containerInfoPrincipal">
                 <div className="MiPerfil-ContainerDatos">
                     <div className="MiPerfil-containerFoto">
-                        <img src={user ? user.photos : undefined } alt="perfil" />
+                        <img src={user ? user.photo : undefined } alt="perfil" />
                         <div>
                             <h4>Hola,</h4>
                             <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>
@@ -48,8 +68,8 @@ export default function MiPerfil() {
             </div>
             <div className="MiPerfil-Ofertas">
                 <h2>Desea que se le notifique por gmail las ofertas?</h2>
-                <button>Suscribirme</button>
-                <button>Desuscribirme</button>
+                <button onClick={suscribirme} className="MiPerfil-Sub">SUSCRIBIRME</button>
+                <button onClick={desSuscribirme} className="MiPerfil-DesSub">DESUSCRIBIRME</button>
             </div>
         </div>
     )

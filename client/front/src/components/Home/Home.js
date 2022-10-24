@@ -46,7 +46,7 @@ function Home(props) {
             <div className="d-flex justify-content-center">
             <div className="card-div row ">
             {
-              e.going === false
+              e.going === true
               ? <div className="card-airline-box col-1">Ida</div>
               : <div className="card-airline-box col-1">Vuelta</div>
             }

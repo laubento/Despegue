@@ -8,6 +8,11 @@ body{
     background-color: white;
     display: flex;
 }
+.Login-FotoNav{
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+}
 .NavBar-Logo{
     text-decoration: none;
     color: rgb(111, 11, 138);
@@ -61,6 +66,9 @@ body{
     display: flex;
     align-items: center;
 }
+.NavBar-Ventas img{
+    margin-right: 5px;
+}
 .NavBar-Ventas p{
     margin: 0px 0px 0px 5px;
     font-family: 'Acme';
@@ -87,6 +95,9 @@ body{
     justify-content: center;
     align-items: center;
 }
+.NavBar-Ayuda img{
+    margin-right: 5px;
+}
 .NavBar-Boton1{
     padding: 0px 10px;
 }
@@ -101,6 +112,11 @@ body{
     color: rgb(95, 95, 95);
     animation: all 0.2s;
 }
+.NavBar-Ventas button{
+    display: flex;
+    border: 0;
+    font-weight: bold;
+}
 .NavBar-LogoBoton{
     height: 20px;
     width: 20px;
@@ -113,9 +129,6 @@ body{
 .NavBar-LinkBoton:hover{
     color: blueviolet;
 }   
-.NavBar-Nuevo{
-
-}
 .NavBar-Ul a{
     display: flex;
     justify-content: center;

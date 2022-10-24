@@ -23,12 +23,21 @@ export default function NavBar() {
   let user = useSelector((state) => state.user);
   const user2 = JSON.parse(window.localStorage.getItem("user"));
 
+  
   if (!user && user2) user = user2;
-
+  
   // function handleSubmitLogOut() {
   //     window.open("http://localhost:3001/auth/logout", "_self");
   //     alert("Cerrando sesion");
   // }
+
+  function Atencion(){
+    Swal.fire({
+      title: "Atencion al cliente",
+      text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
+      confirmButtonText: "Cerrar",
+    })
+  }
 
   const closeSession = () => {
     Swal.fire({
@@ -108,10 +117,10 @@ export default function NavBar() {
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">
             <li className="NavBar-Ventas">
-              <Link to={"/"}>
+              <button onClick={Atencion}>
                 <img alt="ventas" src={Auriculares} />
                 Ventas <p> 0810 810 9992</p>
-              </Link>
+              </button>
             </li>
 
             <li style={{ cursor: "pointer" }} className="NavBar-IniciarSesion">
@@ -123,12 +132,12 @@ export default function NavBar() {
                   {/* </Link> */}
                 </b>
               ) : (
-                <Link className="Login-UsuarioDesplegable" to={"/"}>
-                  <img alt="ventas" src={Persona} />
+                <Link className="Login-UsuarioDesplegable" to={"/user"}>
+                  <img alt="user" className="Login-FotoNav" src={user.photo} />
                   {user.firstName}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
-                      <img src={user ? user.photos : null} alt="" />
+                      <img src={user ? user.photo : null} alt="" />
                       <h6>{`Bienvenido ${user.firstName}!`}</h6>
                     </div>
                     <hr />
@@ -169,7 +178,7 @@ export default function NavBar() {
               )}
             </li>
             <li className="NavBar-Ayuda">
-              <Link to={"/"}>
+              <Link to={"/help"}>
                 <img alt="ventas" src={Ayuda} />
                 Ayuda
               </Link>

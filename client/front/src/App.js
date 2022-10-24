@@ -16,6 +16,7 @@ import MiPerfil from "./components/MiPerfil/MiPerfil";
 import RoundtripFF from "./components/Flights/RoundtripFF";
 import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
+import Help from "./components/Help/Help";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -33,7 +34,6 @@ function App() {
   const { user, logout } = useAuth0();
 
   useEffect(() => {
-    console.log("hola");
     axios
       .post("/auth0/getUser", { user })
       .then((data) => {
@@ -81,6 +81,7 @@ function App() {
         <Route exact path="/failure" component={Failure} />
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout />} />
+        <Route path="/help" render={() => <Help />} />
       </BrowserRouter>
     </div>
   );

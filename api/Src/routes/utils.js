@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_KEY = "63545e4383026ce43a371b82"
+const API_KEY = "6355df6bd25a5e2a7e54bbef"
 
 async function getFlightsOneWay({ departurePlace, arrivalPlace, departureDate, returningDate, adults, childern, infants, cabinClass, currency }) {
     const data = await axios
@@ -81,8 +81,22 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
         return {
             id: flight.id.split(":").slice(1, -1).join("-"),
             departureAirportCode: flight.departureAirportCode,
+            departureAirportName: data.airports
+            .map((airport) =>
+                flight.departureAirportCode === airport.code
+                    ? airport.name
+                    : null
+                )
+            .filter((a) => a !== null),
             departureTime: flight.departureTime,
             arrivalAirportCode: flight.arrivalAirportCode,
+            arrivalAirportName: data.airports
+            .map((airport) =>
+                flight.arrivalAirportCode === airport.code
+                    ? airport.name
+                    : null
+                )
+            .filter((a) => a !== null),
             arrivalTime: flight.arrivalTime,
             duration: flight.duration,
             airlinesNames: data.airlines
@@ -113,7 +127,21 @@ async function getFlightsRoundTrip({ departurePlace, arrivalPlace, departureDate
             cabinClass,
             stopoversCount: flight.stopoversCount,
             stopoverAirportCodes: flight.stopoverAirportCodes,
-            segments: flight.segments
+            segments: flight.segments.map((segment) => {
+                return{
+                    ...segment,
+                    departureAirportName: data.airports.map((airport) => segment.departureAirportCode === airport.code
+                                                                    ? airport.name
+                                                                    : null
+                                                            )
+                                                            .filter((a) => a !== null),
+                    arrivalAirportName: data.airports.map((airport) => segment.arrivalAirportCode === airport.code
+                                                                            ? airport.name
+                                                                            : null
+                                                        )
+                                                        .filter((a) => a !== null)
+                }
+            })
         };
     });
     return flights;
