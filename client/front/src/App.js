@@ -34,7 +34,6 @@ function App() {
   const { user, logout } = useAuth0();
 
   useEffect(() => {
-    console.log("hola");
     axios
       .post("/auth0/getUser", { user })
       .then((data) => {

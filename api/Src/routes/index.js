@@ -60,4 +60,8 @@ router.use("/mercadopago", mercadopago)
 const sendMailCompra = require('./sendMailCompra/sendMailCompra.js')
 router.use('/sendmailpago', sendMailCompra)
 
+//membership
+const member = require("./memberUpdate")
+router.use("/users", member)
+
 module.exports = router;
