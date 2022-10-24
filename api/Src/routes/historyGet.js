@@ -8,13 +8,9 @@ router.get("/getHistory", async (req,res) => {
     const {id} = req.query
     console.log(id)
     History.find({userId:id}).then((data) => {
-        if(!data){
-            res.status(404).send("No History for requested User")
-        } else {
-            res.status(200).send(data)
-        }
+        res.status(200).send(data)
     }).catch((err) => {
-        res.status(500).send("No History")
+        res.status(200).send([])
     })
 })
 

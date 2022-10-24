@@ -67,7 +67,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 40px;
+    padding: 40px 0px;
+}
+.MiPerfil-Ofertas h2{
+    font-size: 20px;
+    margin-right: 10px;
+}
+.MiPerfil-Ofertas button{
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0px 2px;
+    border: 0;
+    font-weight: bold;
+    border: solid 1px rgba(0, 0, 0, 0.164);
+    transition: all 0.3s;
+}
+.MiPerfil-DesSub:hover{
+    background-color: #ffffff;
+}
+.MiPerfil-Sub{
+    background-color: #ff7b00;
+    color: #ffffff;
+}
+.MiPerfil-Sub:hover{
+    background-color: #fa8c25;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.205);
 }
 .MiPerfil-BotonCancelar button{
  margin: 10px 5px   

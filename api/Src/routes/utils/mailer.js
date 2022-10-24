@@ -16,7 +16,7 @@ transporter
   .then(() => {
     console.log("Listo para enviar!");
   })
-  .catch();
+  .catch(err => console.log(err));
   
 /////////////////FUNC LISTA PARA ENVIAR MAILS/////////////////////////
 const infoTransporter = async (fromTitle, toList, subject, html) => {

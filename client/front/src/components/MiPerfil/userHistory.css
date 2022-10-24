@@ -1,0 +1,29 @@
+.UserHistory-containerPrincipalImg{
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    width: 770px;
+    height: 328px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.UserHistory-containerPrincipalVuelos{
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    width: 770px;
+    height: 328px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    background-image: url('../../Images/Logo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    
+}
+.UserHistory-containerPrincipalImg img{
+    width: 550px;
+    height: 280px;
+}

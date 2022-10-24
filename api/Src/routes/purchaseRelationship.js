@@ -12,18 +12,31 @@ router.post("/purchaseComplete", async (req, res) => {
         // const extras = req.body.asistant
 
         if (Array.isArray(flight)) {
+
             let vuelos = flight.map((e) => {
                 return ({
-                    destination: e.arrivalAirportCode,
-                    scales: e.segments,
+                    exit: e.arrivalAirportCode,
+                    scales: e.segments.length ? e.segments.map((e) => {
+                        return({
+                            cabin: e.cabin,
+                            arrival: e.arrivalDateTime.slice(0,10),
+                            arrivalTime: e.arrivalDateTime.slice(11,16),
+                            departure: e.departureDateTime.slice(0,10),
+                            departureTime: e.departureDateTime.slice(11,16),
+                            duration: e.durationMinutes,
+                            arrivalAirport: e.arrivalAirportCode,
+                            departureAirport: e.departureAirportCode,
+                            airline: e.airlineCode
+                        })
+                    }) : [],
                     schedule: e.departureTime + " | " + e.arrivalTime,
-                    exit: e.departureAirportCode,
+                    destination: e.departureAirportCode,
                     type: e.cabinClass,
                     price: e.price,
                     flightId: e.id
                 })
             })
-
+            console.log(vuelos)
             const history = new History({
                 package: vuelos,
                 userId: id
@@ -33,10 +46,22 @@ router.post("/purchaseComplete", async (req, res) => {
             res.status(200).send("Succesfull Saved in User History")
         }else{
             let vuelos = [{
-                destination: flight.arrivalAirportCode,
-                scales: flight.segments,
+                exit: flight.arrivalAirportCode,
+                scales: flight.segments.length ? flight.segments.map((e) => {
+                        return({
+                            cabin: e.cabin,
+                            arrival: e.arrivalDateTime.slice(0,10),
+                            arrivalTime: e.arrivalDateTime.slice(11,16),
+                            departure: e.departureDateTime.slice(0,10),
+                            departureTime: e.departureDateTime.slice(11,16),
+                            duration: e.durationMinutes,
+                            arrivalAirport: e.arrivalAirportCode,
+                            departureAirport: e.departureAirportCode,
+                            airline: e.airlineCode
+                        })
+                    }) : [],
                 schedule: flight.departureTime + " | " + flight.arrivalTime,
-                exit: flight.departureAirportCode,
+                destination: flight.departureAirportCode,
                 type: flight.cabinClass,
                 price: flight.price,
                 flightId: flight.id

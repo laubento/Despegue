@@ -6,21 +6,28 @@ import Admin from "../Admin/Admin";
 
 
 export default function PrivateRoute({ component, ...rest }) {
-    // let dispatch = useDispatch();
-    
+    let dispatch = useDispatch();
+
     // useEffect(e => {
     //     dispatch(listUsers())
     // }, [dispatch])
 
     // let usersList = useSelector(state => state.listUsers)
-    let userRole = useSelector(state => state.user)
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+  
+    if (!user && user2) user = user2;
     
+    // console.log(userRole)
     // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
-    // userRole ? dispatch(addUserRole(userRole)) : null
+    // if (userRole) {
+    //     dispatch(addUserRole(userRole))
+    //   }
     // console.log(userRole)
     return (
         <Route {...rest}>
-            {userRole ? userRole.roles ? userRole.roles[0] === 'admin' ? <Admin /> : <Redirect to={'/'} />:<Redirect to={'/'} />:<Redirect to={'/'} />}
+            {user && user.roles.includes('admin') ? <Admin /> : <Redirect to={'/'} />}
         </Route>
     )
 }

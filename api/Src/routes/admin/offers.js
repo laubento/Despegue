@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const Offers = require("../../../models/offers");
-const { isAuthenticate } = require("./validate-session");
+const { isAuthenticated } = require("./validate-session");
 
 const router = Router();
 
-router.post("/", isAuthenticate, async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   try {
     await Offers.create({
       airport: req.body.offer.airport,
@@ -24,7 +24,7 @@ router.post("/", isAuthenticate, async (req, res) => {
   }
 });
 
-router.get("/getoffers", isAuthenticate, async (req, res) => {
+router.get("/getoffers", async (req, res) => {
   try {
     const offers = await Offers.find({});
     if (offers.length) return res.send(offers);

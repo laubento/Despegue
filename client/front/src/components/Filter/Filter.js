@@ -74,10 +74,8 @@ export default function Filter({paginado, number}) {
     }
 
 
-
-
-
-    let flights = useSelector(state => state.flights)
+    // let flights = useSelector(state => state.flights)
+    let flights = useSelector(state => state.firstFlights)
     const validate = () => {
         try {
             flights.forEach(e => {
@@ -123,6 +121,7 @@ export default function Filter({paginado, number}) {
 
         }
     }
+    
     useEffect(e => {
         dispatch(filterFlights(filters))
     }, [dispatch, filters])
@@ -152,10 +151,9 @@ export default function Filter({paginado, number}) {
             }
         })
         paginado(1)
-        number = 1
-        // dispatch(searchAirline(airlineName.toLowerCase()))
-        
+        number = 1        
     }
+
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">
