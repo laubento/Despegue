@@ -8,7 +8,8 @@ const fs = require("fs")
 
 
 router.put("/membership", async (req,res) => {
-    const {id} = req.query
+    const {id} = req.body
+    console.log(id)
     User.updateOne({_id: id}, {$set: {membership: true}}).then((data) => {
         res.status(200).send("User is now a member")
     }).catch((err) =>{
@@ -16,7 +17,7 @@ router.put("/membership", async (req,res) => {
     })
 })
 router.put("/membershipDisable", async (req,res) => {
-    const {id} = req.query
+    const {id} = req.body
     User.updateOne({_id: id}, {$set: {membership: false}}).then((data) => {
         res.status(200).send("User is no longer a member")
     }).catch((err) =>{

@@ -23,8 +23,9 @@ export default function NavBar() {
   let user = useSelector((state) => state.user);
   const user2 = JSON.parse(window.localStorage.getItem("user"));
 
+  
   if (!user && user2) user = user2;
-
+  
   // function handleSubmitLogOut() {
   //     window.open("http://localhost:3001/auth/logout", "_self");
   //     alert("Cerrando sesion");
@@ -132,11 +133,11 @@ export default function NavBar() {
                 </b>
               ) : (
                 <Link className="Login-UsuarioDesplegable" to={"/user"}>
-                  <img alt="user" src={user.photos} />
+                  <img alt="user" className="Login-FotoNav" src={user.photo} />
                   {user.firstName}
                   <div className="Login-Desplegable">
                     <div className="Login-DesplegableContainerImg">
-                      <img src={user ? user.photos : null} alt="" />
+                      <img src={user ? user.photo : null} alt="" />
                       <h6>{`Bienvenido ${user.firstName}!`}</h6>
                     </div>
                     <hr />

@@ -9,14 +9,29 @@ import Facturacion from '../../Images/Ayuda/Facturacion.png'
 import Opiniones from '../../Images/Ayuda/Opiniones.png'
 import PreguntasFrecuentes from '../../Images/Ayuda/PreguntasFrecuentes.png'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { succesAlert } from "../../utils/alerts";
 
 export default function Help() {
+    const user = JSON.parse(window.localStorage.getItem("user"));
 
-    function suscribirme() {
-
+    function suscribirme(){
+        axios({
+            method: "PUT",
+            data: user,
+            url: "/users/membership",
+          }).then((e) => {
+            succesAlert("Usuario suscripto");
+          })
     }
-    function desSuscribirme() {
-
+    function desSuscribirme(){
+        axios({
+            method: "PUT",
+            data: user,
+            url: "/users/membershipDisable",
+          }).then((e) => {
+            succesAlert("Usuario desuscripto");
+          })
     }
 
     return (

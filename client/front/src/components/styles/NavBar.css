@@ -8,6 +8,11 @@ body{
     background-color: white;
     display: flex;
 }
+.Login-FotoNav{
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+}
 .NavBar-Logo{
     text-decoration: none;
     color: rgb(111, 11, 138);
