@@ -4,7 +4,7 @@ const { isAuthenticated } = require("./validate-session");
 
 const router = Router();
 
-router.post("/", isAuthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     await Offers.create({
       airport: req.body.offer.airport,
