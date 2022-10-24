@@ -30,11 +30,11 @@ router.post("/user", isAuthenticated, async (req, res) => {
 
 router.put("/userupdate", async (req, res) => {
   try {
-    let { email, name, roles, active } = req.body.user;
+    let { email, name, roles, active, banned } = req.body.user;
 
     await User.updateOne(
       { email },
-      { $set: { name: name, roles: [roles], active: active } }
+      { $set: { name: name, roles: [roles], active: active, banned: banned } }
     );
     // await User.updateOne(
     //   { email },
