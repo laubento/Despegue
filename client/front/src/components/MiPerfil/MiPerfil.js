@@ -17,9 +17,6 @@ export default function MiPerfil() {
   
     let url = window.location.pathname
 
-    const [update, setUpdate] = useState(true)
-    console.log(update);
-
     function suscribirme(){
         axios({
             method: "PUT",
