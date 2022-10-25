@@ -63,16 +63,26 @@ export function filterFlightById(id) {
 
 export function searchAirportFrom(name) {
     return async function (dispatch) {
-        let response = await axios.get(`/searchByName/from?nombre=${name}`)
-        return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
+        try {
+            let response = await axios.get(`/searchByName/from?nombre=${name}`)
+            return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
+        } catch (error) {
+            return dispatch({type: SEARCH_AIRPORT_FROM, payload: error.message})
+        }
+
     }
 }
 
 
 export function searchAirportTo(name) {
     return async function (dispatch) {
-        let response = await axios.get(`/searchByName/to?nombre=${name}`)
-        return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })
+        try {
+            let response = await axios.get(`/searchByName/to?nombre=${name}`)
+            return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })  
+        } catch (error) {
+            return dispatch({type: SEARCH_AIRPORT_TO, payload: error.message})
+        }
+
     }
 }
 
