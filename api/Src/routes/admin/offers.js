@@ -28,7 +28,8 @@ router.post("/", async (req, res) => {
 
 router.get("/getoffers", async (req, res) => {
   try {
-    const offers = await Offers.find({});
+    const offers = await Offers.find({ active: true });
+    
     if (offers.length) return res.send(offers);
     res.send("No hay ofertas disponibles");
   } catch (e) {
@@ -49,5 +50,17 @@ router.put("/offer", async (req, res) => {
     res.status(400).send("Datos no actualizados");
   }
 });
+
+router.put('/delete',(req, res) => {
+  
+  const {_id} = req.body
+  
+  Offers.updateOne({_id: _id}, {
+      $set: {active: false}
+  })
+  .catch((er) =>{
+      console.log(er);
+  })
+})
 
 module.exports = router;
