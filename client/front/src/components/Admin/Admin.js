@@ -153,7 +153,7 @@ export default function Admin() {
             field: 'nameAirportTo',
             validate: rowData => {
                 if (rowData.nameAirportTo === '' || !rowData.nameAirportTo) return 'Required';
-                else if (rowData.nameAirportFrom.length !== 3) return 'Tiene que contener 3 letras'
+                else if (rowData.nameAirportTo.length !== 3) return 'Tiene que contener 3 letras'
                 return true;
             },
             // type: 'time',
