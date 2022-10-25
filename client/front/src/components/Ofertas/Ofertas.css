@@ -1,0 +1,50 @@
+.Ofertas-ContainerPrincipal{
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    border-radius: 9px;
+    margin: 30px;
+}
+.Ofertas-IMG{
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.Ofertas-Cabecera{
+    position: relative;
+}
+.Ofertas-Cabecera p{
+    background-color: rgb(25, 0, 255);
+    position: absolute;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: aliceblue;
+    bottom: -30px;
+    right: 35%;
+    font-size: 13px;
+}
+.Ofertas-Titulo{
+    margin-top: 10px;
+}
+.Ofertas-Titulo h4{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px;
+}
+.Ofertas-Titulo h6{
+    font-size: 13px;
+}
+.Ofertas-Info p{
+    margin: 0px;
+    font-size: 12px;
+}
+.Ofertas-Puntaje{
+    display: flex;
+    align-items: center;
+}
+.Ofertas-Puntaje span{
+    color: rgb(255, 153, 0);
+}
+.Ofertas-Precio p{
+    font-size: 12px;
+}

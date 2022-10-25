@@ -228,3 +228,6 @@ export const clearFlightDetail = () => {
 }
 
 
+export const getoffers = () => {
+    
+}
