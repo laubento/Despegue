@@ -55,12 +55,12 @@ export default function Admin() {
             field: 'membership',
             lookup: { true: 'Con Membership', false: 'Sin Membership' },
             filterPlaceholder: 'Filtro por membership',
-            editable: false,
+            // editable: false,
         },
         {
             title: 'Banned',
             field: 'banned',
-            lookup: { true: 'Banneado', false: 'No Baneado' },
+            lookup: { true: 'Banneado', false: 'No Banneado' },
             filterPlaceholder: 'Filtro por Banneado'
         },
     ]
