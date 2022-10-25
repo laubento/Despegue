@@ -178,7 +178,7 @@ export default function Admin() {
                             actions={[{
                                 icon: () => <DeleteIcon />,
                                 tooltip: 'Click me',
-                                // onClick: (e, data) => dispatch(deleteOffer(selectedRow))
+                                onClick: (e, data) => dispatch(deleteOffer(data))
                             }]}
                             options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: true }}
                             editable={{
@@ -195,8 +195,8 @@ export default function Admin() {
                                     window.location.reload()
                                 }),
                                 onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
-                                    // dispatch(deleteOffer(selectedRow))
-
+                                    dispatch(deleteOffer(selectedRow))
+                                    
                                     resolve()
                                     window.location.reload()
                                 })

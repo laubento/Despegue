@@ -143,8 +143,9 @@ export const updateUser = (user) => {
 }
 
 export const deleteOffer = (offer) => {
+    // console.log(offer)
     return async function () {
-        await axios.put(`/login/auth0/delete`, { offer })
+        await axios.put(`/admin/offers/delete`, offer)
     }
 }
 
