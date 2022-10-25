@@ -10,7 +10,7 @@ export default function OfertasCard({oferts}){
         <div className="Ofertas-ContainerPrincipal shadow">
             <div className="Ofertas-Cabecera">
                 <img className="Ofertas-IMG" src={oferts.image} alt="Portada"/>
-                <p>{`Dias ${oferts.day} / Noche ${oferts.nigth}`}</p>
+                <p>{`${oferts.day} Dias / ${oferts.nigth} Noche`}</p>
             </div>
             <div className="Ofertas-Titulo ps-2 pt-2">
                 <h4>{`Paquete a ${oferts.name}`}</h4>  
