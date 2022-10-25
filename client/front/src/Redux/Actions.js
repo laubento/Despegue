@@ -19,6 +19,7 @@ export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
 export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
 export const CREATE_OFFERS = 'CREATE_OFFERS';
+export const HISTORY_LIST = 'HISTORY_LIST';
 
 
 export function getFlights(flight) {
@@ -174,6 +175,13 @@ export function getHistory(id) {
 export const updateOffer = (offer) => {
     return async function () {
         await axios.put(`/admin/offers/offer`, { offer })
+    }
+}
+
+export function listHistory() {
+    return async function (dispatch) {
+        let response = await axios.get(`/admin/history/`)
+        return dispatch({ type: HISTORY_LIST, payload: response.data })
     }
 }
 

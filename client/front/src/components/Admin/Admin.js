@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import MuiDataTable from 'mui-datatables'
 import MaterialTable from 'material-table'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOffer, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
+import { deleteOffer, listHistory, listOffers, listUsers, offersCreate, updateOffer, updateUser } from "../../Redux/Actions";
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/Admin.css'
 
@@ -13,11 +13,17 @@ export default function Admin() {
     useEffect(e => {
         dispatch(listUsers())
         dispatch(listOffers())
+        dispatch(listHistory())
         // setRender('chau')
     }, [dispatch])
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
+    const history = useSelector(state => state.listHistory);
+    let income = 0;
+    history.forEach(e =>{
+        income += Number(e)
+    })
 
     const columns = [
         {
@@ -75,7 +81,7 @@ export default function Admin() {
             title: 'Imagen',
             field: 'image',
             validate: rowData => {
-                if(rowData.image === '' || !rowData.image) return 'Required'
+                if (rowData.image === '' || !rowData.image) return 'Required'
                 return true;
             }
             // editable: false,
@@ -85,7 +91,7 @@ export default function Admin() {
             field: 'day',
             type: 'numeric',
             validate: rowData => {
-                if(rowData.day === '' || !rowData.day) return 'Required'
+                if (rowData.day === '' || !rowData.day) return 'Required'
                 return true;
             },
             // editable: false,
@@ -95,7 +101,7 @@ export default function Admin() {
             field: 'nigth',
             type: 'numeric',
             validate: rowData => {
-                if(rowData.nigth === '' || !rowData.nigth) return 'Required'
+                if (rowData.nigth === '' || !rowData.nigth) return 'Required'
                 return true;
             },
             // editable: false,
@@ -104,7 +110,7 @@ export default function Admin() {
             title: 'Nombre del pais',
             field: 'name',
             validate: rowData => {
-                if(rowData.name === '' || !rowData.name) return 'Required'
+                if (rowData.name === '' || !rowData.name) return 'Required'
                 return true;
             },
             // type: 'numeric',
@@ -114,7 +120,7 @@ export default function Admin() {
             title: 'Dia de salida',
             field: 'dateFrom',
             validate: rowData => {
-                if(rowData.dateFrom === '' || !rowData.dateFrom) return 'Required'
+                if (rowData.dateFrom === '' || !rowData.dateFrom) return 'Required'
                 return true;
             },
             // type: 'time',
@@ -125,7 +131,7 @@ export default function Admin() {
             title: 'Dia de vuelta',
             field: 'dateTo',
             validate: rowData => {
-                if(rowData.dateTo === '' || !rowData.dateTo) return 'Required'
+                if (rowData.dateTo === '' || !rowData.dateTo) return 'Required'
                 return true;
             },
             // type: 'time',
@@ -136,7 +142,7 @@ export default function Admin() {
             title: 'Aeropuerto de salida',
             field: 'nameAirportFrom',
             validate: rowData => {
-                if(rowData.nameAirportFrom === '' || !rowData.nameAirportFrom) return 'Required';
+                if (rowData.nameAirportFrom === '' || !rowData.nameAirportFrom) return 'Required';
                 else if (rowData.nameAirportFrom.length !== 3) return 'Tiene que contener 3 letras'
                 return true;
             },
@@ -146,7 +152,7 @@ export default function Admin() {
             title: 'Aeropuerto de llegada',
             field: 'nameAirportTo',
             validate: rowData => {
-                if(rowData.nameAirportTo === '' || !rowData.nameAirportTo) return 'Required';
+                if (rowData.nameAirportTo === '' || !rowData.nameAirportTo) return 'Required';
                 else if (rowData.nameAirportFrom.length !== 3) return 'Tiene que contener 3 letras'
                 return true;
             },
@@ -158,7 +164,7 @@ export default function Admin() {
             field: 'asistans',
             lookup: { Estandar: 'Estandar', Basica: 'Basica', Premium: 'Premium', },
             validate: rowData => {
-                if(rowData.asistans === '' || !rowData.asistans) return 'Required'
+                if (rowData.asistans === '' || !rowData.asistans) return 'Required'
                 return true;
             },
             // type: 'currency'
@@ -168,7 +174,7 @@ export default function Admin() {
             field: 'rating',
             lookup: { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 },
             validate: rowData => {
-                if(rowData.rating === '' || !rowData.rating) return 'Required'
+                if (rowData.rating === '' || !rowData.rating) return 'Required'
                 return true;
             },
         },
@@ -177,7 +183,7 @@ export default function Admin() {
             field: 'price',
             type: 'currency',
             validate: rowData => {
-                if(rowData.price === '' || !rowData.price) return 'Required'
+                if (rowData.price === '' || !rowData.price) return 'Required'
                 return true;
             },
             // editable: false,
@@ -197,6 +203,9 @@ export default function Admin() {
     return (
         <div className="d-flex">
             <div className="usersTable">
+                <div>
+                    <h3>{income}</h3>
+                </div>
                 <div className="tableUsers">
                     <h2>Usuarios</h2>
                     <div>
@@ -244,7 +253,7 @@ export default function Admin() {
                                 }),
                                 onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
                                     dispatch(deleteOffer(selectedRow))
-                                    
+
                                     resolve()
                                     window.location.reload()
                                 })
