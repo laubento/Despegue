@@ -23,20 +23,19 @@ export default function NavBar() {
   let user = useSelector((state) => state.user);
   const user2 = JSON.parse(window.localStorage.getItem("user"));
 
-  
   if (!user && user2) user = user2;
-  
+
   // function handleSubmitLogOut() {
   //     window.open("http://localhost:3001/auth/logout", "_self");
   //     alert("Cerrando sesion");
   // }
 
-  function Atencion(){
+  function Atencion() {
     Swal.fire({
       title: "Atencion al cliente",
       text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
       confirmButtonText: "Cerrar",
-    })
+    });
   }
 
   const closeSession = () => {
@@ -50,11 +49,11 @@ export default function NavBar() {
       if (result.isConfirmed) {
         logout({ returnTo: window.location.origin });
         window.localStorage.removeItem("user");
-        window.localStorage.removeItem("sinLog")
-        window.localStorage.removeItem("init_point")
-        window.localStorage.removeItem("detail")
-        window.localStorage.removeItem("display")
-        window.localStorage.removeItem('cartRespaldo')
+        window.localStorage.removeItem("sinLog");
+        window.localStorage.removeItem("init_point");
+        window.localStorage.removeItem("detail");
+        window.localStorage.removeItem("display");
+        window.localStorage.removeItem("cartRespaldo");
       } else if (result.isDenied) {
         Swal.fire("Gracias por quedarse");
       }
@@ -64,7 +63,7 @@ export default function NavBar() {
   return (
     <div className="NavBar-header">
       <div className="container-fluid NavBar-ContainerPrincipal">
-        <Link to={"/"}>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
           <a className="NavBar-Logo" href="#">
             <img className="NavBar-ImgLogo" alt="Logo" src={Logo} />
             Despegue
@@ -101,19 +100,17 @@ export default function NavBar() {
             <div className="NavBar-Boton1">Asistencia</div>
             {/* <div className='NavBar-Nuevo'>Nuevo</div> */}
           </Link>
-          {user && user.roles.includes('admin') ?
+          {user && user.roles.includes("admin") ? (
             <Link
               to={"/admin"}
               className={
-                url == "/admin"
-                  ? "NavBar-LinBotonActive"
-                  : "NavBar-LinkBoton"
+                url == "/admin" ? "NavBar-LinBotonActive" : "NavBar-LinkBoton"
               }
             >
               <DashboardIcon />
               <div className="NavBar-Boton1">Admin</div>
-            </Link> : null
-          }
+            </Link>
+          ) : null}
         </div>
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">
@@ -133,7 +130,7 @@ export default function NavBar() {
                   {/* </Link> */}
                 </b>
               ) : (
-                <Link className="Login-UsuarioDesplegable" to={"/user"}>
+                <div className="Login-UsuarioDesplegable">
                   <img alt="user" className="Login-FotoNav" src={user.photo} />
                   {user.firstName}
                   <div className="Login-Desplegable">
@@ -162,7 +159,7 @@ export default function NavBar() {
                       </button>
                     </div>
                   </div>
-                </Link>
+                </div>
               )}
             </li>
             <li className="NavBar-MisViajes">
