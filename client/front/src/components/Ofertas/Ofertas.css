@@ -3,6 +3,14 @@
     border: 1px solid rgba(0, 0, 0, 0.253);
     border-radius: 9px;
     margin: 30px;
+    cursor: pointer;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.473);
+    transition: all 0.3s;
+}
+.Ofertas-ContainerPrincipal:hover{
+    border: 1px solid rgba(0, 0, 0, 0.452);
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.76);
+    transform: scale(1.01);
 }
 .Ofertas-IMG{
     width: 100%;
@@ -47,4 +55,9 @@
 }
 .Ofertas-Precio p{
     font-size: 12px;
+}
+.Ofertas-ContainerCard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
