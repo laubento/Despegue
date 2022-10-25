@@ -7,7 +7,7 @@ export default function OfertasCard({oferts}){
 
     console.log(oferts)
     return(
-        <div className="Ofertas-ContainerPrincipal shadow">
+        <div className="Ofertas-ContainerPrincipal">
             <div className="Ofertas-Cabecera">
                 <img className="Ofertas-IMG" src={oferts.image} alt="Portada"/>
                 <p>{`${oferts.day} Dias / ${oferts.nigth} Noche`}</p>
