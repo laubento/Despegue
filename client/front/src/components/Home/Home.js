@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { addUserRole, listUsers, sendMailCompra } from "../../Redux/Actions";
-import { useHistory } from "react-router-dom"; 
+import { Link, useHistory } from "react-router-dom";
 import swal from 'sweetalert'
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
 import { useDispatch, useSelector } from "react-redux";
+import { Route } from "react-router-dom";
+import '../Home/Promociones.css'
+import Mexico from '../../Images/Promociones/1.png'
+import Brasil from '../../Images/Promociones/2.png'
+import Italia from '../../Images/Promociones/3.png'
+import Colombia from '../../Images/Promociones/4.png'
+import Chile from '../../Images/Promociones/5.png'
+import Portada from '../../Images/Promociones/Portada.png'
+import Pago from '../../Images/Promociones/Pago.png'
 // se usa info de momento
 
 function Home(props) {
@@ -27,7 +36,7 @@ function Home(props) {
   //   dispatch(addUserRole(userRole))
   // }
   // console.log(userRole)
-  
+
   const handleClickCompra = (e) => {
     e.preventDefault();
     display = false
@@ -51,14 +60,12 @@ function Home(props) {
   return (
     <div className="p-4">
       <FlightsSearch cancel={setCancel} />
-
-      {vuelo === null || vuelo === undefined ? <div className="d-flex justify-content-center"><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
+      { user !== null && (
       <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
         <div className="d-flex justify-content-center">
-        <button onClick ={ handleClickCompra } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
-        <button onClick={ handleClickCancelar } className='btn btn-danger font-weight-bold' >CANCELAR COMPRA</button>
+        <button onClick ={ handleClick } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
         </div>
-        {display === true || display !== null ?   vuelo.length && vuelo.map(e => {
+        {display === true || display !== null ? vuelo.length && vuelo.map(e => {
           return (
             <div className="d-flex justify-content-center">
             <div className="card-div row ">
@@ -67,6 +74,7 @@ function Home(props) {
               ? <div className="card-airline-box col-1">Ida</div>
               : <div className="card-airline-box col-1">Vuelta</div>
             }
+            {/* <div>{e.going}</div> */}
             <div className="card-border-right col text-center">
               {
                 e.airlinesNames.length > 1 
@@ -87,7 +95,11 @@ function Home(props) {
               <span className="font-weight-bold"> Llegada</span>
               <br/>
               <span className="mb-2">{e.arrivalTime}</span>
-
+              {/* <div className="mt-1">
+                <Link to={`/flights/flightDetail/${id}`} style={{textDecoration:'none'}}>
+                  <button className="btn btn-md card-more-details" onClick={handleClick}>Más detalles</button>
+                </Link>
+              </div> */}
             </div>
             <div className="col-2 text-center mt-2">
               <span className="font-weight-bold"> Duración</span>
