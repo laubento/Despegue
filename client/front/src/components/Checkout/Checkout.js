@@ -11,10 +11,11 @@ const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
   const user = JSON.parse(window.localStorage.getItem("user"));
-
   const history = useHistory();
   const payment = useSelector((state) => state.getPayment);
-  const flightCart = useSelector((state) => state.flightsCart);
+  //   const flightCart = useSelector((state) => state.flightsCart);
+  const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo"));
+
   let sinLog;
   let display;
   const handlePayment = async (e) => {
