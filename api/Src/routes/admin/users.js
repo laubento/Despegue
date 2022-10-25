@@ -34,12 +34,19 @@ router.put("/userupdate", async (req, res) => {
 
     await User.updateOne(
       { email },
-      { $set: { name: name, roles: [roles], active: active, banned: banned, membership: membership } }
+      {
+        $set: {
+          name: name,
+
+          active: active,
+          banned: banned,
+          roles: roles,
+          membership: membership,
+        },
+        // $push: { roles: roles },
+      }
     );
-    // await User.updateOne(
-    //   { email },
-    //   { $push: {roles: roles } }
-    // );
+    // await User.updateOne({ email }, { $push: { roles: roles } });
     res.status(201).send("updated");
   } catch (e) {
     res.status(400).send("GET/ADMIN/USERUPDATE");
