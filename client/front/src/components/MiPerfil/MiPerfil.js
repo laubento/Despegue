@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route } from "react-router-dom";
 import "../MiPerfil/MiPerfil.css";
 import DatosPersonales from "./DatosPersonales";
@@ -13,28 +13,34 @@ export default function MiPerfil() {
   const [user, setUser] = useState(localUser);
 
   let url = window.location.pathname;
-
+  console.log(user);
+  useEffect(() => {
+    window.localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
   function suscribirme() {
-    setUser({
-      ...user,
-      membership: true,
-    });
     axios({
       method: "PUT",
       data: user,
       url: "/users/membership",
     }).then((e) => {
       succesAlert("Usuario suscripto");
+      setUser({
+        ...user,
+        membership: true,
+      });
+      window.localStorage.removeItem("user");
     });
   }
   function desSuscribirme() {
-    setUser({ ...user, membership: false });
     axios({
       method: "PUT",
       data: user,
       url: "/users/membershipDisable",
     }).then((e) => {
       succesAlert("Usuario desuscripto");
+      setUser({ ...user, membership: false });
+      window.localStorage.removeItem("user");
+      //   window.localStorage.setItem("user", JSON.stringify(user));
     });
   }
 
