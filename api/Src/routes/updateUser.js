@@ -31,10 +31,10 @@ router.put("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const { id } = req.body;
-    console.log(req.body);
+ 
     User.findOne({ _id: id })
         .then((rep) => {
-            console.log(rep);
+          
             return res.send(rep);
         })
         .catch(() => res.send("si"));

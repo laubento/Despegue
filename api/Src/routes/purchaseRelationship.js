@@ -36,7 +36,7 @@ router.post("/purchaseComplete", async (req, res) => {
                     flightId: e.id
                 })
             })
-            console.log(vuelos)
+        
             const history = new History({
                 package: vuelos,
                 userId: id
