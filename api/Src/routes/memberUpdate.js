@@ -1,35 +1,51 @@
-const {Router} = require("express")
-const router = Router()
-const mongoose = require("mongoose")
-const User = require("../../models/user")
-const infoTransporter = require("../routes/utils/mailer")
-const fs = require("fs")
+const { Router } = require("express");
+const router = Router();
+const mongoose = require("mongoose");
+const User = require("../../models/user");
+const infoTransporter = require("../routes/utils/mailer");
+const fs = require("fs");
 
+router.put("/membership", async (req, res) => {
+  const { id } = req.body;
+  console.log(req.body);
+  try {
+    await User.updateOne({ _id: id }, { $set: { membership: true } });
+    res.status(201).send({
+      message: "El usuario ahora es miembro",
+    });
+  } catch (e) {
+    res.status(400).send({
+      message: "CATCH/membership",
+    });
+  }
+});
 
+router.put("/membershipDisable", async (req, res) => {
+  const { id } = req.body;
+  console.log(req.body);
+  try {
+    await User.updateOne({ _id: id }, { $set: { membership: false } });
+    res.status(201).send({
+      message: "El usuario ya no es miembro",
+    });
+  } catch (e) {
+    res.status(400).send({
+      message: "CATCH/membership",
+    });
+  }
+});
 
-router.put("/membership", async (req,res) => {
-    const {id} = req.body
-    console.log(id)
-    User.updateOne({_id: id}, {$set: {membership: true}}).then((data) => {
-        res.status(200).send("User is now a member")
-    }).catch((err) =>{
-        res.status(500).send(err)
-    })
-})
-router.put("/membershipDisable", async (req,res) => {
-    const {id} = req.body
-    User.updateOne({_id: id}, {$set: {membership: false}}).then((data) => {
-        res.status(200).send("User is no longer a member")
-    }).catch((err) =>{
-        res.status(500).send(err)
-    })
-})
-
-router.get("/dispatchEmail", async (req,res) => {
-    User.find({membership: true}).then((data) => {
-        const emails = data.map((el) => {return {mail:el.email,name:el.firstName}})
-        emails.forEach((el) => {
-            infoTransporter("nehuenxtreem6@gmail.com",el.mail,"Ofertas Para Miembros!",`
+router.get("/dispatchEmail", async (req, res) => {
+  User.find({ membership: true }).then((data) => {
+    const emails = data.map((el) => {
+      return { mail: el.email, name: el.firstName };
+    });
+    emails.forEach((el) => {
+      infoTransporter(
+        "nehuenxtreem6@gmail.com",
+        el.mail,
+        "Ofertas Para Miembros!",
+        `
             <body style="margin:0;padding:0;">
             <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
               <tr>
@@ -99,13 +115,12 @@ router.get("/dispatchEmail", async (req,res) => {
               </tr>
             </table>
           </body>
-          `)
+          `
+      );
+    });
 
-        })
-        
+    res.status(200).send(data);
+  });
+});
 
-        res.status(200).send(data)
-    })
-})
-
-module.exports= router
+module.exports = router;
