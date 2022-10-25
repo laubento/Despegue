@@ -11,12 +11,14 @@ import { succesAlert } from "../../utils/alerts";
 export default function MiPerfil() {
 
 
-    let user = useSelector((state) => state.user);
-    const user2 = JSON.parse(window.localStorage.getItem("user"));
-  
-    if (!user && user2) user = user2;
+    const localUser = JSON.parse(window.localStorage.getItem("user"));
 
+    const [user, setUser] = useState(localUser);
+  
     let url = window.location.pathname
+
+    const [update, setUpdate] = useState(true)
+    console.log(update);
 
     function suscribirme(){
         axios({
@@ -61,7 +63,7 @@ export default function MiPerfil() {
                     </div>
                 </div>
                 <div>
-                    <Route exact path="/user" render={() => <DatosPersonales/>} />
+                    <Route exact path="/user" render={() => <DatosPersonales user={user} setUser={setUser}/>} />
                     <Route exact path={'/user/config'} render={() => <Configuracion />} />
                     <Route exact path={'/user/travels'} render={() => <UserHistory />} />
                 </div>

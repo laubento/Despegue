@@ -9,12 +9,9 @@ import { useDispatch } from "react-redux";
 import { storeUserInfo } from "../../Redux/Actions";
 import { succesAlert } from "../../utils/alerts";
 
-export default function DatosPersonales() {
+export default function DatosPersonales({user, setUser}) {
     
-    const user = JSON.parse(window.localStorage.getItem("user"));
-
   const [active, setActive] = useState(true);
-  const [updatePage, setUpdatePage] = useState(true);
   let today = new Date();
   let year = today.getFullYear();
 
@@ -33,13 +30,10 @@ export default function DatosPersonales() {
       data: updateUser,
       url: "/update",
     }).then(() => {
+        setUser(updateUser)
         window.localStorage.removeItem('user')
         window.localStorage.setItem('user', JSON.stringify(updateUser))
-        setUpdatePage(!updatePage)
         succesAlert("datos guardados");
-        setTimeout(function() {
-            window.location.reload()
-        }, 3000);
     })
     .catch((err) => {
         console.log(err);
