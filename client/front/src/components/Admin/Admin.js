@@ -203,8 +203,8 @@ export default function Admin() {
     return (
         <div className="d-flex">
             <div className="usersTable">
-                <div>
-                    <h3>{income}</h3>
+                <div className="card-income">
+                    <h3>Ingreso Total: {income}$</h3>
                 </div>
                 <div className="tableUsers">
                     <h2>Usuarios</h2>
