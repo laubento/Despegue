@@ -18,6 +18,7 @@ export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
 export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
+export const CREATE_OFFERS = 'CREATE_OFFERS';
 
 
 export function getFlights(flight) {
@@ -155,8 +156,10 @@ export function listOffers() {
 }
 
 export const offersCreate = (offer) => {
-    return async function () {
-        await axios.post(`/admin/offers`, offer )
+    
+    return async function (dispatch) {
+        await axios.post(`/admin/offers/`, offer )
+        return dispatch({ type: CREATE_OFFERS, payload: offer })
     }
 }
 

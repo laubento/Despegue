@@ -18,7 +18,7 @@ export default function Admin() {
 
     const users = useSelector(state => state.listUsers);
     const offers = useSelector(state => state.offersList);
-    
+
     const columns = [
         {
             title: 'Nombre',
@@ -72,59 +72,78 @@ export default function Admin() {
             editable: false,
         },
         {
-            title: 'Aeropuerto',
-            field: 'airport',
+            title: 'Imagen',
+            field: 'image',
             // editable: false,
         },
         {
-            title: 'Aerolinea',
-            field: 'airlines',
+            title: 'Cant. Dias',
+            field: 'day',
             // editable: false,
         },
         {
-            title: 'Escalas',
-            field: 'scales',
-            type: 'numeric',
+            title: 'Cant. Noches',
+            field: 'nigth',
             // editable: false,
         },
         {
-            title: 'Salida',
-            field: 'departureDate',
-            type: 'time',
+            title: 'Nombre del pais',
+            field: 'name',
+            // type: 'numeric',
+            // editable: false,
+        },
+        {
+            title: 'Dia de salida',
+            field: 'dateFrom',
+            // type: 'time',
             // editable: false,
 
         },
         {
-            title: 'Llegada',
-            field: 'arrive',
-            type: 'time',
+            title: 'Dia de vuelta',
+            field: 'dateTo',
+            // type: 'time',
+            // editable: false,
+
+        },
+        {
+            title: 'Aeropuerto de salida',
+            field: 'nameAirportFrom',
+            // type: 'time',
+            // editable: false,
+        }, {
+            title: 'Aeropuerto de llegada',
+            field: 'nameAirportTo',
+            // type: 'time',
             // editable: false,
         },
         {
-            title: 'Precio Anterior',
-            field: 'prevPrice',
-            type: 'currency'
+            title: 'Asistencia',
+            field: 'asistans',
+            lookup: { Estandar: 'Estandar', Basica: 'Basica', Premium: 'Premium', },
+            // type: 'currency'
+        },
+        {
+            title: 'Rating',
+            field: 'rating',
+            lookup: { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 },
         },
         {
             title: 'Precio',
             field: 'price',
-            type: 'currency'
-        },
-        {
-            title: 'Regreso',
-            field: 'returnDate',
+            type: 'currency',
             // editable: false,
         },
-        {
-            title: 'Desde',
-            field: 'from',
-            // editable: false,
-        },
-        {
-            title: 'Hasta',
-            field: 'to',
-            // editable: false,
-        },
+        // {
+        //     title: 'Desde',
+        //     field: 'from',
+        //     // editable: false,
+        // },
+        // {
+        //     title: 'Hasta',
+        //     field: 'to',
+        //     // editable: false,
+        // },
     ]
 
     return (
@@ -157,7 +176,7 @@ export default function Admin() {
                             columns={columnsOffers}
                             data={offers}
                             actions={[{
-                                icon: () =><DeleteIcon/>,
+                                icon: () => <DeleteIcon />,
                                 tooltip: 'Click me',
                                 // onClick: (e, data) => dispatch(deleteOffer(selectedRow))
                             }]}
