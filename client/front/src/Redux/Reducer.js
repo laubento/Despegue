@@ -1,12 +1,12 @@
 import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY } from "./Actions";
-// import roundTripExample from './roundTripExapmle';
+import roundTripExample from './roundTripExapmle';
 // import oneWayTripExample from './oneWayTripExample';
 
 const initialState = {
     allFlights: [],
     flights: [],
-    // allFlights: roundTripExample,
-    // flights: roundTripExample,
+    allFlights: roundTripExample,
+    flights: roundTripExample,
     // allFlights: oneWayTripExample,
     // flights: oneWayTripExample,
     firstFlights: [],

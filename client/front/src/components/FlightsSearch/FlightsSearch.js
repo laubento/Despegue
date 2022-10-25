@@ -21,26 +21,26 @@ export default function FlightsSearch() {
     const [activateTo, setActivateTo] = useState(false)
     const [p, setP] = useState(0)
     const [flights, setFlights] = useState({
-        tripType:'onewaytrip',
-        departurePlace: '',
-        arrivalPlace: '',
-        departureDate: '',
-        returningDate: '',
-        cabinClass: 'Economy',
-        adults: 1,
-        children: 0,
-        infants: 0,
-        currency: 'USD'
-        // tripType:'roundtrip',
-        // departurePlace: 'EZE',
-        // arrivalPlace: 'LIM',
-        // departureDate: '2022-12-01',
-        // returningDate: '2022-12-15',
+        // tripType:'onewaytrip',
+        // departurePlace: '',
+        // arrivalPlace: '',
+        // departureDate: '',
+        // returningDate: '',
         // cabinClass: 'Economy',
         // adults: 1,
         // children: 0,
         // infants: 0,
         // currency: 'USD'
+        tripType:'roundtrip',
+        departurePlace: 'EZE',
+        arrivalPlace: 'LIM',
+        departureDate: '2022-12-01',
+        returningDate: '2022-12-15',
+        cabinClass: 'Economy',
+        adults: 1,
+        children: 0,
+        infants: 0,
+        currency: 'USD'
         // tripType:'onewaytrip',
         // departurePlace: 'EZE',
         // arrivalPlace: 'LIM',
@@ -130,7 +130,7 @@ export default function FlightsSearch() {
             })
         }
         // dispatch(clearFlights())
-        dispatch(getFlights(flights));
+        // dispatch(getFlights(flights));
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
