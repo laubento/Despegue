@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { addUserRole, listUsers, sendMailCompra } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom"; 
 import swal from 'sweetalert'
@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Home(props) {
   const history = useHistory()
+  const [cancel, setCancel] = useState('')
   let display = localStorage.getItem('display')
-  let vuelo = JSON.parse(localStorage.getItem('detail'))
+  let vuelo = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
   console.log(vuelo)
   // useEffect(e => {
   //   dispatch(listUsers())
@@ -27,21 +28,37 @@ function Home(props) {
   // }
   // console.log(userRole)
   
-  const handleClick = (e) => {
+  const handleClickCompra = (e) => {
     e.preventDefault();
     display = false
     localStorage.setItem('display', display)
     return history.push('/purchase')
   }
+
+  const handleClickCancelar = async (e) => {
+    e.preventDefault();
+    display = false;
+    localStorage.setItem('display', display)
+    localStorage.removeItem('cartRespaldo')
+    localStorage.removeItem('detail')
+    localStorage.removeItem('init_point')
+   await swal('Compra cancelada!', '', 'success')
+    window.location.reload(true)
+  }
+
+
+  
   return (
     <div className="p-4">
-      <FlightsSearch />
-      { user !== null && (
+      <FlightsSearch cancel={setCancel} />
+
+      {vuelo === null || vuelo === undefined ? <div className="d-flex justify-content-center"><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
       <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
         <div className="d-flex justify-content-center">
-        <button onClick ={ handleClick } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
+        <button onClick ={ handleClickCompra } className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
+        <button onClick={ handleClickCancelar } className='btn btn-danger font-weight-bold' >CANCELAR COMPRA</button>
         </div>
-        {display === true || display !== null ? vuelo.length && vuelo.map(e => {
+        {display === true || display !== null ?   vuelo.length && vuelo.map(e => {
           return (
             <div className="d-flex justify-content-center">
             <div className="card-div row ">
@@ -50,7 +67,6 @@ function Home(props) {
               ? <div className="card-airline-box col-1">Ida</div>
               : <div className="card-airline-box col-1">Vuelta</div>
             }
-            {/* <div>{e.going}</div> */}
             <div className="card-border-right col text-center">
               {
                 e.airlinesNames.length > 1 
@@ -71,11 +87,7 @@ function Home(props) {
               <span className="font-weight-bold"> Llegada</span>
               <br/>
               <span className="mb-2">{e.arrivalTime}</span>
-              {/* <div className="mt-1">
-                <Link to={`/flights/flightDetail/${id}`} style={{textDecoration:'none'}}>
-                  <button className="btn btn-md card-more-details" onClick={handleClick}>Más detalles</button>
-                </Link>
-              </div> */}
+
             </div>
             <div className="col-2 text-center mt-2">
               <span className="font-weight-bold"> Duración</span>

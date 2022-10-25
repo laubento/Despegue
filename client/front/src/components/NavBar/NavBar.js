@@ -54,6 +54,7 @@ export default function NavBar() {
         window.localStorage.removeItem("init_point")
         window.localStorage.removeItem("detail")
         window.localStorage.removeItem("display")
+        window.localStorage.removeItem('cartRespaldo')
       } else if (result.isDenied) {
         Swal.fire("Gracias por quedarse");
       }
