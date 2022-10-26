@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const User = require("../../models/user");
+const User = require("../../models/user.js");
 const bcrypt = require("bcryptjs");
 
 router.put("/", async (req, res) => {
