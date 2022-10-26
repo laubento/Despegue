@@ -18,6 +18,7 @@ import RoundtripFF from "./components/Flights/RoundtripFF";
 import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
 import Help from "./components/Help/Help";
+import AsistenciasCard from "./components/Asistencias/AsistenciasCard";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -84,6 +85,7 @@ function App() {
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
+        <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
       </BrowserRouter>
     </div>
   );
