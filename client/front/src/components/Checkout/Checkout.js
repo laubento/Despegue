@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import style from "./Checkout.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import swal from "sweetalert";
-import { getPaymentInfo, storePurchase } from "../../Redux/Actions";
 import { useHistory } from "react-router-dom";
 import mp from "../../Images/mercadopago.png";
 import axios from "axios";
@@ -16,53 +15,51 @@ export default function Checkout() {
   //   const flightCart = useSelector((state) => state.flightsCart);
   const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo"));
 
-  let sinLog;
-  let display;
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    if (user !== null) {
-      sinLog = false;
-      display = false;
-      localStorage.setItem("sinLog", sinLog);
-      localStorage.setItem("display", display);
-      console.log(payment);
-      if (payment.length === 0) {
-        let infoCompra = JSON.parse(localStorage.getItem("init_point"));
-        console.log(infoCompra);
-        let link = {};
-        infoCompra.map((e) => {
-          link.init_point = e.init_point;
-        });
-        return (window.location.href = link.init_point);
+    let sinLog;
+    let display;
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        if(user !== null){
+            sinLog = false
+            display = false
+             localStorage.setItem('sinLog', sinLog)
+            localStorage.setItem('display', display)
+            console.log(payment)
+            if(payment.length === 0){
+                let infoCompra = JSON.parse(localStorage.getItem('init_point'))
+                console.log(infoCompra)
+                let link = {}
+                infoCompra.map(e => {
+                    link.init_point = e.init_point
+                })
+                return  window.location.href = link.init_point
+            }
+            
+            let link = {}
+            payment.map(e => {
+              link.init_point = e.init_point
+            })
+            return  window.location.href = link.init_point
+        }
+        await swal('Necesitas iniciar sesión o tener una cuenta para comprar.', '', 'error')
+        sinLog = true
+        display = true;
+        localStorage.setItem('display', display)
+        localStorage.setItem('sinLog', sinLog)
+      }
+      
+      if(payment.length){
+        localStorage.setItem('init_point', JSON.stringify(payment))
+        if(flightCart.length === 2){
+            localStorage.setItem('detail', JSON.stringify(flightCart))
+        }else{
+            let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
+            localStorage.setItem('detail', JSON.stringify(cartRespaldo))
+        }
       }
 
-      let link = {};
-      payment.map((e) => {
-        link.init_point = e.init_point;
-      });
-      return (window.location.href = link.init_point);
-    }
-    await swal(
-      "Necesitas iniciar sesión o tener una cuenta para comprar.",
-      "",
-      "error"
-    );
-    sinLog = true;
-    display = true;
-    localStorage.setItem("display", display);
-    localStorage.setItem("sinLog", sinLog);
-  };
 
-  if (payment.length) {
-    localStorage.setItem("init_point", JSON.stringify(payment));
-    if (flightCart.length === 2) {
-      localStorage.setItem("detail", JSON.stringify(flightCart));
-    } else {
-      let cartRespaldo = JSON.parse(localStorage.getItem("cartRespaldo"));
-      localStorage.setItem("detail", JSON.stringify(cartRespaldo));
-    }
-  }
-
+    //Paypal
   const values = flightCart.map((flight) => parseInt(flight.price));
   const sumValues = values.reduce((a, b) => a + b, 0);
   let flight = flightCart;

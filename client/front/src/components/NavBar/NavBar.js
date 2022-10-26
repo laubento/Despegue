@@ -16,12 +16,12 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Swal from "sweetalert2";
 
 export default function NavBar() {
-  const { loginWithRedirect, logout } = useAuth0();
+    const { loginWithRedirect, logout } = useAuth0();
 
-  let url = window.location.pathname;
+    let url = window.location.pathname;
 
-  let user = useSelector((state) => state.user);
-  const user2 = JSON.parse(window.localStorage.getItem("user"));
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
 
   if (!user && user2) user = user2;
 
@@ -29,36 +29,39 @@ export default function NavBar() {
   //     window.open("http://localhost:3001/auth/logout", "_self");
   //     alert("Cerrando sesion");
   // }
-
   function Atencion() {
     Swal.fire({
-      title: "Atencion al cliente",
-      text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
-      confirmButtonText: "Cerrar",
+        title: "Atencion al cliente",
+        text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
+        confirmButtonText: "Cerrar",
     });
-  }
+}
 
-  const closeSession = () => {
+const closeSession = () => {
     Swal.fire({
-      title: "¿Seguro que quieres cerrar sesion?",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: "Si",
-      denyButtonText: `No`,
+        title: "¿Seguro que quieres cerrar sesion?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: "Si",
+        denyButtonText: `No`,
     }).then((result) => {
-      if (result.isConfirmed) {
-        logout({ returnTo: window.location.origin });
-        window.localStorage.removeItem("user");
-        window.localStorage.removeItem("sinLog");
-        window.localStorage.removeItem("init_point");
-        window.localStorage.removeItem("detail");
-        window.localStorage.removeItem("display");
-        window.localStorage.removeItem("cartRespaldo");
-      } else if (result.isDenied) {
-        Swal.fire("Gracias por quedarse");
-      }
+        if (result.isConfirmed) {
+            logout({ returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000" });
+            window.localStorage.removeItem("user");
+            window.localStorage.removeItem("sinLog");
+            window.localStorage.removeItem("init_point");
+            window.localStorage.removeItem("detail");
+            window.localStorage.removeItem("display");
+        } else if (result.isDenied) {
+            Swal.fire("Gracias por quedarse");
+        }
     });
-  };
+};
+
+const login = () => {
+    localStorage.setItem('callbackUrl', window.location.pathname)
+    loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+}
 
   return (
     <div className="NavBar-header">
@@ -123,11 +126,9 @@ export default function NavBar() {
 
             <li style={{ cursor: "pointer" }} className="NavBar-IniciarSesion">
               {!user ? (
-                <b onClick={() => loginWithRedirect()}>
-                  {/* <Link to={"/login"}> */}
+                <b onClick={login}>
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
-                  {/* </Link> */}
                 </b>
               ) : (
                 <div className="Login-UsuarioDesplegable">
