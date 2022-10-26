@@ -1,25 +1,46 @@
 const mongoose = require("mongoose");
 
 const Offers = mongoose.Schema({
-  airlines: {
+  image: {
     type: String,
     required: true,
   },
-  airport: {
-    type: String,
-    required: true,
-  },
-
-  departureDate: {
+  day: {
     type: String,
     required: true,
   },
 
-  returnDate: {
+  nigth: {
     type: String,
     required: true,
   },
-  prevPrice: {
+
+  name: {
+    type: String,
+    required: true,
+  },
+  dateFrom: {
+    type: String,
+    required: true,
+  },
+  dateTo: {
+    type: String,
+    required: true,
+  },
+
+  nameAirportFrom: {
+    type: String,
+    required: true,
+  },
+  nameAirportTo: {
+    type: String,
+    required: true,
+  },
+  asistans: {
+    type: String,
+    required: true,
+  },
+  rating: {
     type: Number,
     required: true,
   },
@@ -27,22 +48,9 @@ const Offers = mongoose.Schema({
     type: Number,
     required: true,
   },
-
-  scales: {
-    type: Number,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  from: {
-    type: String,
-  },
-  to: {
-    type: String,
-  },
-  arrive: {
-    type: String,
+  active: {
+    type: Boolean,
+    default: true,
   },
 });
 

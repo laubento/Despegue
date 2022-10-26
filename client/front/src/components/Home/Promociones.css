@@ -1,0 +1,34 @@
+.Promociones-ContainerPrincipal{
+    background-color: rgb(255, 255, 255);
+}
+
+.carousel-item img{
+    border-radius: 20px;
+}
+.Promociones-containerPortada img{
+    width: 100%;
+}
+.Promociones-Link{
+    text-decoration: none;
+    background-color: #270570;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    transition: all 0.2s;
+}
+.Promociones-Link:hover{
+    background-color: #3704a5;
+    color: rgb(255, 255, 255);
+}
+.Promociones-a{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.Promociones-containerPago img{
+    width: 100%;
+    border-radius: 20px;
+}
+.Promociones-containerPago{
+    margin-top: 10px;
+}

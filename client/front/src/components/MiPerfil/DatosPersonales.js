@@ -9,15 +9,14 @@ import { useDispatch } from "react-redux";
 import { storeUserInfo } from "../../Redux/Actions";
 import { succesAlert } from "../../utils/alerts";
 
-export default function DatosPersonales({user, setUser}) {
-    
+export default function DatosPersonales({ user, setUser }) {
   const [active, setActive] = useState(true);
   let today = new Date();
   let year = today.getFullYear();
 
   function changeValue(valores) {
     const updateUser = {
-      ...user,  
+      ...user,
       firstName: valores.name ? valores.name : user.firstName,
       lastName: valores.lastName ? valores.lastName : user.lastName,
       email: valores.email ? valores.email : user.email,
@@ -29,15 +28,16 @@ export default function DatosPersonales({user, setUser}) {
       method: "PUT",
       data: updateUser,
       url: "/update",
-    }).then(() => {
-        setUser(updateUser)
-        window.localStorage.removeItem('user')
-        window.localStorage.setItem('user', JSON.stringify(updateUser))
+    })
+      .then(() => {
+        setUser(updateUser);
+        window.localStorage.removeItem("user");
+        window.localStorage.setItem("user", JSON.stringify(updateUser));
         succesAlert("datos guardados");
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
-    })
+      });
   }
 
   return (
@@ -78,20 +78,21 @@ export default function DatosPersonales({user, setUser}) {
               // Validacion Apellido
               // Validacion logueo manual no tiene apellido
 
-              if(valores.lastName){
+              if (valores.lastName) {
                 if (
-                    valores.lastName.length === 1 ||
-                    valores.lastName.length === 2
+                  valores.lastName.length === 1 ||
+                  valores.lastName.length === 2
                 ) {
-                    errores.lastName = "Apellido demaciado corto";
-                } else if (!/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)) {
-                    errores.lastName = "Solo se permiten letras";
+                  errores.lastName = "Apellido demaciado corto";
+                } else if (
+                  !/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/.test(valores.lastName)
+                ) {
+                  errores.lastName = "Solo se permiten letras";
                 } else if (valores.lastName.length > 15) {
-                    errores.lastName = "Demaciado caracteres";
+                  errores.lastName = "Demaciado caracteres";
                 }
-              }
-              else{
-                errores.lastName = "Por favor proporcione un apellido"
+              } else {
+                errores.lastName = "Por favor proporcione un apellido";
               }
 
               // Validaciones Telefono
@@ -148,7 +149,7 @@ export default function DatosPersonales({user, setUser}) {
                         type="text"
                         id="name"
                         name="name"
-                        placeholder={ user ? user.firstName : ""}
+                        placeholder={user ? user.firstName : ""}
                         disabled={active}
                       />
                       <ErrorMessage
@@ -183,6 +184,7 @@ export default function DatosPersonales({user, setUser}) {
                         id="email"
                         name="email"
                         placeholder={user ? user.email : ""}
+                        value={user.email}
                         disabled
                       />
                       <ErrorMessage

@@ -38,7 +38,10 @@ function Success(props) {
       swal('Felicidades!', `Has comprado tu pasaje`, 'success')
       history.push('/user')
       if(display === 'false'){
-        window.localStorage.clear('sinLog')
+        localStorage.removeItem('sinLog')
+        localStorage.removeItem('cartRespaldo')
+        localStorage.removeItem('detail')
+        localStorage.removeItem('init_point')
       }
     
       }

@@ -30,16 +30,23 @@ router.post("/user", isAuthenticated, async (req, res) => {
 
 router.put("/userupdate", async (req, res) => {
   try {
-    let { email, name, roles, active, banned } = req.body.user;
+    let { email, name, roles, active, banned, membership } = req.body.user;
 
     await User.updateOne(
       { email },
-      { $set: { name: name, roles: [roles], active: active, banned: banned } }
+      {
+        $set: {
+          name: name,
+
+          active: active,
+          banned: banned,
+          roles: roles,
+          membership: membership,
+        },
+        // $push: { roles: roles },
+      }
     );
-    // await User.updateOne(
-    //   { email },
-    //   { $push: {roles: roles } }
-    // );
+    // await User.updateOne({ email }, { $push: { roles: roles } });
     res.status(201).send("updated");
   } catch (e) {
     res.status(400).send("GET/ADMIN/USERUPDATE");

@@ -11,6 +11,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
+import OfertasContainer from "./components/Ofertas/OfertasContainer";
 // import LogInButton from "./components/Login auth0/LogInAuth0";
 import MiPerfil from "./components/MiPerfil/MiPerfil";
 import RoundtripFF from "./components/Flights/RoundtripFF";
@@ -40,6 +41,7 @@ function App() {
         if (data.status === 200) return data.data;
       })
       .then((user) => {
+        console.log(user);
         if (user.active && !user.banned) {
           window.localStorage.setItem("user", JSON.stringify(user));
           dispatch(storeUserInfo(user));
@@ -60,6 +62,7 @@ function App() {
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
+        <Route exact path="/ofertas" render={() => <OfertasContainer />} />
         <Route path="/user" render={() => <MiPerfil />} />
         <Route exact path={"/register"} render={() => <Register />} />
         <Route exact path="/flights" component={Flights} />
