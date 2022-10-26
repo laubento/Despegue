@@ -23,8 +23,9 @@ export const HISTORY_LIST = 'HISTORY_LIST';
 export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 
 export function getFlights(flight) {
+    // localStorage.setItem('record', JSON.stringify(flight));
     const tripType = flight.tripType;
-    console.log(flight)
+    
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, {flight})
