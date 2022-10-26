@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY, CREATE_OFFERS } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY, CREATE_OFFERS, DELETE_FLIGHT } from "./Actions";
 import roundTripExample from './roundTripExapmle';
 // import oneWayTripExample from './oneWayTripExample';
 
@@ -230,7 +230,20 @@ export default function reducer(state = initialState, action) {
         return{
             ...state,
         }
+        case DELETE_FLIGHT : 
+        let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload) 
 
+        console.log(state.flightsCart)
+            return{
+              ...state,
+              flightsCart: flightsRestantes
+            }
+
+        case "CLEAR_CART": 
+        return{
+            ...state,
+            flightsCart: []
+        }
         default:
             return state;
     }

@@ -19,11 +19,11 @@ export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
 export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
 export const CREATE_OFFERS = 'CREATE_OFFERS';
-
+export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 
 export function getFlights(flight) {
     const tripType = flight.tripType;
-
+    console.log(flight)
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, {flight})
@@ -244,4 +244,17 @@ export const clearFlightDetail = () => {
 
 export const getoffers = () => {
     
+}
+
+export const deleteFlight = (id) => {
+    return{
+        type:DELETE_FLIGHT,
+        payload: id
+    }
+ };
+
+export const clearCart = () => {
+    return{
+        type: "CLEAR_CART"
+    }
 }
