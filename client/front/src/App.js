@@ -26,9 +26,10 @@ import Failure from "./components/Compras/Failure";
 import { activeAcc, bannedAcc } from "./utils/alerts";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Auth0Callback from "./auth0callback";
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import UpladPhoto from "./components/UploadPhoto";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
         if (data.status === 200) return data.data;
       })
       .then((user) => {
+        console.log(user);
         if (user.active && !user.banned) {
           window.localStorage.setItem("user", JSON.stringify(user));
           dispatch(storeUserInfo(user));
@@ -86,6 +88,8 @@ function App() {
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
         <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>;
+        <Route exact path='/callback' component={Auth0Callback} />
       </BrowserRouter>
     </div>
   );

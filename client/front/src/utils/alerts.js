@@ -25,16 +25,19 @@ export const bannedAcc = (log) => {
   swal2
     .fire({
       title: "Tu cuenta se encuentra suspendida",
+      text: " Para recuperar tu cuenta podes comunicarte con: email@email.com  0800-555-1234",
       icon: "error",
-      showDenyButton: true,
-      //   confirmButtonText: "Reactivar cuenta",
-      denyButtonText: "Ok",
+      // showDenyButton: true,
+      confirmButtonText: "OK",
+      showConfirmButton: true,
+      // denyButtonText: "Ok",
     })
     .then((result) => {
-      if (result.isDenied) {
+      if (result.isConfirmed) {
         log({
           returnTo: process.env.VERCEL_URL || "http://localhost:3000",
         }); //return to localhost/activar cuenta
+        window.localStorage.removeItem("user");
       }
     });
 };
@@ -57,3 +60,17 @@ export const succesAlert = (message) => {
     title: message,
   });
 };
+
+export const notLogedForPurchase = (loginWithRedirect) => {
+    swal2.fire({
+        title: "Necesitas iniciar sesion para comprar",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonText: "Iniciar sesion",
+        showDenyButton: true,
+        denyButtonText: "Cerrar"
+    })
+    .then((result) => {
+        if(result.isConfirmed) loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+    })
+}

@@ -1,20 +1,23 @@
 import React, { useDebugValue } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { clearFlightDetail } from "../../Redux/Actions";
 
 import '../styles/CardDetail.css';
-
+    
 export default function CardDetail(){
     const dispatch = useDispatch();
     const flightDetail = useSelector( (state) => state.flightDetail);
     const flightsCart = useSelector((state) => state.flightsCart);
     const onFirstFlightRoute = useSelector((state) => state.onFirstFlightRoute);
     const onSecondFlightRoute = useSelector((state) => state.onSecondFlightRoute);
+    const onCart = localStorage.getItem('onCart')
     const history = useHistory();
     const handleClick = () => {
         dispatch(clearFlightDetail());
         // one way
+
+
         if ((flightsCart.length === 1 && !onSecondFlightRoute) || flightsCart.length >=2) {
             return history.push('/flights/roundtrip/cart')
         }
@@ -27,7 +30,15 @@ export default function CardDetail(){
         if (!onFirstFlightRoute && onSecondFlightRoute) {
             return history.push('/flights/roundtrip/secondFlight')
         }
+        if(onCart === 'true'){
+            return history.push('/flights/roundtrip/cart')
+        }
+    }
 
+    const handleClickCart = (e) => {
+        e.preventDefault();
+        dispatch(clearFlightDetail());
+        return history.push('/flights/roundtrip/cart')
     }
 
     const minutesToHrsMins = (time) => {
@@ -35,7 +46,7 @@ export default function CardDetail(){
         const mins = time%60;
         return `${hs} h ${mins} m`;
     }
-
+    console.log(onCart)
     return(
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">
@@ -43,6 +54,7 @@ export default function CardDetail(){
                     <button className='btn btn-md btn-secondary' onClick={handleClick}>Volver</button>
                 </div>
             </div>
+
             {
                 flightDetail[0].segments.map( (el, i) => {
                     const {airlineCode, arrivalAirportCode, arrivalAirportName, arrivalDateTime, cabin, departureAirportCode, departureAirportName, departureDateTime, designatorCode, durationMinutes, stopoverDurationMinutes} = el;

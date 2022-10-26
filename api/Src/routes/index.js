@@ -66,4 +66,9 @@ router.use('/sendmailpago', sendMailCompra)
 const member = require("./memberUpdate")
 router.use("/users", member)
 
+//aws S3 bucket
+const bucket = require('./aws-s3-bucket/index');
+router.use('/awsS3Bucket', bucket);
+
+
 module.exports = router;
