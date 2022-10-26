@@ -57,3 +57,17 @@ export const succesAlert = (message) => {
     title: message,
   });
 };
+
+export const notLogedForPurchase = (loginWithRedirect) => {
+    swal2.fire({
+        title: "Necesitas iniciar sesion para comprar",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonText: "Iniciar sesion",
+        showDenyButton: true,
+        denyButtonText: "Cerrar"
+    })
+    .then((result) => {
+        if(result.isConfirmed) loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+    })
+}

@@ -60,7 +60,7 @@ export default function Checkout() {
       }
 
 
-      
+    //Paypal
     const values = flightCart.map((flight) => parseInt(flight.price))
     const sumValues = values.reduce((a, b) => a + b, 0)
     let flight = flightCart
