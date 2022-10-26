@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import swal from 'sweetalert'
 import FlightsSearch from "../FlightsSearch/FlightsSearch";
 import { useDispatch, useSelector } from "react-redux";
+import Record from "../Record/Record";
 // se usa info de momento
 
 function Home(props) {
@@ -50,7 +51,7 @@ function Home(props) {
   return (
     <div className="p-4">
       <FlightsSearch cancel={setCancel} />
-
+      <Record/>
       {vuelo === null || vuelo === undefined ? <div className="d-flex justify-content-center"><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
       <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
         <div className="d-flex justify-content-center">

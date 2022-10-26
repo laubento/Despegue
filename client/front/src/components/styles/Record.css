@@ -1,0 +1,9 @@
+#record-card{
+    background-image: url('../../Images/historialBusqueda.jpg');
+    background-size: cover;
+}
+
+.container-record{
+    margin-left: 80px;
+    margin-top: 20px;
+}
