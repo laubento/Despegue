@@ -12,6 +12,7 @@ function Success(props) {
     const query = new URLSearchParams(props.location.search);
     const status = query.get('status')
     const payment_id = query.get('payment_id')
+    let infoBusqueda = JSON.parse(window.localStorage.getItem("busqueda"));
 
     let user = useSelector(state => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
@@ -25,7 +26,8 @@ function Success(props) {
       if(user && vuelo !== null){
         let obj = {
           user: user ? user : null,
-          flight: vuelo
+          flight: vuelo,
+          info: infoBusqueda
         }
         axios.post('/users/purchaseComplete', obj)
         .then((e) => {
