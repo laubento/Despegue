@@ -13,7 +13,11 @@ export default function Cart() {
     const { loginWithRedirect } = useAuth0();
     const dispatch = useDispatch();
     const history = useHistory();
-    const user = JSON.parse(window.localStorage.getItem('user'))
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+
+    if (!user && user2) user = user2;
 
     // global states
     const payment = useSelector((state) => state.getPayment);
