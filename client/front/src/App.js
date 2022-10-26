@@ -28,6 +28,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import ChatBot from "./components/ChatBot/ChatBot";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
