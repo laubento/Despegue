@@ -27,6 +27,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import UpladPhoto from "./components/UploadPhoto";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ function App() {
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>;
       </BrowserRouter>
     </div>
   );
