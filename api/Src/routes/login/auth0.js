@@ -6,12 +6,14 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
+    console.log(user);
 
     if (!user) return res.sendStatus(400);
 
-    User.findOne({ email: user.email })
+    User.findOne({ email: user.email }).select('-password')
     .then((userDB) => {
         if (userDB) {
+            console.log(userDB);
             const userData = {
                 name: userDB.name || userDB.nickname,
                 firstName: userDB.firstName || userDB.nickname,
@@ -27,6 +29,7 @@ router.post("/getUser", async (req, res) => {
                 roles: userDB.roles,
                 verify: userDB.verify,
                 id: userDB.id,
+                sub: userDB.sub===null ? user.sub : userDB.sub 
             }
             return res.status(200).send(userData);
         } else {
@@ -36,15 +39,15 @@ router.post("/getUser", async (req, res) => {
                 firstName: user.given_name || user.nickname,
                 lastName: user.family_name,
                 photo: user.picture,
-                id: user.sub.split("|")[1],
                 email: user.email,
                 dni: "",
                 phone: "",
                 birthDate: "",
                 membership: false,
-                verifiy: false,
+                verify: user.email_verified || false,
                 active: true,
-                banned: false
+                banned: false,
+                sub: user.sub
             })
             .save()
             .then((newUser) => {

@@ -44,6 +44,6 @@ const Offers = mongoose.Schema({
   arrive: {
     type: String,
   },
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("Offers", Offers);

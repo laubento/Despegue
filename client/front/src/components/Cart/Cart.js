@@ -3,11 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addFlightToCart, getPayment, getPaymentInfo } from '../../Redux/Actions';
 import Card from '../Card/Card';
+import * as alerts from '../../utils/alerts'
+import dotenv from "dotenv";
+import { useAuth0 } from '@auth0/auth0-react';
+dotenv.config();
 
 export default function Cart() {
 
+    const { loginWithRedirect } = useAuth0();
     const dispatch = useDispatch();
     const history = useHistory();
+
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
+
+    if (!user && user2) user = user2;
 
     // global states
     const payment = useSelector((state) => state.getPayment);
@@ -38,8 +48,8 @@ export default function Cart() {
                         category_id:"category123",
                         quantity: 1,
                         unit_price: parseInt(el.price)})) 
-                    : ''
-    // console.log(items)
+                    : '' 
+            // console.log(items)
 
     const prueba = {
         body: {
@@ -47,8 +57,8 @@ export default function Cart() {
             items,
             notification_url: "https://www.your-site.com/ipn",
             back_urls : {
-                failure: "http://localhost:3000/failure",
-                success: "http://localhost:3000/success",
+                failure: process.env.REACT_APP_VERCEL_URL_FAILURE || "http://localhost:3000/failure",
+                success: process.env.REACT_APP_VERCEL_URL_SUCCESS || "http://localhost:3000/success",
                 },
             "purpose": "wallet_purchase",
             "payment_methods": {
@@ -71,9 +81,14 @@ export default function Cart() {
     }, [dispatch, selectedFlight])
 
     const handleClick = async (e) => {
-        await dispatch(getPayment(prueba))
+        localStorage.setItem('callbackUrl', window.location.pathname)
+        if(!user) alerts.notLogedForPurchase(loginWithRedirect)
+        else if (!user.verify) alerts.notVerify()
+        else {
+            await dispatch(getPayment(prueba))
+            history.push('/purchase')
+        }
         // dispatch(getPaymentInfo(prueba))
-        history.push('/purchase');
     }
     
     return(
