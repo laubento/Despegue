@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, clearCart } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -11,8 +11,7 @@ export default function FlightsSearch() {
     // global states
     let airportsFrom = useSelector((state) => state.airportsFrom);
     let airportsTo = useSelector((state) => state.airportsTo);
-    console.log(airportsFrom)
-    console.log(airportsTo)
+ 
     // local states
     const [airportName, setAirportName] = useState({
         from: '', 
@@ -130,13 +129,18 @@ export default function FlightsSearch() {
                 returningEmpty:  'Falta fecha de vuelta!'
             })
         }
-        // dispatch(clearFlights())
-        // dispatch(getFlights(flights));
+        localStorage.setItem('busqueda', JSON.stringify(flights))
+       
+        dispatch(getFlights(flights));
+        dispatch(clearFlights())
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
             history.push('/flights/roundtrip/firstFlight');
         }
+        
+        localStorage.setItem('tripType', flights.tripType)
+        dispatch(clearCart())
         setFlights({
             tripType:'',
             departurePlace: '',
@@ -150,6 +154,7 @@ export default function FlightsSearch() {
             currency: 'USD'
         });
     }
+
 
     const handleSubmitAirportFrom = (e) => {
         e.preventDefault();

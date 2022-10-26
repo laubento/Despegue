@@ -105,6 +105,7 @@ function RoundtripFF() {
                                 price={e.price}
                                 going={e.going}
                                 onFirstFlight={true}
+                                cart={false}
                               />
                             </div>
                           )})

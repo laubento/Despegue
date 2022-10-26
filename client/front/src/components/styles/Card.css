@@ -1,7 +1,7 @@
 .card-div{
     background-color: rgb(234, 233, 234);
     margin: 20px;
-    width: 1320px
+    width: 1320px;
 }
 
  .card-border-left{
@@ -31,6 +31,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    
 }
 
 .card-div-price-btn{
@@ -65,4 +67,17 @@
     padding-top:3px ;
     padding-bottom: 3px;
     text-decoration: none;
+}
+
+.card-btn-delete{
+    background-color: rgb(217, 26, 26);
+    color: rgb(248, 236, 236);
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    padding: 6px;
+    border-radius: 26px;
+    position: absolute;
+    top: 4px;
+    right: 4px;
 }

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { addFlightToCart, filterFlightById } from "../../Redux/Actions";
+import swal from "sweetalert";
+import { addFlightToCart, deleteFlight, filterFlightById } from "../../Redux/Actions";
 import '../styles/Card.css'
 
 function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopoversCount, price, going, 
-                hideButton, onFlights, onFirstFlight, onSecondFlight}) {
+                hideButton, onFlights, onFirstFlight, onSecondFlight, cart}) {
 
   const dispatch = useDispatch();
   const flightDetail = useSelector((state) => state.flightDetail);
   const history = useHistory();
   let exactprice = Number(price)
-  
   const handleClick = (e) => {
 
     dispatch(filterFlightById(id))
@@ -27,6 +27,25 @@ function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopove
   const handleClickDetail = (e) => {
     dispatch(filterFlightById(id))
   }
+
+  let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    if(cartRespaldo !== null){
+    if(cartRespaldo.length > 1){
+      let flightsRestantes = cartRespaldo.filter(e => e.id !== id) 
+      localStorage.setItem('cartRespaldo', JSON.stringify(flightsRestantes))
+    }
+    if(cartRespaldo.length === 1){
+      cartRespaldo.shift()
+      console.log(cartRespaldo)
+      localStorage.setItem('cartRespaldo', JSON.stringify(cartRespaldo) )
+      swal('Carrito de compras vacío, vuelva a hacer su búsqueda.','','error')
+    }}
+    dispatch(deleteFlight(id))
+  }
+
 
   return (
     <div className="card-div row ">
@@ -69,6 +88,7 @@ function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopove
         <span className="font-weight-bold">Escalas: {stopoversCount}</span>
       </div>
       <div className="col-2 container card-border-left card-price-box">
+        {cart === true ? <button className="card-btn-delete" onClick={handleDelete} >X</button> : ''}
         <div className="div-price-btn mt-1">
           <span className="font-weight-bold text-success" >${price}</span>
         </div>
