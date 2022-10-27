@@ -50,10 +50,14 @@ const nextHandler = (e) => {
     let nextPage = number
   return paginado(nextPage)
 }
+  console.log(flights)
+
   return (
     <div className="d-flex">
       <Filter paginado={paginado} number={number} />
-  {  allFlights.length !== 0  ?  <div className="flights-cont">
+  {  flights.length === 0 ? <div className="flights-cont">
+        <Loader />
+       </div> : allFlights.length !== 0   ?  <div className="flights-cont">
         <div className="d-flex justify-content-center">
           {flights !== 0 ?
           <Paginado currentPage={currentPage} paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} />: <h2>There are no flights with these characteristics</h2>}
@@ -76,6 +80,7 @@ const nextHandler = (e) => {
                   price={e.price}
                   // going={e.going}
                   onFlights={true}
+                  cart={false}
                 />
                 </div>
               )})

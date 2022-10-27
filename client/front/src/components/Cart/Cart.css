@@ -1,0 +1,31 @@
+.cart-busqueda{
+    background: rgb(113, 14, 179);
+    background: linear-gradient(90deg, rgb(97, 36, 138) 1%, rgb(131, 39, 161) 32%, rgb(58, 7, 66) 93%);
+    color: white;
+    padding: 24px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 1.4px solid violet;
+}
+
+.cart-title{
+    text-decoration: underline;
+}
+
+.cart-vacio{
+    background-color: rgb(230, 181, 244);
+    border-radius: 50px;
+    padding: 12px;
+    color: rgb(197, 38, 38);
+}
+
+.cart-btn-home{
+    background: rgb(98,22,148);
+    background: linear-gradient(90deg, rgba(98,22,148,1) 1%, rgb(131, 17, 169) 32%, rgb(178, 24, 202) 93%);
+    color: white;
+    font-weight:bold;
+    border: none;
+    border-radius: 7px;
+    font-size: 17px;
+}

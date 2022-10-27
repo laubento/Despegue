@@ -92,7 +92,7 @@ const User = mongoose.Schema({
   //     type: Boolean,
   //     required: false
   // },
-  googleId: {
+  subId: {
     type: String,
   },
   roles: {

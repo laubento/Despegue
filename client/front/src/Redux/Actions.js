@@ -18,11 +18,13 @@ export const OFFERS_LIST = "OFFERS_LIST"
 export const ADD_USER_ROLE = "ADD_USER_ROLE"
 export const GET_HISTORY = "GET_HISTORY"
 export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
-
+export const CREATE_OFFERS = 'CREATE_OFFERS';
+export const HISTORY_LIST = 'HISTORY_LIST';
+export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 
 export function getFlights(flight) {
     const tripType = flight.tripType;
-
+    console.log(flight)
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, {flight})
@@ -63,16 +65,26 @@ export function filterFlightById(id) {
 
 export function searchAirportFrom(name) {
     return async function (dispatch) {
-        let response = await axios.get(`/searchByName/from?nombre=${name}`)
-        return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
+        try {
+            let response = await axios.get(`/searchByName/from?nombre=${name}`)
+            return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
+        } catch (error) {
+            return dispatch({type: SEARCH_AIRPORT_FROM, payload: error.message})
+        }
+
     }
 }
 
 
 export function searchAirportTo(name) {
     return async function (dispatch) {
-        let response = await axios.get(`/searchByName/to?nombre=${name}`)
-        return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })
+        try {
+            let response = await axios.get(`/searchByName/to?nombre=${name}`)
+            return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })  
+        } catch (error) {
+            return dispatch({type: SEARCH_AIRPORT_TO, payload: error.message})
+        }
+
     }
 }
 
@@ -132,8 +144,9 @@ export const updateUser = (user) => {
 }
 
 export const deleteOffer = (offer) => {
+    // console.log(offer)
     return async function () {
-        await axios.put(`/login/auth0/delete`, { offer })
+        await axios.put(`/admin/offers/delete`, offer)
     }
 }
 
@@ -145,8 +158,10 @@ export function listOffers() {
 }
 
 export const offersCreate = (offer) => {
-    return async function () {
-        await axios.post(`/admin/offers`, offer )
+    
+    return async function (dispatch) {
+        await axios.post(`/admin/offers/`, offer )
+        return dispatch({ type: CREATE_OFFERS, payload: offer })
     }
 }
 
@@ -160,6 +175,13 @@ export function getHistory(id) {
 export const updateOffer = (offer) => {
     return async function () {
         await axios.put(`/admin/offers/offer`, { offer })
+    }
+}
+
+export function listHistory() {
+    return async function (dispatch) {
+        let response = await axios.get(`/admin/history/`)
+        return dispatch({ type: HISTORY_LIST, payload: response.data })
     }
 }
 
@@ -229,3 +251,19 @@ export const clearFlightDetail = () => {
 }
 
 
+export const getoffers = () => {
+    
+}
+
+export const deleteFlight = (id) => {
+    return{
+        type:DELETE_FLIGHT,
+        payload: id
+    }
+ };
+
+export const clearCart = () => {
+    return{
+        type: "CLEAR_CART"
+    }
+}

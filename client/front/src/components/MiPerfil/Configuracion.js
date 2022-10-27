@@ -99,7 +99,7 @@ export default function Configuracion() {
                       type="password"
                       id="password"
                       name="password"
-                      placeholder={user ? user.password : ""}
+                      placeholder={'*****'}
                       disabled={active}
                     />
                     <ErrorMessage

@@ -8,7 +8,7 @@ const infoTransporter = require('../utils/mailer.js')
 router.post('/:id/:payment_id', async (req,res) => {
     const { id, payment_id} = req.params
     let users = await User.find({_id: id})
-    console.log(users)
+  
     let mapEmail = users.map(e => e.email).join('')
     let nombre = users.map(e => e.firstName).join('')
 

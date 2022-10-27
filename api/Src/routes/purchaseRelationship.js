@@ -9,8 +9,8 @@ router.post("/purchaseComplete", async (req, res) => {
     try {
         const { id } = req.body.user
         const flight = req.body.flight
+        const infoBusqueda = req.body.info
         // const extras = req.body.asistant
-
         if (Array.isArray(flight)) {
 
             let vuelos = flight.map((e) => {
@@ -33,10 +33,11 @@ router.post("/purchaseComplete", async (req, res) => {
                     destination: e.departureAirportCode,
                     type: e.cabinClass,
                     price: e.price,
-                    flightId: e.id
+                    flightId: e.id,
+                    Info: infoBusqueda
                 })
             })
-            console.log(vuelos)
+        
             const history = new History({
                 package: vuelos,
                 userId: id
@@ -64,7 +65,8 @@ router.post("/purchaseComplete", async (req, res) => {
                 destination: flight.departureAirportCode,
                 type: flight.cabinClass,
                 price: flight.price,
-                flightId: flight.id
+                flightId: flight.id,
+                Info: infoBusqueda
             }]
 
             const history = new History({
