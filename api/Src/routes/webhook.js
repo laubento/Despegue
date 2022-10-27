@@ -46,14 +46,30 @@ router.post('/', (req, res) => {
     //   }
 
     function Ofertas(agent) {
-        agent.add(new Card({
-            title: `Title: this is a card title`,
-            imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
-            text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
-            buttonText: 'This is a button',
-            buttonUrl: "https://google.com"
-          })
-        );
+        agent.add(new Payload(
+            {
+                "metadata": {
+                  "contentType": "300",
+                  "templateId": "3",
+                  "payload": [
+                    {
+                      "type": "link",
+                      "url": "https://despegue.vercel.app/help",
+                      "openLinkInNewTab": false,
+                      "name": "Reactivar Cuenta"
+                    },
+                    {
+                      "openLinkInNewTab": false,
+                      "url": "mailto:mau20410@gmail.com",
+                      "name": "Enviar Mail",
+                      "type": "link"
+                    }
+                  ]
+                },
+                "platform": "kommunicate",
+                "message": "Si tienes un problema con tu cuenta, podes comunicarte con nuestro staff. en caso que quieras reactivar tu cuenta"
+              }
+        ))
     }
   
   let intentMap = new Map();
@@ -65,6 +81,14 @@ router.post('/', (req, res) => {
     agent.handleRequest(intentMap);
 })
 
+// agent.add(new Payload({
+//     title: `Title: this is a card title`,
+//     imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
+//     text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
+//     buttonText: 'This is a button',
+//     buttonUrl: "https://google.com"
+//   })
+// );
 
         //     messages: [
         //     {
