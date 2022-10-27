@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const utils = require('./utils/getOffers')
 const {WebhookClient, Payload, Card} = require("dialogflow-fulfillment")
+const { Carousel } = require('actions-on-google')
 
 const u = {
     "fulfillmentMessages": [
