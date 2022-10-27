@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { storeUserInfo } from '../../Redux/Actions';
 
 export default function UpladPhoto() {
     const [file, setFile] = useState();
@@ -17,7 +18,12 @@ export default function UpladPhoto() {
         const formData = new FormData();
         formData.append('S3image', file); // lo que escribimos como 1er arg, lo usamos en el back en upload.single();
         formData.append('userId', user.id);
-        await axios.post('/awsS3Bucket/photo', formData, {headers: {'Content-Type': 'multipart/form-data'}});
+        const res = await axios.post('/awsS3Bucket/photo', formData, {headers: {'Content-Type': 'multipart/form-data'}});
+        if (res.status === 200) {
+            user.photo = res.data;
+        }
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.reload();
     }
 
     return(
@@ -26,5 +32,4 @@ export default function UpladPhoto() {
             <button className='btn btn-md btn-default' type='submit'>Guardar</button>
         </form>
     )
-
 }
