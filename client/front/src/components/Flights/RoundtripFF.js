@@ -19,7 +19,8 @@ function RoundtripFF() {
   let apiResponse = useSelector((state) => state.allFlights);
   let flights = useSelector((state) => state.firstFlights);
   let allFlights = useSelector((state) => state.allFlights);
-
+  console.log(flights)
+  console.log(allFlights)
   // local states
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
