@@ -32,6 +32,15 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_FLIGHTS:
+            let names = JSON.parse(localStorage.getItem('names'))
+
+            if (!names) {
+                names = [action.payload[0]]
+            } else if (!names.find(e => e.departureAirportName === action.payload.departureAirportName) && !names.find(e => e.arrivalAirportName === action.payload.arrivalAirportName)) {
+                names.push(action.payload[0])
+            }
+            localStorage.setItem('names', JSON.stringify(names))
+
             return {
                 ...state,
                 // flights: roundTripExample,
@@ -232,24 +241,24 @@ export default function reducer(state = initialState, action) {
                 history: action.payload
             }
         case "SEND_MAIL_COMPRA":
-        
-        return{
-            ...state,
-        }
-        case DELETE_FLIGHT : 
-        let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload) 
 
-        console.log(state.flightsCart)
-            return{
-              ...state,
-              flightsCart: flightsRestantes
+            return {
+                ...state,
+            }
+        case DELETE_FLIGHT:
+            let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload)
+
+            console.log(state.flightsCart)
+            return {
+                ...state,
+                flightsCart: flightsRestantes
             }
 
-        case "CLEAR_CART": 
-        return{
-            ...state,
-            flightsCart: []
-        }
+        case "CLEAR_CART":
+            return {
+                ...state,
+                flightsCart: []
+            }
         default:
             return state;
     }
