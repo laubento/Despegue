@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const utils = require('./utils/getOffers')
-const {WebhookClient, Payload, Card} = require("dialogflow-fulfillment")
+const {WebhookClient, Payload, Card, Platforms} = require("dialogflow-fulfillment")
 const { Carousel } = require('actions-on-google')
 
 const u = {
@@ -46,32 +46,24 @@ router.post('/', (req, res) => {
     //     agent.add(u)
     //   }
 
-    function Ofertas(agent) {
-        let conv = agent.conv(); // Get Actions on Google library conversation object
-        conv.ask('Please choose an item:'); // Use Actions on Google library to add responses
-        conv.ask(new Carousel({
-          title: 'Google Assistant',
-          items: {
-            'WorksWithGoogleAssistantItemKey': {
-              title: 'Works With the Google Assistant',
-              description: 'If you see this logo, you know it will work with the Google Assistant.',
-              image: {
-                url: imageUrl,
-                accessibilityText: 'Works With the Google Assistant logo',
-              },
+    function Ofertas(agent) {        
+       const payload = [
+            {
+            type: "link",
+            url: "https://despegue.vercel.app/help",
+            openLinkInNewTab: false,
+            name: "Reactivar Cuenta"
             },
-            'GoogleHomeItemKey': {
-              title: 'Google Home',
-              description: 'Google Home is a powerful speaker and voice Assistant.',
-              image: {
-                url: imageUrl2,
-                accessibilityText: 'Google Home'
-              },
-            },
-          },
-        }));
-        // Add Actions on Google library responses to your agent's response
-        agent.add(conv);
+            {
+            type: "link",
+            openLinkInNewTab: false,
+            url: "mailto:mau20410@gmail.com",
+            name: "Enviar Mail",
+            }
+        ]
+
+        agent.add('Aca las ofertas')
+        agent.add(new Payload(agent.KOMMUNICATE, payload, { rawPayload: true, sendAsMessage: true }))
       }
   
   let intentMap = new Map();
@@ -115,6 +107,9 @@ router.post('/', (req, res) => {
         //     ]
         // };
         // agent.add(new Payload(agent.UNSPECIFIED, response, { rawPayload: true, sendAsMessage: true}));
+    
+
+
 
 
 module.exports = router;
