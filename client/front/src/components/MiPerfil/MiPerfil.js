@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import UserHistory from "./userHistory";
 import axios from "axios";
 import { succesAlert } from "../../utils/alerts";
+import UploadPhoto from '../UploadPhoto/index';
 
 export default function MiPerfil() {
   const localUser = JSON.parse(window.localStorage.getItem("user"));
@@ -53,6 +54,7 @@ export default function MiPerfil() {
         <div className="MiPerfil-ContainerDatos">
           <div className="MiPerfil-containerFoto">
             <img src={user ? user.photo : undefined} alt="perfil" />
+            <UploadPhoto/>
             <div>
               <h4>Hola,</h4>
               <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>
