@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
     //     agent.add(u)
     //   }
 
-    function Ofertas(agent) {        
+    async function Ofertas(agent) {        
        const payload = 
             {
             type: "link",
@@ -55,7 +55,10 @@ router.post('/', (req, res) => {
             name: "Reactivar Cuenta"
             }
         agent.add('Aca las ofertas')
-        agent.add(new Payload(agent.UNSPECIFIED, payload, { rawPayload: false, sendAsMessage: true }))
+        const ofertas = await utils.getOffers()
+        const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join("\n")
+        agent.add(ofertas2)
+        // agent.add(new Payload(agent.UNSPECIFIED, payload, { rawPayload: false, sendAsMessage: true }))
       }
   
   let intentMap = new Map();
