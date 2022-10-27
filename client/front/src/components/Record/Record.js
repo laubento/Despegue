@@ -12,11 +12,15 @@ export default function Record() {
     let record = JSON.parse(localStorage.getItem('record'))
     let names = JSON.parse(localStorage.getItem('names'))
 
+    useEffect(e =>{
+        return dispatch(clearFlights())
+    })
+
     const handleClick = (e) => {
         e.preventDefault();
         localStorage.setItem('busqueda', JSON.stringify(record[e.target.value]))
         dispatch(getFlights(record[e.target.value]));
-        dispatch(clearFlights())
+        
         if (record.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
@@ -24,6 +28,7 @@ export default function Record() {
         }
         localStorage.setItem('tripType', record[e.target.value].tripType)
         dispatch(clearCart())
+        dispatch(clearFlights())
     }
 
     return (

@@ -32,8 +32,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_FLIGHTS:
-        
-            console.log(state.flights)
             return {
                 ...state,
                 // flights: roundTripExample,
