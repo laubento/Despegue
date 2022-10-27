@@ -29,6 +29,7 @@ router.post("/user", isAuthenticated, async (req, res) => {
 });
 
 router.put("/userupdate", async (req, res) => {
+  
   try {
     let { email, name, roles, active, banned, membership } = req.body.user;
 
