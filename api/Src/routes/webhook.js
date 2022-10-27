@@ -3,6 +3,27 @@ const router = Router();
 const utils = require('./utils/getOffers')
 const {WebhookClient} = require("dialogflow-fulfillment")
 
+const u = {
+    "message": "click on the buttons",
+    "platform":"kommunicate",
+    "metadata": {
+        "contentType": "300",
+        "templateId": "3",
+        "payload": [{
+                "type": "link",
+                "url": "https://www.google.com/",
+                "name": "Go To Google"
+            },
+            {
+                "type": "link",
+                "url": "https://www.facebook.com/",
+                "name": "Go To Facebook",
+                "openLinkInNewTab": false
+            }
+        ]
+    }
+}
+
 
 router.get('/', async(req, res) => {
     const ofertas = await utils.getOffers()
@@ -30,7 +51,7 @@ router.post('/', (req, res) => {
         const ofertas = await utils.getOffers()
         const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join("  \n")
         // ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
-        agent.add(ofertas2)
+        agent.add(u)
       }
   
   let intentMap = new Map();
