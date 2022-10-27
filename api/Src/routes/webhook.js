@@ -1,8 +1,16 @@
 const { Router } = require("express");
 const router = Router();
+const utils = require('./utils/getOffers')
 const {WebhookClient} = require("dialogflow-fulfillment")
 
+
+// router.get('/', async(req, res) => {
+//     const u = await utils.getOffers()
+//     res.send(u)
+// })
+
 router.post('/', (req, res) => {
+
     const agent = new WebhookClient({ request: req, response: res });
     console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
     console.log('Dialogflow Request body: ' + JSON.stringify(req.body));
@@ -16,8 +24,10 @@ router.post('/', (req, res) => {
       agent.add(`I'm sorry, can you try again?`);
     }
 
-    function Ofertas(agent) {
+    async function Ofertas(agent) {
         agent.add(`Aca las ofertas!`);
+        const ofertas = await utils.getOffers()
+        ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
       }
   
   let intentMap = new Map();
