@@ -1,28 +1,19 @@
 const { Router } = require("express");
 const router = Router();
 const utils = require('./utils/getOffers')
-const {WebhookClient} = require("dialogflow-fulfillment")
+const {WebhookClient, Payload} = require("dialogflow-fulfillment")
 
 const u = {
-    "message": "click on the buttons",
-    "platform":"kommunicate",
-    "metadata": {
-        "contentType": "300",
-        "templateId": "3",
-        "payload": [{
-                "type": "link",
-                "url": "https://www.google.com/",
-                "name": "Go To Google"
-            },
-            {
-                "type": "link",
-                "url": "https://www.facebook.com/",
-                "name": "Go To Facebook",
-                "openLinkInNewTab": false
-            }
-        ]
-    }
-}
+    "fulfillmentMessages": [
+      {
+        "text": {
+          "text": [
+            "Text response from webhook"
+          ]
+        }
+      }
+    ]
+  }
 
 
 router.get('/', async(req, res) => {
@@ -46,13 +37,40 @@ router.post('/', (req, res) => {
       agent.add(`I'm sorry, can you try again?`);
     }
 
-    async function Ofertas(agent) {
-        agent.add(`Aca las ofertas!`);
-        const ofertas = await utils.getOffers()
-        const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join("  \n")
-        // ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
-        agent.add(u)
-      }
+    // async function Ofertas(agent) {
+    //     agent.add(`Aca las ofertas!`);
+    //     const ofertas = await utils.getOffers()
+    //     const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join("  \n")
+    //     // ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
+    //     agent.add(u)
+    //   }
+
+    function Ofertas(agent) {
+    const response = {
+            messages: [
+            {
+                payload: {
+                messages: [
+                    {
+                    speech: 'here are some quick links for your convenience.',
+                    linkmessage: [{
+                        message: 'google',
+                        link: 'www.google.com'
+                    }, {
+                        message: 'yahoo',
+                        link: 'www.yahoo.co.in'
+                    }],
+                    button: [{
+                        buttonname: 'more page'
+                    }]
+                    }
+                ]
+                }
+            }
+            ]
+        };
+        agent.add(new Payload(agent.UNSPECIFIED, response, { rawPayload: true, sendAsMessage: true}));
+    }
   
   let intentMap = new Map();
     intentMap.set('Default Welcome Intent', welcome);
@@ -62,6 +80,7 @@ router.post('/', (req, res) => {
     // intentMap.set('your intent name here', googleAssistantHandler);
     agent.handleRequest(intentMap);
 })
+
 
 
 
