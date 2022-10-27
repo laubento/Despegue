@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { addUserRole, listUsers } from "../../Redux/Actions";
 import Admin from "../Admin/Admin";
-
+import _ from 'lodash'
 
 export default function PrivateRoute({ component, ...rest }) {
     let dispatch = useDispatch();
@@ -14,10 +14,17 @@ export default function PrivateRoute({ component, ...rest }) {
 
     // let usersList = useSelector(state => state.listUsers)
 
-    let user = useSelector((state) => state.user);
-    const user2 = JSON.parse(window.localStorage.getItem("user"));
-  
-    if (!user && user2) user = user2;
+    const reduxUser = useSelector((state) => state.user);
+    const localUser = JSON.parse(window.localStorage.getItem("user"));
+
+    if(!reduxUser){
+        return <h1>loading...</h1>
+    }
+    return (
+        <Route {...rest}>   
+            {_.isEqual(reduxUser, localUser) && localUser.roles.includes('admin') ? <Admin /> : <Redirect to={'/'} />}
+        </Route>
+    )
     
     // console.log(userRole)
     // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
@@ -25,9 +32,5 @@ export default function PrivateRoute({ component, ...rest }) {
     //     dispatch(addUserRole(userRole))
     //   }
     // console.log(userRole)
-    return (
-        <Route {...rest}>
-            {user && user.roles.includes('admin') ? <Admin /> : <Redirect to={'/'} />}
-        </Route>
-    )
+
 }
