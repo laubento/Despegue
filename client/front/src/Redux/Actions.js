@@ -24,22 +24,33 @@ export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 
 export function getFlights(flight) {
     let record = JSON.parse(localStorage.getItem('record'))
-    
+    // console.log('F--', flight)
+    // console.log('R--', record)
     if (!record) {
         record = [flight]
-    } else if (!record.find(e => e.departurePlace === flight.departurePlace) && !record.find(e => e.arrivalPlace === flight.arrivalPlace)) {
-        record.push(flight)
+    } else if (!record.find(e => e.departurePlace === flight.departurePlace && e.arrivalPlace === flight.arrivalPlace)) {
+        // console.log('ENTREE')
+        record.unshift(flight)
     }
 
     localStorage.setItem('record', JSON.stringify(record));
 
     const tripType = flight.tripType;
+    let names = JSON.parse(localStorage.getItem('names'))
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
         const flights = await axios.post(`/flights/${tripType}`, { flight })
-        // console.log(flights.data)
-        // localStorage.setItem('names', JSON.stringify(flights.data))
+            
+        if (!names) {
+            names = [flights.data[0]]
+        } else if (!names.find(e => e.departureAirportName[0] === flights.data[0].departureAirportName[0] && e.arrivalAirportName[0] === flights.data[0].arrivalAirportName[0]) ) {
+            console.log('ENTREEE')
+            names.unshift(flights.data[0])
+        }
+        
+        localStorage.setItem('names', JSON.stringify(names))
+
         return dispatch({
             type: GET_FLIGHTS,
             payload: flights.data

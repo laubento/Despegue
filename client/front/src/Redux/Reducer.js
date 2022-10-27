@@ -32,15 +32,8 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_FLIGHTS:
-            let names = JSON.parse(localStorage.getItem('names'))
-
-            if (!names) {
-                names = [action.payload[0]]
-            } else if (!names.find(e => e.departureAirportName === action.payload.departureAirportName) && !names.find(e => e.arrivalAirportName === action.payload.arrivalAirportName)) {
-                names.push(action.payload[0])
-            }
-            localStorage.setItem('names', JSON.stringify(names))
-
+        
+            console.log(state.flights)
             return {
                 ...state,
                 // flights: roundTripExample,
