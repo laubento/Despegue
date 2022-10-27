@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
   let intentMap = new Map();
     intentMap.set('Default Welcome Intent', welcome);
     intentMap.set('Default Fallback Intent', fallback);
-    intentMap.set('Default Ofertas Intent', Ofertas);
+    intentMap.set('Ofertas', Ofertas);
     // intentMap.set('your intent name here', yourFunctionHandler);
     // intentMap.set('your intent name here', googleAssistantHandler);
     agent.handleRequest(intentMap);
