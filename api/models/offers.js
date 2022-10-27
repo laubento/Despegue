@@ -52,6 +52,6 @@ const Offers = mongoose.Schema({
     type: Boolean,
     default: true,
   },
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("Offers", Offers);
