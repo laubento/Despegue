@@ -13,8 +13,8 @@ export default function Record() {
     let names = JSON.parse(localStorage.getItem('names'))
 
     useEffect(e =>{
-        return dispatch(clearFlights())
-    })
+        dispatch(clearFlights())
+    },[dispatch])
 
     const handleClick = (e) => {
         e.preventDefault();
