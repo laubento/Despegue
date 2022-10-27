@@ -3,7 +3,6 @@ import '../MiPerfil/CardHistory.css'
 import Logo from "../../Images/Logo.png"
 
 export default function CardHistory({ paquete }) {
-    console.log(paquete)
     return (
         <div>
             <div className="dropdown CardHistory-vuelo">
@@ -22,6 +21,7 @@ export default function CardHistory({ paquete }) {
                             <div>
                                 <h5>{`${paquete[0].destination} - ${paquete[0].exit}`}</h5>
                                 <h6>{paquete.length > 1 ? 'Ida y vuelta' : 'Ida'}</h6>
+                                <h3>{`Pasajeros: ${paquete[0].Info.adults + paquete[0].Info.children + paquete[0].Info.infants}`}</h3>
                             </div>
                             <div className="CardHistory-Precio">
                                 <h6>TOTAL</h6>

@@ -212,7 +212,7 @@ export default function Help() {
                 <div className="col-10">
                   <p className="m-0">
                     En caso de ver o querer dejar opiniones de la pagina, tocar{" "}
-                    <a className="Help-Aqui">Aquí</a>.
+                    <Link to={"/feedBack"} className="Help-Aqui">Aquí</Link>.
                   </p>
                 </div>
               </div>

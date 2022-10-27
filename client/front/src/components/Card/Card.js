@@ -16,7 +16,7 @@ function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopove
 
     dispatch(filterFlightById(id))
     if (onFlights || onSecondFlight) {
-      return history.push('/flights/roundtrip/cart');
+      return history.push('/flights/roundtrip/asistant');
     }
 
     if (onFirstFlight) {
@@ -99,14 +99,14 @@ function Card(  {id, airlinesName, departureTime, arrivalTime, duration, stopove
               {
                 hideButton
                   ? null
-                  : <button onClick={handleClick} className="card-btn">Elegir!</button>
+                  : <button onClick={handleClick} className="card-btn">Siguiente!</button>
               }
               </Link>
-            : <Link to='/flights/roundtrip/cart'>
+            : <Link to='/flights/roundtrip/asistant'>
               {
                 hideButton
                   ? null
-                  : <button onClick={handleClick} className="card-btn">Comprar!</button>
+                  : <button onClick={handleClick} className="card-btn">Siguiente!</button>
               }
               </Link>
         }
