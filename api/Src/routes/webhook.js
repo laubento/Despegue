@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const router = Router();
-const {WebhookClient} = require("dialogflow-fullfilment")
+const {WebhookClient} = require("dialogflow-fulfillment")
 
 router.post('/', (req, res) => {
     const agent = new WebhookClient({ request: req, response: res });
-    console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-    console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+    console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
+    console.log('Dialogflow Request body: ' + JSON.stringify(req.body));
    
     function welcome(agent) {
       agent.add(`Welcome to my agent!`);
