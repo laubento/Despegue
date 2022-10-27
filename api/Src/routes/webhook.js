@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
     async function Ofertas(agent) {
         agent.add(`Aca las ofertas!`);
         const ofertas = await utils.getOffers()
-        const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join(", ")
+        const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join("  \n")
         // ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
         agent.add(ofertas2)
       }
