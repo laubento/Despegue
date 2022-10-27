@@ -1,5 +1,5 @@
 // config
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // components & functions
 import Filter from "../Filter/Filter.js";
@@ -25,18 +25,18 @@ function RoundtripSF() {
   const [currentPage, setCurrentPage] = useState(1)
   const [flightsPerPage, setFlightsPerPage] = useState(5)
   // vars
-  const indexLastFlight= currentPage * flightsPerPage;
+  const indexLastFlight = currentPage * flightsPerPage;
   const indexFirstFlight = indexLastFlight - flightsPerPage
   const currentFlights = flights.slice(indexFirstFlight, indexLastFlight)
 
   const paginado = (pageNumber) => {
-      number = pageNumber
-      setCurrentPage(pageNumber)
+    number = pageNumber
+    setCurrentPage(pageNumber)
   }
 
   let pageNumbers = [];
-  for(let i = 1; i <= Math.ceil(flights.length/flightsPerPage); i++){
-      pageNumbers.push(i)
+  for (let i = 1; i <= Math.ceil(flights.length / flightsPerPage); i++) {
+    pageNumbers.push(i)
   }
 
   // functions
@@ -54,7 +54,7 @@ function RoundtripSF() {
 
   const prevHandler = (e) => {
     e.preventDefault();
-    if(number === pageNumbers[0]) return;
+    if (number === pageNumbers[0]) return;
     number--
     let prevPage = number
     return paginado(prevPage)
@@ -62,7 +62,7 @@ function RoundtripSF() {
 
   const nextHandler = (e) => {
     e.preventDefault()
-    if(number === pageNumbers.length) return;
+    if (number === pageNumbers.length) return;
     number++
     let nextPage = number
     return paginado(nextPage)
@@ -70,54 +70,60 @@ function RoundtripSF() {
 
   return (
     <div className="d-flex">
-      <Filter paginado={paginado} number={number}/>
-        {  
-          allFlights.length !== 0  
-          ?  <div className="flights-cont">
-                <div className="d-flex justify-content-center">
-                  {/* {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> :  <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> } */}
-                  {
-                    flights !== 0 
-                    ? <Paginado 
-                        currentPage={currentPage} 
-                        paginado = {paginado} 
-                        allFlights = { flights.length } 
-                        flightsPerPage={flightsPerPage} 
-                        prevHandler={prevHandler} 
-                        nextHandler={nextHandler}
-                      />
-                    : <h2>No hay vuelos con estas características</h2>
-                  }
-                </div>
-                <div>
-                  {
-                    flights.length !==  0 
-                    ? currentFlights.map((e,i) => {
-                        return(
-                            <div key={i} className='d-flex justify-content-center'>
-                              <Card 
-                                id={e.id}
-                                segments={e.segments}
-                                airlinesName={e.airlinesNames}
-                                departureTime={e.departureTime}
-                                arrivalTime={e.arrivalTime}
-                                duration={e.duration}
-                                stopoversCount={e.stopoversCount}
-                                price={e.price}
-                                going={e.going}
-                                onSecondFlight={true}
-                                cart={false}
-                              />
-                            </div>
-                          )})
-                    : <h2>No hay vuelos con estas características</h2>
-                  }     
-                </div>
-              </div>
-            : <div className="flights-cont">
-                <Loader />
-              </div>  
-          }
+      <Filter paginado={paginado} number={number} />
+      {
+        allFlights.length !== 0
+          ? <div className="flights-cont">
+            <div className="d-flex justify-content-center">
+              {/* {flights.length === 0 && allFlights.length !== 0? <h2>No hay vuelos para esta búsqueda</h2> :  <Paginado paginado = {paginado} allFlights = { flights.length } flightsPerPage={flightsPerPage} prevHandler={prevHandler} nextHandler={nextHandler} /> } */}
+              {
+                flights !== 0
+                  ? <Paginado
+                    currentPage={currentPage}
+                    paginado={paginado}
+                    allFlights={flights.length}
+                    flightsPerPage={flightsPerPage}
+                    prevHandler={prevHandler}
+                    nextHandler={nextHandler}
+                  />
+                  : <h2>No hay vuelos con estas características</h2>
+              }
+            </div>
+            <div className="Card-ContainerCard-Flights">
+              {
+                flights.length !== 0
+                  ? currentFlights.map((e, i) => {
+                    return (
+                      <div key={i} className='d-flex justify-content-center'>
+                        <Card
+                          cabin={e.cabinClass}
+                          departureName={e.departureAirportName}
+                          arrivalName={e.arrivalAirportName}
+                          departureCode={e.departureAirportCode}
+                          arrivalCode={e.arrivalAirportCode}
+                          id={e.id}
+                          segments={e.segments}
+                          airlinesName={e.airlinesNames}
+                          departureTime={e.departureTime}
+                          arrivalTime={e.arrivalTime}
+                          duration={e.duration}
+                          stopoversCount={e.stopoversCount}
+                          price={e.price}
+                          going={e.going}
+                          onSecondFlight={true}
+                          cart={false}
+                        />
+                      </div>
+                    )
+                  })
+                  : <h2>No hay vuelos con estas características</h2>
+              }
+            </div>
+          </div>
+          : <div className="flights-cont">
+            <Loader />
+          </div>
+      }
     </div>
   );
 }

@@ -88,13 +88,19 @@ function RoundtripFF() {
                     : <h2>No hay vuelos con estas características</h2>
                   }
                 </div>
-                <div>
+                <div className="Card-ContainerCard-Flights">
                   {
                     flights.length !==  0 
                     ? currentFlights.map((e,i) => {
+                      console.log(e)
                         return(
                             <div key={i} className='d-flex justify-content-center'>
                               <Card 
+                                cabin={e.cabinClass}
+                                departureName={e.departureAirportName}
+                                arrivalName={e.arrivalAirportName}
+                                departureCode={e.departureAirportCode}
+                                arrivalCode={e.arrivalAirportCode}
                                 id={e.id}
                                 segments={e.segments}
                                 airlinesName={e.airlinesNames}
