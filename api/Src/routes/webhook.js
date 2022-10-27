@@ -47,23 +47,15 @@ router.post('/', (req, res) => {
     //   }
 
     function Ofertas(agent) {        
-       const payload = [
+       const payload = 
             {
             type: "link",
             url: "https://despegue.vercel.app/help",
             openLinkInNewTab: false,
             name: "Reactivar Cuenta"
-            },
-            {
-            type: "link",
-            openLinkInNewTab: false,
-            url: "mailto:mau20410@gmail.com",
-            name: "Enviar Mail",
             }
-        ]
-
         agent.add('Aca las ofertas')
-        agent.add(new Payload(agent.KOMMUNICATE, payload, { rawPayload: true, sendAsMessage: true }))
+        agent.add(new Payload(agent.UNSPECIFIED, payload, { rawPayload: false, sendAsMessage: true }))
       }
   
   let intentMap = new Map();
