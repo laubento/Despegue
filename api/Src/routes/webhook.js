@@ -82,14 +82,14 @@ router.post('/', (req, res) => {
     agent.handleRequest(intentMap);
 })
 
-agent.add(new Card({
-    title: `Title: this is a card title`,
-    imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
-    text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
-    buttonText: 'This is a button',
-    buttonUrl: "https://google.com"
-  })
-);
+// agent.add(new Card({
+//     title: `Title: this is a card title`,
+//     imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
+//     text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
+//     buttonText: 'This is a button',
+//     buttonUrl: "https://google.com"
+//   })
+// );
 
         //     messages: [
         //     {
