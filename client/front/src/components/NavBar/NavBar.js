@@ -60,7 +60,7 @@ const closeSession = () => {
 
 const login = () => {
     localStorage.setItem('callbackUrl', window.location.pathname)
-    loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+    loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
 }
 
   return (
