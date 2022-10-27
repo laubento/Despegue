@@ -4,10 +4,11 @@ const utils = require('./utils/getOffers')
 const {WebhookClient} = require("dialogflow-fulfillment")
 
 
-// router.get('/', async(req, res) => {
-//     const u = await utils.getOffers()
-//     res.send(u)
-// })
+router.get('/', async(req, res) => {
+    const ofertas = await utils.getOffers()
+    const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join(", ")
+    console.log(ofertas2);
+})
 
 router.post('/', (req, res) => {
 
@@ -27,7 +28,7 @@ router.post('/', (req, res) => {
     async function Ofertas(agent) {
         agent.add(`Aca las ofertas!`);
         const ofertas = await utils.getOffers()
-        const ofertas2 = ofertas.map((e) => e.name + " " + e.price)
+        const ofertas2 = ofertas.map((e) => e.name + " " + e.price).join(", ")
         // ofertas.map((oferta) => agent.add(oferta.name + " " + oferta.price))
         agent.add(ofertas2)
       }
