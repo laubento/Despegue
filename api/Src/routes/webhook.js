@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const utils = require('./utils/getOffers')
-const {WebhookClient, Payload} = require("dialogflow-fulfillment")
+const {WebhookClient, Payload, Card} = require("dialogflow-fulfillment")
 
 const u = {
     "fulfillmentMessages": [
@@ -46,30 +46,14 @@ router.post('/', (req, res) => {
     //   }
 
     function Ofertas(agent) {
-    const response = {
-            messages: [
-            {
-                payload: {
-                messages: [
-                    {
-                    speech: 'here are some quick links for your convenience.',
-                    linkmessage: [{
-                        message: 'google',
-                        link: 'www.google.com'
-                    }, {
-                        message: 'yahoo',
-                        link: 'www.yahoo.co.in'
-                    }],
-                    button: [{
-                        buttonname: 'more page'
-                    }]
-                    }
-                ]
-                }
-            }
-            ]
-        };
-        agent.add(new Payload(agent.UNSPECIFIED, response, { rawPayload: true, sendAsMessage: true}));
+        agent.add(new Card({
+            title: `Title: this is a card title`,
+            imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
+            text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
+            buttonText: 'This is a button',
+            buttonUrl: "https://google.com"
+          })
+        );
     }
   
   let intentMap = new Map();
@@ -82,6 +66,29 @@ router.post('/', (req, res) => {
 })
 
 
+        //     messages: [
+        //     {
+        //         payload: {
+        //         messages: [
+        //             {
+        //             speech: 'here are some quick links for your convenience.',
+        //             linkmessage: [{
+        //                 message: 'google',
+        //                 link: 'www.google.com'
+        //             }, {
+        //                 message: 'yahoo',
+        //                 link: 'www.yahoo.co.in'
+        //             }],
+        //             button: [{
+        //                 buttonname: 'more page'
+        //             }]
+        //             }
+        //         ]
+        //         }
+        //     }
+        //     ]
+        // };
+        // agent.add(new Payload(agent.UNSPECIFIED, response, { rawPayload: true, sendAsMessage: true}));
 
 
 module.exports = router;
