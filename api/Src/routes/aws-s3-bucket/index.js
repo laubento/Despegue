@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const multer = require('multer');
-const {S3Client, PutObjectCommand} = require("@aws-sdk/client-s3");
+const {S3Client, PutObjectCommand, GetObjectCommand} = require("@aws-sdk/client-s3");
+const {getSignedUrl} = require("@aws-sdk/s3-request-presigner");
 const dotEnv = require('dotenv');
 const crypto = require('crypto');
-// const User = require("../../models/user");
+const User = require('../../../models/user');
 
 const router = Router();
 const storage = multer.memoryStorage();
@@ -41,36 +42,34 @@ router.post('/photo', upload.single('S3image'), async (req, res) => {
         Body: req.file.buffer,
         ContentType: req.file.mimetype
     }
-    const command = new PutObjectCommand(params);
+    const putCommand = new PutObjectCommand(params);
+    await s3.send(putCommand);
 
-    await s3.send(command);
-    res.send('photo successfully added on S3');
+    const getObjectParams = {
+        Bucket: bucketName,
+        Key: imageName,
+    }
+    
+    const getCommand = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
+    res.send(url);
 
-    // const postToDb = await 
-
-    // try {
-    //     const updateUser = await User.updateOne(
-    //         { _id: userId },
-    //         {
-    //             $set: {
-    //                 s3PhotoName: imageName
-    //             },
-    //         }
-    //     );
-    //     User.findOne({ _id: id })
-    //         .then(() => {
-    //             return res.status(200).send('ok');
-    //         })
-    //         .catch(() => res.send(updateUser));
-    // } catch (err) {
-    //     console.log(err);
-    // }
+    try {
+        const updateUser = await User.updateOne(
+            { _id: userId },
+            {
+                $set: {
+                    s3PhotoName: imageName,
+                    photo: url
+                },
+            }
+        )
+        // updateUser.save();
+    } catch (err) {
+        console.log(err);
+    }
 })
 
-router.get('/photo', (req, res) => {
-    console.log('ruta para traer una foto guardada en S3');
-    res.send('ruta para traer una foto guardada en S3')
-});
 
 router.delete('/photo', (req, res) => {
     console.log('ruta para borrar una foto existente');
