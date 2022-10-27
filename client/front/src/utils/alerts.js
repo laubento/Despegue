@@ -72,7 +72,7 @@ export const notLogedForPurchase = (loginWithRedirect) => {
         denyButtonText: "Cerrar"
     })
     .then((result) => {
-        if(result.isConfirmed) loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+        if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
     })
 }
 
@@ -87,14 +87,13 @@ export const notVerify = () => {
     })
     .then((result) => {
         const user = JSON.parse(window.localStorage.getItem('user'))
-        const obj = {user_id: user.id}
         const options = {
             method: 'POST',
             url: `https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email`,
             headers: { 'content-type': 'application/json' },
             data: {
-                user_id: user.id,
-              client_id: "F7456018hKT6q2IfLLoRlVcnZewaCpLJ",
+                "user_id": user.id,
+              "client_id": "F7456018hKT6q2IfLLoRlVcnZewaCpLJ",
             }
           };
         if(result.isConfirmed){
