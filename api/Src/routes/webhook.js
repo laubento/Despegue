@@ -46,31 +46,32 @@ router.post('/', (req, res) => {
     //   }
 
     function Ofertas(agent) {
-        agent.add(new Payload(
-            {
-                "metadata": {
-                  "contentType": "300",
-                  "templateId": "3",
-                  "payload": [
-                    {
-                      "type": "link",
-                      "url": "https://despegue.vercel.app/help",
-                      "openLinkInNewTab": false,
-                      "name": "Reactivar Cuenta"
-                    },
-                    {
-                      "openLinkInNewTab": false,
-                      "url": "mailto:mau20410@gmail.com",
-                      "name": "Enviar Mail",
-                      "type": "link"
-                    }
-                  ]
-                },
-                "platform": "kommunicate",
-                "message": "Si tienes un problema con tu cuenta, podes comunicarte con nuestro staff. en caso que quieras reactivar tu cuenta"
-              }
-        ))
-    }
+        let conv = agent.conv(); // Get Actions on Google library conversation object
+        conv.ask('Please choose an item:'); // Use Actions on Google library to add responses
+        conv.ask(new Carousel({
+          title: 'Google Assistant',
+          items: {
+            'WorksWithGoogleAssistantItemKey': {
+              title: 'Works With the Google Assistant',
+              description: 'If you see this logo, you know it will work with the Google Assistant.',
+              image: {
+                url: imageUrl,
+                accessibilityText: 'Works With the Google Assistant logo',
+              },
+            },
+            'GoogleHomeItemKey': {
+              title: 'Google Home',
+              description: 'Google Home is a powerful speaker and voice Assistant.',
+              image: {
+                url: imageUrl2,
+                accessibilityText: 'Google Home'
+              },
+            },
+          },
+        }));
+        // Add Actions on Google library responses to your agent's response
+        agent.add(conv);
+      }
   
   let intentMap = new Map();
     intentMap.set('Default Welcome Intent', welcome);
@@ -81,14 +82,14 @@ router.post('/', (req, res) => {
     agent.handleRequest(intentMap);
 })
 
-// agent.add(new Payload({
-//     title: `Title: this is a card title`,
-//     imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
-//     text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
-//     buttonText: 'This is a button',
-//     buttonUrl: "https://google.com"
-//   })
-// );
+agent.add(new Card({
+    title: `Title: this is a card title`,
+    imageUrl: "https://thumbs.dreamstime.com/b/plane-flying-high-altitude-above-clouds-model-passenger-alps-mountains-background-163759416.jpg",
+    text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
+    buttonText: 'This is a button',
+    buttonUrl: "https://google.com"
+  })
+);
 
         //     messages: [
         //     {
