@@ -1,5 +1,6 @@
 import swal2 from "sweetalert2";
 
+
 export const activeAcc = (log) => {
   swal2
     .fire({
