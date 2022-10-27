@@ -71,6 +71,6 @@ export const notLogedForPurchase = (loginWithRedirect) => {
         denyButtonText: "Cerrar"
     })
     .then((result) => {
-        if(result.isConfirmed) loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+        if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
     })
 }
