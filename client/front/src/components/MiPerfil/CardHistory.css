@@ -88,6 +88,10 @@
     display: flex;
     justify-content: space-between;
 }
+.CardHistory-PrecioYLugar h3{
+    font-size: 12px;
+    margin: 0px;
+}
 .CardHistory-Precio{
     margin-right: 10px;
 }

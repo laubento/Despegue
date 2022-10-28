@@ -27,6 +27,7 @@ const initialState = {
     offersList: [],
     listHistory: [],
     history: [],
+    asistant: {}
 };
 
 export default function reducer(state = initialState, action) {
@@ -250,6 +251,11 @@ export default function reducer(state = initialState, action) {
             ...state,
             flightsCart: []
         }
+        case "SET_ASISTENCIAS":
+            return{
+                ...state,
+                asistant: action.payload
+            }
         default:
             return state;
     }

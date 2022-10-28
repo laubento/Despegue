@@ -10,6 +10,7 @@ router.post("/purchaseComplete", async (req, res) => {
         const { id } = req.body.user
         const flight = req.body.flight
         const infoBusqueda = req.body.info
+        const asistant = req.body.asistant
         // const extras = req.body.asistant
         if (Array.isArray(flight)) {
 
@@ -34,7 +35,8 @@ router.post("/purchaseComplete", async (req, res) => {
                     type: e.cabinClass,
                     price: e.price,
                     flightId: e.id,
-                    Info: infoBusqueda
+                    Info: infoBusqueda,
+                    asistant: asistant
                 })
             })
         
@@ -66,7 +68,8 @@ router.post("/purchaseComplete", async (req, res) => {
                 type: flight.cabinClass,
                 price: flight.price,
                 flightId: flight.id,
-                Info: infoBusqueda
+                Info: infoBusqueda,
+                asistant: asistant
             }]
 
             const history = new History({
