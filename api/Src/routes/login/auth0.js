@@ -29,7 +29,7 @@ router.post("/getUser", async (req, res) => {
                 roles: userDB.roles,
                 verify: userDB.verify,
                 id: userDB.id,
-                subId: userDB.subId
+                sub: userDB.sub ? userDB.sub : user.sub
             }
             return res.status(200).send(userData);
         } else {
@@ -47,7 +47,7 @@ router.post("/getUser", async (req, res) => {
                 verify: user.email_verified || false,
                 active: true,
                 banned: false,
-                subId: user.sub
+                sub: user.sub
             })
             .save()
             .then((newUser) => {

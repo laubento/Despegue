@@ -90,6 +90,9 @@ export default function Cart() {
         }
     }, [dispatch, selectedFlight])
     const handleClick = async (e) => {
+        localStorage.setItem('callbackUrl', window.location.pathname)
+        if(!user) alerts.notLogedForPurchase(loginWithRedirect)
+        else if (!user.verify) alerts.notVerify()
         if(tripType === 'roundtrip' && cart.length === 1){
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
            return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
@@ -100,14 +103,14 @@ export default function Cart() {
         }
         localStorage.setItem('callbackUrl', window.location.pathname)
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
-        if(!user.verify) return alerts.notVerify()
+        else if(!user.verify) return alerts.notVerify()
         else {
             await dispatch(getPayment(prueba))
             history.push('/purchase')
-            // dispatch(getPaymentInfo(prueba))
             localStorage.setItem('onCart', false)
             dispatch(clearCart())
         }
+        // dispatch(getPaymentInfo(prueba))
     }
     localStorage.setItem('onCart', true)
     let ultimaBusqueda = JSON.parse(localStorage.getItem('busqueda'))
