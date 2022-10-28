@@ -89,7 +89,7 @@ export const notVerify = () => {
     })
     .then((result) => {
         if(result.isConfirmed){
-            axios.post('/users/verify', {user})
+            axios.post('/auth0/verify', {user})
             .then((e) => {
                 return swal2.fire("Mail enviado con exito")
             })
