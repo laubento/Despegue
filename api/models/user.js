@@ -86,7 +86,7 @@ const User = mongoose.Schema({
   //     type: Boolean,
   //     required: false
   // },
-  sub: {
+  subId: {
     type: String,
   },
   roles: {

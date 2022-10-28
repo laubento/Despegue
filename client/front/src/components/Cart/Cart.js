@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { addFlightToCart, getPayment, getPaymentInfo } from '../../Redux/Actions';
+import swal from 'sweetalert'
+import { Link, useHistory } from 'react-router-dom';
+import { addFlightToCart, clearCart, clearFlights, getFlights, getPayment, getPaymentInfo } from '../../Redux/Actions';
 import Card from '../Card/Card';
+import Loader from "../Loader/Loader.js";
+import './Cart.css'
 import * as alerts from '../../utils/alerts'
 import dotenv from "dotenv";
 import { useAuth0 } from '@auth0/auth0-react';
 dotenv.config();
+
+
 
 export default function Cart() {
 
@@ -20,14 +25,19 @@ export default function Cart() {
     if (!user && user2) user = user2;
 
     // global states
+    const flights = useSelector(state => state.flights)
+    const firstFlight = useSelector(state => state.firstFlights)
+    const [backToSearch, setBackToSearch] = useState('')
+    const [display, setDisplay] = useState(false)
     const payment = useSelector((state) => state.getPayment);
     let selectedFlight = useSelector((state) => state.flightDetail);
     let cart = useSelector((state) => state.flightsCart)
-
+    let tripType = localStorage.getItem('tripType')
     let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
     if(cart.length > 0){
         localStorage.setItem('cartRespaldo', JSON.stringify(cart))
     }
+
     // console.log(cart)
     // console.log(cartRespaldo)
     let items = 
@@ -79,18 +89,55 @@ export default function Cart() {
             dispatch(addFlightToCart(selectedFlight));
         }
     }, [dispatch, selectedFlight])
-
     const handleClick = async (e) => {
+        if(tripType === 'roundtrip' && cart.length === 1){
+            setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
+           return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
+        }
+        if(tripType === 'roundtrip' && cartRespaldo.length === 1){
+            setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
+           return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
+        }
         localStorage.setItem('callbackUrl', window.location.pathname)
-        if(!user) alerts.notLogedForPurchase(loginWithRedirect)
-        else if (!user.verify) alerts.notVerify()
+        if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
+        if(!user.verify) return alerts.notVerify()
         else {
             await dispatch(getPayment(prueba))
             history.push('/purchase')
+            // dispatch(getPaymentInfo(prueba))
+            localStorage.setItem('onCart', false)
+            dispatch(clearCart())
         }
-        // dispatch(getPaymentInfo(prueba))
     }
-    
+    localStorage.setItem('onCart', true)
+    let ultimaBusqueda = JSON.parse(localStorage.getItem('busqueda'))
+    const handleRebuscar = async (e) => {
+        e.preventDefault();
+        
+        if (ultimaBusqueda.tripType === 'onewaytrip') {
+            setDisplay(true)
+            if(flights.length === 0){
+            dispatch(clearFlights())
+            await dispatch(getFlights(ultimaBusqueda))
+            history.push('/flights');
+            return dispatch(clearCart())
+            }
+            history.push('/flights');
+            return dispatch(clearCart())
+        } else {
+            setDisplay(true)
+            if(firstFlight.length === 0){
+            dispatch(clearFlights())
+            await dispatch(getFlights(ultimaBusqueda))
+            history.push('/flights/roundtrip/firstFlight');
+            return dispatch(clearCart())
+            }
+            history.push('/flights/roundtrip/firstFlight');
+            return dispatch(clearCart())
+        }
+        
+        
+    }
     return(
         <div>
             <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
@@ -111,6 +158,7 @@ export default function Cart() {
                                         price={e.price}
                                         going={e.going}
                                         hideButton={true}
+                                        cart={true}
                                     />
                                 </div>
                             )})
@@ -128,20 +176,101 @@ export default function Cart() {
                                         price={e.price}
                                         going={e.going}
                                         hideButton={true}
+                                        cart={true}
                                     />
                                 </div>
                             )}) 
                     : ''
             }
-            <div className='row'>
-                <div className='col-md-4'></div>
-                <div className='col-md-4'></div>
-                <div className='col-md-4 text-right'>
-                    <div className='container'>
-                    <button className='btn btn-success' onClick={handleClick}>Comprar</button>
+                            {
+                  cartRespaldo === undefined || cartRespaldo === null ? '' : 
+                  cartRespaldo.length === 0 ?
+                  <div>
+                  {/* <div className='d-flex justify-content-center m-4'>
+                        <span className='text-center font-weight-bold h3 FlightSearch-errorsText cart-vacio'>Su carrito está vacío.</span>
+                       </div> */}
+                       <div className='d-flex justify-content-center mb-4'>
+                        <Link to='/'>
+                        <button className='p-2 cart-btn-home'>HOME</button>
+                        </Link>
+                       </div>
+                        <div className='d-flex justify-content-center '>
+                            <div className='d-flex flex-column cart-busqueda'>
+                                <h3 className='text-center cart-title'>Última búsqueda: </h3>
+                                <div className='d-flex justify-content-center p-2'>
+                                    <div className='d-flex flex-column font-weight-bold m-2'>
+                                    <span>Tipo de viaje: {ultimaBusqueda.tripType}</span>
+                                    <span>Adultos: {ultimaBusqueda.adults}</span>
+                                    <span>Origen: {ultimaBusqueda.departurePlace}</span>
+                                    <span>Llegada: {ultimaBusqueda.arrivalPlace}</span>
+                                    <span>Fecha salida: {ultimaBusqueda.departureDate}</span>
+                                    {
+                                        ultimaBusqueda.returningDate !== '' ? 
+                                    <span>Fecha de vuelta: {ultimaBusqueda.returningDate } </span>
+                                        : ''
+                                    }
+                                    <span>Clase: {ultimaBusqueda.cabinClass}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-center '>
+                        <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                        </div>
+                        {display === true ?
+                        <div className="flights-cont">
+                        <Loader />
+                        </div> : ''}
+                    </div> 
+                    : backToSearch.length ? 
+                    <div>
+                        <div className='d-flex justify-content-center mb-4'>
+                        <Link to='/'>
+                        <button className='p-2 cart-btn-home'>HOME</button>
+                        </Link>
+                       </div>
+                        <div className='d-flex justify-content-center'>
+                            <div className='d-flex flex-column cart-busqueda'>
+                                <h3>Última búsqueda.</h3>
+                                <div className='d-flex justify-content-center'>
+                                    <div className='d-flex flex-column font-weight-bold'>
+                                    <span>Tipo de viaje: {ultimaBusqueda.tripType}</span>
+                                    <span>Adultos: {ultimaBusqueda.adults}</span>
+                                    <span>Origen: {ultimaBusqueda.departurePlace}</span>
+                                    <span>Llegada: {ultimaBusqueda.arrivalPlace}</span>
+                                    <span>Fecha salida: {ultimaBusqueda.departureDate}</span>
+                                    {
+                                        ultimaBusqueda.returningDate !== '' ? 
+                                    <span>Fecha de vuelta: {ultimaBusqueda.returningDate } </span>
+                                        : ''
+                                    }
+                                    <span>Clase: {ultimaBusqueda.cabinClass}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-center '>
+                        <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                        </div>
+                        {display === true ?
+                        <div className="flights-cont">
+                        <Loader />
+                        </div> : ''}
+                    </div>
+                    
+                    :
+                    <div className='row'>
+                    <div className='col-md-4'></div>
+                    <div className='col-md-4'></div>
+    
+                    <div className='col-md-4 text-right'>
+                        <div className='container'>
+                        <button className='btn btn-success' onClick={handleClick}>Comprar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                }
+            
         </div>
     )
 }

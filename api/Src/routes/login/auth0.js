@@ -29,7 +29,7 @@ router.post("/getUser", async (req, res) => {
                 roles: userDB.roles,
                 verify: userDB.verify,
                 id: userDB.id,
-                sub: userDB.sub===null ? user.sub : userDB.sub 
+                subId: userDB.subId
             }
             return res.status(200).send(userData);
         } else {
@@ -39,7 +39,7 @@ router.post("/getUser", async (req, res) => {
                 firstName: user.given_name || user.nickname,
                 lastName: user.family_name,
                 photo: user.picture,
-                email: user.email,
+                email: user.email || "",
                 dni: "",
                 phone: "",
                 birthDate: "",
@@ -47,7 +47,7 @@ router.post("/getUser", async (req, res) => {
                 verify: user.email_verified || false,
                 active: true,
                 banned: false,
-                sub: user.sub
+                subId: user.sub
             })
             .save()
             .then((newUser) => {

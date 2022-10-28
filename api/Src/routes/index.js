@@ -24,8 +24,10 @@ const user = require("./login/user");
 
 const adminUsers = require("./admin/users");
 const offers = require("./admin/offers");
+const history = require("./admin/history");
 router.use("/admin", adminUsers);
 router.use("/admin/offers", offers);
+router.use("/admin/history", history);
 
 const auth0 = require('./login/auth0')
 router.use('/auth0', auth0)
@@ -63,5 +65,10 @@ router.use('/sendmailpago', sendMailCompra)
 //membership
 const member = require("./memberUpdate")
 router.use("/users", member)
+
+//aws S3 bucket
+const bucket = require('./aws-s3-bucket/index');
+router.use('/awsS3Bucket', bucket);
+
 
 module.exports = router;

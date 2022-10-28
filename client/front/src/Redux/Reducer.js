@@ -1,4 +1,4 @@
-import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY } from "./Actions";
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY, CREATE_OFFERS, HISTORY_LIST, DELETE_FLIGHT } from "./Actions";
 import roundTripExample from './roundTripExapmle';
 // import oneWayTripExample from './oneWayTripExample';
 
@@ -25,7 +25,8 @@ const initialState = {
     user: null,
     // listUsers: [],
     offersList: [],
-    history: []
+    listHistory: [],
+    history: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -43,11 +44,11 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 flights: []
             }
-            case CLEAR_FLIGHT_DETAIL:
-                return {
-                    ...state,
-                    flightDetail: []
-                }
+        case CLEAR_FLIGHT_DETAIL:
+            return {
+                ...state,
+                flightDetail: []
+            }
         case FILTER_FLIGHTS:
             const { minPrice, maxPrice, maxDuration, maxHour, minHour, stopOvers, order, findAirline } =
                 action.payload;
@@ -57,12 +58,12 @@ export default function reducer(state = initialState, action) {
             // roundtrip - me quedo con los vuelos de ida o vuelta dependiendo en que ruta del front estoy
             if (state.onFirstFlightRoute) {
                 filteringFlights = state.allFirstFlights.slice();
-            } else if (state.onSecondFlightRoute){
+            } else if (state.onSecondFlightRoute) {
                 filteringFlights = state.allSecondFlighs.slice();
             } else {
                 filteringFlights = state.allFlights.slice();
             }
-            
+
             // logica de filtros
             if (stopOvers !== "default") {
                 if (stopOvers == 0) {
@@ -115,16 +116,16 @@ export default function reducer(state = initialState, action) {
                     e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
                 )
             }
-            if(state.onSecondFlightRoute){
+            if (state.onSecondFlightRoute) {
                 return {
                     ...state,
                     secondFlighs: filteringFlights
                 }
-            }else if(state.onFirstFlightRoute){
+            } else if (state.onFirstFlightRoute) {
                 return {
                     ...state,
-                firstFlights: filteringFlights
-            }
+                    firstFlights: filteringFlights
+                }
             }
             return {
                 ...state,
@@ -149,7 +150,7 @@ export default function reducer(state = initialState, action) {
             }
         case STORE_USER_INFO:
             return {
-                ...state, 
+                ...state,
                 user: action.payload
             }
         case BUY_FLIGHTS:
@@ -168,48 +169,58 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 offersList: action.payload
             }
+        case CREATE_OFFERS:
+            return {
+                ...state,
+                offersList: [...state.offersList, action.payload]
+            }
+        case HISTORY_LIST:
+            return {
+                ...state,
+                listHistory: action.payload
+            }
         case ADD_USER_ROLE:
-            return{
+            return {
                 ...state,
                 user: action.payload
             }
-        case "GET_PAYMENT": 
-            return{
+        case "GET_PAYMENT":
+            return {
                 ...state,
                 getPayment: [action.payload]
             }
-        case  "GET_PAYMENT_INFO":
+        case "GET_PAYMENT_INFO":
             return {
                 ...state,
                 getPaymentInfo: [...state.getPaymentInfo, action.payload]
             }
         case GET_ROUNDTRIP_FF:
             const b = state.allFlights.filter(el => el.going);
-            return{
+            return {
                 ...state,
                 firstFlights: b,
                 allFirstFlights: b
             }
         case GET_ROUNDTRIP_SF:
             const c = state.allFlights.filter(el => !el.going);
-            return{
+            return {
                 ...state,
                 secondFlighs: c,
                 allSecondFlighs: c
             }
         case ADD_FLIGHT_TO_CART:
-            return{
+            return {
                 ...state,
                 flightsCart: [...state.flightsCart, action.payload]
             }
         case SET_FF_TRUE:
-            return{
+            return {
                 ...state,
                 onFirstFlightRoute: action.payload,
                 onSecondFlightRoute: !action.payload
             }
         case SET_SF_TRUE:
-            return{
+            return {
                 ...state,
                 onFirstFlightRoute: !action.payload,
                 onSecondFlightRoute: action.payload
@@ -225,7 +236,20 @@ export default function reducer(state = initialState, action) {
         return{
             ...state,
         }
+        case DELETE_FLIGHT : 
+        let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload) 
 
+        console.log(state.flightsCart)
+            return{
+              ...state,
+              flightsCart: flightsRestantes
+            }
+
+        case "CLEAR_CART": 
+        return{
+            ...state,
+            flightsCart: []
+        }
         default:
             return state;
     }

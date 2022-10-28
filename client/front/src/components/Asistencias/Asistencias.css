@@ -1,0 +1,70 @@
+.Asistencias-Container{
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    border-radius: 9px;
+    margin: 30px;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.473);
+    transition: all 0.3s;
+    background-color: rgb(255, 255, 255);
+}
+.Asistencias-Container:hover{
+    border: 1px solid rgba(0, 0, 0, 0.452);
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.76);
+    transform: scale(1.01);
+}
+.Asistencias-IMG{
+    width: 100%;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.Asistencias-Cabecera{
+    position: relative;
+}
+.Asistencias-Cabecera p{
+    background-color: rgb(68, 0, 255);
+    position: absolute;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: aliceblue;
+    bottom: -25px;
+    right: 35%;
+    font-size: 13px;
+}
+.Asistencias-Info p{
+    font-size: 14px;
+    margin: 4px 0px;
+    color: rgb(65, 65, 65);
+}
+.Asistencias-ContainerPrecio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Asistencias-ContainerPrecio h5{
+    padding: 3px 8px;
+    background-color: rgb(68, 0, 255);
+    color: white;
+    border-radius: 20px;
+} 
+.Asistencias-ContainerPrecio h5 label{
+font-size: 10px;
+} 
+.Asistencias-Fondo{
+    background: url('../../Images/Asistencias/Background.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.Asistencias-Borde{
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.39);
+    background-color: white;
+}
+.Asistencias-Condiciones img{
+    width: 100%;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.959);
+}
+.Asistencias-Condiciones{
+    padding-bottom: 10px;
+}

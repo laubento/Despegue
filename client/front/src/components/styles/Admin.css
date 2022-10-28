@@ -15,3 +15,11 @@
     background-color: gray;
     border-radius: 10px;
 }
+
+.card-income{
+    width: 300px;
+    background-color: whitesmoke;
+    padding: 2px;
+    border-radius: 9px;
+    margin-bottom: 25px;
+}

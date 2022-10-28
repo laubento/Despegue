@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, clearCart } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -11,7 +11,7 @@ export default function FlightsSearch() {
     // global states
     let airportsFrom = useSelector((state) => state.airportsFrom);
     let airportsTo = useSelector((state) => state.airportsTo);
-  
+ 
     // local states
     const [airportName, setAirportName] = useState({
         from: '', 
@@ -129,13 +129,18 @@ export default function FlightsSearch() {
                 returningEmpty:  'Falta fecha de vuelta!'
             })
         }
-        // dispatch(clearFlights())
-        // dispatch(getFlights(flights));
+        localStorage.setItem('busqueda', JSON.stringify(flights))
+       
+        dispatch(getFlights(flights));
+        dispatch(clearFlights())
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
             history.push('/flights/roundtrip/firstFlight');
         }
+        
+        localStorage.setItem('tripType', flights.tripType)
+        dispatch(clearCart())
         setFlights({
             tripType:'',
             departurePlace: '',
@@ -149,6 +154,7 @@ export default function FlightsSearch() {
             currency: 'USD'
         });
     }
+
 
     const handleSubmitAirportFrom = (e) => {
         e.preventDefault();
@@ -232,20 +238,24 @@ export default function FlightsSearch() {
                 </div>
             
                 </div >
-                <div className='d-flex justify-content-center'>
-                 
+                
+                                    <div className='d-flex justify-content-center'>
+              {
+                    airportsFrom === 'Request failed with status code 404' ? '' :     
             <select hidden={!airportsFrom.length} className='slc-ord' onChange={(e) => handleSelectFrom(e)}>
                 <option hidden>Aeropuertos cercanos...</option>
-            {airportsFrom.length && airportsFrom.map((e,i) =>{
+            {airportsFrom.length && airportsFrom !== 'Request failed with status code 404' && airportsFrom.map((e,i) =>{
                 return(
                         <option key={i}>{e.name}, {e.iata}</option>
                 )
                 })}
                 </select> 
-                    
-            <select hidden={!airportsTo.length} className='slc-ord' onChange={(e) => handleSelectTo(e)}>
+            } 
+            {
+                airportsTo === 'Request failed with status code 404' ? '' :
+    <select hidden={!airportsTo.length} className='slc-ord' onChange={(e) => handleSelectTo(e)}>
                 <option hidden>Aeropuertos cercanos...</option>
-            {airportsTo.length && airportsTo.map((e,i) =>{
+            {airportsTo.length && airportsTo !== 'Request failed with status code 404' && airportsTo.map((e,i) =>{
                     
                 return( 
                         
@@ -253,9 +263,12 @@ export default function FlightsSearch() {
                 )
                 })}
                 </select>  
+            }
+            
                 </div>
+
                 <div className='d-flex justify-content-center'>
-                    
+            {airportsFrom === 'Request failed with status code 404' || airportsTo === 'Request failed with status code 404' ? <label className='FlightSearch-errorsText font-weight-bold FlightInput-spacing'> De momento las busquedas estan fuera de servicio. </label> : ''}       
             {searchError.vacio ? <label className='FlightSearch-errorsText font-weight-bold FlightInput-spacing' >{searchError.vacio}</label> : ''}
             </div>
         <form className="col-2" style={{width: '1200px', margin: 'auto'}} onSubmit={(e) => {handleSubmit(e)}}>

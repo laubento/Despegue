@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 
 router.get("/getHistory", async (req,res) => {
     const {id} = req.query
-    console.log(id)
+  
     History.find({userId:id}).then((data) => {
         res.status(200).send(data)
     }).catch((err) => {

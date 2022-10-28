@@ -6,22 +6,36 @@ const router = Router();
 
 
 //modificar esto
-const apikey = '6356a9c62dc0fb23485050b1'
+const apikey = process.env.API_KEY || "634c99af046255a726227fba"
 
 router.get('/from', async (req,res) => {
     const {nombre} = req.query
-    let noIata = []
-    let response = await axios.get(`https://api.flightapi.io/iata/${apikey}?name=${nombre}&type=airport`)
-    let result = response.data.data.filter(e => e.iata.length)
-    return res.json(result)
+    try {
+        let response = await axios.get(`https://api.flightapi.io/iata/${apikey}?name=${nombre}&type=airport`)
+        let result = response.data.data.filter(e => e.iata.length)
+        return res.json(result) 
+    } catch (error) {
+       console.log(error.response.data.message)
+       res.status(404).send({
+        error: error.response.data.message ? error.response.data.message : error,
+      });
+    }
+
 })
 
 router.get('/to', async (req,res) => {
     const {nombre} = req.query
-    let noIata = []
-    let response = await axios.get(`https://api.flightapi.io/iata/${apikey}?name=${nombre}&type=airport`)
-    let result = response.data.data.filter(e => e.iata.length)
-    return res.json(result)
+    try {
+        let response = await axios.get(`https://api.flightapi.io/iata/${apikey}?name=${nombre}&type=airport`)
+        let result = response.data.data.filter(e => e.iata.length)
+        return res.json(result) 
+    } catch (error) {
+        console.log(error.response.data.message)
+        res.status(404).send({
+            error: error.response.data.message ? error.response.data.message : error,
+          });
+    }
+
 })
 
 module.exports = router

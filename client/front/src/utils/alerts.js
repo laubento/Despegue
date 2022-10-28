@@ -99,7 +99,7 @@ export const notVerify = () => {
         if(result.isConfirmed){
             axios.request(options)
             .then((e) => console.log(e))
-            .catch((e) => console.log(e))
+            .catch((e) => console.log(e))   
         }
     })
 }

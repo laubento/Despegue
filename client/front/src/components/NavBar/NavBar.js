@@ -16,54 +16,57 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Swal from "sweetalert2";
 
 export default function NavBar() {
-  const { loginWithRedirect, logout } = useAuth0();
+    const { loginWithRedirect, logout } = useAuth0();
 
-  let url = window.location.pathname;
+    let url = window.location.pathname;
 
-  let user = useSelector((state) => state.user);
-  const user2 = JSON.parse(window.localStorage.getItem("user"));
+    let user = useSelector((state) => state.user);
+    const user2 = JSON.parse(window.localStorage.getItem("user"));
 
-  
   if (!user && user2) user = user2;
-  
+
   // function handleSubmitLogOut() {
   //     window.open("http://localhost:3001/auth/logout", "_self");
   //     alert("Cerrando sesion");
   // }
-
-  function Atencion(){
+  function Atencion() {
     Swal.fire({
-      title: "Atencion al cliente",
-      text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
-      confirmButtonText: "Cerrar",
-    })
-  }
-
-  const closeSession = () => {
-    Swal.fire({
-      title: "¿Seguro que quieres cerrar sesion?",
-      icon: "warning",
-      showDenyButton: true,
-      confirmButtonText: "Si",
-      denyButtonText: `No`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        logout({ returnTo: window.location.origin });
-        window.localStorage.removeItem("user");
-        window.localStorage.removeItem("sinLog")
-        window.localStorage.removeItem("init_point")
-        window.localStorage.removeItem("detail")
-        window.localStorage.removeItem("display")
-      } else if (result.isDenied) {
-        Swal.fire("Gracias por quedarse");
-      }
+        title: "Atencion al cliente",
+        text: "Lunes a viernes de 10 a 19hs - Sabado de 10 a 16hs       Atencion al cliente: 0810 810 9992",
+        confirmButtonText: "Cerrar",
     });
-  };
+}
+
+const closeSession = () => {
+    Swal.fire({
+        title: "¿Seguro que quieres cerrar sesion?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: "Si",
+        denyButtonText: `No`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            logout({ returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000" });
+            window.localStorage.removeItem("user");
+            window.localStorage.removeItem("sinLog");
+            window.localStorage.removeItem("init_point");
+            window.localStorage.removeItem("detail");
+            window.localStorage.removeItem("display");
+        } else if (result.isDenied) {
+            Swal.fire("Gracias por quedarse");
+        }
+    });
+};
+
+const login = () => {
+    localStorage.setItem('callbackUrl', window.location.pathname)
+    loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+}
 
   return (
     <div className="NavBar-header">
       <div className="container-fluid NavBar-ContainerPrincipal">
-        <Link to={"/"}>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
           <a className="NavBar-Logo" href="#">
             <img className="NavBar-ImgLogo" alt="Logo" src={Logo} />
             Despegue
@@ -100,19 +103,17 @@ export default function NavBar() {
             <div className="NavBar-Boton1">Asistencia</div>
             {/* <div className='NavBar-Nuevo'>Nuevo</div> */}
           </Link>
-          {user && user.roles.includes('admin') ?
+          {user && user.roles.includes("admin") ? (
             <Link
               to={"/admin"}
               className={
-                url == "/admin"
-                  ? "NavBar-LinBotonActive"
-                  : "NavBar-LinkBoton"
+                url == "/admin" ? "NavBar-LinBotonActive" : "NavBar-LinkBoton"
               }
             >
               <DashboardIcon />
               <div className="NavBar-Boton1">Admin</div>
-            </Link> : null
-          }
+            </Link>
+          ) : null}
         </div>
         <div className="NavBar-Info">
           <ul className="NavBar-Ul">
@@ -125,14 +126,12 @@ export default function NavBar() {
 
             <li style={{ cursor: "pointer" }} className="NavBar-IniciarSesion">
               {!user ? (
-                <b onClick={() => loginWithRedirect()}>
-                  {/* <Link to={"/login"}> */}
+                <b onClick={login}>
                   <img alt="ventas" src={Persona} />
                   Iniciar Sesion
-                  {/* </Link> */}
                 </b>
               ) : (
-                <Link className="Login-UsuarioDesplegable" to={"/user"}>
+                <div className="Login-UsuarioDesplegable">
                   <img alt="user" className="Login-FotoNav" src={user.photo} />
                   {user.firstName}
                   <div className="Login-Desplegable">
@@ -161,7 +160,7 @@ export default function NavBar() {
                       </button>
                     </div>
                   </div>
-                </Link>
+                </div>
               )}
             </li>
             <li className="NavBar-MisViajes">

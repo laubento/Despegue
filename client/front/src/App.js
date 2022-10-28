@@ -11,12 +11,14 @@ import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CardDetail from "./components/CardDetail/cardDetail";
+import OfertasContainer from "./components/Ofertas/OfertasContainer";
 // import LogInButton from "./components/Login auth0/LogInAuth0";
 import MiPerfil from "./components/MiPerfil/MiPerfil";
 import RoundtripFF from "./components/Flights/RoundtripFF";
 import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
 import Help from "./components/Help/Help";
+import AsistenciasCard from "./components/Asistencias/AsistenciasCard";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -24,9 +26,11 @@ import Failure from "./components/Compras/Failure";
 import { activeAcc, bannedAcc } from "./utils/alerts";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Auth0Callback from "./auth0callback";
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import ChatBot from "./components/ChatBot/ChatBot";
+import UpladPhoto from "./components/UploadPhoto";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,9 +64,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
+        <Route exact path="/ofertas" render={() => <OfertasContainer />} />
         <Route path="/user" render={() => <MiPerfil />} />
         <Route exact path={"/register"} render={() => <Register />} />
         <Route exact path="/flights" component={Flights} />
@@ -85,6 +91,9 @@ function App() {
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
+        <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>;
+        <Route exact path='/callback' component={Auth0Callback} />
       </BrowserRouter>
     </div>
   );
