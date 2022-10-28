@@ -1,11 +1,16 @@
 const { Router } = require("express");
 const User = require("../../../models/user");
 const auth = require('../admin/validate-session')
+const jwt = require('jsonwebtoken')
 
 const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
+
+    const token = jwt.sign( user , 'secretcode', { expiresIn: '24h' } )
+
+
 
     if (!user) return res.sendStatus(400);
 
