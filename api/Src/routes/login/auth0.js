@@ -63,6 +63,10 @@ router.post("/getUser", async (req, res) => {
     })
 });
 
+router.post('/verifyCookies', (req, res) => {
+    const token = req.headers
+})
+
 router.put('/delete',auth.isUser,(req, res) => {
 
     const {user} = req.body
