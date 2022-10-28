@@ -27,6 +27,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/getoffers", async (req, res) => {
+    console.log(req);
   try {
     const offers = await Offers.find({ active: true });
     

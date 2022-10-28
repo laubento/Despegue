@@ -27,21 +27,21 @@ app.use(morgan("dev"));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(
-//   cors({
-//     origin: "*", // <-- location of the react app were connecting to
-//     methods: "GET,POST,PUT,DELETE",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: 'https://despegue.vercel.app', // <-- location of the react app were connecting to
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://despegue.vercel.app'); // update to match the domain you will make the request from
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'https://despegue.vercel.app'); // update to match the domain you will make the request from
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//     next();
+//   });
 
 app.use(
   session({
