@@ -38,16 +38,7 @@ function App() {
   const { user, logout } = useAuth0();
 
   useEffect(() => {
-    const token = document.cookie.replace("token=", "") ?? null;
-    axios({
-      method: "POST",
-      url: "http://localhost:3001/auth0/getUser",
-      headers: {
-        "content-type": "application/json",
-        authorization: token,
-      },
-      body: { user },
-    })
+    axios.post('/auth0/getUser', {user})
       .then((data) => {
         if (data.status === 200) return data.data;
       })
