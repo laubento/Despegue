@@ -41,8 +41,7 @@ function App() {
     const token = document.cookie.replace("token=", "");
     axios
       .post({
-        method: "POST",
-        url: "https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email",
+        url: "http://localhost:3001/auth0/getUser",
         headers: {
           "content-type": "application/json",
           "authorization": token,
