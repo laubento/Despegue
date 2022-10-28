@@ -39,15 +39,15 @@ function App() {
 
   useEffect(() => {
     const token = document.cookie.replace("token=", "");
-    axios
-      .post({
-        url: "http://localhost:3001/auth0/getUser",
-        headers: {
-          "content-type": "application/json",
-          "authorization": token,
-        },
-        body: { user },
-      })
+    axios({
+      method: "POST",
+      url: "http://localhost:3001/auth0/getUser",
+      headers: {
+        "content-type": "application/json",
+        authorization: token,
+      },
+      body: { user },
+    })
       .then((data) => {
         if (data.status === 200) return data.data;
       })
