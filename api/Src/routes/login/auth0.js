@@ -72,7 +72,8 @@ router.post('/verifyCookies', (req, res) => {
             res.status(400).send('no authorized');
         } else {
             res.send(200).send('boa mano', user);
-    }
+        }
+    })
 })
 
 router.put('/delete',auth.isUser,(req, res) => {
