@@ -44,14 +44,15 @@ function App() {
       })
       .then((user) => {
         console.log(user);
-        if (user.active && !user.banned) {
-          window.localStorage.setItem("user", JSON.stringify(user));
-          dispatch(storeUserInfo(user));
-        } else if (!user.active && !user.banned) {
-          return activeAcc(logout);
-        } else if (!user.active && user.banned) {
-          bannedAcc(logout);
-        }
+        // if (user.active && !user.banned) {
+        //   window.localStorage.setItem("user", JSON.stringify(user));
+        //   dispatch(storeUserInfo(user));
+        // } else if (!user.active && !user.banned) {
+        //   return activeAcc(logout);
+        // } else if (!user.active && user.banned) {
+        //   bannedAcc(logout);
+        // }
+        
       })
       .catch((err) => {
         console.log("usuario no logueado");

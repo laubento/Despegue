@@ -63,6 +63,10 @@ router.post("/getUser", async (req, res) => {
     })
 });
 
+router.post('/verifyCoockies', (req, res) => {
+    const token = 
+})
+
 router.put('/delete',auth.isUser,(req, res) => {
 
     const {user} = req.body
