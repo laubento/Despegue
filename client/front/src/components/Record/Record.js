@@ -37,13 +37,13 @@ export default function Record() {
             {record && names ?
                 <div>
                     <h4>Busqueda Reciente</h4>
-                    <div class="row text-light">
+                    <div className="row text-light">
                         {record.map((e, i) => {
                             if (i > 2) return;
                             return (
-                                <div class="col-sm-3">
-                                    <div class="card" id="record-card">
-                                        <div class="card-body">
+                                <div className="col-sm-3">
+                                    <div className="card" id="record-card">
+                                        <div className="card-body">
                                             {e.tripType === "roundtrip" ? <h6 className="p-1">Vuelo Ida y vuelta</h6> : <h6 className="p-1">Vuelo Ida</h6>}
                                             <h5 className="card-title p-1">{names[i].arrivalAirportName[0]}</h5>
                                             <h6 className="p-1">Desde {names[i].departureAirportName[0]}</h6>

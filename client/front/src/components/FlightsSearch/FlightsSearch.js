@@ -31,26 +31,26 @@ export default function FlightsSearch() {
         // children: 0,
         // infants: 0,
         // currency: 'USD'
-        tripType:'roundtrip',
-        departurePlace: 'EZE',
-        arrivalPlace: 'LIM',
-        departureDate: '2022-12-01',
-        returningDate: '2022-12-15',
-        cabinClass: 'Economy',
-        adults: 1,
-        children: 0,
-        infants: 0,
-        currency: 'USD'
-        // tripType:'onewaytrip',
+        // tripType:'roundtrip',
         // departurePlace: 'EZE',
         // arrivalPlace: 'LIM',
         // departureDate: '2022-12-01',
-        // returningDate: '',
+        // returningDate: '2022-12-15',
         // cabinClass: 'Economy',
         // adults: 1,
         // children: 0,
         // infants: 0,
         // currency: 'USD'
+        tripType:'onewaytrip',
+        departurePlace: 'EZE',
+        arrivalPlace: 'LIM',
+        departureDate: '2022-12-01',
+        returningDate: '',
+        cabinClass: 'Economy',
+        adults: 1,
+        children: 0,
+        infants: 0,
+        currency: 'USD'
     })
     const [errors, setErrors] = useState({
         allEmpty: '',
@@ -116,6 +116,7 @@ export default function FlightsSearch() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // validaciones
         if(flights.departurePlace === '' || flights.arrivalPlace === ''){
             return setErrors({
                 allEmpty: 'faltan rellenar campos!',
@@ -129,10 +130,11 @@ export default function FlightsSearch() {
                 returningEmpty:  'Falta fecha de vuelta!'
             })
         }
+
         localStorage.setItem('busqueda', JSON.stringify(flights))
        
         dispatch(getFlights(flights));
-        dispatch(clearFlights())
+        // dispatch(clearFlights())
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
