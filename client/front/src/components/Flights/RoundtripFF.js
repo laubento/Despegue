@@ -106,6 +106,11 @@ console.log('aa', arregloDeArreglos)
                   <div key={i} className='d-flex justify-content-center'>
                   <Card 
                     id={e.id}
+                    cabin={e.cabinClass}
+                    departureName={e.departureAirportName}
+                    arrivalName={e.arrivalAirportName}
+                    departureCode={e.departureAirportCode}
+                    arrivalCode={e.arrivalAirportCode}
                     segments={e.segments}
                     airlinesName={e.airlinesNames}
                     departureTime={e.departureTime}
