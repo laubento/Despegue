@@ -74,9 +74,19 @@ router.get("/getUserRating", async (req,res) => {
 
 router.get("/getAllRatings", async (req,res) => {
     try{
-        const allInDB = await Rating.find({})
-        console.log(allInDB)
-        res.status(200).send(allInDB)
+        // const allInDB = await Rating.find({})
+        let addUserData = await Rating.aggregate([
+            {
+                $lookup:{
+                    from:"users",
+                    localField:"userEmail",
+                    foreignField:"email",
+                    as:"userData"
+                }
+            },
+        ])
+        console.log(addUserData)
+        res.status(200).send(addUserData)
     } catch(err){
         console.log(err)
         res.status(500).send({message: err})

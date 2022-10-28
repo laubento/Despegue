@@ -268,7 +268,7 @@ export const getAllRatings = () => {
         const data = await axios.get("/rating/getAllRatings")
             return dispatch({
                 type:GET_RATING,
-                payload: data
+                payload: data.data
             })
     }
 }

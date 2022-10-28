@@ -29,6 +29,7 @@ import Auth0Callback from "./auth0callback";
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import UpladPhoto from "./components/UploadPhoto";
+import Rating from "./components/ratingComments/rating";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Route path={"/"} render={() => <Rating/>} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
