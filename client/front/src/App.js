@@ -38,8 +38,17 @@ function App() {
   const { user, logout } = useAuth0();
 
   useEffect(() => {
+    const token = document.cookie.replace("token=", "");
     axios
-      .post("/auth0/getUser", { user })
+      .post({
+        method: "POST",
+        url: "https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email",
+        headers: {
+          "content-type": "application/json",
+          "authorization": token,
+        },
+        body: { user },
+      })
       .then((data) => {
         if (data.status === 200) return data.data;
       })
@@ -90,8 +99,8 @@ function App() {
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
         <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
-        <Route path='/uploadPhoto' component={UpladPhoto}/>;
-        <Route exact path='/callback' component={Auth0Callback} />
+        <Route path="/uploadPhoto" component={UpladPhoto} />;
+        <Route exact path="/callback" component={Auth0Callback} />
       </BrowserRouter>
     </div>
   );
