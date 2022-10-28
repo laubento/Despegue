@@ -93,7 +93,6 @@ export default function Cart() {
     useEffect(() => {
         if (selectedFlight.length > 0) {
             dispatch(addFlightToCart(selectedFlight));
-            // dispatch(addFlightToCart(asistant))
         }
         if (asistant.type) {
             dispatch(addFlightToCart([asistant]))
@@ -117,13 +116,13 @@ export default function Cart() {
         // dispatch(getPaymentInfo(prueba))
         localStorage.setItem('onCart', false)
         history.push('/purchase');
-        dispatch(clearCart())
+        // dispatch(clearCart())
     }
-    localStorage.setItem('onCart', true)
+    
     let ultimaBusqueda = JSON.parse(localStorage.getItem('busqueda'))
     const handleRebuscar = async (e) => {
         e.preventDefault();
-
+        
         if (ultimaBusqueda.tripType === 'onewaytrip') {
             setDisplay(true)
             if (flights.length === 0) {

@@ -134,8 +134,20 @@ export default function reducer(state = initialState, action) {
                 flights: filteringFlights,
             };
         case FILTER_FLIGHT_BY_ID:
-            const a = state.flights;
-            const flight = a.filter(el => el.id === action.payload);
+            let a;
+            if (state.onFirstFlightRoute) {
+                a = state.allFirstFlights;
+            } else if (state.onSecondFlightRoute) {
+                a = state.allSecondFlighs;
+            } else {
+                a = state.flights;
+            }
+            // const a = state.flights;
+            
+            let flight = a.filter(el => el.id === action.payload);
+            if(flight.length === 0){
+                flight = state.allFlights.filter(el => el.id === action.payload)
+            }
             return {
                 ...state,
                 flightDetail: flight

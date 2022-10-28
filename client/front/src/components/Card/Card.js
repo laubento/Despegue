@@ -31,7 +31,6 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
   }
 
   let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
-
   const handleDelete = (e) => {
     e.preventDefault();
     if (cartRespaldo !== null) {
@@ -94,7 +93,7 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
             </div>
             <div className="col-3 Card-Detalles">
               <Link to={`/flights/flightDetail/${id}`} style={{ textDecoration: 'none' }}>
-                <h5>Detalles</h5>
+                <h5 onClick={handleClickDetail} >Detalles</h5>
               </Link>
             </div>
           </div>
