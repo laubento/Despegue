@@ -8,11 +8,6 @@ const router = Router();
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
 
-    const token = jwt.sign( user , 'secretcode', { expiresIn: '24h' } )
-    res.status(200).send(token))
-
-
-
     if (!user) return res.sendStatus(400);
 
     User.findOne({ email: user.email })
@@ -35,7 +30,8 @@ router.post("/getUser", async (req, res) => {
                 id: userDB.id,
                 subId: userDB.subId
             }
-            return res.status(200).send(userData);
+            const token = jwt.sign( userData , 'secretcode', { expiresIn: '24h' } )
+            return res.status(200).send(token);
         } else {
             // Si no existe lo agrego a la DB
             new User({
@@ -55,7 +51,8 @@ router.post("/getUser", async (req, res) => {
             })
             .save()
             .then((newUser) => {
-                res.status(200).send(newUser);
+                const token = jwt.sign( newUser , 'secretcode', { expiresIn: '24h' } )
+                res.status(200).send(token);
             })
             .catch((err) => {
                 console.log("CATCH AUTH0" + err);
