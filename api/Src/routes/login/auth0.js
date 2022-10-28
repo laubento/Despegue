@@ -9,6 +9,7 @@ router.post("/getUser", async (req, res) => {
     const { user } = req.body;
 
     const token = jwt.sign( user , 'secretcode', { expiresIn: '24h' } )
+    res.status(200).send(token))
 
 
 
