@@ -12,10 +12,9 @@ export default function Record() {
     let record = JSON.parse(localStorage.getItem('record'))
     let names = JSON.parse(localStorage.getItem('names'))
 
-    useEffect(e =>{
-        dispatch(clearFlights())
-        dispatch(clearCart())
-    },[dispatch])
+    // useEffect(e =>{
+    //     dispatch(clearFlights())
+    // },[dispatch])
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -29,7 +28,7 @@ export default function Record() {
         }
         localStorage.setItem('tripType', record[e.target.value].tripType)
         // dispatch(clearCart())
-        // dispatch(clearFlights())
+        dispatch(clearFlights())
     }
 
     return (

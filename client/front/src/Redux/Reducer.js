@@ -5,8 +5,8 @@ import roundTripExample from './roundTripExapmle';
 const initialState = {
     allFlights: [],
     flights: [],
-    allFlights: roundTripExample,
-    flights: roundTripExample,
+    // allFlights: roundTripExample,
+    // flights: roundTripExample,
     // allFlights: oneWayTripExample,
     // flights: oneWayTripExample,
     firstFlights: [],
@@ -42,7 +42,8 @@ export default function reducer(state = initialState, action) {
         case CLEAR_FLIGHTS:
             return {
                 ...state,
-                flights: []
+                flights: [],
+                allFlights: [],
             }
         case CLEAR_FLIGHT_DETAIL:
             return {
