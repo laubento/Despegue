@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const User = require("../../../models/user");
-const auth = require("../admin/validate-session");
+const User = require("../../../../models/user");
+const auth = require("../../admin/validate-session");
 const axios = require("axios");
+const utils = require('./verifyToken');
 
 const router = Router();
 
@@ -77,29 +78,10 @@ router.put("/delete", auth.isUser, (req, res) => {
 });
 
 router.post("/verify", async (req, res) => {
+
     const { user } = req.body;
-    let token
-    const tokenOptions = {
-        method: "POST",
-        url: "https://dev-5n2ukjrth20df1by.us.auth0.com/oauth/token",
-        headers: { "content-type": "application/json" },
-        data: {
-            client_id: "oA7zX2g8LLcgo6Yb0u1Kk0nO2mPlDeom",
-            client_secret: "t2tdD39fS3r-H8fsjnWOaVtbafYg4jbx2jGpY2SIxMSb_4t-CgD0mQ33odtDR7uI",
-            audience: "https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/",
-            grant_type: "client_credentials",
-        },
-    };
-    await axios(tokenOptions)
-        .then((response) => { return response.data })
-        .then((response) => {
-            token = response.token_type + " " + response.access_token
-        })
-        .catch((e) => {
-            console.log(e);
-        })
-
-
+    
+    const token = await utils.getToken()
     const mailOptions = {
         method: "POST",
         url: `https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email`,

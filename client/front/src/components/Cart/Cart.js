@@ -92,7 +92,7 @@ export default function Cart() {
     const handleClick = async (e) => {
         localStorage.setItem('callbackUrl', window.location.pathname)
         if(!user) alerts.notLogedForPurchase(loginWithRedirect)
-        else if (!user.verify) alerts.notVerify()
+        else if (!user.verify) alerts.NotVerify()
         if(tripType === 'roundtrip' && cart.length === 1){
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
            return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
@@ -103,7 +103,7 @@ export default function Cart() {
         }
         localStorage.setItem('callbackUrl', window.location.pathname)
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
-        else if(!user.verify) return alerts.notVerify()
+        else if(!user.verify) return alerts.NotVerify()
         else {
             await dispatch(getPayment(prueba))
             history.push('/purchase')
