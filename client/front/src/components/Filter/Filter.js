@@ -4,8 +4,10 @@ import { filterFlights, searchAirline, clearFilters } from '../../Redux/Actions'
 import '../styles/Filter.css'
 import ReactPaginate from "react-paginate";
 
-export default function Filter({paginado, number}) {
+export default function Filter({paginado, number, dataSource, arregloDeArreglos, setLength, length, setHasMore, ds}) {
+    
     let dispatch = useDispatch();
+
     let [filters, setFilters] = useState({
         minPrice: 'default',
         maxPrice: 'default',
@@ -18,6 +20,7 @@ export default function Filter({paginado, number}) {
             type: 'default'
         }
     })
+
     let [valueSlide, setValueSlide] = useState({
         maxP: 0,
         maxD: 0,
@@ -26,39 +29,83 @@ export default function Filter({paginado, number}) {
 
     const rangeChange = (e) => {
         e.preventDefault();
-
+        window.scrollTo(0,0)
         setFilters({
             ...filters,
             [e.target.name]: e.target.value
         })
         validate()
-        paginado(1)
-        number = 1
+        // paginado(1)
+        // number = 1
+        console.log('rangechange')
+        // if(flights.length === 0)
+        console.log('ds1', ds)
+       setLength(0)
+    //     if(length === arregloDeArreglos.length){
+    //         return setHasMore(false)
+    //    }else{
+    //      setHasMore(true)
+    //    }
+       // dataSource(arregloDeArreglos[length])
+       setHasMore(true)
+       dataSource([])
+       dataSource((prevData) => prevData)
+       console.log('ds2', ds)
     }
 
     const handleSelect = (e) => {
         e.preventDefault();
-        
+        window.scrollTo(0,0)
         setFilters({
             ...filters,
             order: e.target.value 
         })
         validate()
-        paginado(1)
-        number = 1
+        // paginado(1)
+        // number = 1
+        console.log('handleselect')
+       setLength(0)
+    //     if(length === arregloDeArreglos.length){
+    //         return setHasMore(false)
+    //    }else{
+    //      setHasMore(true)
+    //    }
+       // dataSource(arregloDeArreglos[length])
+       setHasMore(true)
+       dataSource([])
+       dataSource((prevData) => prevData)
+
+
     }
 
     const handleChange = (e) =>{
+        window.scrollTo(0,0)
         setSlider({
             ...slider,
             [e.target.name]: e.target.value
         })
         validate()
-        paginado(1)
-        number = 1
+        // paginado(1)
+        // number = 1
+        console.log('handlechange')
+    //     if(length === arregloDeArreglos.length){
+    //         return setHasMore(false)
+    //    }else{
+    //      setHasMore(true)
+    //    }
+    setLength(0)
+    setHasMore(true)
+       // dataSource(arregloDeArreglos[length])
+       
+       dataSource([])
+       dataSource((prevData) => prevData)
+
+
+
     }
 
     const handleClick = () => {
+        window.scrollTo(0,0)
         setFilters({
             minPrice: valueSlide.minP,
             maxPrice: valueSlide.maxP,
@@ -69,8 +116,22 @@ export default function Filter({paginado, number}) {
                 type: 'default'
             }
         })
-        paginado(1)
-        number = 1
+        // paginado(1)
+        // number = 1
+        
+    //     if(length === arregloDeArreglos.length){
+    //         return setHasMore(false)
+    //    }else{
+    //      setHasMore(true)
+    //    }
+        setLength(0)
+       setHasMore(true)
+       // dataSource(arregloDeArreglos[length])
+       
+       dataSource([])
+       dataSource((prevData) => prevData)
+
+
     }
 
 
@@ -134,7 +195,12 @@ export default function Filter({paginado, number}) {
 
     const handleChangeAirline = (e) => {
         e.preventDefault();
+        window.scrollTo(0,0)
         if(e.target.value === ''){
+            setLength(0)
+            setHasMore(true)
+            dataSource([])
+        dataSource(prevData => prevData)
            return setFilters({
                 ...filters,
                 findAirline:{
@@ -150,8 +216,18 @@ export default function Filter({paginado, number}) {
                 type: 'find'
             }
         })
-        paginado(1)
-        number = 1        
+
+        // if(length === arregloDeArreglos.length){
+        //      return setHasMore(false)
+        // }else{
+        //   setHasMore(true)
+        // }
+        // dataSource(arregloDeArreglos[length])
+        setHasMore(true)
+        setLength(0)
+        dataSource([])
+        dataSource((prevData) => prevData)
+
     }
 
     return (
