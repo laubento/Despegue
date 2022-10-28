@@ -62,13 +62,14 @@ function App() {
   }, [dispatch, user, logout]);
 
   const axiosCookies = async () => {
-    const cookie = document.cookie.replace("token=", "");
+    const cookie = document.cookie.split("token=");
+
     const mailOptions = {
       method: "POST",
       url: "/auth0/verifyCookies",
       headers: {
         "content-type": "application/json",
-        authorization: cookie,
+        authorization: cookie[1],
       },
     };
 
