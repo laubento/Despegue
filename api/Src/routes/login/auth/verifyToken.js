@@ -22,6 +22,7 @@ const getToken = async () => {
         .catch((e) => {
             console.log(e);
         })
+    console.log(token);
     return token
 }
 

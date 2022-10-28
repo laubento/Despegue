@@ -8,7 +8,6 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
-    console.log(user);
 
     if (!user) return res.sendStatus(400);
 
@@ -16,7 +15,6 @@ router.post("/getUser", async (req, res) => {
         .select("-password")
         .then((userDB) => {
             if (userDB) {
-                console.log(userDB);
                 const userData = {
                     name: userDB.name || userDB.nickname,
                     firstName: userDB.firstName || userDB.nickname,
@@ -80,7 +78,7 @@ router.put("/delete", auth.isUser, (req, res) => {
 router.post("/verify", async (req, res) => {
 
     const { user } = req.body;
-    
+
     const token = await utils.getToken()
     const mailOptions = {
         method: "POST",
@@ -92,6 +90,10 @@ router.post("/verify", async (req, res) => {
         data: {
             user_id: user.sub,
             client_id: "F7456018hKT6q2IfLLoRlVcnZewaCpLJ",
+            identity: {
+                user_id: user.sub.split("|")[1],
+                provider: user.sub.split('|')[0]
+              },
         },
     };
 
