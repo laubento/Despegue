@@ -21,13 +21,16 @@ function Success(props) {
     if (!user && user2) user = user2;
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
+    let vuelos = vuelo.filter((e) => e.asistant === undefined)
+    let asistant = vuelo.filter((e) => e.asistant)
 
     useEffect(() => {
       if(user && vuelo !== null){
         let obj = {
           user: user ? user : null,
-          flight: vuelo,
-          info: infoBusqueda
+          flight: vuelos,
+          info: infoBusqueda,
+          asistant: asistant
         }
         axios.post('/users/purchaseComplete', obj)
         .then((e) => {

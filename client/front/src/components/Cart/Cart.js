@@ -25,7 +25,6 @@ export default function Cart() {
     let asistant = useSelector((state) => state.asistant);
     if (!asistant.type) {
         asistant = JSON.parse(localStorage.getItem('asistant'))
-        console.log('entre')
     }
     console.log(asistant)
     if (!user && user2) user = user2;
@@ -44,8 +43,8 @@ export default function Cart() {
         localStorage.setItem('cartRespaldo', JSON.stringify(cart))
     }
 
-    // console.log(cart)
-    // console.log(cartRespaldo)
+    console.log(cart)
+    console.log(cartRespaldo)
     let items =
         cart.length > 0
             ? cart.map((el) => ({
@@ -54,7 +53,7 @@ export default function Cart() {
                 picture_url: "http://www.myapp.com/myimage.jpg",
                 category_id: "category123",
                 quantity: 1,
-                unit_price: parseInt(el.price)
+                unit_price: parseInt(el.price),
             }))
             : cartRespaldo !== null
                 ? cartRespaldo.map((el) => ({
@@ -66,7 +65,7 @@ export default function Cart() {
                     unit_price: parseInt(el.price)
                 }))
                 : ''
-    // console.log(items)
+    console.log(items)
 
     const prueba = {
         body: {
@@ -94,8 +93,12 @@ export default function Cart() {
     useEffect(() => {
         if (selectedFlight.length > 0) {
             dispatch(addFlightToCart(selectedFlight));
+            // dispatch(addFlightToCart(asistant))
         }
-    }, [dispatch, selectedFlight])
+        if (asistant.type) {
+            dispatch(addFlightToCart([asistant]))
+        }
+    }, [dispatch, selectedFlight, asistant])
     const handleClick = async (e) => {
         if (tripType === 'roundtrip' && cart.length === 1) {
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
@@ -142,17 +145,18 @@ export default function Cart() {
             history.push('/flights/roundtrip/firstFlight');
             return dispatch(clearCart())
         }
-
-
     }
+    let cartSinAsistencias = cart.length ? cart.filter((e) => e.asistant === undefined) : null
+    let cartSinAsistenciasRespaldo = cartRespaldo ? cartRespaldo.filter((e) => e.asistant === undefined) : null
     return (
         <div className='container-xxl'>
             <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
             {
                 items !== ''
                     ? cart.length > 0
-                        ? cart.map((e, i) => {
-                            return (
+                        ? cartSinAsistencias.map((e, i) => {
+                            {
+                               return(
                                 <div key={i} className='d-flex justify-content-center'>
                                     <Card
                                         id={e.id}
@@ -173,11 +177,12 @@ export default function Cart() {
                                         cart={true}
                                     />
                                 </div>
-                            )
+                                )
+                            }
                         })
-                        : cartRespaldo.map((e, i) => {
-                            return (
-                                <div key={i} className='d-flex justify-content-center'>
+                        : cartSinAsistenciasRespaldo.map((e, i) => {
+                            {
+                             return( !e.asistant ? <div key={i} className='d-flex justify-content-center'>
                                     <Card
                                         cabin={e.cabinClass}
                                         departureName={e.departureAirportName}
@@ -196,8 +201,8 @@ export default function Cart() {
                                         hideButton={true}
                                         cart={true}
                                     />
-                                </div>
-                            )
+                                </div> : null)
+                            }
                         })
                     : ''
             }

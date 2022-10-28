@@ -19,7 +19,8 @@ function Home(props) {
   const history = useHistory()
   const [cancel, setCancel] = useState('')
   let display = localStorage.getItem('display')
-  let vuelo = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
+  let vuelos = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
+  let vuelo = vuelos ? vuelos.filter((e) => e.asistant === undefined) : null
   console.log(vuelo)
   // useEffect(e => {
   //   dispatch(listUsers())

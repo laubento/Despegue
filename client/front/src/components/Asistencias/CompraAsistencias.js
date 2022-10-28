@@ -13,7 +13,8 @@ export default function CompraAsistencias() {
             type: asistencia,
             price: precio,
             days: dias,
-            people: personas
+            people: personas,
+            asistant: true
         }
         dispatch(setAsistencias(obj))
         localStorage.setItem('asistant', JSON.stringify(obj))
