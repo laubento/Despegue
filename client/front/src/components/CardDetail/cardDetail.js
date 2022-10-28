@@ -21,6 +21,9 @@ export default function CardDetail(){
         if ((flightsCart.length === 1 && !onSecondFlightRoute) || flightsCart.length >=2) {
             return history.push('/flights/roundtrip/cart')
         }
+        if(onCart === 'true'){
+            return history.push('/flights/roundtrip/cart')
+        }
         if (!onFirstFlightRoute && !onSecondFlightRoute) {
             return history.push('/flights')
         }
@@ -30,9 +33,7 @@ export default function CardDetail(){
         if (!onFirstFlightRoute && onSecondFlightRoute) {
             return history.push('/flights/roundtrip/secondFlight')
         }
-        if(onCart === 'true'){
-            return history.push('/flights/roundtrip/cart')
-        }
+        
     }
 
     const handleClickCart = (e) => {
@@ -47,6 +48,7 @@ export default function CardDetail(){
         return `${hs} h ${mins} m`;
     }
     console.log(onCart)
+    console.log(flightDetail)
     return(
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">
