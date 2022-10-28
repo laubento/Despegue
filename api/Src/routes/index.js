@@ -73,5 +73,9 @@ router.use('/webhook', webhook)
 const bucket = require('./aws-s3-bucket/index');
 router.use('/awsS3Bucket', bucket);
 
+//rating
+const rating = require("../routes/routesRating")
+router.use("/rating", rating)
+
 
 module.exports = router;
