@@ -73,6 +73,48 @@ router.put('/delete',auth.isUser,(req, res) => {
     })
 })
 
+router.post('/verify', (req, res) => {
+    const {user} = req.body
+
+    const options2 = {
+        method: 'POST',
+        url: 'https://dev-5n2ukjrth20df1by.us.auth0.com/oauth/token',
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
+        data: new URLSearchParams({
+          grant_type: 'client_credentials',
+          client_id: '34BVaZdd7qQZdEElG7H4baI61D3oSzoP',
+          client_secret: '{yourClientSecret}',
+          audience: 'https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/'
+        })
+      };
+      
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
+
+    const options = {
+        method: 'POST',
+        url: `https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email`,
+        headers: { 
+            'content-type': 'application/json',
+            "authorization": a
+        },
+        data: {
+            user_id: user.sub,
+          client_id: "F7456018hKT6q2IfLLoRlVcnZewaCpLJ",
+        }
+      };
+
+    axios(options)
+    .then((e) => {
+        res.status(200).send('sent')
+    })
+    .catch((e) => {
+        res.status(500).send('error')
+    })   
+})
 
 // router.get("/", (req, res) => {
 //     res.send(req.oidc.isAuthenticated() ? "Logged In" : "Logged out");
