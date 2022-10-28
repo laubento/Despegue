@@ -7,6 +7,7 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
+    console.log(user);
 
     if (!user) return res.sendStatus(400);
 
