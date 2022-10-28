@@ -14,6 +14,7 @@ export default function Record() {
 
     useEffect(e =>{
         dispatch(clearFlights())
+        dispatch(clearCart())
     },[dispatch])
 
     const handleClick = (e) => {
@@ -27,8 +28,8 @@ export default function Record() {
             history.push('/flights/roundtrip/firstFlight');
         }
         localStorage.setItem('tripType', record[e.target.value].tripType)
-        dispatch(clearCart())
-        dispatch(clearFlights())
+        // dispatch(clearCart())
+        // dispatch(clearFlights())
     }
 
     return (
