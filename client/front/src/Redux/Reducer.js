@@ -114,7 +114,7 @@ export default function reducer(state = initialState, action) {
             }
             if (findAirline.type === 'find') {
                 filteringFlights = filteringFlights.filter(e =>
-                    e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
+                    e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload.toLowerCase()))
                 )
             }
             if (state.onSecondFlightRoute) {
