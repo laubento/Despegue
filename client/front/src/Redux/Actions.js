@@ -21,6 +21,7 @@ export const CLEAR_FLIGHT_DETAIL = 'CLEAR_FLIGHT_DETAIL';
 export const CREATE_OFFERS = 'CREATE_OFFERS';
 export const HISTORY_LIST = 'HISTORY_LIST';
 export const DELETE_FLIGHT = 'DELETE_FLIGHT'
+export const GET_RATING = 'GET_RATING'
 
 export function getFlights(flight) {
     const tripType = flight.tripType;
@@ -261,6 +262,16 @@ export const deleteFlight = (id) => {
         payload: id
     }
  };
+
+export const getAllRatings = () => {
+    return async function(dispatch){
+        const data = await axios.get("/rating/getAllRatings")
+            return dispatch({
+                type:GET_RATING,
+                payload: data
+            })
+    }
+}
 
 export const clearCart = () => {
     return{
