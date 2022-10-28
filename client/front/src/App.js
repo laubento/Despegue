@@ -18,6 +18,8 @@ import RoundtripFF from "./components/Flights/RoundtripFF";
 import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
 import Help from "./components/Help/Help";
+import AsistenciasCard from "./components/Asistencias/AsistenciasCard";
+import CompraAsistencias from "./components/Asistencias/CompraAsistencias";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -28,6 +30,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Auth0Callback from "./auth0callback";
 import Admin from "./components/Admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import ChatBot from "./components/ChatBot/ChatBot";
 import UpladPhoto from "./components/UploadPhoto";
 
 function App() {
@@ -60,6 +63,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" render={() => <Login />} />
@@ -86,8 +90,10 @@ function App() {
         <Route path="/" component={Footer} />
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
-        <Route path='/uploadPhoto' component={UpladPhoto}/>;
+        <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>
         <Route exact path='/callback' component={Auth0Callback} />
+        <Route exact path={"/flights/roundtrip/asistant"} component={CompraAsistencias} />
       </BrowserRouter>
     </div>
   );

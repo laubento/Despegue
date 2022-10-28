@@ -18,7 +18,6 @@
     height: max-content;
 }
 
-
 .card-airline-box-one{
     display: flex;
     justify-content: center;
@@ -80,4 +79,165 @@
     position: absolute;
     top: 4px;
     right: 4px;
+}
+/*  */
+.Card-ContainerCard-Flights{
+    width: 100%;
+}
+.Card-ContainerPrincipal{
+    width: 80%;
+    height: 100px;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.267);
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px 0px;
+    position: relative;
+}
+.Card-Cabezara{
+    display: flex;
+    align-items: center;
+}
+.Card-IdaVuelta{
+    background-color: rgb(111, 11, 138);
+    padding: 3px 8px;
+    font-size: 13px;
+    border-radius: 20px;
+    color: white;
+}
+.Card-NameAirport{
+    font-size: 12px;
+}
+.Card-Row{
+    height: 70px;
+}
+.Card-ContainerAerolinea2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Card-ContainerAerolinea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.Card-ContainerAerolinea img{
+    width: 30px;
+}
+.Card-Cabin{
+    font-size: 12px;
+}
+.Card-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.Card-ContainerAerolinea h3{
+    font-size: 15px;
+    text-align: center;
+    margin: 0px;
+    position: relative;
+    user-select: none;
+    color: rgb(56, 56, 56);
+}
+.Card-MoreAirlines:hover > div{
+    display: block;
+}
+.Card-MoreDesplegable{
+    display: none;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.404);
+    position: absolute;
+    top: 0;
+    right: 1;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+}
+.Card-Info1{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.Card-Info1 h4{
+    margin: 0px;
+    font-size: 15px;
+    color: rgb(70, 70, 70);
+    font-weight: bold;
+}
+.Card-Info1 h4 label{
+    font-size: 14px;
+    color: gray;
+}
+.Card-Info2{
+    margin: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Card-Info2 p{
+    margin: 0px;
+    font-size: 13px;
+    color: rgb(46, 46, 46);
+}
+.Card-Detalles{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Card-Detalles h5{
+    font-size: 13px;
+    padding: 3px 7px;
+    border-radius: 10px;
+    background-color: rgb(111, 11, 138);
+    color: aliceblue;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.Card-Detalles h5:hover{
+    background-color: rgb(166, 9, 209);
+}
+.Card-Precio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Card-Precio p{
+    margin: 0px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+.Card-Precio p label{
+    margin: 0px;
+    font-size: 25px;
+    color: rgb(255, 145, 0);
+    font-weight: bold;
+}
+.Card-Siguiente{
+    border: 0;
+    background-color: rgb(111, 11, 138);
+    color: aliceblue;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+.Card-Siguiente:hover{
+    background-color: rgb(146, 0, 187);
+}
+.Card-Borrar{
+    border: 0;
+    background-color: rgb(206, 1, 1);
+    color: aliceblue;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+.Card-Borrar:hover{
+    background-color: rgb(250, 0, 0);
+}
+.Card-Border{
+    border-left: solid 1px rgba(0, 0, 0, 0.267);
 }

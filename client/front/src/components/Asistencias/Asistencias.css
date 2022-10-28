@@ -1,0 +1,151 @@
+.Asistencias-Container{
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    border-radius: 9px;
+    margin: 30px;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.473);
+    transition: all 0.3s;
+    background-color: rgb(255, 255, 255);
+}
+.Asistencias-Container:hover{
+    border: 1px solid rgba(0, 0, 0, 0.452);
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.76);
+    transform: scale(1.01);
+}
+.Asistencias-IMG{
+    width: 100%;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.Asistencias-Cabecera{
+    position: relative;
+}
+.Asistencias-Cabecera p{
+    background-color: rgb(68, 0, 255);
+    position: absolute;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: aliceblue;
+    bottom: -25px;
+    right: 35%;
+    font-size: 13px;
+}
+.Asistencias-Info p{
+    font-size: 14px;
+    margin: 4px 0px;
+    color: rgb(65, 65, 65);
+}
+.Asistencias-ContainerPrecio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Asistencias-ContainerPrecio h5{
+    padding: 3px 8px;
+    background-color: rgb(68, 0, 255);
+    color: white;
+    border-radius: 20px;
+} 
+.Asistencias-PrecioTotal{
+    /* background-color:rgba(68, 0, 255, 0.295); */
+    color: rgb(2, 2, 2);
+    border-radius: 20px;
+    padding: 3px 8px;
+    /* width: 50%; */
+}
+.Asistencias-Selec{
+    border: 0;
+    background-color: rgb(68, 0, 255);
+    color: white;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.Asistencias-Selec:hover{
+    background-color: rgb(255, 166, 0);
+    color: black;
+}
+.Asistencias-PrecioTotal label{
+    font-size: 10px;
+}
+.Asistencias-ContainerPrecio h5 label{
+    font-size: 10px;
+} 
+.Asistencias-dias{
+    font-size: 10px;
+    margin: 0;
+}
+.Asistencias-Fondo{
+    background: url('../../Images/Asistencias/Background.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+}
+.Asistencias-Borde{
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.39);
+    background-color: white;
+}
+.Asistencias-Condiciones img{
+    width: 100%;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.959);
+}
+.Asistencias-Condiciones{
+    padding-bottom: 10px;
+}
+body{
+    margin: 0px;
+}
+.Asistencias-ContainerCompra{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.Asistencia-ContainerPreCompra{
+    width: 80%;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.959);
+    background-color: white;
+    border-radius: 20px;
+}
+.Asistencia-ContainerPreCompra img{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 160px;
+    height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, 0.26);
+}
+.Asistencia-InfoPreCompra{
+    border-right: 1px solid rgba(0, 0, 0, 0.26);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Asistencia-PreCompraPrice{
+    display: flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+.Asistencia-Pobres{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 0;
+    padding: 5px 10px;
+}
+.Asistencia-Pobres button{
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: rgb(68, 0, 255);
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.Asistencia-Pobres button:hover{
+    background-color: rgb(255, 166, 0);
+    color: black;
+}

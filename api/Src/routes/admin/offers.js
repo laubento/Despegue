@@ -58,8 +58,23 @@ router.put('/delete',(req, res) => {
   Offers.updateOne({_id: _id}, {
       $set: {active: false}
   })
+
+  res.status(200).send("Offer Deleted")
   .catch((er) =>{
       console.log(er);
+  })
+})
+
+router.put("/activate", (req,res) => {
+  const {_id} = req.body
+  
+  Offers.updateOne({_id: _id}, {
+      $set: {active: true}
+  })
+
+  res.status(200).send("Offer Activated")
+  .catch((err)=>{
+      console.log(err);
   })
 })
 

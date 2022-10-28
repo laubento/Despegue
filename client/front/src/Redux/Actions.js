@@ -289,3 +289,10 @@ export const clearCart = () => {
         type: "CLEAR_CART"
     }
 }
+export const setAsistencias = (obj) => {
+    console.log(obj)
+    return{
+        type: "SET_ASISTENCIAS",
+        payload: obj
+    }
+}
