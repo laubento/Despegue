@@ -31,7 +31,8 @@ router.post("/getUser", async (req, res) => {
                 id: userDB.id,
                 subId: userDB.subId
             }
-            const token = jwt.sign( userData , 'secretcode', { expiresIn: '24h' } )
+            const user = userData
+            const token = jwt.sign( user , 'secretcode', { expiresIn: '24h' } )
             return res.status(200).send(token);
         } else {
             // Si no existe lo agrego a la DB
@@ -52,7 +53,8 @@ router.post("/getUser", async (req, res) => {
             })
             .save()
             .then((newUser) => {
-                const token = jwt.sign( newUser , 'secretcode', { expiresIn: '24h' } )
+                const user = newUser
+                const token = jwt.sign( user , 'secretcode', { expiresIn: '24h' } )
                 res.status(200).send(token);
             })
             .catch((err) => {
@@ -64,7 +66,13 @@ router.post("/getUser", async (req, res) => {
 });
 
 router.post('/verifyCookies', (req, res) => {
-    const token = req.headers
+    const token = req.headers['authorization']
+    jwt.verify(token, 'secretcode', (err, user) => {
+        if (err) {
+            res.status(400).send('no authorized');
+        } else {
+            res.send(200).send('boa mano', user);
+    }
 })
 
 router.put('/delete',auth.isUser,(req, res) => {
