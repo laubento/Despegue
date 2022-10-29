@@ -18,6 +18,7 @@ export default function Record() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        dispatch(clearFlights())
         localStorage.setItem('busqueda', JSON.stringify(record[e.target.value]))
         dispatch(getFlights(record[e.target.value]));
         
@@ -28,7 +29,7 @@ export default function Record() {
         }
         localStorage.setItem('tripType', record[e.target.value].tripType)
         // dispatch(clearCart())
-        dispatch(clearFlights())
+        // dispatch(clearFlights())
     }
 
     return (
