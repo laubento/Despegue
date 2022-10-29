@@ -80,8 +80,8 @@ function RoundtripSF() {
   }
 
 
-  const [length, setLength] = useState(1)
-  const [dataSource, setDataSource] = useState(arregloDeArreglos[0])
+  const [length, setLength] = useState(0)
+  const [dataSource, setDataSource] = useState([])
   const [hasMore, setHasMore] = useState(true)
   // console.log('dS',dataSource)
   // setDataSource(arregloDeArreglos[length])

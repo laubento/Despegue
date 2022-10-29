@@ -44,8 +44,8 @@ let arregloDeArreglos = []; // Aquí almacenamos los nuevos arreglos
 	    arregloDeArreglos.push(pedazo);
 }
 
-const [length, setLength] = useState(1)
-const [dataSource, setDataSource] = useState(arregloDeArreglos[0])
+const [length, setLength] = useState(0)
+const [dataSource, setDataSource] = useState([])
 const [hasMore, setHasMore] = useState(true)
 
 const fetchMoreData = () => {
