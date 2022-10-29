@@ -102,7 +102,7 @@ export default function Cart() {
         }
         localStorage.setItem('callbackUrl', window.location.pathname)
 
-        //validaciones usuarios
+        //validaciones usuario
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
         else if(user.email === "") return alerts.noEmail(history)
         else if(!user.verify) return alerts.notVerify()
