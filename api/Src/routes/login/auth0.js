@@ -33,7 +33,7 @@ router.post("/getUser", async (req, res) => {
       };
       const user = userData;
       const token = jwt.sign(user, "secretcode", { expiresIn: "24h" });
-      return res.status(200).send(token);
+      return res.status(200).send({ user, token });
     } else {
       // Si no existe lo agrego a la DB
       new User({
@@ -55,7 +55,7 @@ router.post("/getUser", async (req, res) => {
         .then((newUser) => {
           const user = newUser;
           const token = jwt.sign(user, "secretcode", { expiresIn: "24h" });
-          res.status(200).send(token);
+          res.status(200).send({ user, token });
         })
         .catch((err) => {
           console.log("CATCH AUTH0" + err);

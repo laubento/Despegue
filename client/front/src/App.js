@@ -43,18 +43,19 @@ function App() {
       .then((data) => {
         if (data.status === 200) return data.data;
       })
-      .then((user) => {
-        console.log(user);
-        document.cookie = `token=${user}; max=age=${60 * 3}; path=/;`;
+      .then((resp) => {
+        console.log(resp);
+        const { user, token } = resp;
+        document.cookie = `token=${token}; max=age=${60 * 3}; path=/;`;
         console.log(document.cookie + "COOKIE");
-        // if (user.active && !user.banned) {
-        // window.localStorage.setItem("user", JSON.stringify(user));
-        // dispatch(storeUserInfo(user));
-        // } else if (!user.active && !user.banned) {
-        //   return activeAcc(logout);
-        // } else if (!user.active && user.banned) {
-        //   bannedAcc(logout);
-        // }
+        if (user.active && !user.banned) {
+          window.localStorage.setItem("user", JSON.stringify(user));
+          dispatch(storeUserInfo(user));
+        } else if (!user.active && !user.banned) {
+          return activeAcc(logout);
+        } else if (!user.active && user.banned) {
+          bannedAcc(logout);
+        }
       })
       .catch((err) => {
         console.log("usuario no logueado");
