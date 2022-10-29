@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
-import { addFlightToCart, deleteFlight, filterFlightById } from "../../Redux/Actions";
+import { addFlightToCart, deleteFlight, filterFlightById, setAsistencias } from "../../Redux/Actions";
 import '../styles/Card.css'
 import Logo from "../../Images/Logo.png";
 
@@ -25,22 +25,31 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
       return history.push('/flights/roundtrip/secondFlight');
     }
   }
-
+  console.log(id)
   const handleClickDetail = (e) => {
+    console.log('handleClickdetail')
+    console.log(id)
     dispatch(filterFlightById(id))
   }
 
   let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
   const handleDelete = (e) => {
     e.preventDefault();
+    console.log('hoolaa')
     if (cartRespaldo !== null) {
       if (cartRespaldo.length > 1) {
         let flightsRestantes = cartRespaldo.filter(e => e.id !== id)
         localStorage.setItem('cartRespaldo', JSON.stringify(flightsRestantes))
       }
-      if (cartRespaldo.length === 1) {
+      if (cartRespaldo.length === 2) {
+        let assistant = JSON.parse(localStorage.getItem('asistant'))
+        assistant = null 
+        localStorage.setItem('asistant', assistant)
+        console.log('cr 2')
+        cartRespaldo.shift()
         cartRespaldo.shift()
         console.log(cartRespaldo)
+        dispatch(setAsistencias(assistant))
         localStorage.setItem('cartRespaldo', JSON.stringify(cartRespaldo))
         swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
       }
@@ -91,9 +100,9 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
                 <h4><label>{arrivalCode}</label></h4>
               </div>
             </div>
-            <div className="col-3 Card-Detalles">
-              <Link to={`/flights/flightDetail/${id}`} style={{ textDecoration: 'none' }}>
-                <h5 onClick={handleClickDetail} >Detalles</h5>
+            <div className="col-3 Card-Detalles" >
+              <Link to={`/flights/flightDetail/${id}`} style={{ textDecoration: 'none' }} className='card-link'>
+                <button onClick={handleClickDetail} >Detalles</button>
               </Link>
             </div>
           </div>

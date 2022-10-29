@@ -47,6 +47,8 @@ function Success(props) {
         localStorage.removeItem('cartRespaldo')
         localStorage.removeItem('detail')
         localStorage.removeItem('init_point')
+        localStorage.removeItem('asistant')
+        localStorage.removeItem('busqueda')
       }
     
       }

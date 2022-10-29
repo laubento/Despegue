@@ -187,16 +187,27 @@
     align-items: center;
     justify-content: center;
 }
-.Card-Detalles h5{
+.Card-Detalles button{
     font-size: 13px;
-    padding: 3px 7px;
+    padding: 4px 9px;
     border-radius: 10px;
     background-color: rgb(111, 11, 138);
     color: aliceblue;
     cursor: pointer;
     transition: all 0.3s;
+    border: none;
 }
-.Card-Detalles h5:hover{
+
+.Card-Detalles .card-link{
+    background-color: red;
+    padding: 0px 0px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    border: none;
+
+}
+
+.Card-Detalles button:hover{
     background-color: rgb(166, 9, 209);
 }
 .Card-Precio{
