@@ -9,17 +9,20 @@ import { succesAlert } from "../../utils/alerts";
 
 export default function Configuracion() {
 
-    let user = useSelector((state) => state.user);
-    const user2 = JSON.parse(window.localStorage.getItem("user"));
-  
-    if (!user && user2) user = user2;
+  let user = useSelector((state) => state.user);
+  const user2 = JSON.parse(window.localStorage.getItem("user"));
+
+  if (!user && user2) user = user2;
 
   const [active, setActive] = useState(true);
+  const [save, setSave] = useState(true);
 
   function changeValue(valores) {
+    console.log('enre')
     let obj = {
       email: valores.email ? valores.email : user.email,
       password: valores.password ? valores.password : null,
+      newPassword: valores.newPassword ? valores.newPassword : null,
     };
     axios({
       method: "PUT",
@@ -31,6 +34,7 @@ export default function Configuracion() {
       })
       .catch((e) => console.log(e));
   }
+
 
   return (
     <div className="Configuracion-containerBox">
@@ -49,23 +53,36 @@ export default function Configuracion() {
             initialValues={{
               email: user ? user.email : "",
               password: "",
+              newPassword: "",
+              repeatPassword: "",
             }}
             validate={(valores) => {
-              let errores = {};
 
+              let errores = {};
+              setSave(true)
               if (!valores.password) {
                 errores.password = "Por favor, introduzca una contraseña";
+              }
+              if (!valores.repeatPassword) {
+                errores.repeatPassword = "Por favor, introduzca una contraseña";
+              }
+              if (!valores.newPassword) {
+                errores.newPassword = "Por favor, introduzca una contraseña";
               } else if (
                 !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(
-                  valores.password
+                  valores.newPassword
                 )
               ) {
-                errores.password = `Minimo 8 caracteres, Maximo 16 caracteres`;
-                errores.passwordd =
+                errores.newPassword = `Minimo 8 caracteres, Maximo 16 caracteres`;
+                errores.newPasswordd =
                   "Al menos un digito, al menos una minuscula y una mayuscula";
-                errores.passworddd = "Sin espacios";
+                errores.newPassworddd = "Sin espacios";
+              } else if (valores.newPassword !== valores.repeatPassword) {
+                errores.repeatPassword = "Tiene que ser la misma contraseña que arriba";
               }
-
+              if (Object.values(errores).length === 0) {
+                setSave(false)
+              }
               return errores;
             }}
             onSubmit={(valores, { resetForm }) => {
@@ -108,7 +125,7 @@ export default function Configuracion() {
                         <div className="error">{errors.password}</div>
                       )}
                     />
-                    <ErrorMessage
+                    {/* <ErrorMessage
                       name="password"
                       component={() => (
                         <div className="error">{errors.passwordd}</div>
@@ -119,13 +136,64 @@ export default function Configuracion() {
                       component={() => (
                         <div className="error">{errors.passworddd}</div>
                       )}
-                    />
+                    /> */}
+                    {!active ?
+                      <div className="Configuracion-ContainerInput">
+                        <label htmlFor="newPassword">Ingresá tu nueva contraseña</label>
+                        <Field
+                          type="password"
+                          id="newPassword"
+                          name="newPassword"
+                          placeholder={'*****'}
+                          disabled={active}
+                        />
+                        <ErrorMessage
+                          name="newPassword"
+                          component={() => (
+                            <div className="error">{errors.newPassword}</div>
+                          )}
+                        />
+                        <ErrorMessage
+                          name="newPassword"
+                          component={() => (
+                            <div className="error">{errors.newPasswordd}</div>
+                          )}
+                        />
+                        <ErrorMessage
+                          name="newPassword"
+                          component={() => (
+                            <div className="error">{errors.newPassworddd}</div>
+                          )}
+                        />
+                        <label htmlFor="repeatPassword">Repetí tu nueva contraseña</label>
+                        <Field
+                          type="password"
+                          id="repeatPassword"
+                          name="repeatPassword"
+                          placeholder={'*****'}
+                          disabled={active}
+                        />
+                        <ErrorMessage
+                          name="repeatPassword"
+                          component={() => (
+                            <div className="error">{errors.repeatPassword}</div>
+                          )}
+                        />
+                        <ErrorMessage
+                          name="repeatPassword"
+                          component={() => (
+                            <div className="error">{errors.repeatPasswordd}</div>
+                          )}
+                        />
+                      </div> : null
+                    }
                   </div>
                   <div className="Configuracion-BotonCancelar">
                     <button
                       type={"submit"}
                       className="btn btn-primary btn-sm Configuracion-sub"
-                      disabled={active}
+                      disabled={save}
+                      // onClick={() => handleSubmit()}
                     >
                       Guardar
                     </button>
