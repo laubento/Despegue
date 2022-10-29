@@ -8,6 +8,7 @@ import Loader from "../Loader/Loader.js";
 import './Cart.css'
 import * as alerts from '../../utils/alerts'
 import dotenv from "dotenv";
+// import _ from 'lodash'
 import { useAuth0 } from '@auth0/auth0-react';
 dotenv.config();
 
@@ -91,8 +92,6 @@ export default function Cart() {
     }, [dispatch, selectedFlight])
     const handleClick = async (e) => {
         localStorage.setItem('callbackUrl', window.location.pathname)
-        if(!user) alerts.notLogedForPurchase(loginWithRedirect)
-        else if (!user.verify) alerts.NotVerify()
         if(tripType === 'roundtrip' && cart.length === 1){
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
            return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
@@ -102,8 +101,11 @@ export default function Cart() {
            return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
         }
         localStorage.setItem('callbackUrl', window.location.pathname)
+
+        //validaciones usuarios
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
-        else if(!user.verify) return alerts.NotVerify()
+        else if(user.email === "") return alerts.noEmail(history)
+        else if(!user.verify) return alerts.notVerify()
         else {
             await dispatch(getPayment(prueba))
             history.push('/purchase')

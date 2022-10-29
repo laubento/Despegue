@@ -76,7 +76,7 @@ export const notLogedForPurchase = (loginWithRedirect) => {
     })
 }
 
-export const NotVerify = () => {
+export const notVerify = () => {
     const user = JSON.parse(window.localStorage.getItem('user'))
     swal2.fire({
         title: "Necesitar verificar el email antes de realizar una compra",
@@ -106,4 +106,19 @@ export const NotVerify = () => {
     .catch((error) => {
         return swal2.fire("Ha ocurrido un error con el envio de mail");
     })
+}
+
+export const noEmail = (history) => {
+    swal2.fire({
+        title: "Falta completar datos de tu perfil",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonText: "Ir al perfil",
+        denyButtonText: "Cerrar",
+        showLoaderOnConfirm: true,
+    })
+    .then((result) => {
+        if(result.isConfirmed) history.push('/user')
+    })
+    .catch((e) => console.log(e))
 }

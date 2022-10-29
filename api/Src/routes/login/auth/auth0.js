@@ -45,7 +45,7 @@ router.post("/getUser", async (req, res) => {
                     phone: "",
                     birthDate: "",
                     membership: false,
-                    verify: user.email_verified || false,
+                    verify: false,
                     active: true,
                     banned: false,
                     sub: user.sub,
