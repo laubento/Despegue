@@ -32,11 +32,8 @@ const initialState = {
     offersList: [],
     listHistory: [],
     history: [],
-<<<<<<< HEAD
-    rating:[]
-=======
+    rating:[],
     asistant: {}
->>>>>>> develop
 };
 
 export default function reducer(state = initialState, action) {
