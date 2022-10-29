@@ -40,14 +40,14 @@ export function getFlights(flight) {
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        // const flights = await axios.post(`/flights/${tripType}`, { flight })
-        const flights = oneWayTripExample;
+        const flights = await axios.post(`/flights/${tripType}`, { flight })
+        // const flights = oneWayTripExample;
         // const flights = roundTripExample;
             
         if (!names) {
             // names = [flights.data[0]]
             names = [flights];
-        } else if (!names.find(e => e.departureAirportName[0] === flights.data[0].departureAirportName[0] && e.arrivalAirportName[0] === flights.data[0].arrivalAirportName[0]) ) {
+        } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
             console.log('ENTREEE')
             names.unshift(flights.data[0])
         }
@@ -56,7 +56,7 @@ export function getFlights(flight) {
 
         return dispatch({
             type: GET_FLIGHTS,
-            payload: flights
+            payload: flights.data
         })
     }
 }
