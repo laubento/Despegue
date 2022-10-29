@@ -21,16 +21,16 @@ export default function FlightsSearch() {
     const [activateTo, setActivateTo] = useState(false)
     const [p, setP] = useState(0)
     const [flights, setFlights] = useState({
-        // tripType:'onewaytrip',
-        // departurePlace: '',
-        // arrivalPlace: '',
-        // departureDate: '',
-        // returningDate: '',
-        // cabinClass: 'Economy',
-        // adults: 1,
-        // children: 0,
-        // infants: 0,
-        // currency: 'USD'
+        tripType:'onewaytrip',
+        departurePlace: '',
+        arrivalPlace: '',
+        departureDate: '',
+        returningDate: '',
+        cabinClass: 'Economy',
+        adults: 1,
+        children: 0,
+        infants: 0,
+        currency: 'USD'
         // tripType:'roundtrip',
         // departurePlace: 'EZE',
         // arrivalPlace: 'LIM',
@@ -41,16 +41,16 @@ export default function FlightsSearch() {
         // children: 0,
         // infants: 0,
         // currency: 'USD'
-        tripType:'onewaytrip',
-        departurePlace: 'EZE',
-        arrivalPlace: 'LIM',
-        departureDate: '2022-12-01',
-        returningDate: '',
-        cabinClass: 'Economy',
-        adults: 1,
-        children: 0,
-        infants: 0,
-        currency: 'USD'
+        // tripType:'onewaytrip',
+        // departurePlace: 'EZE',
+        // arrivalPlace: 'LIM',
+        // departureDate: '2022-12-01',
+        // returningDate: '',
+        // cabinClass: 'Economy',
+        // adults: 1,
+        // children: 0,
+        // infants: 0,
+        // currency: 'USD'
     })
     const [errors, setErrors] = useState({
         allEmpty: '',
@@ -116,7 +116,6 @@ export default function FlightsSearch() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // validaciones
         if(flights.departurePlace === '' || flights.arrivalPlace === ''){
             return setErrors({
                 allEmpty: 'faltan rellenar campos!',
@@ -130,11 +129,9 @@ export default function FlightsSearch() {
                 returningEmpty:  'Falta fecha de vuelta!'
             })
         }
-
         localStorage.setItem('busqueda', JSON.stringify(flights))
-       
+        dispatch(clearFlights())
         dispatch(getFlights(flights));
-        // dispatch(clearFlights())
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
