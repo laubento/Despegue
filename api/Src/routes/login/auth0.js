@@ -2,6 +2,7 @@ const { Router } = require("express");
 const User = require("../../../models/user");
 const auth = require("../admin/validate-session");
 const jwt = require("jsonwebtoken");
+const { isUser, isAdmin } = require("./verifyToken");
 
 const router = Router();
 
@@ -64,15 +65,10 @@ router.post("/getUser", async (req, res) => {
   });
 });
 
-router.post("/verifyCookies", (req, res) => {
-  const token = req.headers["authorization"];
-
-  jwt.verify(token, "secretcode", (err, user) => {
-    if (err) {
-      res.status(400).send("no authorized");
-    } else {
-      res.status(200).send(user);
-    }
+router.post("/verifyCookies", isAdmin, (req, res) => {
+  console.log("Admin route!!!!");
+  res.json({
+    message: "Admin Route!!!!",
   });
 });
 

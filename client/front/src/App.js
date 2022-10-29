@@ -60,7 +60,7 @@ function App() {
         console.log("usuario no logueado");
       });
   }, [dispatch, user, logout]);
-  
+
   const axiosCookies = async () => {
     const cookie = document.cookie.split("token=");
 
