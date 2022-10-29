@@ -66,8 +66,8 @@ router.post("/getUser", async (req, res) => {
 });
 
 router.post("/verifyCookies", isAdmin, (req, res) => {
-  console.log("Admin route!!!!");
-  res.json({
+//   console.log("Admin route!!!!");
+  res.status(200).json({
     message: "Admin Route!!!!",
   });
 });
