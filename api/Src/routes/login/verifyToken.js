@@ -18,7 +18,6 @@ const isUser = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   const token = req.headers["authorization"];
-
   jwt.verify(token, "secretcode", (err, user) => {
     if (err) {
       return res.status(401).send({

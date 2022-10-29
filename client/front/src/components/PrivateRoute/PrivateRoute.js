@@ -6,64 +6,58 @@ import Admin from "../Admin/Admin";
 import axios from "axios";
 
 export default function PrivateRoute({ component, ...rest }) {
-    let dispatch = useDispatch();
+  let dispatch = useDispatch();
 
-    // useEffect(e => {
-    //     dispatch(listUsers())
-    // }, [dispatch])
+  // useEffect(e => {
+  //     dispatch(listUsers())
+  // }, [dispatch])
 
-    // let usersList = useSelector(state => state.listUsers)
+  // let usersList = useSelector(state => state.listUsers)
 
-    // let user = useSelector((state) => state.user);
-    // const user2 = JSON.parse(window.localStorage.getItem("user"));
+  // let user = useSelector((state) => state.user);
+  // const user2 = JSON.parse(window.localStorage.getItem("user"));
 
-    // if (!user && user2) user = user2;
-    const cookie = document.cookie.split("token=");
+  // if (!user && user2) user = user2;
 
-    const mailOptions = {
-        method: "POST",
-        url: "/auth0/verifyCookies",
-        headers: {
-            "content-type": "application/json",
-        },
+  const mailOptions = {
+    method: "POST",
+    url: "/auth0/verifyCookies",
+    headers: {
+      "content-type": "application/json",
+    },
+  };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const g = async () => {
+      await axios(mailOptions)
+        .then((data) => {
+          return data.data;
+        })
+        .then((response) => setUser(response))
+        .catch((e) => setUser("notAdmin"));
     };
+    g();
+  }, []);
 
-    const [user, setUser] = useState(null)
+  console.log(user);
 
-    useEffect(() => {
-        const g = async () => {
-            await axios(mailOptions)
-                .then((data) => {
-                    return data.data;
-                })
-                .then((response) => (setUser(response)))
-                .catch((e) => setUser('notAdmin'));
-        };
-        g();
-    },[])
+  if (!user) return <h1>loa</h1>;
 
+  // console.log(userRole)
+  // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
+  // if (userRole) {
+  //     dispatch(addUserRole(userRole))
+  //   }
+  // console.log(userRole)
 
-    console.log(user);
-
-
-    if(!user) return <h1>loa</h1>
-  
-    // console.log(userRole)
-    // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
-    // if (userRole) {
-    //     dispatch(addUserRole(userRole))
-    //   }
-    // console.log(userRole)
-
-    return (
-        <>
-
-                <Route {...rest}>
-                    {console.log(user)}
-                    { user == "admin" ? <Admin /> : <Redirect to={"/"} />}
-                </Route>
-
-
-        </>
-    );
+  return (
+    <>
+      <Route {...rest}>
+        {console.log(user)}
+        {user == "admin" ? <Admin /> : <Redirect to={"/"} />}
+      </Route>
+    </>
+  );
 }

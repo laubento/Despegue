@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const User = require("../../../models/user");
 const router = Router();
-const { isAuthenticated } = require("./validate-session");
+const { isAdmin } = require("../login/verifyToken");
 
-router.get("/users", async (req, res) => {
+router.get("/users", isAdmin, async (req, res) => {
   try {
     let users = await User.find({});
     res.send(users);
@@ -12,7 +12,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/user", isAuthenticated, async (req, res) => {
+router.post("/user", isAdmin, async (req, res) => {
   try {
     if (req.body.email) {
       let user = await User.findOne({ email: req.body.email });
@@ -28,7 +28,7 @@ router.post("/user", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/userupdate", async (req, res) => {
+router.put("/userupdate", isAdmin, async (req, res) => {
   try {
     let { email, name, roles, active, banned, membership } = req.body.user;
 

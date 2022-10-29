@@ -62,29 +62,11 @@ function App() {
       });
   }, [dispatch, user, logout]);
 
-  const axiosCookies = async () => {
-    const cookie = document.cookie.split("token=");
-
-    const mailOptions = {
-      method: "POST",
-      url: "/auth0/verifyCookies",
-      headers: {
-        "content-type": "application/json",
-        authorization: cookie[1],
-      },
-    };
-
-    axios(mailOptions).then((data) => {
-      console.log(data);
-    });
-  };
-
   console.log(document.cookie);
 
   return (
     <div className="App">
       <BrowserRouter>
-        <button onClick={() => axiosCookies()}>Cookies</button>
         <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />

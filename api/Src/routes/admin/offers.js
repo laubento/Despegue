@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const Offers = require("../../../models/offers");
-const { isAuthenticated } = require("./validate-session");
+const { isAdmin } = require("../login/verifyToken");
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   // console.log(req.body)
   try {
     await Offers.create({
@@ -26,10 +26,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/getoffers", async (req, res) => {
+router.get("/getoffers", isAdmin, async (req, res) => {
   try {
     const offers = await Offers.find({ active: true });
-    
+
     if (offers.length) return res.send(offers);
     res.send("No hay ofertas disponibles");
   } catch (e) {
@@ -37,13 +37,13 @@ router.get("/getoffers", async (req, res) => {
   }
 });
 
-router.put("/offer", async (req, res) => {
+router.put("/offer", isAdmin, async (req, res) => {
   try {
     const { _id, price } = req.body.offer;
     if (!_id) return res.send("Datos incorrects");
     const offer = await Offers.updateOne(
       { _id: _id },
-      { $set: { price: price} }
+      { $set: { price: price } }
     );
     res.send("Oferta actualizada");
   } catch (e) {
@@ -51,16 +51,17 @@ router.put("/offer", async (req, res) => {
   }
 });
 
-router.put('/delete',(req, res) => {
-  
-  const {_id} = req.body
-  
-  Offers.updateOne({_id: _id}, {
-      $set: {active: false}
-  })
-  .catch((er) =>{
-      console.log(er);
-  })
-})
+router.put("/delete", isAdmin, (req, res) => {
+  const { _id } = req.body;
+
+  Offers.updateOne(
+    { _id: _id },
+    {
+      $set: { active: false },
+    }
+  ).catch((er) => {
+    console.log(er);
+  });
+});
 
 module.exports = router;
