@@ -12,6 +12,7 @@ function Success(props) {
     const query = new URLSearchParams(props.location.search);
     const status = query.get('status')
     const payment_id = query.get('payment_id')
+    let infoBusqueda = JSON.parse(window.localStorage.getItem("busqueda"));
 
     let user = useSelector(state => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
@@ -20,12 +21,16 @@ function Success(props) {
     if (!user && user2) user = user2;
     //binarymode
     let vuelo = JSON.parse(localStorage.getItem('detail'))
+    let vuelos = vuelo.filter((e) => e.asistant === undefined)
+    let asistant = vuelo.filter((e) => e.asistant)
 
     useEffect(() => {
       if(user && vuelo !== null){
         let obj = {
           user: user ? user : null,
-          flight: vuelo
+          flight: vuelos,
+          info: infoBusqueda,
+          asistant: asistant
         }
         axios.post('/users/purchaseComplete', obj)
         .then((e) => {
@@ -42,6 +47,8 @@ function Success(props) {
         localStorage.removeItem('cartRespaldo')
         localStorage.removeItem('detail')
         localStorage.removeItem('init_point')
+        localStorage.removeItem('asistant')
+        localStorage.removeItem('busqueda')
       }
     
       }

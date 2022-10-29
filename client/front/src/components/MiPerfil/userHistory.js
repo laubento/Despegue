@@ -13,7 +13,6 @@ export default function UserHistory() {
 
   const history = useSelector((state) => state.history);
   console.log(history);
-  console.log(user);
   const dispatch = useDispatch();
   useEffect(() => {
     if (user) {

@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import { GET_FLIGHTS, GET_RATING, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY, CREATE_OFFERS, HISTORY_LIST, DELETE_FLIGHT } from "./Actions";
 import roundTripExample from './roundTripExapmle';
+=======
+import { GET_FLIGHTS, FILTER_FLIGHTS, FILTER_FLIGHT_BY_ID, CLEAR_FLIGHTS, SEARCH_AIRPORT_FROM, SEARCH_AIRPORT_TO, STORE_USER_INFO, BUY_FLIGHTS, GET_ROUNDTRIP_FF, GET_ROUNDTRIP_SF, ADD_FLIGHT_TO_CART, SET_FF_TRUE, SET_SF_TRUE, CLEAR_FLIGHT_DETAIL, USERS_LIST, OFFERS_LIST, ADD_USER_ROLE, GET_HISTORY, CREATE_OFFERS, HISTORY_LIST, DELETE_FLIGHT } from "./Actions";
+// import roundTripExample from './roundTripExapmle';
+>>>>>>> develop
 // import oneWayTripExample from './oneWayTripExample';
 
 const initialState = {
     allFlights: [],
     flights: [],
-    allFlights: roundTripExample,
-    flights: roundTripExample,
+    // allFlights: roundTripExample,
+    // flights: roundTripExample,
     // allFlights: oneWayTripExample,
     // flights: oneWayTripExample,
     firstFlights: [],
@@ -27,7 +32,11 @@ const initialState = {
     offersList: [],
     listHistory: [],
     history: [],
+<<<<<<< HEAD
     rating:[]
+=======
+    asistant: {}
+>>>>>>> develop
 };
 
 export default function reducer(state = initialState, action) {
@@ -35,15 +44,16 @@ export default function reducer(state = initialState, action) {
         case GET_FLIGHTS:
             return {
                 ...state,
-                // flights: roundTripExample,
-                // allFlights: roundTripExample,
+                // flights: oneWayTripExample,
+                // allFlights: oneWayTripExample,
                 flights: action.payload,
                 allFlights: action.payload
             };
         case CLEAR_FLIGHTS:
             return {
                 ...state,
-                flights: []
+                flights: [],
+                allFlights: [],
             }
         case CLEAR_FLIGHT_DETAIL:
             return {
@@ -114,7 +124,7 @@ export default function reducer(state = initialState, action) {
             }
             if (findAirline.type === 'find') {
                 filteringFlights = filteringFlights.filter(e =>
-                    e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload))
+                    e.airlinesNames.find(e => e.toLowerCase().includes(findAirline.payload.toLowerCase()))
                 )
             }
             if (state.onSecondFlightRoute) {
@@ -133,8 +143,20 @@ export default function reducer(state = initialState, action) {
                 flights: filteringFlights,
             };
         case FILTER_FLIGHT_BY_ID:
-            const a = state.flights;
-            const flight = a.filter(el => el.id === action.payload);
+            let a;
+            if (state.onFirstFlightRoute) {
+                a = state.allFirstFlights;
+            } else if (state.onSecondFlightRoute) {
+                a = state.allSecondFlighs;
+            } else {
+                a = state.flights;
+            }
+            // const a = state.flights;
+            
+            let flight = a.filter(el => el.id === action.payload);
+            if(flight.length === 0){
+                flight = state.allFlights.filter(el => el.id === action.payload)
+            }
             return {
                 ...state,
                 flightDetail: flight
@@ -233,31 +255,35 @@ export default function reducer(state = initialState, action) {
                 history: action.payload
             }
         case "SEND_MAIL_COMPRA":
-        
-        return{
-            ...state,
-        }
-        case DELETE_FLIGHT : 
-        let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload) 
 
-        console.log(state.flightsCart)
-            return{
-              ...state,
-              flightsCart: flightsRestantes
+            return {
+                ...state,
+            }
+        case DELETE_FLIGHT:
+            let flightsRestantes = state.flightsCart.filter(e => e.id !== action.payload)
+
+            console.log(state.flightsCart)
+            return {
+                ...state,
+                flightsCart: flightsRestantes
             }
 
-        case "CLEAR_CART": 
-        return{
-            ...state,
-            flightsCart: []
-        }
-        
         case GET_RATING:
             return{
                 ...state,
                 rating: action.payload
             }
 
+        case "CLEAR_CART":
+            return {
+                ...state,
+                flightsCart: []
+            }
+        case "SET_ASISTENCIAS":
+            return{
+                ...state,
+                asistant: action.payload
+            }
         default:
             return state;
     }
