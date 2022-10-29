@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import swal from 'sweetalert'
 import { Link, useHistory } from 'react-router-dom';
-import { addFlightToCart, clearCart, clearFlights, getFlights, getPayment, getPaymentInfo } from '../../Redux/Actions';
+import { addFlightToCart, clearCart, clearFlightDetail, clearFlights, getFlights, getPayment, getPaymentInfo } from '../../Redux/Actions';
 import Card from '../Card/Card';
 import Loader from "../Loader/Loader.js";
 import AsistCard from '../Asistencias/AsistCart';
@@ -19,14 +19,21 @@ export default function Cart() {
     const { loginWithRedirect } = useAuth0();
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const onFirstFlightRoute = useSelector((state) => state.onFirstFlightRoute);
+    const onSecondFlightRoute = useSelector((state) => state.onSecondFlightRoute);
     let user = useSelector((state) => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
     let asistant = useSelector((state) => state.asistant);
-    if (!asistant.type) {
-        asistant = JSON.parse(localStorage.getItem('asistant'))
+    
+
+    if(asistant !== null){
+        if (!asistant.type) {
+            console.log('!asistantType')
+            asistant = JSON.parse(localStorage.getItem('asistant'))
+        }
     }
-    console.log(asistant)
+
+    
     if (!user && user2) user = user2;
 
     // global states
@@ -39,12 +46,13 @@ export default function Cart() {
     let cart = useSelector((state) => state.flightsCart)
     let tripType = localStorage.getItem('tripType')
     let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
-    if (cart.length > 0) {
+    if (cart.length > 1) {
+        console.log(cart)
         localStorage.setItem('cartRespaldo', JSON.stringify(cart))
     }
-
-    console.log(cart)
-    console.log(cartRespaldo)
+    // if(cart.length === 1){
+    //     cart = []
+    // }
     let items =
         cart.length > 0
             ? cart.map((el) => ({
@@ -65,7 +73,6 @@ export default function Cart() {
                     unit_price: parseInt(el.price)
                 }))
                 : ''
-    console.log(items)
 
     const prueba = {
         body: {
@@ -91,19 +98,62 @@ export default function Cart() {
     // const test = cart.filter(el => el.id === selectedFlight.id)
 
     useEffect(() => {
+        if(selectedFlight.length === 0){
+            return;
+        }else{    
+        if(onFirstFlightRoute === false && onSecondFlightRoute === false) {
+            console.log('ida')
+            if(cart.length > 1 ){
+                if(cartRespaldo !== null){
+                    if(cartRespaldo.length > 1){
+                        return;
+                    }
+                }
+                return;
+            }
+            if(asistant === null){
+                console.log('assistant null')
+                return;
+            }
+            if (selectedFlight.length > 0) {
+                dispatch(addFlightToCart(selectedFlight));
+            }
+            if (asistant.type) {
+                console.log('asistant')
+              return  dispatch(addFlightToCart([asistant]))
+            }
+        }
+        if(selectedFlight.length === 0){
+            return;
+        }
+        if(cart.length > 2 ){
+            if(cartRespaldo !== null){
+                if(cartRespaldo.length > 2){
+                    return;
+                }
+            }
+            return;
+        }
+        if(asistant === null){
+            console.log('assistant null')
+            return;
+        }
         if (selectedFlight.length > 0) {
             dispatch(addFlightToCart(selectedFlight));
         }
         if (asistant.type) {
+            console.log('asis')
             dispatch(addFlightToCart([asistant]))
+        }
         }
     }, [dispatch, selectedFlight, asistant])
     const handleClick = async (e) => {
-        if (tripType === 'roundtrip' && cart.length === 1) {
+        
+        if (tripType === 'roundtrip' && cart.length === 2) {
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
             return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
         }
-        if (tripType === 'roundtrip' && cartRespaldo.length === 1) {
+        if (tripType === 'roundtrip' && cartRespaldo.length === 2) {
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
             return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
         }
@@ -147,6 +197,8 @@ export default function Cart() {
     }
     let cartSinAsistencias = cart.length ? cart.filter((e) => e.asistant === undefined) : null
     let cartSinAsistenciasRespaldo = cartRespaldo ? cartRespaldo.filter((e) => e.asistant === undefined) : null
+    // console.log('cartSinAsis', cartSinAsistencias)
+    // console.log('cartsinasisRes', cartSinAsistenciasRespaldo)
     return (
         <div className='container-xxl'>
             <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
@@ -213,7 +265,7 @@ export default function Cart() {
 
             {
                 cartRespaldo === undefined || cartRespaldo === null ? '' :
-                    cartRespaldo.length === 0 ?
+                cartSinAsistenciasRespaldo.length === 0  ?
                         <div>
                             {/* <div className='d-flex justify-content-center m-4'>
                         <span className='text-center font-weight-bold h3 FlightSearch-errorsText cart-vacio'>Su carrito está vacío.</span>

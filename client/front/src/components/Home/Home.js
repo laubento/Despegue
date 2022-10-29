@@ -43,7 +43,7 @@ function Home(props) {
     e.preventDefault();
     display = false
     localStorage.setItem('display', display)
-    return history.push('/purchase')
+    return history.push('/flights/roundtrip/cart')
   }
 
   const handleClickCancelar = async (e) => {
