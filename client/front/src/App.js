@@ -79,6 +79,8 @@ function App() {
     });
   };
 
+  console.log(document.cookie);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -111,7 +113,7 @@ function App() {
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
         <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
-        <Route path="/uploadPhoto" component={UpladPhoto} />;
+        <Route path="/uploadPhoto" component={UpladPhoto} />
         <Route exact path="/callback" component={Auth0Callback} />
       </BrowserRouter>
     </div>

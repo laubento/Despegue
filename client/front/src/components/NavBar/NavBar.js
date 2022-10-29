@@ -46,6 +46,7 @@ const closeSession = () => {
         denyButtonText: `No`,
     }).then((result) => {
         if (result.isConfirmed) {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             logout({ returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000" });
             window.localStorage.removeItem("user");
             window.localStorage.removeItem("sinLog");

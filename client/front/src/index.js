@@ -9,9 +9,9 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import dotenv from "dotenv";
 dotenv.config();
 
-const token = document.cookie.split("token=");
+const token = document.cookie.split('token=').pop().split(';')[0];
 axios.defaults.baseURL = process.env.REACT_APP_HEROKU_URL || "http://localhost:3001";
-axios.defaults.headers.common["authorization"] = token[1];
+axios.defaults.headers.common["authorization"] = token;
 
 ReactDOM.render(
   <Provider store={store}>

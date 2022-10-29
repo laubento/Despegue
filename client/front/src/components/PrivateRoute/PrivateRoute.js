@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { addUserRole, listUsers } from "../../Redux/Actions";
@@ -7,7 +7,6 @@ import axios from "axios";
 
 export default function PrivateRoute({ component, ...rest }) {
     let dispatch = useDispatch();
-    let user;
 
     // useEffect(e => {
     //     dispatch(listUsers())
@@ -29,14 +28,26 @@ export default function PrivateRoute({ component, ...rest }) {
         },
     };
 
+    const [user, setUser] = useState(null)
 
-        axios(mailOptions)
-        .then((data) => {
+    useEffect(() => {
+        const g = async () => {
+            await axios(mailOptions)
+                .then((data) => {
+                    return data.data;
+                })
+                .then((response) => (setUser(response)))
+                .catch((e) => setUser('notAdmin'));
+        };
+        g();
+    },[])
 
-        })
-        .catch((e) => console.log(e));
-    
 
+    console.log(user);
+
+
+    if(!user) return <h1>loa</h1>
+  
     // console.log(userRole)
     // let userRole = usersList.length !== 0 && user ? usersList.find(e => e.email === user.email) : null
     // if (userRole) {
@@ -45,8 +56,14 @@ export default function PrivateRoute({ component, ...rest }) {
     // console.log(userRole)
 
     return (
-        <Route {...rest}>
-            {user === "admin" ? <Admin /> : <Redirect to={"/"} />}
-        </Route>
+        <>
+
+                <Route {...rest}>
+                    {console.log(user)}
+                    { user == "admin" ? <Admin /> : <Redirect to={"/"} />}
+                </Route>
+
+
+        </>
     );
 }
