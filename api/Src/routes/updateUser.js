@@ -42,12 +42,14 @@ router.post("/", async (req, res) => {
 
 // Cambiar contrasena
 router.put("/changePassword", isUser, async (req, res) => {
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const {id} = req.body
+    const {email} = req.body
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
 
   try {
     const updateUser = await User.updateOne(
-      { email: req.body.email },
-      { $set: { password: hashedPassword } }
+        { _id: id },
+        { $set: { password: hashedPassword, email: email } }
     );
     return res.send("Exitoso");
   } catch (err) {
