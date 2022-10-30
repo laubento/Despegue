@@ -94,8 +94,8 @@ export default function DatosPersonales({ user, setUser }) {
               } else {
                 errores.lastName = "Por favor proporcione un apellido";
               }
-
-              if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(valores.email)) errores.email = 'Email inválido'
+              if (!valores.email) errores.email = "Por favor, introduzca un email"
+              else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(valores.email)) errores.email = 'Email inválido'
 
               // Validaciones Telefono
               if (!/^[ 0-9]*$/.test(valores.phone)) {
