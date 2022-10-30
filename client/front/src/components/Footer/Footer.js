@@ -41,7 +41,6 @@ export default function Footer() {
                             </div>
 
                         </div>
-
                     </nav>
                 </div>
             </footer>

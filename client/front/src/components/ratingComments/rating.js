@@ -17,7 +17,9 @@ export default function Rating(){
     console.log(rating)
     return(
         <div className="containerRating">
-            <RatingForm/>
+            <div>
+                <RatingForm/>
+            </div>
             {rating.length && rating.map((element) => {
                 return( 
                     <RatingCard name={element.userData[0].firstName} photo={element.userData[0].photo} description={element.description}

@@ -64,7 +64,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path={"/"} render={() => <Rating/>} />
         <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
@@ -96,6 +95,7 @@ function App() {
         <Route path='/uploadPhoto' component={UpladPhoto}/>
         <Route exact path='/callback' component={Auth0Callback} />
         <Route exact path={"/flights/roundtrip/asistant"} component={CompraAsistencias} />
+        <Route path={"/feedBack"} component={Rating}/>
       </BrowserRouter>
     </div>
   );
