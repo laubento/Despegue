@@ -8,10 +8,12 @@ const router = Router();
 
 router.post("/getUser", async (req, res) => {
     const { user } = req.body;
-
+    let search = {}
     if (!user) return res.sendStatus(400);
+    if (!user.email) search = { sub: user.sub }
+    else search = { email: user.email }
 
-    User.findOne({ email: user.email })
+    User.findOne( search )
         .select("-password")
         .then((userDB) => {
             if (userDB) {
@@ -25,7 +27,7 @@ router.post("/getUser", async (req, res) => {
                     photo: userDB.picture || userDB.photo,
                     banned: userDB.banned,
                     membership: userDB.membership,
-                    email: userDB.email,
+                    email: userDB.email === userDB.sub ? '' : userDB.email,
                     active: userDB.active,
                     roles: userDB.roles,
                     verify: userDB.verify,
@@ -40,19 +42,22 @@ router.post("/getUser", async (req, res) => {
                     firstName: user.given_name || user.nickname,
                     lastName: user.family_name,
                     photo: user.picture,
-                    email: user.email || "",
+                    email: user.email || user.sub,
                     dni: "",
                     phone: "",
                     birthDate: "",
                     membership: false,
-                    verify: user.sub.split('|')[0] === 'facebook ' ? true : false,
+                    verify: user.sub.split('|')[0] === 'facebook' ? true : false,
                     active: true,
                     banned: false,
                     sub: user.sub,
                 })
                     .save()
                     .then((newUser) => {
-                        res.status(200).send(newUser);
+                        newUser.password = ""
+                        newUser.email = newUser.verify ? '' : newUser.email
+                        console.log(newUser);
+                        return res.status(200).send(newUser);
                     })
                     .catch((err) => {
                         console.log("CATCH AUTH0" + err);
