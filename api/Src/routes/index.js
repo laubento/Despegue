@@ -29,8 +29,8 @@ router.use("/admin", adminUsers);
 router.use("/admin/offers", offers);
 router.use("/admin/history", history);
 
-const auth0 = require('./login/auth0')
-router.use('/auth0', auth0)
+const auth = require('./login/auth/auth0')
+router.use('/auth0', auth)
 
 // router.use("/auth", auth);
 // router.use("/login", login);

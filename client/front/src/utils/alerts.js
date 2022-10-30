@@ -1,4 +1,5 @@
 import swal2 from "sweetalert2";
+import axios from "axios";
 
 export const activeAcc = (log) => {
   swal2
@@ -71,6 +72,53 @@ export const notLogedForPurchase = (loginWithRedirect) => {
         denyButtonText: "Cerrar"
     })
     .then((result) => {
-        if(result.isConfirmed) loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+        if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
     })
+}
+
+export const notVerify = () => {
+    const user = JSON.parse(window.localStorage.getItem('user'))
+    swal2.fire({
+        title: "Necesitar verificar el email antes de realizar una compra",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonText: "Enviar mail de confirmacion",
+        showDenyButton:true,
+        denyButtonText: "Cerrar",
+        showLoaderOnConfirm: true,
+        user: user,
+        preConfirm: async () => {
+                    await axios.post('/auth0/verify', { user })
+                        .then((response) => {
+                            return response.data
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+        },
+        allowOutsideClick: () => !swal2.isLoading()
+    })
+    .then((result) => {
+        if(result.isConfirmed){
+            return swal2.fire("Mail enviado con exito")
+        }
+    })
+    .catch((error) => {
+        return swal2.fire("Ha ocurrido un error con el envio de mail");
+    })
+}
+
+export const noEmail = (history) => {
+    swal2.fire({
+        title: "Falta completar datos de tu perfil",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonText: "Ir al perfil",
+        denyButtonText: "Cerrar",
+        showLoaderOnConfirm: true,
+    })
+    .then((result) => {
+        if(result.isConfirmed) history.push('/user')
+    })
+    .catch((e) => console.log(e))
 }

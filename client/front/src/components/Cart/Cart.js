@@ -9,6 +9,7 @@ import AsistCard from '../Asistencias/AsistCart';
 import './Cart.css'
 import * as alerts from '../../utils/alerts'
 import dotenv from "dotenv";
+// import _ from 'lodash'
 import { useAuth0 } from '@auth0/auth0-react';
 dotenv.config();
 
@@ -158,15 +159,17 @@ export default function Cart() {
             return swal('Has seleccionado ida y vuelta, falta un vuelo.', '', 'warning')
         }
         localStorage.setItem('callbackUrl', window.location.pathname)
-        if (!user) alerts.notLogedForPurchase(loginWithRedirect)
+
+        //validaciones usuario
+        if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
+        else if(user.email === "") return alerts.noEmail(history)
+        else if(!user.verify) return alerts.notVerify()
         else {
-            await dispatch(getPayment(prueba))
+            // await dispatch(getPayment(prueba))
+            localStorage.setItem('onCart', false)
             history.push('/purchase')
+            // dispatch(clearCart())
         }
-        // dispatch(getPaymentInfo(prueba))
-        localStorage.setItem('onCart', false)
-        history.push('/purchase');
-        // dispatch(clearCart())
     }
     
     let ultimaBusqueda = JSON.parse(localStorage.getItem('busqueda'))
