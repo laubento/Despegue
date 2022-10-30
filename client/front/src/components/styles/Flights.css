@@ -58,3 +58,23 @@
     margin-right: 10px;
 }
 
+.loader-scroll{
+    margin-top: 200px;
+    margin-bottom: 50px;
+}
+
+.scroll{
+    cursor: pointer;
+}
+
+.back-top{
+    text-decoration: none;
+    color: rgb(169, 42, 203);
+    font-weight: bold;
+    margin-left: 15px;
+    text-decoration: underline;
+}
+
+.back-top-div{
+    font-size: 19px;
+}

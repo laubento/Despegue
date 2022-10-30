@@ -19,6 +19,7 @@ import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
 import Help from "./components/Help/Help";
 import AsistenciasCard from "./components/Asistencias/AsistenciasCard";
+import CompraAsistencias from "./components/Asistencias/CompraAsistencias";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -36,6 +37,8 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
+  console.log(user);
+
 
   useEffect(() => {
     axios
@@ -53,8 +56,8 @@ function App() {
           dispatch(storeUserInfo(user));
         } else if (!user.active && !user.banned) {
           return activeAcc(logout);
-        } else if (!user.active && user.banned) {
-          bannedAcc(logout);
+        } else if (user.banned) {
+          return bannedAcc(logout);
         }
       })
       .catch((err) => {
@@ -95,8 +98,9 @@ function App() {
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
         <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
-        <Route path="/uploadPhoto" component={UpladPhoto} />
-        <Route exact path="/callback" component={Auth0Callback} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>
+        <Route exact path='/callback' component={Auth0Callback} />
+        <Route exact path={"/flights/roundtrip/asistant"} component={CompraAsistencias} />
       </BrowserRouter>
     </div>
   );

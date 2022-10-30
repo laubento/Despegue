@@ -1,4 +1,6 @@
 import axios from 'axios';
+// import roundTripExample from './roundTripExapmle';
+import oneWayTripExample from './oneWayTripExample';
 
 export const GET_FLIGHTS = "GET_FLIGHTS";
 export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS";
@@ -23,11 +25,34 @@ export const HISTORY_LIST = 'HISTORY_LIST';
 export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 
 export function getFlights(flight) {
+    let record = JSON.parse(localStorage.getItem('record'))
+
+    if (!record) {
+        record = [flight]
+    } else if (!record.find(e => e.departurePlace === flight.departurePlace && e.arrivalPlace === flight.arrivalPlace)) {
+        record.unshift(flight)
+    }
+
+    localStorage.setItem('record', JSON.stringify(record));
+
     const tripType = flight.tripType;
-    console.log(flight)
+    let names = JSON.parse(localStorage.getItem('names'))
+
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
-        const flights = await axios.post(`/flights/${tripType}`, {flight})
+        const flights = await axios.post(`/flights/${tripType}`, { flight })
+        // const flights = oneWayTripExample;
+        // const flights = roundTripExample;
+            
+        if (!names) {
+            // names = [flights.data[0]]
+            names = [flights];
+        } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
+            console.log('ENTREEE')
+            names.unshift(flights.data[0])
+        }
+        
+        localStorage.setItem('names', JSON.stringify(names))
 
         return dispatch({
             type: GET_FLIGHTS,
@@ -69,7 +94,7 @@ export function searchAirportFrom(name) {
             let response = await axios.get(`/searchByName/from?nombre=${name}`)
             return dispatch({ type: SEARCH_AIRPORT_FROM, payload: response.data })
         } catch (error) {
-            return dispatch({type: SEARCH_AIRPORT_FROM, payload: error.message})
+            return dispatch({ type: SEARCH_AIRPORT_FROM, payload: error.message })
         }
 
     }
@@ -80,9 +105,9 @@ export function searchAirportTo(name) {
     return async function (dispatch) {
         try {
             let response = await axios.get(`/searchByName/to?nombre=${name}`)
-            return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })  
+            return dispatch({ type: SEARCH_AIRPORT_TO, payload: response.data })
         } catch (error) {
-            return dispatch({type: SEARCH_AIRPORT_TO, payload: error.message})
+            return dispatch({ type: SEARCH_AIRPORT_TO, payload: error.message })
         }
 
     }
@@ -118,7 +143,7 @@ export function listUsers() {
         let response = await axios.get(`/admin/users`)
         let obj = response.data.map((e) => {
             let userName;
-            if(e.lastname){
+            if (e.lastname) {
                 userName = `${e.firstName} ${e.lastname}`
             } else {
                 userName = `${e.firstName}`
@@ -158,9 +183,9 @@ export function listOffers() {
 }
 
 export const offersCreate = (offer) => {
-    
+
     return async function (dispatch) {
-        await axios.post(`/admin/offers/`, offer )
+        await axios.post(`/admin/offers/`, offer)
         return dispatch({ type: CREATE_OFFERS, payload: offer })
     }
 }
@@ -237,33 +262,40 @@ export const onSecondFlightRoute = () => {
 
 
 export const sendMailCompra = (id, idPago) => {
-    return async function (dispatch){
+    return async function (dispatch) {
         console.log(id)
-       let response =  await axios.post(`/sendmailpago/${id}/${idPago}`)
-       return dispatch({type: "SEND_MAIL_COMPRA", payload:response.data })
+        let response = await axios.post(`/sendmailpago/${id}/${idPago}`)
+        return dispatch({ type: "SEND_MAIL_COMPRA", payload: response.data })
     }
 }
 
 export const clearFlightDetail = () => {
-    return{
+    return {
         type: CLEAR_FLIGHT_DETAIL
     }
 }
 
 
 export const getoffers = () => {
-    
+
 }
 
 export const deleteFlight = (id) => {
-    return{
-        type:DELETE_FLIGHT,
+    return {
+        type: DELETE_FLIGHT,
         payload: id
     }
- };
+};
 
 export const clearCart = () => {
-    return{
+    return {
         type: "CLEAR_CART"
+    }
+}
+export const setAsistencias = (obj) => {
+    console.log(obj)
+    return{
+        type: "SET_ASISTENCIAS",
+        payload: obj
     }
 }

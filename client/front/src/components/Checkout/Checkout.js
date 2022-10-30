@@ -62,11 +62,14 @@ export default function Checkout() {
     //Paypal
   const values = flightCart.map((flight) => parseInt(flight.price));
   const sumValues = values.reduce((a, b) => a + b, 0);
-  let flight = flightCart;
+  let flight = flightCart.filter((e) => e.asistant === undefined)
+  let asistant = flightCart.filter((e) => e.asistant)
+  let info = JSON.parse(window.localStorage.getItem("busqueda"));
 
-  if (!flight[1]) {
-    flight = flightCart[0];
-  }
+  console.log(flight)
+  // if (!flight[1]) {
+  //   flight = flightCart[0];
+  // }
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -83,7 +86,7 @@ export default function Checkout() {
   const onApprove = (data, actions) => {
     // dispatch(storePurchase(user, flight))
     axios
-      .post("/users/purchaseComplete", { user, flight })
+      .post("/users/purchaseComplete", { user, flight, info, asistant })
       .then((e) => {
         swal("Felicidades!", "Has realizado una compra.", "success");
       })

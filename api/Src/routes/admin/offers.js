@@ -59,9 +59,26 @@ router.put("/delete", isAdmin, (req, res) => {
     {
       $set: { active: false },
     }
-  ).catch((er) => {
+  )
+  .then((e) => {
+    res.status(200).send("Offer Deleted")
+  })
+  .catch((er) => {
     console.log(er);
   });
 });
+
+router.put("/activate", (req,res) => {
+  const {_id} = req.body
+  
+  Offers.updateOne({_id: _id}, {
+      $set: {active: true}
+  })
+
+  res.status(200).send("Offer Activated")
+  .catch((err)=>{
+      console.log(err);
+  })
+})
 
 module.exports = router;

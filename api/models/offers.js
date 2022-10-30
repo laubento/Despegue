@@ -52,6 +52,15 @@ const Offers = mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  from: {
+    type: String,
+  },
+  to: {
+    type: String,
+  },
+  arrive: {
+    type: String,
+  },
 },{ timestamps: true });
 
 module.exports = mongoose.model("Offers", Offers);

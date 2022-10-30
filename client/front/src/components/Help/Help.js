@@ -9,18 +9,22 @@ import EstadoReserva from "../../Images/Ayuda/EstadoReserva.png";
 import Facturacion from "../../Images/Ayuda/Facturacion.png";
 import Opiniones from "../../Images/Ayuda/Opiniones.png";
 import PreguntasFrecuentes from "../../Images/Ayuda/PreguntasFrecuentes.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { succesAlert } from "../../utils/alerts";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Help() {
   const localUser = JSON.parse(window.localStorage.getItem("user"));
   const [user, setUser] = useState(localUser);
+  const history = useHistory()
+  const { loginWithRedirect, logout } = useAuth0();
   console.log(user);
-
+  
   useEffect(() => {
     window.localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
+  
   function suscribirme() {
     axios({
       method: "PUT",
@@ -46,6 +50,10 @@ export default function Help() {
       window.localStorage.removeItem("user");
       //   window.localStorage.setItem("user", JSON.stringify(user));
     });
+  }
+
+  const login = ()=>{
+    loginWithRedirect()
   }
 
   return (
@@ -212,7 +220,7 @@ export default function Help() {
                 <div className="col-10">
                   <p className="m-0">
                     En caso de ver o querer dejar opiniones de la pagina, tocar{" "}
-                    <a className="Help-Aqui">Aquí</a>.
+                    <Link to={"/feedBack"} className="Help-Aqui">Aquí</Link>.
                   </p>
                 </div>
               </div>
@@ -260,12 +268,12 @@ export default function Help() {
         <div className="MiPerfil-Ofertas Help-Suscrib">
           <h2>Desea que se le notifique por gmail las ofertas?</h2>
 
-          {user.membership ? (
-            <button onClick={desSuscribirme} className="MiPerfil-DesSub">
+          {user && user.membership ? (
+            <button onClick={user ? desSuscribirme : login} className="MiPerfil-DesSub">
               DESUSCRIBIRME
             </button>
           ) : (
-            <button onClick={suscribirme} className="MiPerfil-Sub">
+            <button onClick={user ? suscribirme : login} className="MiPerfil-Sub">
               SUSCRIBIRME
             </button>
           )}

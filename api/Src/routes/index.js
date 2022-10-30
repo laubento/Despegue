@@ -22,8 +22,15 @@ router.use("/duration", flightDurationFilter);
 const user = require("./login/user");
 // const auth = require("./login/auth");
 
-const auth0 = require("./login/auth0");
-router.use("/auth0", auth0);
+const adminUsers = require("./admin/users");
+const offers = require("./admin/offers");
+const history = require("./admin/history");
+router.use("/admin", adminUsers);
+router.use("/admin/offers", offers);
+router.use("/admin/history", history);
+
+const auth = require('./login/auth/auth0')
+router.use('/auth0', auth)
 
 // router.use("/auth", auth);
 // router.use("/login", login);
@@ -62,7 +69,10 @@ router.use("/users", member);
 const bucket = require("./aws-s3-bucket/index");
 router.use("/awsS3Bucket", bucket);
 
-//////ADMIN ROUTES //////////////
+//rating
+const rating = require("../routes/routesRating")
+router.use("/rating", rating)
+
 
 const adminUsers = require("./admin/users");
 const offers = require("./admin/offers");
