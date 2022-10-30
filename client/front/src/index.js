@@ -9,19 +9,21 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import dotenv from "dotenv";
 dotenv.config();
 
+const token = document.cookie.split('token=').pop().split(';')[0];
 axios.defaults.baseURL = process.env.REACT_APP_HEROKU_URL || "http://localhost:3001";
+axios.defaults.headers.common["authorization"] = token;
 
 ReactDOM.render(
-    <Provider store={store}>
-        <React.StrictMode>
-            <Auth0Provider
-                domain='dev-5n2ukjrth20df1by.us.auth0.com'
-                clientId='XGE9oWcElvP7CZinvfvlSM7BKad6dR8Y'
-                redirectUri={window.location.origin}
-            >
-                <App />
-            </Auth0Provider>
-        </React.StrictMode>
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <React.StrictMode>
+      <Auth0Provider
+        domain="dev-5n2ukjrth20df1by.us.auth0.com"
+        clientId="XGE9oWcElvP7CZinvfvlSM7BKad6dR8Y"
+        redirectUri={window.location.origin}
+      >
+        <App />
+      </Auth0Provider>
+    </React.StrictMode>
+  </Provider>,
+  document.getElementById("root")
 );

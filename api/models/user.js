@@ -69,7 +69,7 @@ const User = mongoose.Schema({
 
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   active: {
@@ -88,7 +88,7 @@ const User = mongoose.Schema({
   //     type: Boolean,
   //     required: false
   // },
-  subId: {
+  sub: {
     type: String,
   },
   roles: {
@@ -99,7 +99,7 @@ const User = mongoose.Schema({
     type: Boolean,
     default: false,
     required: true
-  }
+  },
 });
 User.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);

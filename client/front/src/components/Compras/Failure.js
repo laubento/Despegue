@@ -10,7 +10,12 @@ function Failure(props) {
     if(status === 'null') {
         swal('Algo ha salido mal!', 'Presiona el botón para volver a la página.', 'error')
           // si el pago sale mal no guardo nada y borro lo que se guardo en local storage!
-          localStorage.clear('payment')
+          localStorage.removeItem('sinLog')
+          localStorage.removeItem('cartRespaldo')
+          localStorage.removeItem('detail')
+          localStorage.removeItem('init_point')
+          localStorage.removeItem('asistant')
+          localStorage.removeItem('busqueda')
           history.push('/')
         }
   return (

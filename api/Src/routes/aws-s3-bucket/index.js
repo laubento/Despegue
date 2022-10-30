@@ -5,6 +5,7 @@ const {getSignedUrl} = require("@aws-sdk/s3-request-presigner");
 const dotEnv = require('dotenv');
 const crypto = require('crypto');
 const User = require('../../../models/user');
+const { isUser } = require('../login/auth/verifyToken');
 
 const router = Router();
 const storage = multer.memoryStorage();
@@ -31,7 +32,7 @@ const s3 = new S3Client({
 })
 
 // routes
-router.post('/photo', upload.single('S3image'), async (req, res) => {
+router.post('/photo',isUser, upload.single('S3image'), async (req, res) => {
 
     const { userId } = req.body;
 
@@ -71,7 +72,7 @@ router.post('/photo', upload.single('S3image'), async (req, res) => {
 })
 
 
-router.delete('/photo', (req, res) => {
+router.delete('/photo',isUser, (req, res) => {
     console.log('ruta para borrar una foto existente');
     res.send('ruta para borrar una foto existente');
 })

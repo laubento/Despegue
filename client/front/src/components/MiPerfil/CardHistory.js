@@ -23,6 +23,8 @@ export default function CardHistory({ paquete }) {
                             <div>
                                 <h5>{`${paquete[0].destination} - ${paquete[0].exit}`}</h5>
                                 <h6>{paquete.length > 1 ? 'Ida y vuelta' : 'Ida'}</h6>
+                                <h3>{`Pasajeros: ${paquete[0].Info.adults + paquete[0].Info.children + paquete[0].Info.infants}`}</h3>
+                                <h3>{`🚑Asistencias: `}<b>{paquete[0].asistant[0].type}</b> x{paquete[0].asistant[0].days} dias</h3>
                             </div>
                             <div className="CardHistory-Precio">
                                 <h6>TOTAL</h6>

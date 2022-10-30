@@ -29,8 +29,8 @@ router.use("/admin", adminUsers);
 router.use("/admin/offers", offers);
 router.use("/admin/history", history);
 
-const auth0 = require('./login/auth0')
-router.use('/auth0', auth0)
+const auth = require('./login/auth/auth0')
+router.use('/auth0', auth)
 
 // router.use("/auth", auth);
 // router.use("/login", login);
@@ -43,39 +43,47 @@ router.use('/auth0', auth0)
 const searchByName = require("./searchByName/getAirportsByName.js");
 router.use("/searchByName", searchByName);
 
-
 // History & Purchase
-const users = require("../routes/purchaseRelationship")
-const getHistory = require("../routes/historyGet")
-router.use("/users", users)
-router.use("/users", getHistory)
+const users = require("../routes/purchaseRelationship");
+const getHistory = require("../routes/historyGet");
+router.use("/users", users);
+router.use("/users", getHistory);
 
 // updateUserInfo
-const update = require("./updateUser")
-router.use("/update", update)
+const update = require("./updateUser");
+router.use("/update", update);
 
 //mercadopago
-const mercadopago = require('./mercadopago/mercadopago.js')
-router.use("/mercadopago", mercadopago)
+const mercadopago = require("./mercadopago/mercadopago.js");
+router.use("/mercadopago", mercadopago);
 
 //mail compra
-const sendMailCompra = require('./sendMailCompra/sendMailCompra.js')
-router.use('/sendmailpago', sendMailCompra)
+const sendMailCompra = require("./sendMailCompra/sendMailCompra.js");
+router.use("/sendmailpago", sendMailCompra);
 
 //membership
-const member = require("./memberUpdate")
-router.use("/users", member)
+const member = require("./memberUpdate");
+router.use("/users", member);
 
 //webhook
 const webhook = require('./webhook');
 router.use('/webhook', webhook)
 //aws S3 bucket
-const bucket = require('./aws-s3-bucket/index');
-router.use('/awsS3Bucket', bucket);
+const bucket = require("./aws-s3-bucket/index");
+router.use("/awsS3Bucket", bucket);
 
 //rating
 const rating = require("../routes/routesRating")
 router.use("/rating", rating)
 
+
+// const adminUsers = require("./admin/users");
+// const offers = require("./admin/offers");
+// const history = require("./admin/history");
+
+
+// router.use("/admin", adminUsers);
+// router.use("/admin/offers", offers);
+// router.use("/admin/history", history);
 
 module.exports = router;

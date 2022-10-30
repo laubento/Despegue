@@ -19,6 +19,7 @@ import RoundtripSF from "./components/Flights/RoundtripSF";
 import Cart from "./components/Cart/Cart";
 import Help from "./components/Help/Help";
 import AsistenciasCard from "./components/Asistencias/AsistenciasCard";
+import CompraAsistencias from "./components/Asistencias/CompraAsistencias";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "./Redux/Actions";
 import Success from "./components/Compras/Success";
@@ -36,6 +37,8 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
+  console.log(user);
+
 
   useEffect(() => {
     axios
@@ -43,45 +46,30 @@ function App() {
       .then((data) => {
         if (data.status === 200) return data.data;
       })
-      .then((user) => {
-        console.log(user);
-        document.cookie = `token=${user}; max=age=${60 * 3}; path=/;`;
+      .then((resp) => {
+        console.log(resp);
+        const { user, token } = resp;
+        document.cookie = `token=${token}; max=age=${60 * 3}; path=/;`;
         console.log(document.cookie + "COOKIE");
-        // if (user.active && !user.banned) {
-        // window.localStorage.setItem("user", JSON.stringify(user));
-        // dispatch(storeUserInfo(user));
-        // } else if (!user.active && !user.banned) {
-        //   return activeAcc(logout);
-        // } else if (!user.active && user.banned) {
-        //   bannedAcc(logout);
-        // }
+        if (user.active && !user.banned) {
+          window.localStorage.setItem("user", JSON.stringify(user));
+          dispatch(storeUserInfo(user));
+        } else if (!user.active && !user.banned) {
+          return activeAcc(logout);
+        } else if (user.banned) {
+          return bannedAcc(logout);
+        }
       })
       .catch((err) => {
         console.log("usuario no logueado");
       });
   }, [dispatch, user, logout]);
 
-  const axiosCookies = async () => {
-    const cookie = document.cookie.split("token=");
-
-    const mailOptions = {
-      method: "POST",
-      url: "/auth0/verifyCookies",
-      headers: {
-        "content-type": "application/json",
-        authorization: cookie[1],
-      },
-    };
-
-    axios(mailOptions).then((data) => {
-      console.log(data);
-    });
-  };
+  console.log(document.cookie);
 
   return (
     <div className="App">
       <BrowserRouter>
-        <button onClick={() => axiosCookies()}>Cookies</button>
         <Route path="/" component={ChatBot} />
         <Route path={"/"} render={() => <NavBar />} />
         <Route exact path="/" component={Home} />
@@ -110,8 +98,9 @@ function App() {
         <Route path="/purchase" render={() => <Checkout />} />
         <Route path="/help" render={() => <Help />} />
         <Route path={"/asistencias"} render={() => <AsistenciasCard />} />
-        <Route path="/uploadPhoto" component={UpladPhoto} />;
-        <Route exact path="/callback" component={Auth0Callback} />
+        <Route path='/uploadPhoto' component={UpladPhoto}/>
+        <Route exact path='/callback' component={Auth0Callback} />
+        <Route exact path={"/flights/roundtrip/asistant"} component={CompraAsistencias} />
       </BrowserRouter>
     </div>
   );

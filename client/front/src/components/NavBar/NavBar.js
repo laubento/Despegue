@@ -46,12 +46,15 @@ const closeSession = () => {
         denyButtonText: `No`,
     }).then((result) => {
         if (result.isConfirmed) {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             logout({ returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000" });
             window.localStorage.removeItem("user");
             window.localStorage.removeItem("sinLog");
             window.localStorage.removeItem("init_point");
             window.localStorage.removeItem("detail");
             window.localStorage.removeItem("display");
+            window.localStorage.removeItem('asistant');
+            window.localStorage.removeItem('cartRespaldo')
         } else if (result.isDenied) {
             Swal.fire("Gracias por quedarse");
         }
