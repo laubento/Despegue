@@ -13,7 +13,7 @@ router.post("/getUser", async (req, res) => {
   if (!user) return res.sendStatus(400);
   if (!user.email) search = { sub: user.sub };
   else search = { email: user.email };
-  console.log(user);
+
   User.findOne(search)
     .select("-password")
     .then((userDB) => {
