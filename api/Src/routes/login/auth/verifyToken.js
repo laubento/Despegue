@@ -1,4 +1,5 @@
 const axios = require('axios');
+const jwt = require("jsonwebtoken");
 
 const getToken = async () => {
 
@@ -25,6 +26,39 @@ const getToken = async () => {
     return token
 }
 
+const isUser = (req, res, next) => {
+    const token = req.headers["authorization"];
+  
+    jwt.verify(token, "secretcode", (err, user) => {
+      if (err) {
+        return res.status(401).send({
+          error: "Error al verificar el token",
+        });
+      }
+      if (!user.roles.includes("user"))
+        return res.status(403).send({ error: "No autorizado" });
+  
+      next();
+    });
+  };
+  
+  const isAdmin = (req, res, next) => {
+    const token = req.headers["authorization"];
+    jwt.verify(token, "secretcode", (err, user) => {
+      if (err) {
+        return res.status(401).send({
+          error: "Error al verificar el token",
+        });
+      }
+      if (!user.roles.includes("admin"))
+        return res.status(403).send({ error: "No autorizado" });
+  
+      next();
+    });
+  };
+
 module.exports = {
-    getToken
+    getToken,
+    isUser,
+    isAdmin
 }

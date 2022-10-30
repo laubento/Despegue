@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const User = require("../../../../models/user");
 const auth = require("../../admin/validate-session");
-const axios = require("axios");
-const utils = require('./verifyToken');
+const axios = require("axios"); 
+const jwt = require("jsonwebtoken");
+const { isUser, isAdmin, getToken } = require("./verifyToken");
 
 const router = Router();
 
@@ -34,7 +35,9 @@ router.post("/getUser", async (req, res) => {
                     id: userDB.id,
                     sub: userDB.sub ? userDB.sub : user.sub,
                 };
-                return res.status(200).send(userData);
+                const user = userData;
+                const token = jwt.sign(user, "secretcode", { expiresIn: "24h" });
+                return res.status(200).send({ user, token });
             } else {
                 // Si no existe lo agrego a la DB
                 new User({
@@ -56,8 +59,9 @@ router.post("/getUser", async (req, res) => {
                     .then((newUser) => {
                         newUser.password = ""
                         newUser.email = newUser.verify ? '' : newUser.email
-                        console.log(newUser);
-                        return res.status(200).send(newUser);
+                        const user = newUser;
+                        const token = jwt.sign(user, "secretcode", { expiresIn: "24h" });
+                        res.status(200).send({ user, token });
                     })
                     .catch((err) => {
                         console.log("CATCH AUTH0" + err);
@@ -67,7 +71,12 @@ router.post("/getUser", async (req, res) => {
         });
 });
 
-router.put("/delete", auth.isUser, (req, res) => {
+router.post("/verifyCookies", isAdmin, (req, res) => {
+    //   console.log("Admin route!!!!");
+      res.status(200).send('admin');
+    });
+
+router.put("/delete", isUser, (req, res) => {
     const { user } = req.body;
 
     User.updateOne(
@@ -84,7 +93,7 @@ router.post("/verify", async (req, res) => {
 
     const { user } = req.body;
 
-    const token = await utils.getToken()
+    const token = await getToken()
     const mailOptions = {
         method: "POST",
         url: `https://dev-5n2ukjrth20df1by.us.auth0.com/api/v2/jobs/verification-email`,
