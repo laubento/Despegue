@@ -74,13 +74,13 @@ const rating = require("../routes/routesRating")
 router.use("/rating", rating)
 
 
-const adminUsers = require("./admin/users");
-const offers = require("./admin/offers");
-const history = require("./admin/history");
-// const { isAdmin } = require("./login/verifyToken");
+// const adminUsers = require("./admin/users");
+// const offers = require("./admin/offers");
+// const history = require("./admin/history");
 
-router.use("/admin", adminUsers);
-router.use("/admin/offers", offers);
-router.use("/admin/history", history);
+
+// router.use("/admin", adminUsers);
+// router.use("/admin/offers", offers);
+// router.use("/admin/history", history);
 
 module.exports = router;

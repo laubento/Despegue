@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { isAdmin } = require("../login/verifyToken");
+const { isAdmin } = require("../login/auth/verifyToken");
 const History = require("../../../models/history");
 
 router.get("/", isAdmin, async (req, res) => {

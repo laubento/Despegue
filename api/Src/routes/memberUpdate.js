@@ -3,7 +3,7 @@ const router = Router();
 const mongoose = require("mongoose");
 const User = require("../../models/user");
 const infoTransporter = require("../routes/utils/mailer");
-const { isUser } = require("./login/verifyToken");
+const { isUser } = require("./login/auth/verifyToken");
 const fs = require("fs");
 
 router.put("/membership", isUser, async (req, res) => {

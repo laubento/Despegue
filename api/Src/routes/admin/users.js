@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const User = require("../../../models/user");
 const router = Router();
-const { isAdmin } = require("../login/verifyToken");
+const { isAdmin } = require("../login/auth/verifyToken");
 
 router.get("/users", isAdmin, async (req, res) => {
   try {

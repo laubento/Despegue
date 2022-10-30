@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const User = require("../../models/user.js");
 const bcrypt = require("bcryptjs");
-const { isUser } = require("./login/verifyToken");
+const { isUser } = require("./login/auth/verifyToken");
 
 router.put("/", isUser, async (req, res) => {
   const { id, firstName, lastName, birthDate, dni, phone, email } = req.body;

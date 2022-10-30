@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const Offers = require("../../../models/offers");
-const { isAdmin } = require("../login/verifyToken");
+const { isAdmin } = require("../login/auth/verifyToken");
 
 const router = Router();
 
