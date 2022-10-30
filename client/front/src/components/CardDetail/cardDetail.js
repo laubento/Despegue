@@ -1,4 +1,4 @@
-import React, { useDebugValue } from "react";
+import React, { useDebugValue, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 import { clearFlightDetail } from "../../Redux/Actions";
@@ -16,9 +16,10 @@ export default function CardDetail(){
     const handleClick = () => {
         dispatch(clearFlightDetail());
         // one way
-
-
         if ((flightsCart.length === 1 && !onSecondFlightRoute) || flightsCart.length >=2) {
+            return history.push('/flights/roundtrip/cart')
+        }
+        if(onCart === 'true'){
             return history.push('/flights/roundtrip/cart')
         }
         if (!onFirstFlightRoute && !onSecondFlightRoute) {
@@ -30,9 +31,7 @@ export default function CardDetail(){
         if (!onFirstFlightRoute && onSecondFlightRoute) {
             return history.push('/flights/roundtrip/secondFlight')
         }
-        if(onCart === 'true'){
-            return history.push('/flights/roundtrip/cart')
-        }
+        
     }
 
     const handleClickCart = (e) => {
@@ -46,7 +45,13 @@ export default function CardDetail(){
         const mins = time%60;
         return `${hs} h ${mins} m`;
     }
-    console.log(onCart)
+    // console.log(onCart)
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(clearFlightDetail())
+    //     }
+    // })
+    console.log('flightDetail', flightDetail)
     return(
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">

@@ -237,31 +237,31 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
                     <h3>Filtros</h3>
                     <li className="pb-2 border-top">
                         <h4>Por precio</h4>
-                        <label for="customRange2" className="d-flex" class="form-label">Máx:<p>{slider.maxPrice}$</p></label>
-                        <input type="range" name={'maxPrice'} class="form-range" className="w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <label htmlFor="customRange2" className="d-flex form-label">Máx:<p>{slider.maxPrice}$</p></label>
+                        <input type="range" name={'maxPrice'} className="form-range w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
 
-                        <label for="customRange2" className="d-flex" class="form-label">Mín:<p>{slider.minPrice}$</p></label>
-                        <input type="range" name={'minPrice'} class="form-range" className="w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <label htmlFor="customRange2" className="d-flex form-label">Mín:<p>{slider.minPrice}$</p></label>
+                        <input type="range" name={'minPrice'} className="form-range w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Duración:</h4>
                         <p>{slider.maxDuration}hs</p>
-                        <input type="range" name={'maxDuration'} class="form-range" className="w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <input type="range" name={'maxDuration'} className="form-range w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Horario:</h4>
-                        <label for="customRange2" className="d-flex" class="form-label">Máx hs:<p>{slider.maxHour}hs</p></label>
-                        <input type="range" name={'maxHour'} class="form-range" className="w-100" min={Number(filters.minHour)} max={Number(valueSlide.maxHs)} id="customRange2" defaultValue={valueSlide.maxHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <label htmlFor="customRange2" className="d-flex form-label">Máx hs:<p>{slider.maxHour}hs</p></label>
+                        <input type="range" name={'maxHour'} className="form-range w-100" min={Number(filters.minHour)} max={Number(valueSlide.maxHs)} id="customRange2" defaultValue={valueSlide.maxHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
 
-                        <label for="customRange2" className="d-flex" class="form-label">Mín hs:<p>{slider.minHour}hs</p></label>
-                        <input type="range" name={'minHour'} class="form-range" className="w-100" min={Number(valueSlide.minHs)} max={Number(filters.maxHour)} id="customRange2" defaultValue={valueSlide.minHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <label htmlFor="customRange2" className="d-flex form-label">Mín hs:<p>{slider.minHour}hs</p></label>
+                        <input type="range" name={'minHour'} className="form-range w-100" min={Number(valueSlide.minHs)} max={Number(filters.maxHour)} id="customRange2" defaultValue={valueSlide.minHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Escalas</h4>
                         <div onChange={rangeChange}>
                             <div className="form-check">
                                 <input className="form-check-input" type="radio" name="stopOvers" value={'default'} id="flexRadioDefault1" defaultChecked={filters.stopOvers === 'default'} />
-                                <label className="form-check-label" for="flexRadioDefault1">
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     Todas
                                 </label>
                             </div>
@@ -287,8 +287,8 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
                     </li>
                     <li className="pt-2 border-top">
                         <h4>Ordenar por:</h4>
-                        <select class="form-select" aria-label="Default select example" onChange={handleSelect}>
-                            <option selected>Elegí una opción</option>
+                        <select className="form-select" aria-label="Default select example" onChange={handleSelect}>
+                            <option defaultValue={true}>Elegí una opción</option>
                             <option value="orderP">Precio</option>
                             <option value="orderD">Duración</option>
                             <option value="orderS">Escalas</option>
@@ -301,7 +301,7 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
             <label className="text-center font-weight-bold ">Buscá tu aerolínea!</label>
                 <input className="m-3 Flightsearch-input" type='text' name="airlineName" onChange={(e) => handleChangeAirline(e) } />
             </div>
-            {flights === 'Error' ? <button type="button" class="btn btn-outline-light" onClick={e => handleClick(e)}>Resetear filtros</button> : null}
+            {flights === 'Error' ? <button type="button" className="btn btn-outline-light" onClick={e => handleClick(e)}>Resetear filtros</button> : null}
         </div>
     );
 }

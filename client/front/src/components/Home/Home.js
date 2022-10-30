@@ -13,13 +13,15 @@ import Portada from '../../Images/Promociones/Portada.png'
 import Pago from '../../Images/Promociones/Pago.png'
 import { Link } from "react-router-dom";
 import '../Home/Promociones.css'
+import Record from "../Record/Record";
 // se usa info de momento
 
 function Home(props) {
   const history = useHistory()
   const [cancel, setCancel] = useState('')
   let display = localStorage.getItem('display')
-  let vuelo = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
+  let vuelos = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
+  let vuelo = vuelos ? vuelos.filter((e) => e.asistant === undefined) : null
   console.log(vuelo)
   // useEffect(e => {
   //   dispatch(listUsers())
@@ -41,7 +43,7 @@ function Home(props) {
     e.preventDefault();
     display = false
     localStorage.setItem('display', display)
-    return history.push('/purchase')
+    return history.push('/flights/roundtrip/cart')
   }
 
   const handleClickCancelar = async (e) => {
@@ -61,7 +63,7 @@ function Home(props) {
 
       <div className="p-4">
         <FlightsSearch cancel={setCancel} />
-
+      <Record/>
         {vuelo === null || vuelo === undefined ? <div className="d-flex justify-content-center"><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
           <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
             <div className="d-flex justify-content-center">
@@ -127,38 +129,38 @@ function Home(props) {
             <div className="row">
               <div className="col-3 p-2">
                 <h2>TOP DESTINOS</h2>
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+                  <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                   </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active ">
-                      <img src={Mexico} class="d-block w-100" alt="..." />
+                  <div className="carousel-inner">
+                    <div className="carousel-item active ">
+                      <img src={Mexico} className="d-block w-100" alt="..." />
                     </div>
-                    <div class="carousel-item">
-                      <img src={Brasil} class="d-block w-100" alt="..." />
+                    <div className="carousel-item">
+                      <img src={Brasil} className="d-block w-100" alt="..." />
                     </div>
-                    <div class="carousel-item">
-                      <img src={Italia} class="d-block w-100" alt="..." />
+                    <div className="carousel-item">
+                      <img src={Italia} className="d-block w-100" alt="..." />
                     </div>
-                    <div class="carousel-item ">
-                      <img src={Colombia} class="d-block w-100" alt="..." />
+                    <div className="carousel-item ">
+                      <img src={Colombia} className="d-block w-100" alt="..." />
                     </div>
-                    <div class="carousel-item">
-                      <img src={Chile} class="d-block w-100" alt="..." />
+                    <div className="carousel-item">
+                      <img src={Chile} className="d-block w-100" alt="..." />
                     </div>
                   </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
                   </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
                   </button>
                 </div>
               </div>

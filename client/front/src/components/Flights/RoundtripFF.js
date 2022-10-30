@@ -44,8 +44,8 @@ let arregloDeArreglos = []; // Aquí almacenamos los nuevos arreglos
 	    arregloDeArreglos.push(pedazo);
 }
 
-const [length, setLength] = useState(1)
-const [dataSource, setDataSource] = useState(arregloDeArreglos[0])
+const [length, setLength] = useState(0)
+const [dataSource, setDataSource] = useState([])
 const [hasMore, setHasMore] = useState(true)
 
 const fetchMoreData = () => {
@@ -106,6 +106,11 @@ console.log('aa', arregloDeArreglos)
                   <div key={i} className='d-flex justify-content-center'>
                   <Card 
                     id={e.id}
+                    cabin={e.cabinClass}
+                    departureName={e.departureAirportName}
+                    arrivalName={e.arrivalAirportName}
+                    departureCode={e.departureAirportCode}
+                    arrivalCode={e.arrivalAirportCode}
                     segments={e.segments}
                     airlinesName={e.airlinesNames}
                     departureTime={e.departureTime}
@@ -153,13 +158,19 @@ console.log('aa', arregloDeArreglos)
                     : <h2>No hay vuelos con estas características</h2>
                   }
                 </div>
-                <div>
+                <div className="Card-ContainerCard-Flights">
                   {
                     flights.length !==  0 
                     ? currentFlights.map((e,i) => {
+                      console.log(e)
                         return(
                             <div key={i} className='d-flex justify-content-center'>
                               <Card 
+                                cabin={e.cabinClass}
+                                departureName={e.departureAirportName}
+                                arrivalName={e.arrivalAirportName}
+                                departureCode={e.departureAirportCode}
+                                arrivalCode={e.arrivalAirportCode}
                                 id={e.id}
                                 segments={e.segments}
                                 airlinesName={e.airlinesNames}
