@@ -4,8 +4,9 @@ const History = require("../../models/history")
 const router = Router()
 const mongoose = require("mongoose")
 const e = require("express")
+const { isUser } = require("./login/auth/verifyToken")
 
-router.post("/purchaseComplete", async (req, res) => {
+router.post("/purchaseComplete",isUser, async (req, res) => {
     try {
         const { id } = req.body.user
         const flight = req.body.flight

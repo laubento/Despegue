@@ -2,11 +2,12 @@ const { Router } = require("express");
 const router = Router()
 const mongoose = require("mongoose");
 const Rating = require("../../models/rating")
-const users = require("../../models/user")
+const users = require("../../models/user");
+const { isUser, isAdmin } = require("./login/auth/verifyToken");
 
 
 
-router.post("/newRating", async (req,res) => {
+router.post("/newRating",isUser, async (req,res) => {
     try {
         const {user, description, value} = req.body
         if(!user && !description && !value ){
@@ -28,7 +29,7 @@ router.post("/newRating", async (req,res) => {
 
 })
 
-router.delete("/deleteRating", async (req,res) => {
+router.delete("/deleteRating",isAdmin, async (req,res) => {
     try{
         const {ratingId} = req.body
         const {user} = req.body

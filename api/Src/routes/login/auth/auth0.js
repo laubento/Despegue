@@ -89,7 +89,7 @@ router.put("/delete", isUser, (req, res) => {
   });
 });
 
-router.post("/verify", async (req, res) => {
+router.post("/verify",isUser, async (req, res) => {
   const { user } = req.body;
 
   const token = await getToken();
