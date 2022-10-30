@@ -20,6 +20,7 @@ export default function Configuracion() {
   function changeValue(valores) {
     console.log('enre')
     let obj = {
+      id: user.id,
       email: valores.email ? valores.email : user.email,
       password: valores.password ? valores.password : null,
       newPassword: valores.newPassword ? valores.newPassword : null,
@@ -60,6 +61,8 @@ export default function Configuracion() {
 
               let errores = {};
               setSave(true)
+              if (!valores.email) errores.email = "Por favor, introduzca un email"
+              else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(valores.email)) errores.email = 'Email inválido'
               if (!valores.password) {
                 errores.password = "Por favor, introduzca una contraseña";
               }
@@ -100,8 +103,8 @@ export default function Configuracion() {
                       type="text"
                       id="email"
                       name="email"
-                      placeholder={user ? user.email : ""}
-                      disabled
+                      value={user.email ? user.email : null }
+                      disabled={user.email || active }
                     />
                     <ErrorMessage
                       name="email"
