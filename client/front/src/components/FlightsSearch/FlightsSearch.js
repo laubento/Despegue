@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getFlights, clearFlights, searchAirportFrom, searchAirportTo, clearCart, clearAirportsName } from '../../Redux/Actions';
 import Persona from '../../Images/persona.png'
+import Record from "../Record/Record";
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -342,10 +343,11 @@ export default function FlightsSearch() {
 
                 <div className='d-flex justify-content-center'>
                     {airportsFrom === 'Request failed with status code 404' || airportsTo === 'Request failed with status code 404' ? <label className='FlightSearch-errorsText'> De momento las busquedas estan fuera de servicio. </label> : ''}
-                    {searchError.vacio ? <label className='FlightSearch-errorsText' >{searchError.vacio}</label> : ''}
+                    {searchError.vacio ? <label className='FlightSearch-errorsText' >{searchError.vacio}</label> : null}
                     {errors.allEmpty && <span className='FlightSearch-errorsText font-weight-bold'>{errors.allEmpty}</span>}
                 </div>
             </div>
+            <Record />
         </div>
     )
 }
