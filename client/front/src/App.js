@@ -37,7 +37,7 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
-  console.log(user);
+  console.log(`user --> ${user}`);
 
 
   useEffect(() => {
