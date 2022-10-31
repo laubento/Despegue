@@ -26,7 +26,7 @@ router.post("/", isAdmin, async (req, res) => {
   }
 });
 
-router.get("/getoffers", isAdmin, async (req, res) => {
+router.get("/getoffers", async (req, res) => {
   try {
     const offers = await Offers.find({ active: true });
 

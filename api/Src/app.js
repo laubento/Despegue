@@ -29,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(
   cors({
-    origin: 'https://despegue.vercel.app', // <-- location of the react app were connecting to
+    origin: '*', // <-- location of the react app were connecting to
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
