@@ -46,8 +46,8 @@ export function getFlights(flight) {
         // const flights = roundTripExample;
             
         if (!names) {
-            // names = [flights.data[0]]
-            names = [flights];
+            names = [flights.data[0]]
+            // names = [flights.data];
         } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
             console.log('ENTREEE')
             names.unshift(flights.data[0])

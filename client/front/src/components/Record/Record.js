@@ -30,7 +30,7 @@ export default function Record() {
         }
         localStorage.setItem('tripType', record[e.target.value].tripType)
         // dispatch(clearCart())
-        // dispatch(clearFlights())
+        dispatch(clearFlights())
     }
 
     return (
