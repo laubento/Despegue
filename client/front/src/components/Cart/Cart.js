@@ -29,7 +29,6 @@ export default function Cart() {
 
     if(asistant !== null){
         if (!asistant.type) {
-            console.log('!asistantType')
             asistant = JSON.parse(localStorage.getItem('asistant'))
         }
     }
@@ -48,8 +47,10 @@ export default function Cart() {
     let tripType = localStorage.getItem('tripType')
     let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
     if (cart.length > 1) {
-        console.log(cart)
+        let display = true;
+        localStorage.setItem('display', display)
         localStorage.setItem('cartRespaldo', JSON.stringify(cart))
+        localStorage.setItem('detail', JSON.stringify(cart))
     }
     // if(cart.length === 1){
     //     cart = []
@@ -97,8 +98,8 @@ export default function Cart() {
     }
 
     // const test = cart.filter(el => el.id === selectedFlight.id)
-
-    useEffect(() => {
+    useEffect(async () => {
+        
         if(selectedFlight.length === 0){
             return;
         }else{    
@@ -117,17 +118,18 @@ export default function Cart() {
                 return;
             }
             if (selectedFlight.length > 0) {
-                dispatch(addFlightToCart(selectedFlight));
+               dispatch(addFlightToCart(selectedFlight));
             }
             if (asistant.type) {
                 console.log('asistant')
               return  dispatch(addFlightToCart([asistant]))
             }
         }
+        
         if(selectedFlight.length === 0){
             return;
         }
-        if(cart.length > 2 ){
+        if(cart.length >= 2 ){
             if(cartRespaldo !== null){
                 if(cartRespaldo.length > 2){
                     return;
@@ -140,11 +142,13 @@ export default function Cart() {
             return;
         }
         if (selectedFlight.length > 0) {
+            console.log(selectedFlight)
             dispatch(addFlightToCart(selectedFlight));
+            console.log('cart1', cart)
         }
         if (asistant.type) {
-            console.log('asis')
             dispatch(addFlightToCart([asistant]))
+            console.log('cart2', cart)
         }
         }
     }, [dispatch, selectedFlight, asistant])

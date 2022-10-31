@@ -86,7 +86,6 @@ function App() {
           component={RoundtripSF}
         />
         <Route exact path="/flights/roundtrip/cart" component={Cart} />
-        <Route exact path="/flightSearch" component={FlightsSearch} />
         <Route exact path="/flights/flightDetail/:id" component={CardDetail} />
         <Route exact path="/success" component={Success} />
         <Route exact path="/failure" component={Failure} />

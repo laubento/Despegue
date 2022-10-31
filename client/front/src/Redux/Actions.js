@@ -113,6 +113,12 @@ export function searchAirportTo(name) {
     }
 }
 
+export function clearAirportsName() {
+    return function(dispatch){
+        dispatch({type: "CLEAR_AIRPORTS_NAME"})
+    }
+}
+
 export const storeUserInfo = (user) => {
     return (dispatch) => {
         dispatch({
@@ -243,6 +249,12 @@ export const getRoundTripFF = () => {
 export const getRoundTripSF = () => {
     return {
         type: GET_ROUNDTRIP_SF
+    }
+}
+
+export const getOnlyIda = () => {
+    return {
+        type: "GET_ONLY_IDA"
     }
 }
 
