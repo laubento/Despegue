@@ -67,9 +67,8 @@ function Home(props) {
 
   return (
     <div>
-
-      <div className="p-4">
         <FlightsSearch cancel={setCancel} />
+      <div>
       <Record/>
         {vuelos === null || vuelos === undefined ? <div className="d-flex justify-content-center"><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
           <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
