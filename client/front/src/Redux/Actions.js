@@ -44,15 +44,14 @@ export function getFlights(flight) {
         const flights = await axios.post(`/flights/${tripType}`, { flight })
         // const flights = oneWayTripExample;
         // const flights = roundTripExample;
-            
+        
         if (!names) {
             names = [flights.data[0]]
             // names = [flights.data];
-        } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
-            console.log('ENTREEE')
+        } else if (!names.find(e => e.departureAirportName[0] === flights.data[0].departureAirportName[0] && e.arrivalAirportName[0] === flights.data[0].arrivalAirportName[0]) ) {
             names.unshift(flights.data[0])
         }
-        
+        // console.log(flights.data[0])
         localStorage.setItem('names', JSON.stringify(names))
 
         return dispatch({
