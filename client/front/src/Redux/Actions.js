@@ -26,18 +26,18 @@ export const DELETE_FLIGHT = 'DELETE_FLIGHT'
 export const GET_RATING = 'GET_RATING'
 
 export function getFlights(flight) {
-    let record = JSON.parse(localStorage.getItem('record'))
+    // let record = JSON.parse(localStorage.getItem('record'))
 
-    if (!record) {
-        record = [flight]
-    } else if (!record.find(e => e.departurePlace === flight.departurePlace && e.arrivalPlace === flight.arrivalPlace)) {
-        record.unshift(flight)
-    }
+    // if (!record) {
+    //     record = [flight]
+    // } else if (!record.find(e => e.departurePlace === flight.departurePlace && e.arrivalPlace === flight.arrivalPlace)) {
+    //     record.unshift(flight)
+    // }
 
-    localStorage.setItem('record', JSON.stringify(record));
+    // localStorage.setItem('record', JSON.stringify(record));
 
     const tripType = flight.tripType;
-    let names = JSON.parse(localStorage.getItem('names'))
+    // let names = JSON.parse(localStorage.getItem('names'))
 
     return async (dispatch) => {
         // var json = await axios.get(`https://api.flightapi.io/${tripType}/${apiKey}/${from}/${to}/${depart}/${adults}/${children}/${infants}/${cabinClass}/${currency}`)
@@ -45,15 +45,15 @@ export function getFlights(flight) {
         // const flights = oneWayTripExample;
         // const flights = roundTripExample;
             
-        if (!names) {
-            // names = [flights.data[0]]
-            names = [flights];
-        } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
-            console.log('ENTREEE')
-            names.unshift(flights.data[0])
-        }
+        // if (!names) {
+        //     // names = [flights.data[0]]
+        //     names = [flights];
+        // } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
+        //     console.log('ENTREEE')
+        //     names.unshift(flights.data[0])
+        // }
         
-        localStorage.setItem('names', JSON.stringify(names))
+        // localStorage.setItem('names', JSON.stringify(names))
 
         return dispatch({
             type: GET_FLIGHTS,
@@ -111,6 +111,12 @@ export function searchAirportTo(name) {
             return dispatch({ type: SEARCH_AIRPORT_TO, payload: error.message })
         }
 
+    }
+}
+
+export function clearAirportsName() {
+    return function(dispatch){
+        dispatch({type: "CLEAR_AIRPORTS_NAME"})
     }
 }
 
@@ -237,6 +243,12 @@ export const getRoundTripFF = () => {
 export const getRoundTripSF = () => {
     return {
         type: GET_ROUNDTRIP_SF
+    }
+}
+
+export const getOnlyIda = () => {
+    return {
+        type: "GET_ONLY_IDA"
     }
 }
 

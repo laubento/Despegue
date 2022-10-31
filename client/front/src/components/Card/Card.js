@@ -25,17 +25,14 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
       return history.push('/flights/roundtrip/secondFlight');
     }
   }
-  console.log(id)
   const handleClickDetail = (e) => {
     console.log('handleClickdetail')
-    console.log(id)
     dispatch(filterFlightById(id))
   }
 
   let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log('hoolaa')
     if (cartRespaldo !== null) {
       if (cartRespaldo.length > 1) {
         let flightsRestantes = cartRespaldo.filter(e => e.id !== id)
@@ -45,10 +42,8 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
         let assistant = JSON.parse(localStorage.getItem('asistant'))
         assistant = null 
         localStorage.setItem('asistant', assistant)
-        console.log('cr 2')
         cartRespaldo.shift()
         cartRespaldo.shift()
-        console.log(cartRespaldo)
         dispatch(setAsistencias(assistant))
         localStorage.setItem('cartRespaldo', JSON.stringify(cartRespaldo))
         swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
