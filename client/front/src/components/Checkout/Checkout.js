@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 import mp from "../../Images/mercadopago.png";
 import axios from "axios";
+import { useEffect } from "react";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
@@ -14,6 +15,15 @@ export default function Checkout() {
   const payment = useSelector((state) => state.getPayment);
   //   const flightCart = useSelector((state) => state.flightsCart);
   const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo"));
+
+
+    useEffect(()=> {
+      if(payment.length){
+        console.log("entre")
+        localStorage.setItem('init_point', JSON.stringify(payment))
+      }
+      console.log(payment)
+    },[payment])
 
     let sinLog;
     let display;

@@ -165,7 +165,7 @@ export default function Cart() {
         else if(user.email === "") return alerts.noEmail(history)
         else if(!user.verify) return alerts.notVerify()
         else {
-            // await dispatch(getPayment(prueba))
+            await dispatch(getPayment(prueba))
             localStorage.setItem('onCart', false)
             history.push('/purchase')
             // dispatch(clearCart())
