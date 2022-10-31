@@ -47,10 +47,8 @@ function App() {
         if (data.status === 200) return data.data;
       })
       .then((resp) => {
-        console.log(resp);
         const { user, token } = resp;
         document.cookie = `token=${token}; max=age=${60 * 3}; path=/;`;
-        console.log(document.cookie + "COOKIE");
         if (user.active && !user.banned) {
           window.localStorage.setItem("user", JSON.stringify(user));
           dispatch(storeUserInfo(user));
