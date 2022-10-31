@@ -13,6 +13,34 @@ export default function MiPerfil() {
   const localUser = JSON.parse(window.localStorage.getItem("user"));
   const [user, setUser] = useState(localUser);
 
+
+
+
+  // CambioImg
+  const [file, setFile] = useState();
+  const users = JSON.parse(window.localStorage.getItem('user'))
+
+  // functions
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('S3image', file); // lo que escribimos como 1er arg, lo usamos en el back en upload.single();
+    formData.append('userId', users.id);
+    const res = await axios.post('/awsS3Bucket/photo', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+    if (res.status === 200) {
+      user.photo = res.data;
+    }
+    localStorage.setItem('user', JSON.stringify(users));
+    window.location.reload();
+  }
+  // CambioImg
+
   let url = window.location.pathname;
   console.log(user);
   useEffect(() => {
@@ -53,8 +81,23 @@ export default function MiPerfil() {
       <div className="MiPerfil-containerInfoPrincipal">
         <div className="MiPerfil-ContainerDatos">
           <div className="MiPerfil-containerFoto">
-            <img src={user ? user.photo : undefined} alt="perfil" />
-            <UploadPhoto/>
+            <div className="MiPerfil-PositionFoto">
+              <img className="MiPerfil-Photito" src={user ? user.photo : undefined} alt="perfil" />
+
+              <div className="dropdown MiPerfil-ChangeFotoContainer">
+                <button className="MiPerfil-ChangeFoto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  ✏️
+                </button>
+                <div className="MiPerfil-ChangeFotoDesplegable dropdown-menu">
+                  <form onSubmit={handleSubmit}>
+                    <input onChange={handleFile} className="MiPerfil-inputFoto" type='file' accept='image/*'></input>
+                    <button className='MiPerfil-ChangeButtonFoto' type='submit'>Guardar</button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+            {/* <UploadPhoto/> */}
             <div>
               <h4>Hola,</h4>
               <h3>{user ? user.firstName.toUpperCase() : undefined}</h3>

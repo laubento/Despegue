@@ -3,6 +3,7 @@ const User = require("../../models/user")
 const router = Router()
 const History = require("../../models/history")
 const mongoose = require("mongoose")
+const axios = require('axios')
 
 router.get("/getHistory", async (req,res) => {
     const {id} = req.query

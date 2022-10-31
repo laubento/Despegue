@@ -96,3 +96,33 @@
 .MiPerfil-BotonCancelar button{
  margin: 10px 5px   
 }
+.MiPerfil-PositionFoto{
+    position: relative;
+}
+.MiPerfil-ChangeFotoContainer{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    cursor: pointer;
+}
+.MiPerfil-ChangeFoto{
+    border: 0;
+    background-color: #fafafa;
+    border-radius: 30px;
+}
+.MiPerfil-ChangeFotoDesplegable form{
+    padding: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.MiPerfil-inputFoto{
+    border: 20px;
+}
+.MiPerfil-ChangeButtonFoto{
+    margin-left: 10px;
+    border: 0;
+    background-color: #270570;
+    color: #e2e2e2;
+    border-radius: 5px;
+}

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const User = require("../../models/user.js");
 const bcrypt = require("bcryptjs");
+const user = require("../../models/user.js");
 
 router.put("/", async (req, res) => {
     const { id, firstName, lastName, birthDate, dni, phone, email } = req.body;
@@ -42,12 +43,16 @@ router.post("/", async (req, res) => {
 
 // Cambiar contrasena
 router.put("/changePassword", async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
+    const {id} = req.body
+    const {email} = req.body
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+    // console.log(hashedPassword)
     try {
+        // let confirmation = await User.findOne({password: hashedPassword})
+        // console.log(confirmation)
         const updateUser = await User.updateOne(
-            { email: req.body.email },
-            { $set: { password: hashedPassword } }
+            { _id: id },
+            { $set: { password: hashedPassword, email: email } }
         );
         return res.send("Exitoso");
     } catch (err) {

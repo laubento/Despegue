@@ -94,6 +94,8 @@ export default function DatosPersonales({ user, setUser }) {
               } else {
                 errores.lastName = "Por favor proporcione un apellido";
               }
+              if (!valores.email) errores.email = "Por favor, introduzca un email"
+              else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(valores.email)) errores.email = 'Email inválido'
 
               // Validaciones Telefono
               if (!/^[ 0-9]*$/.test(valores.phone)) {
@@ -184,8 +186,8 @@ export default function DatosPersonales({ user, setUser }) {
                         id="email"
                         name="email"
                         placeholder={user ? user.email : ""}
-                        value={user.email}
-                        disabled
+                        value={user.email ? user.email : null }
+                        disabled={user.email || active }
                       />
                       <ErrorMessage
                         name="email"

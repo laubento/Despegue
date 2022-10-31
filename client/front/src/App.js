@@ -38,6 +38,8 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
+  console.log(`user --> ${user}`);
+
 
   useEffect(() => {
     axios
@@ -52,8 +54,8 @@ function App() {
           dispatch(storeUserInfo(user));
         } else if (!user.active && !user.banned) {
           return activeAcc(logout);
-        } else if (!user.active && user.banned) {
-          bannedAcc(logout);
+        } else if (user.banned) {
+          return bannedAcc(logout);
         }
       })
       .catch((err) => {
