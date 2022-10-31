@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 
 router.get("/getoffers", async (req, res) => {
   try {
-    const offers = await Offers.find({ active: true });
+    const offers = await Offers.find({});
     
     if (offers.length) return res.send(offers);
     res.send("No hay ofertas disponibles");
@@ -59,7 +59,7 @@ router.put('/delete',(req, res) => {
       $set: {active: false}
   })
 
-  res.status(200).send("Offer Deleted")
+  .then(e => res.status(200).send("Offer Deleted"))
   .catch((er) =>{
       console.log(er);
   })
@@ -67,14 +67,13 @@ router.put('/delete',(req, res) => {
 
 router.put("/activate", (req,res) => {
   const {_id} = req.body
-  
+  console.log(_id)
   Offers.updateOne({_id: _id}, {
       $set: {active: true}
   })
-
-  res.status(200).send("Offer Activated")
+  .then(e => res.status(200).send("Offer Activated"))
   .catch((err)=>{
-      console.log(err);
+    res.status(400).send(err);
   })
 })
 
