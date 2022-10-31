@@ -1,7 +1,7 @@
 import React, { useDebugValue, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
-import { clearFlightDetail } from "../../Redux/Actions";
+import { clearFlightDetail, getOnlyIda } from "../../Redux/Actions";
 
 import '../styles/CardDetail.css';
     
@@ -23,6 +23,7 @@ export default function CardDetail(){
             return history.push('/flights/roundtrip/cart')
         }
         if (!onFirstFlightRoute && !onSecondFlightRoute) {
+            dispatch(getOnlyIda())
             return history.push('/flights')
         }
         if (onFirstFlightRoute && !onSecondFlightRoute) {

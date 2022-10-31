@@ -163,6 +163,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 airportsTo: action.payload
             }
+        case "CLEAR_AIRPORTS_NAME":
+            return{
+                ...state,
+                airportsFrom: [],
+                airportsTo: []
+            }
         case STORE_USER_INFO:
             return {
                 ...state,
@@ -239,6 +245,13 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 onFirstFlightRoute: !action.payload,
                 onSecondFlightRoute: action.payload
+            }
+
+        case "GET_ONLY_IDA":
+            return{
+                ...state,
+                onFirstFlightRoute: false,
+                onSecondFlightRoute: false
             }
 
         case GET_HISTORY:

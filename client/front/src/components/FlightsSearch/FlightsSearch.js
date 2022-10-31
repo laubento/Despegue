@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, clearCart } from '../../Redux/Actions';
+import { getFlights, clearFlights,searchAirportFrom, searchAirportTo, clearCart, clearAirportsName } from '../../Redux/Actions';
 import '../styles/FlightSearch.css'
 
 export default function FlightsSearch() {
@@ -152,6 +152,7 @@ export default function FlightsSearch() {
             infants: 0,
             currency: 'USD'
         });
+        dispatch(clearAirportsName())
     }
 
 
