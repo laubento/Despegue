@@ -5,6 +5,23 @@ const Rating = require("../../models/rating")
 const users = require("../../models/user")
 
 
+router.post("/ratingComprobation", async (req, res) => {
+    try{
+        console.log(req.body)
+        const user = req.body
+        const matchedEmail = await Rating.find({userEmail: user.email})
+        console.log(matchedEmail)
+        if(matchedEmail.length){
+            return res.send(true)
+        } else return res.send(false)
+        
+
+
+    }catch(err){
+        console.log(err)
+    } 
+})
+
 
 router.post("/newRating", async (req,res) => {
     try {
@@ -62,7 +79,6 @@ router.get("/getUserRating", async (req,res) => {
                     }
                 }
             ])
-            console.log(addUserData)
             
             res.status(200).send(ratingData.concat(addUserData))
         }
@@ -85,7 +101,6 @@ router.get("/getAllRatings", async (req,res) => {
                 }
             },
         ])
-        console.log(addUserData)
         res.status(200).send(addUserData)
     } catch(err){
         console.log(err)

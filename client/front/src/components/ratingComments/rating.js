@@ -14,7 +14,6 @@ export default function Rating(){
     useEffect(() => {
         dispatch(getAllRatings())
     },[])
-    console.log(rating)
     return(
         <div className="containerRating">
             <div>

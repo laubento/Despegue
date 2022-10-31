@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Formik} from "formik"
 import "./ratingForm.css"
 import {FaStar} from "react-icons/fa"
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 
 export default function RatingForm(){
     const stars = Array(5).fill(0)
-    const [currentValue, setCurrentValue] = useState(0)
+    const [currentValue, setCurrentValue] = useState(5)
     const [hoverValue, setHoverValue] = useState(undefined)
+    const [comprobationState, setComprobationState] = useState(false)
     console.log(currentValue)
+    const { loginWithRedirect, logout } = useAuth0();
+
 
     const user = JSON.parse(window.localStorage.getItem("user"));
 
@@ -55,6 +60,21 @@ export default function RatingForm(){
         }
     }
 
+    useEffect(() => {
+        if(user){
+        axios({
+            method: "POST",
+            data: user,
+            url: "/rating/ratingComprobation",
+          }).then((data) => {
+            setComprobationState(data.data)
+          }).catch((err) => {
+            console.log(err)
+          })
+          console.log("entre")
+        }
+    }, [])
+
     
     return(
         <div className="primaryDivFormRating">
@@ -63,7 +83,9 @@ export default function RatingForm(){
                 description:"",
             }}
             onSubmit={(inputs, {resetForm}) => {
-                console.log(inputs)
+                if(!user){
+                loginWithRedirect({redirectUri:"http://localhost:3000/callback"})
+                }
                 resetForm()
                 postInfo(inputs.description)
             }}
@@ -82,7 +104,6 @@ export default function RatingForm(){
                             <div class="card cardDiv1">
                             <h4>Dejanos un comentario acerca de nuestra pagina!</h4>
                                 <div class="card-body">
-                                {/* img user */}
                                 <input 
                                 class="form-control" rows="2"
                                 type="text"
@@ -91,6 +112,7 @@ export default function RatingForm(){
                                 value={values.description}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                disabled={comprobationState}
                                 />
                                 </div>
                             </div>
@@ -116,8 +138,9 @@ export default function RatingForm(){
                                     )
                                 })}
                             </div>
+                            <h5>{errors.value}</h5>
                         </div>
-                        <button type="submit">Submit Rating</button>
+                        <button type="submit" disabled={comprobationState}>Submit Rating</button>
                         </div>
                 </form>
                 )}
