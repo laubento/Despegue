@@ -22,7 +22,7 @@ function Home(props) {
   let display = localStorage.getItem('display')
   let vuelos = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
   let vuelo = vuelos ? vuelos.filter((e) => e.asistant === undefined) : null
-  console.log(vuelo)
+  console.log(`vuelo --> ${vuelo}`)
   // useEffect(e => {
   //   dispatch(listUsers())
   // }, [dispatch])
