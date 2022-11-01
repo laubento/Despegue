@@ -172,10 +172,10 @@ const login = () => {
                   Mis Viajes
                 </Link>
               ) : (
-                <Link to={"/login"}>
+                <button onClick={login}>
                   <img alt="ventas" src={Valija} />
                   Mis Viajes
-                </Link>
+                </button>
               )}
             </li>
             <li className="NavBar-Ayuda">
