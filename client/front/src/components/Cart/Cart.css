@@ -1,6 +1,12 @@
+.cart-container{
+    height: 100vh;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 70px;
+}
+
 .cart-busqueda{
-    background: rgb(113, 14, 179);
-    background: linear-gradient(90deg, rgb(97, 36, 138) 1%, rgb(131, 39, 161) 32%, rgb(58, 7, 66) 93%);
+    background: rgb(114, 22, 176);
     color: white;
     padding: 24px;
     margin-bottom: 15px;
@@ -21,11 +27,50 @@
 }
 
 .cart-btn-home{
-    background: rgb(98,22,148);
-    background: linear-gradient(90deg, rgba(98,22,148,1) 1%, rgb(131, 17, 169) 32%, rgb(178, 24, 202) 93%);
+    background: rgb(114, 22, 176);
     color: white;
     font-weight:bold;
     border: none;
     border-radius: 7px;
     font-size: 17px;
+}
+
+.cart-title-cart-vacio{
+    color: rgb(170, 13, 13);
+    text-decoration: underline;
+}
+
+.cart-btn-home:hover{
+    background: rgb(91, 21, 137);
+    transition: 1s;
+
+}
+
+.cart-title-cart{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    color: rgb(0, 101, 49);
+    font-weight: bold;
+    text-decoration: underline;
+    
+}
+
+.cart-asis{
+    margin-top: 25px;
+}
+
+.btn-cart-comprar{
+    border: none;
+    background-color:rgb(0, 101, 49) ;
+    padding: 7px;
+    border-radius: 7px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-cart-comprar:hover{
+    background-color:rgb(3, 66, 33) ;
+    transition: 1s;
 }

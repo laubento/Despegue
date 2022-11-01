@@ -13,6 +13,8 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { succesAlert } from "../../utils/alerts";
 import { useAuth0 } from "@auth0/auth0-react";
+import * as alerts from '../../utils/alerts'
+
 
 export default function Help() {
   const localUser = JSON.parse(window.localStorage.getItem("user"));
@@ -54,6 +56,13 @@ export default function Help() {
 
   const login = ()=>{
     loginWithRedirect()
+  }
+
+  const handleViajes = (e) => {
+    e.preventDefault();
+    if(!user) return alerts.noLogViajes(loginWithRedirect)
+    else if(user.email === "") return alerts.noEmail(history)
+    return history.push('/user/travels')
   }
 
   return (
@@ -131,9 +140,10 @@ export default function Help() {
                     Las reservas siempre van estar estado correcto, cualquier
                     modificacion se notifica via mail. Para ver tus
                     reserva/viajes presiona{" "}
-                    <Link to={"/user/travels"} className="Help-Aqui">
+                    <span className="Help-Aqui" onClick={handleViajes}> Aqui </span>
+                    {/* <Link to={"/user/travels"} className="Help-Aqui">
                       Aquí
-                    </Link>
+                    </Link> */}
                     .
                   </p>
                 </div>
