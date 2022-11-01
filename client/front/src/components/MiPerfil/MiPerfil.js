@@ -34,7 +34,7 @@ export default function MiPerfil() {
     formData.append('userId', users.id);
     const res = await axios.post('/awsS3Bucket/photo', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
     if (res.status === 200) {
-      user.photo = res.data;
+      users.photo = res.data;
     }
     localStorage.setItem('user', JSON.stringify(users));
     window.location.reload();
