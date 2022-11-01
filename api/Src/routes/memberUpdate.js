@@ -3,7 +3,7 @@ const router = Router();
 const mongoose = require("mongoose");
 const User = require("../../models/user");
 const infoTransporter = require("../routes/utils/mailer");
-const { isUser } = require("./login/auth/verifyToken");
+const { isUser, isAdmin } = require("./login/auth/verifyToken");
 const fs = require("fs");
 
 router.put("/membership", isUser, async (req, res) => {
@@ -36,7 +36,7 @@ router.put("/membershipDisable", isUser, async (req, res) => {
   }
 });
 
-router.get("/dispatchEmail", async (req, res) => {
+router.get("/dispatchEmail", isAdmin, async (req, res) => {
   User.find({ membership: true }).then((data) => {
     const emails = data.map((el) => {
       return { mail: el.email, name: el.firstName };
