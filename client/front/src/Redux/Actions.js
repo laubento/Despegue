@@ -181,6 +181,13 @@ export const deleteOffer = (offer) => {
     }
 }
 
+export const reactivateOffer = (offer) => {
+    // console.log(offer)
+    return async function () {
+        await axios.put(`/admin/offers/activate`, offer)
+    }
+}
+
 export function listOffers() {
     return async function (dispatch) {
         let response = await axios.get(`/admin/offers/getoffers`)

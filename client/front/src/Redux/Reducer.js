@@ -186,9 +186,21 @@ export default function reducer(state = initialState, action) {
                 listUsers: action.payload
             }
         case OFFERS_LIST:
+            // console.log(action.payload)
+            let active = [];
+            let disabled = [];
+            action.payload.forEach(e => {
+                if(e.active){
+                    active.push(e)
+                } else {
+                    disabled.push(e)
+                }
+            });
+            // console.log(active,'----', disabled)
             return {
                 ...state,
-                offersList: action.payload
+                offersListA: active,
+                offersListD: disabled
             }
         case CREATE_OFFERS:
             return {
