@@ -62,6 +62,25 @@ export const succesAlert = (message) => {
   });
 };
 
+export const errorAlert = (message) => {
+  const Toast = swal2.mixin({
+    toast: true,
+    position: "bottom-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", swal2.stopTimer);
+      toast.addEventListener("mouseleave", swal2.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: "error",
+    title: message,
+  });
+};
+
 export const notLogedForPurchase = (loginWithRedirect) => {
     swal2.fire({
         title: "Necesitas iniciar sesion para comprar",

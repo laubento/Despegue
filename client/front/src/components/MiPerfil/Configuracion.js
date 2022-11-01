@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { storeUserInfo } from "../../Redux/Actions";
-import { succesAlert } from "../../utils/alerts";
+import { errorAlert, succesAlert } from "../../utils/alerts";
 
 export default function Configuracion() {
 
@@ -33,7 +33,7 @@ export default function Configuracion() {
       .then(() => {
         succesAlert("Contasena Cambiada");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => errorAlert('Contraseña incorrecta'));
   }
 
 
