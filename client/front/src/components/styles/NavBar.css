@@ -238,3 +238,8 @@ body{
     z-index: 200;
 
 }
+
+
+.Nav-span{
+    cursor: pointer;
+}
