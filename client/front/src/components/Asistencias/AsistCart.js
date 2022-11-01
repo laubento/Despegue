@@ -9,7 +9,7 @@ export default function AsistCard({ obj }) {
 
     console.log('a', obj)
     return (
-        <div>
+        <div className="d-flex justify-content-center">
             {obj === null ? '' : 
              <div className="d-flex Asistencia-ContainerPreCompra">
              {obj.type === "Basica" ? <img src={Basica} alt="Asistencia" /> : null}

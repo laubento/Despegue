@@ -1,5 +1,5 @@
 .Promociones-ContainerPrincipal{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(227, 226, 226);
 }
 
 .carousel-item img{
@@ -31,4 +31,19 @@
 }
 .Promociones-containerPago{
     margin-top: 10px;
+}
+
+.cart-home{
+    background-color: rgb(227, 226, 226);
+    
+}
+
+.home-cart-vacio{
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(156, 10, 10);
+    text-decoration: underline;
 }

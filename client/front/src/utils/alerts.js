@@ -122,3 +122,17 @@ export const noEmail = (history) => {
     })
     .catch((e) => console.log(e))
 }
+
+export const noLogViajes = (loginWithRedirect) => {
+  swal2.fire({
+    title : "Necesitas iniciar sesión para ver tus viajes.",
+    icon: "warning",
+    showConfirmButton: true,
+    confirmButtonText: "Iniciar sesion",
+    showDenyButton: true,
+    denyButtonText: "Cerrar"
+  })
+  .then((result) => {
+    if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/"})
+})
+}

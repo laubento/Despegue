@@ -1,13 +1,12 @@
 .flights-cont{
-    background-color: rgb(205, 205, 205);
+    background-color: rgb(215, 215, 215);
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100vh;
     justify-content: center;
     align-items: center;
 }
-
-
 
 .pag-list-style{
     text-decoration: none;
@@ -68,13 +67,31 @@
 }
 
 .back-top{
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-decoration: none;
-    color: rgb(169, 42, 203);
+    color: rgb(111, 11, 138);
     font-weight: bold;
     margin-left: 15px;
-    text-decoration: underline;
+}
+
+.back-top:hover{
+    color: rgb(111, 11, 138); ;
 }
 
 .back-top-div{
     font-size: 19px;
+}
+
+.fli-msg{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 22px;
+    color: rgb(229, 219, 219);
+    background-color: rgb(111, 11, 138);
+    padding: 7px;
+    border-radius: 9px;
+}
+
+.fli-volver{
+    font-size: 25px;
 }
