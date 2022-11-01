@@ -303,7 +303,7 @@ export default function Cart() {
                                 </div>
                             </div>
                             <div className='d-flex justify-content-center '>
-                                <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                                <button className='cart-btn-home p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
                             </div>
                             {display === true ?
                                 <div className="flights-cont">
@@ -338,7 +338,7 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-center '>
-                                    <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                                    <button className='btn cart-btn-home p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
                                 </div>
                                 {display === true ?
                                     <div className="flights-cont">
