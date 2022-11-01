@@ -11,7 +11,7 @@ export default function Record() {
     let history = useHistory()
     let record = JSON.parse(localStorage.getItem('record'))
     // console.log(record);
-    let names = JSON.parse(localStorage.getItem('names'))
+    // let names = JSON.parse(localStorage.getItem('names'))
 
     // useEffect(e =>{
     //     dispatch(clearFlights())
@@ -20,9 +20,9 @@ export default function Record() {
     const handleClick = (e) => {
         e.preventDefault();
         dispatch(clearFlights())
-        // localStorage.setItem('busqueda', JSON.stringify(record[e.target.value]))
+        localStorage.setItem('busqueda', JSON.stringify(record[e.target.value]))
         dispatch(getFlights(record[e.target.value]));
-        console.log(record)
+        console.log(record[e.target.value])
         if (record[e.target.value].tripType === 'onewaytrip') {
             history.push('/flights');
         } else {
@@ -37,7 +37,7 @@ export default function Record() {
 
         <div className="container-record">
             {
-                record && names
+                record
                 ?
                     <div>
                         <h4>Busqueda Reciente</h4>
@@ -54,10 +54,8 @@ export default function Record() {
                                                         ? <h6 className="p-1">Vuelo Ida y vuelta</h6> 
                                                         : <h6 className="p-1">Vuelo Ida</h6>
                                                     }
-                                                    {/* <h5 className="card-title p-1">{names[0][i].arrivalAirportName[0]}</h5> */}
-                                                    <h5 className="card-title p-1">{names[i].arrivalAirportName[0]}</h5>
-                                                    {/* <h6 className="p-1">Desde {names[0][i].departureAirportName[0]}</h6> */}
-                                                    <h6 className="p-1">Desde {names[i].departureAirportName[0]}</h6>
+                                                    <h5 className="card-title p-1">{e.arrivalAirportName !== undefined ?e.arrivalAirportName : null}</h5>
+                                                    <h6 className="p-1">Desde {e.departureAirportName}</h6>
                                                     <button type="button" className="btn btn-outline-light" value={i} onClick={e => handleClick(e)}>Seguir buscando <ArrowForwardIosIcon /></button>
                                                 </div>
                                             </div>
