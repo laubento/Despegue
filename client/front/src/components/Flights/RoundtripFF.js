@@ -67,7 +67,7 @@ const fetchMoreData = () => {
 
      setDataSource(() => dataSource.concat(arregloDeArreglos[length]))
      setLength(length + 1)
-  }, 800)
+  }, 400)
 }
 
 console.log('ds',dataSource)

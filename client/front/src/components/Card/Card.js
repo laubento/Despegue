@@ -11,6 +11,7 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
 
   const dispatch = useDispatch();
   const flightDetail = useSelector((state) => state.flightDetail);
+  const allFlights = useSelector(state => state.allFlights)
   const busqueda = JSON.parse(localStorage.getItem('busqueda'))
   const history = useHistory();
   let exactprice = Number(price)
@@ -96,9 +97,12 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
               </div>
             </div>
             <div className="col-3 Card-Detalles" >
-              <Link to={`/flights/flightDetail/${id}`} style={{ textDecoration: 'none' }} className='card-link'>
-                <button onClick={handleClickDetail} >Detalles</button>
-              </Link>
+              {
+             cart && allFlights.length === 0 ? '' : <Link to={`/flights/flightDetail/${id}`} style={{ textDecoration: 'none' }} className='card-link'>
+              <button onClick={handleClickDetail} >Detalles</button>
+            </Link>
+              }
+
             </div>
           </div>
         </div>

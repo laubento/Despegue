@@ -60,7 +60,7 @@ function Flights() {
 
       setDataSource(() => dataSource.concat(arregloDeArreglos[length]))
       setLength(length + 1)
-    }, 800)
+    }, 400)
   }
 
 
