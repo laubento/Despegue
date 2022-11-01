@@ -8,18 +8,18 @@ import Ofertas from "../../Images/fuego.png";
 import Asistencias from "../../Images/botiquin.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/NavBar.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Swal from "sweetalert2";
+import * as alerts from '../../utils/alerts'
 
 export default function NavBar() {
     const { loginWithRedirect, logout } = useAuth0();
-
     let url = window.location.pathname;
-
+    const history = useHistory()
     let user = useSelector((state) => state.user);
     const user2 = JSON.parse(window.localStorage.getItem("user"));
 
@@ -64,6 +64,13 @@ const login = () => {
     localStorage.setItem('callbackUrl', window.location.pathname)
     loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
 }
+
+  const handleViajes = (e) => {
+    e.preventDefault();
+    if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
+    else if(user.email === "") return alerts.noEmail(history)
+    return history.push('/user/travels')
+  }
 
   return (
     <div className="NavBar-header">
@@ -166,7 +173,7 @@ const login = () => {
               )}
             </li>
             <li className="NavBar-MisViajes">
-              {user ? (
+              {/* {user ? (
                 <Link to={"/user/travels"}>
                   <img alt="ventas" src={Valija} />
                   Mis Viajes
@@ -176,7 +183,11 @@ const login = () => {
                   <img alt="ventas" src={Valija} />
                   Mis Viajes
                 </Link>
-              )}
+              )} */}
+              <span onClick={handleViajes} className='Nav-span' >
+              <img alt="ventas" src={Valija} />
+              Mis Viajes
+              </span>
             </li>
             <li className="NavBar-Ayuda">
               <Link to={"/help"}>
