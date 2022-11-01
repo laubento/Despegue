@@ -15,7 +15,7 @@ export default function OfertasContainer(){
     }, [dispatch])
 
     const users = useSelector(state => state.listUsers);
-    const offers = useSelector(state => state.offersList);
+    const offers = useSelector(state => state.offersListA);
 
     return(
         <div className="Ofertas-ContainerPrincipal-Principal">

@@ -24,7 +24,7 @@ const initialState = {
     getPaymentInfo: [],
     user: null,
     // listUsers: [],
-    offersList: [],
+    offersListA: [],
     listHistory: [],
     history: [],
     rating:[],
@@ -205,7 +205,7 @@ export default function reducer(state = initialState, action) {
         case CREATE_OFFERS:
             return {
                 ...state,
-                offersList: [...state.offersList, action.payload]
+                offersListA: [...state.offersListA, action.payload]
             }
         case HISTORY_LIST:
             return {
