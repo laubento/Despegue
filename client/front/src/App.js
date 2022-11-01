@@ -33,6 +33,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import ChatBot from "./components/ChatBot/ChatBot";
 import UpladPhoto from "./components/UploadPhoto";
 import Rating from "./components/ratingComments/rating";
+import Filter from "./components/Filter/Filter";
 
 function App() {
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ function App() {
         <Route exact path='/callback' component={Auth0Callback} />
         <Route exact path={"/flights/roundtrip/asistant"} component={CompraAsistencias} />
         <Route path={"/feedBack"} component={Rating}/>
+        <Route path={"/sliders"} component={Filter}/>
       </BrowserRouter>
     </div>
   );

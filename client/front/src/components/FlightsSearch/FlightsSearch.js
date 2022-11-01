@@ -130,7 +130,7 @@ export default function FlightsSearch() {
             })
         }
         localStorage.setItem('busqueda', JSON.stringify(flights))
-        dispatch(clearFlights())
+        // dispatch(clearFlights())
         dispatch(getFlights(flights));
         if (flights.tripType === 'onewaytrip') {
             history.push('/flights');

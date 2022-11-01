@@ -51,7 +51,7 @@ router.post('/photo', upload.single('S3image'), async (req, res) => {
     }
     
     const getCommand = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
+    const url = await getSignedUrl(s3, getCommand, { expiresIn: 2600000 });
     res.send(url);
 
     try {

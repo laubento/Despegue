@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import roundTripExample from './roundTripExapmle';
-import oneWayTripExample from './oneWayTripExample';
+// import oneWayTripExample from './oneWayTripExample';
 
 export const GET_FLIGHTS = "GET_FLIGHTS";
 export const CLEAR_FLIGHTS = "CLEAR_FLIGHTS";
@@ -49,6 +49,7 @@ export function getFlights(flight) {
             // names = [flights.data[0]]
             names = [flights];
         } else if (!names.find(e => e.departureAirportName === flights.data[0].departureAirportName && e.arrivalAirportName === flights.data[0].arrivalAirportName) ) {
+        // } else if (!names[0].find(e => e.departureAirportName === flights.departureAirportName && e.arrivalAirportName === flights.arrivalAirportName) ) {
             console.log('ENTREEE')
             names.unshift(flights.data[0])
         }
@@ -58,6 +59,7 @@ export function getFlights(flight) {
         return dispatch({
             type: GET_FLIGHTS,
             payload: flights.data
+            // payload: flights
         })
     }
 }

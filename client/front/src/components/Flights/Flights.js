@@ -67,11 +67,13 @@ function Flights() {
   console.log(dataSource)
 
   return (
-    <div className="d-flex" id="top">
-      <Filter dataSource={setDataSource} arregloDeArreglos={arregloDeArreglos} setLength={setLength} length={length} fetchMoreData={fetchMoreData} ds={dataSource} setHasMore={setHasMore} />
+    <div>
 
       {
         allFlights.length !== 0 ?
+        <div className="d-flex" id="top">
+        <Filter arregloDeArreglos={arregloDeArreglos} onFlights={true} onFirstFlight={false} onSecondFlight={false}
+                ds={dataSource} dataSource={setDataSource} length={length} setLength={setLength} fetchMoreData={fetchMoreData} setHasMore={setHasMore}/>
           <div className="w-100">
             {
               flights.length !== 0 ?
@@ -128,11 +130,13 @@ function Flights() {
             }
 
           </div>
+          </div>
           : <div className="flights-cont">
             <Loader />
           </div>
       }
     </div>
+
   );
 }
 

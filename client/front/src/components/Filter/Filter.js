@@ -3,11 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterFlights, searchAirline, clearFilters } from '../../Redux/Actions'
 import '../styles/Filter.css'
 import ReactPaginate from "react-paginate";
+import { Slider, Typography, Grid } from '@mui/material';
 
-export default function Filter({paginado, number, dataSource, arregloDeArreglos, setLength, length, setHasMore, ds}) {
-    
+export default function Filter({paginado, number, dataSource, arregloDeArreglos, setLength, length, setHasMore, ds, onFlights, onFirstFlight, onSecondFlight}) {
+    // hooks
     let dispatch = useDispatch();
+    let flights = useSelector(state => state.flights);
+    let firstFlights = useSelector(state => state.firstFlights);
+    let secondFlighs = useSelector(state => state.secondFligh);
+    
+    if (onFirstFlight) {
+        flights = firstFlights;
+    }
 
+    if (onSecondFlight) {
+        flights = secondFlighs;
+    }
+
+    // variables
+    let pricesArray = flights.map((e) => parseInt(e.price));
+    let minP = Math.min(...pricesArray);
+    let maxP = Math.max(...pricesArray);
+    let durationArray = flights.map((e) => parseInt(e.duration.slice(0,2)));
+    let minD = Math.min(...durationArray);
+    let maxD = Math.max(...durationArray);
+
+    // local states
     let [filters, setFilters] = useState({
         minPrice: 'default',
         maxPrice: 'default',
@@ -21,91 +42,33 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
         }
     })
 
+    useEffect(e => {
+        dispatch(filterFlights(filters))
+    }, [dispatch, filters])
+
     let [valueSlide, setValueSlide] = useState({
-        maxP: 0,
-        maxD: 0,
-        maxHs: 0,
+        minP,
+        maxP,
+        minD,
+        maxD,
+        minHs: 0,
+        maxHs: 24,
     })
 
-    const rangeChange = (e) => {
-        e.preventDefault();
-        window.scrollTo(0,0)
-        setFilters({
-            ...filters,
-            [e.target.name]: e.target.value
-        })
-        validate()
-        // paginado(1)
-        // number = 1
-        console.log('rangechange')
-        // if(flights.length === 0)
-        console.log('ds1', ds)
-       setLength(0)
-    //     if(length === arregloDeArreglos.length){
-    //         return setHasMore(false)
-    //    }else{
-    //      setHasMore(true)
-    //    }
-       // dataSource(arregloDeArreglos[length])
-       setHasMore(true)
-       dataSource([])
-       dataSource((prevData) => prevData)
-       console.log('ds2', ds)
-    }
+    let [slider, setSlider] =useState({
+        minPrice: valueSlide.minP,
+        maxPrice: valueSlide.maxP,
+        maxDuration: valueSlide.maxD,
+        minHour: 0,
+        maxHour: 24
+    })
 
-    const handleSelect = (e) => {
-        e.preventDefault();
-        window.scrollTo(0,0)
-        setFilters({
-            ...filters,
-            order: e.target.value 
-        })
-        validate()
-        // paginado(1)
-        // number = 1
-        console.log('handleselect')
-       setLength(0)
-    //     if(length === arregloDeArreglos.length){
-    //         return setHasMore(false)
-    //    }else{
-    //      setHasMore(true)
-    //    }
-       // dataSource(arregloDeArreglos[length])
-       setHasMore(true)
-       dataSource([])
-       dataSource((prevData) => prevData)
+        // Material  UI Slider
+    const [priceValues, setPriceValues] = useState([minP, maxP]);
 
-
-    }
-
-    const handleChange = (e) =>{
-        window.scrollTo(0,0)
-        setSlider({
-            ...slider,
-            [e.target.name]: e.target.value
-        })
-        validate()
-        // paginado(1)
-        // number = 1
-        console.log('handlechange')
-    //     if(length === arregloDeArreglos.length){
-    //         return setHasMore(false)
-    //    }else{
-    //      setHasMore(true)
-    //    }
-    setLength(0)
-    setHasMore(true)
-       // dataSource(arregloDeArreglos[length])
-       
-       dataSource([])
-       dataSource((prevData) => prevData)
-
-
-
-    }
-
+    // functions
     const handleClick = () => {
-        window.scrollTo(0,0)
+        window.scrollTo(0,0);
         setFilters({
             minPrice: valueSlide.minP,
             maxPrice: valueSlide.maxP,
@@ -116,27 +79,93 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
                 type: 'default'
             }
         })
-        // paginado(1)
-        // number = 1
-        
-    //     if(length === arregloDeArreglos.length){
-    //         return setHasMore(false)
-    //    }else{
-    //      setHasMore(true)
-    //    }
-        setLength(0)
-       setHasMore(true)
-       // dataSource(arregloDeArreglos[length])
-       
-       dataSource([])
-       dataSource((prevData) => prevData)
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
 
+    const handleChange = (e) =>{
+        window.scrollTo(0,0)
+        setSlider({
+            ...slider,
+            [e.target.name]: e.target.value
+        })
+        validate();
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
+
+    const handleChangeMuiSlider = (e) => {
+        console.log(e);
+        setPriceValues(e.target.value);
+    }
+
+    const handleChangeAirline = (e) => {
+        e.preventDefault();
+        window.scrollTo(0,0);
+
+        if(e.target.value === ''){
+            setLength(0)
+            setHasMore(true)
+            dataSource([])
+            dataSource(prevData => prevData)
+            return setFilters({
+                ...filters,
+                findAirline:{
+                    payload : '',
+                    type: 'default'
+                }
+            })
+        }
+
+        setFilters({
+            ...filters,
+            findAirline: {
+                payload : e.target.value,
+                type: 'find'
+            }
+        })
+
+        setHasMore(true)
+        setLength(0)
+        dataSource([])
+        dataSource((prevData) => prevData)
 
     }
 
+    const handleSelect = (e) => {
+        e.preventDefault();
+        window.scrollTo(0,0);
+        setFilters({
+            ...filters,
+            order: e.target.value 
+        })
+        validate();
+        setLength(0)
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
 
-    // let flights = useSelector(state => state.flights)
-    let flights = useSelector(state => state.firstFlights)
+    const rangeChange = (e) => {
+        e.preventDefault();
+        window.scrollTo(0,0);
+
+        setFilters({
+            ...filters,
+            [e.target.name]: e.target.value
+        })
+
+        validate();
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
+    
     const validate = () => {
         try {
             flights.forEach(e => {
@@ -183,53 +212,6 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
         }
     }
     
-    useEffect(e => {
-        dispatch(filterFlights(filters))
-    }, [dispatch, filters])
-    
-    let [slider, setSlider] =useState({
-        minPrice: valueSlide.minP,
-        maxPrice: valueSlide.maxP,
-        maxDuration: valueSlide.maxD,
-    })
-
-    const handleChangeAirline = (e) => {
-        e.preventDefault();
-        window.scrollTo(0,0)
-        if(e.target.value === ''){
-            setLength(0)
-            setHasMore(true)
-            dataSource([])
-        dataSource(prevData => prevData)
-           return setFilters({
-                ...filters,
-                findAirline:{
-                    payload : '',
-                    type: 'default'
-                }
-            })
-        }
-        setFilters({
-            ...filters,
-            findAirline: {
-                payload : e.target.value,
-                type: 'find'
-            }
-        })
-
-        // if(length === arregloDeArreglos.length){
-        //      return setHasMore(false)
-        // }else{
-        //   setHasMore(true)
-        // }
-        // dataSource(arregloDeArreglos[length])
-        setHasMore(true)
-        setLength(0)
-        dataSource([])
-        dataSource((prevData) => prevData)
-
-    }
-
     return (
         <div className="bg-secondary text-white">
             <div className="header-box px-1 pt-3 " id="side_nav_filter">
@@ -243,6 +225,18 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
                         <label htmlFor="customRange2" className="d-flex form-label">Mín:<p>{slider.minPrice}$</p></label>
                         <input type="range" name={'minPrice'} className="form-range w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
                     </li>
+                    {/* <Slider
+                        value={priceValues}
+                        onChange={handleChangeMuiSlider}
+                    />
+                    <div className="row">
+                        <Grid item className="col-md-6">
+                            <Typography>{priceValues[0]}</Typography>
+                        </Grid>
+                        <Grid item className="col-md-6">
+                            <Typography>{priceValues[1]}</Typography>
+                        </Grid>
+                    </div> */}
                     <li className="pb-2 border-top">
                         <h4>Duración:</h4>
                         <p>{slider.maxDuration}hs</p>
