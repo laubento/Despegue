@@ -1,0 +1,17 @@
+.primaryDivRating{
+
+}
+.box_result{
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    margin: 5px;
+    padding: 10px;
+}
+.avatar_comment img{
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+}
+.result_comment h4{
+    margin-bottom: 0px;
+}
