@@ -6,7 +6,7 @@ const router = Router();
 
 
 //modificar esto
-const apikey = process.env.API_KEY || "635f112e2dc0fb23485050cc"
+const apikey = process.env.API_KEY || "635f2d002dc0fb23485050cf"
 
 router.get('/from', async (req,res) => {
     const {nombre} = req.query
