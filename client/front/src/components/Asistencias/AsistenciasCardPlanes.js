@@ -9,7 +9,6 @@ import { Link, useHistory } from 'react-router-dom';
 export default function AsistenciasCardPlanes({ asistencia, info }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(info)
     var fechaInicio = info ? new Date(info.departureDate).getTime() : null;
     var fechaFin = info ? new Date(info.returningDate).getTime() : null;
     var diff = fechaFin - fechaInicio;
@@ -21,7 +20,6 @@ export default function AsistenciasCardPlanes({ asistencia, info }) {
     let estandarSimple = info ? 13 * info.adults + 6 * info.children + 2 * info.infants : null
     let premiumSimple = info ? 19 * info.adults + 8 * info.children + 3 * info.infants : null
     let total = info ? info.adults + info.children + info.infants : null
-    console.log(diff / (1000 * 60 * 60 * 24));
 
     function handleClick(asistencia, precio, dias, personas) {
         let obj = {

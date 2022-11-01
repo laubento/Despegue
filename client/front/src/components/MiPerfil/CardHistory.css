@@ -1,3 +1,59 @@
+.CardHistory-FotoPaquete{
+    height: 200px;
+    width: 300px;
+    border-radius: 5px;
+    border: solid 1px rgba(0, 0, 0, 0.493);
+}
+.CardHistory-ancho{
+    display: flex;
+    width: 100%;
+}
+.CardHistory-InfoPaquete{
+    margin-left: 10px;
+    width: 100%;
+}
+.CardHistory-InfoPaquete h5{
+    margin: 0px 10px 0px 0px;
+}
+.CardHistory-InfoPaquete h6{
+    margin: 0px 0px 5px 0px;
+    font-size: 12px;
+}
+.CardHistory-Puntaje{
+    font-size: 12px;
+}
+
+.CardHistory-PaquetePrecio{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.CardHistory-PaquetePrecio h1{
+    margin-left: 10px;
+    padding: 5px 12px;
+    background-color: #4001c7;
+    color: white;
+    border-radius: 5px;
+    font-size: 25px;
+}
+.CardHistory-IdaChange{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.CardHistory-PaqueteTitulo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.CardHistory-PaqueteTitulo div{
+    font-size: 13px;
+    padding: 2px 8px;
+    background-color: #4001c7;
+    color: white;
+    border-radius: 10px;
+}
 .CardHistory-vuelo{
     width: 100%;
     margin-bottom: 10px;

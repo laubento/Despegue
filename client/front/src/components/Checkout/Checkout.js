@@ -14,15 +14,13 @@ export default function Checkout() {
   const history = useHistory();
   const payment = useSelector((state) => state.getPayment);
   //   const flightCart = useSelector((state) => state.flightsCart);
-  const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo"));
-
+  const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo")) ? JSON.parse(window.localStorage.getItem("cartRespaldo")) : [];
+  const oferts = [JSON.parse(window.localStorage.getItem("oferts"))]
 
     useEffect(()=> {
       if(payment.length){
-        console.log("entre")
         localStorage.setItem('init_point', JSON.stringify(payment))
       }
-      console.log(payment)
     },[payment])
 
     let sinLog;
@@ -32,12 +30,11 @@ export default function Checkout() {
         if(user !== null){
             sinLog = false
             display = false
-             localStorage.setItem('sinLog', sinLog)
+            localStorage.setItem('sinLog', sinLog)
             localStorage.setItem('display', display)
             console.log(payment)
             if(payment.length === 0){
                 let infoCompra = JSON.parse(localStorage.getItem('init_point'))
-                console.log(infoCompra)
                 let link = {}
                 infoCompra.map(e => {
                     link.init_point = e.init_point
@@ -70,23 +67,26 @@ export default function Checkout() {
 
 
     //Paypal
-  const values = flightCart.map((flight) => parseInt(flight.price));
-  const sumValues = values.reduce((a, b) => a + b, 0);
-  let flight = flightCart.filter((e) => e.asistant === undefined)
-  let asistant = flightCart.filter((e) => e.asistant)
+    console.log(oferts)
+  const values = flightCart.length ? flightCart.map((flight) => parseInt(flight.price)) : oferts[0].price;
+  console.log(values)
+  const sumValues = flightCart.length ? values.reduce((a, b) => a + b, 0) : values;
+  let flight = flightCart.length ? flightCart.filter((e) => e.asistant === undefined) : []
+  let asistant = flightCart.length ? flightCart.filter((e) => e.asistant) : null
   let info = JSON.parse(window.localStorage.getItem("busqueda"));
 
-  console.log(flight)
+
   // if (!flight[1]) {
   //   flight = flightCart[0];
   // }
 
   const createOrder = (data, actions) => {
+    console.log(sumValues)
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: sumValues.toString(),
+            value:  sumValues.toString(),
           },
         },
       ],
@@ -95,16 +95,40 @@ export default function Checkout() {
 
   const onApprove = (data, actions) => {
     // dispatch(storePurchase(user, flight))
-    axios
-      .post("/users/purchaseComplete", { user, flight, info, asistant })
+    if(flightCart.length){
+      let oferts = []
+      axios
+        .post("/users/purchaseComplete", { user, flight, info, asistant, oferts })
+        .then((e) => {
+          swal("Felicidades!", "Has realizado una compra.", "success");
+        })
+        .catch((e) => swal("Ha ocurrido un error"));
+  
+      // swal('Felicidades!', 'Has realizado una compra.', 'success')
+      window.localStorage.removeItem("cartRespaldo")
+      window.localStorage.removeItem("oferts")
+      window.localStorage.removeItem("busqueda")
+      window.localStorage.removeItem("names")
+      window.localStorage.removeItem("record")
+      history.push("/user/travels");
+      return actions.order.capture();
+    }else{
+      axios
+      .post("/users/purchaseComplete", { user, flight, info, asistant, oferts })
       .then((e) => {
         swal("Felicidades!", "Has realizado una compra.", "success");
       })
       .catch((e) => swal("Ha ocurrido un error"));
 
     // swal('Felicidades!', 'Has realizado una compra.', 'success')
+    window.localStorage.removeItem("cartRespaldo")
+    window.localStorage.removeItem("oferts")
+    window.localStorage.removeItem("busqueda")
+    window.localStorage.removeItem("names")
+    window.localStorage.removeItem("record")
     history.push("/user/travels");
     return actions.order.capture();
+    }
   };
   const onCancel = (data, actions) => {
     swal(

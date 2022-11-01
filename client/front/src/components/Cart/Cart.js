@@ -167,10 +167,11 @@ export default function Cart() {
         //validaciones usuario
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
         else if(user.email === "") return alerts.noEmail(history)
-        else if(!user.verify) return alerts.notVerify()
+        // else if(!user.verify) return alerts.notVerify()
         else {
             await dispatch(getPayment(prueba))
             localStorage.setItem('onCart', false)
+            window.localStorage.removeItem("oferts")
             history.push('/purchase')
             // dispatch(clearCart())
         }

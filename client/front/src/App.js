@@ -38,7 +38,6 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
-  console.log(`user --> ${user}`);
 
 
   useEffect(() => {
@@ -48,7 +47,6 @@ function App() {
         if (data.status === 200) return data.data;
       })
       .then((user) => {
-        console.log(user);
         if (user.active && !user.banned) {
           window.localStorage.setItem("user", JSON.stringify(user));
           dispatch(storeUserInfo(user));

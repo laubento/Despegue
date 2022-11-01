@@ -42,7 +42,6 @@ export default function MiPerfil() {
   // CambioImg
 
   let url = window.location.pathname;
-  console.log(user);
   useEffect(() => {
     window.localStorage.setItem("user", JSON.stringify(user));
   }, [user]);

@@ -1,11 +1,65 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import '../Ofertas/Ofertas.css'
+import { useHistory } from "react-router-dom";
+import {notLogedForPurchase} from '../../utils/alerts.js'
+import { useAuth0 } from "@auth0/auth0-react";
+import { getPayment } from "../../Redux/Actions";
 
 export default function OfertasCard({oferts}){
     const dispatch = useDispatch()
+    const history = useHistory()
+    const { loginWithRedirect } = useAuth0();
+    const user = JSON.parse(window.localStorage.getItem("user"))
 
-    console.log(oferts)
+
+
+    let items = [{
+        title: "Paquete",
+        description: 'Description',
+        picture_url: "http://www.myapp.com/myimage.jpg",
+        category_id: "category123",
+        quantity: 1,
+        unit_price: parseInt(oferts.price),
+    }]
+
+    const prueba = {
+        body: {
+            payer_email: "test_user_47008967@testuser.com",
+            items,
+            notification_url: "https://www.your-site.com/ipn",
+            back_urls: {
+                failure: process.env.REACT_APP_VERCEL_URL_FAILURE || "http://localhost:3000/failure",
+                success: process.env.REACT_APP_VERCEL_URL_SUCCESS || "http://localhost:3000/success",
+            },
+            "purpose": "wallet_purchase",
+            "payment_methods": {
+                "excluded_payment_types": [
+                    {
+                        "id": "ticket"
+                    }
+                ],
+                "installments": 12
+            },
+        }
+    }
+
+
+    async function HandleClick (e){
+        if(user){
+            window.localStorage.removeItem("cartRespaldo")
+            window.localStorage.setItem("oferts", JSON.stringify(oferts))
+            await dispatch(getPayment(prueba))
+            history.push('/purchase')
+        }else{
+            notLogedForPurchase(loginWithRedirect)
+        }
+    }
+
+
+
+
+
     return(
         <div className="Ofertas-ContainerPrincipal">
             <div className="Ofertas-Cabecera">
@@ -34,6 +88,7 @@ export default function OfertasCard({oferts}){
                 <h2 className="m-0">{`$${oferts.price}`}</h2>
                 <p>Incluye impuestos, tasas y cargos</p>
             </div>
+            <button className="Ofertas-BotonComprar" onClick={HandleClick}>Comprar</button>
         </div>
     )
 
