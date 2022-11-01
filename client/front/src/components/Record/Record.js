@@ -54,7 +54,7 @@ export default function Record() {
                                                         ? <h6 className="p-1">Vuelo Ida y vuelta</h6> 
                                                         : <h6 className="p-1">Vuelo Ida</h6>
                                                     }
-                                                    <h5 className="card-title p-1">{names[i].arrivalAirportName}</h5>
+                                                    <h5 className="card-title p-1">{names[i].arrivalAirportName !== undefined ?names[i].arrivalAirportName : null}</h5>
                                                     <h6 className="p-1">Desde {names[i].departureAirportName}</h6>
                                                     <button type="button" className="btn btn-outline-light" value={i} onClick={e => handleClick(e)}>Seguir buscando <ArrowForwardIosIcon /></button>
                                                 </div>
