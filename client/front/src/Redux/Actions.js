@@ -152,7 +152,9 @@ export const storePurchase = (user, flight) => {
 export function listUsers() {
     return async function (dispatch) {
         let response = await axios.get(`/admin/users`)
+        
         let obj = response.data.map((e) => {
+            let newRoles = e.roles.join(',');
             let userName;
             if (e.lastname) {
                 userName = `${e.firstName} ${e.lastname}`
@@ -163,7 +165,7 @@ export function listUsers() {
                 name: userName,
                 email: e.email,
                 id: e._id,
-                roles: e.roles,
+                roles: newRoles,
                 active: e.active,
                 banned: e.banned,
                 membership: e.membership,

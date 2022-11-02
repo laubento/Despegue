@@ -26,7 +26,7 @@ export default function Admin() {
     history.forEach(e => {
         income += Number(e)
     })
-
+    console.log(users)
     const columns = [
         {
             title: 'Nombre',
@@ -49,7 +49,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { admin: 'admin', user: 'user', vip: 'vip' },
+            lookup: { 'user,admin': 'admin', user: 'user', vip: 'vip' },
             filterPlaceholder: 'Filtro por Rol'
         },
         {
