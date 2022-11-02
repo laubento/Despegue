@@ -240,4 +240,9 @@ body{
 .NavBar-MisViajes button{
     border: 0;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.Nav-span{
+    cursor: pointer;
 }

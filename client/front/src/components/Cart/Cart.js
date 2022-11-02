@@ -207,12 +207,14 @@ export default function Cart() {
     let cartSinAsistenciasRespaldo = cartRespaldo ? cartRespaldo.filter((e) => e.asistant === undefined) : null
     // console.log('cartSinAsis', cartSinAsistencias)
     // console.log('cartsinasisRes', cartSinAsistenciasRespaldo)
+    console.log(cartSinAsistenciasRespaldo.length)
+    console.log(cartRespaldo.length)
     return (
         <div className='cart-container'>
             <div className='d-flex justify-content-center'>
 
-            { cartRespaldo === undefined || cartRespaldo === null ? '' :
-                cartSinAsistenciasRespaldo.length === 0  ? <div className='cart-title-cart-vacio'> <h1 className=''>CARRITO VACÍO</h1> </div> : <div className='cart-title-cart'> <h1 className=''>CARRITO DE COMPRAS</h1> </div>}
+            {/* { cartRespaldo === undefined || cartRespaldo === null ? '' : */}
+                { cartRespaldo.length !== 0  ? <div className='cart-title-cart'> <h1 className=''>CARRITO DE COMPRAS</h1> </div> : <div className='cart-title-cart-vacio'> <h1 className=''>CARRITO VACÍO</h1> </div>  }
             </div>
             
             <div className='d-flex justify-content-center'>
@@ -283,7 +285,7 @@ export default function Cart() {
 
             {
                 cartRespaldo === undefined || cartRespaldo === null ? '' :
-                cartSinAsistenciasRespaldo.length === 0  ?
+                cartRespaldo.length === 0  ?
                         <div>
                             {/* <div className='d-flex justify-content-center m-4'>
                         <span className='text-center font-weight-bold h3 FlightSearch-errorsText cart-vacio'>Su carrito está vacío.</span>
