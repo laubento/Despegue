@@ -337,10 +337,9 @@ export default function Admin() {
     const reduxUser = useSelector((state) => state.user);
     const localUser = JSON.parse(window.localStorage.getItem("user"));
   
-    if(!reduxUser && !localUser) return <Redirect to={'/'} />
-    else if (!reduxUser && localUser) return <Loader/>
+    if(!localUser) return <Redirect to={'/'} />
     else if (!_.isEqual(reduxUser, localUser)) return window.location.reload()
-    else if (!reduxUser.roles.includes('admin')) return <Redirect to={'/'} />
+    else if (!localUser.roles.includes('admin')) return <Redirect to={'/'} />
     else {
         return (
             <div className="d-flex">

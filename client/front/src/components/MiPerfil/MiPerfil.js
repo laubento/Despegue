@@ -76,7 +76,6 @@ export default function MiPerfil() {
   }
 
   if(!localUser) return <Redirect to={'/'}/>
-  else if(localUser) return <Loader/>
   else{
     return (
         <div>
