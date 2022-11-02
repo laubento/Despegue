@@ -117,6 +117,7 @@ export default function FlightsSearch() {
     }
 
     const handleSubmit = async (e) => {
+        console.log(flights)
         e.preventDefault();
         if (flights.departurePlace === '' || flights.arrivalPlace === '') {
             return setErrors({
@@ -347,7 +348,9 @@ export default function FlightsSearch() {
                     {errors.allEmpty && <span className='FlightSearch-errorsText font-weight-bold'>{errors.allEmpty}</span>}
                 </div>
             </div>
-            <Record />
+            <div className='container'>
+                <Record />
+            </div>
         </div>
     )
 }

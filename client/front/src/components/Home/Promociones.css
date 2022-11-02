@@ -66,3 +66,8 @@
     outline: 1px solid rgba(0, 0, 0, 0.226);
     color: white;
 }
+.Promociones-PaisesBoton{
+    border: 0;
+    margin: 0px;
+    background-color: white;
+}

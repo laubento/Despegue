@@ -16,10 +16,15 @@ import '../Home/Promociones.css'
 import Record from "../Record/Record";
 import Logo from "../../Images/Logo.png";
 import CardPreguntas from "./CardPreguntas";
-
+import { clearFlights } from "../../Redux/Actions";
+import { clearCart } from "../../Redux/Actions";
+import { clearAirportsName } from "../../Redux/Actions";
+import { getFlights } from "../../Redux/Actions";
+import { succesAlert } from "../../utils/alerts";
 // se usa info de momento
 
 function Home(props) {
+  const dispatch = useDispatch()
   const history = useHistory()
   const [cancel, setCancel] = useState('')
   const [seteo, setSeteo] = useState(false)
@@ -64,9 +69,43 @@ function Home(props) {
 
   function reclamo(){
     setSeteo(false)
+    succesAlert("En las proximas 72hs se contactaran con usted");
   }
 
   localStorage.setItem('onCart', false)
+
+
+  const handlePromo = async (e, infoDep, infoArr) => {
+    let flights = {
+      adults: 1,
+      arrivalPlace: infoArr,
+      cabinClass: "Economy",
+      children: 0,
+      currency: "USD",
+      departureDate: "2023-01-11",
+      departurePlace: infoDep,
+      infants: 0,
+      returningDate: "2023-01-18",
+      tripType: "roundtrip"
+    }
+
+
+
+    e.preventDefault();
+    localStorage.setItem('busqueda', JSON.stringify(flights))
+    dispatch(clearFlights())
+    dispatch(getFlights(flights));
+    if (flights.tripType === 'onewaytrip') {
+        history.push('/flights');
+    } else {
+        history.push('/flights/roundtrip/firstFlight');
+    }
+
+    localStorage.setItem('tripType', flights.tripType)
+    dispatch(clearCart())
+    dispatch(clearAirportsName())
+}
+
 
   return (
     <div>
@@ -88,19 +127,29 @@ function Home(props) {
                 </div>
                 <div className="carousel-inner">
                   <div className="carousel-item active ">
-                    <img src={Mexico} className="d-block w-100" alt="..." />
+                    <button className="Promociones-PaisesBoton" onClick={(e) => {handlePromo(e, 'EZE', 'MEX')}}>
+                      <img src={Mexico} className="d-block w-100 " alt="..." />
+                    </button>
                   </div>
                   <div className="carousel-item">
-                    <img src={Brasil} className="d-block w-100" alt="..." />
+                    <button className="Promociones-PaisesBoton" onClick={(e) => {handlePromo(e, 'EZE', 'BSB')}}>
+                      <img src={Brasil} className="d-block w-100" alt="..." />
+                    </button>
                   </div>
                   <div className="carousel-item">
-                    <img src={Italia} className="d-block w-100" alt="..." />
+                    <button className="Promociones-PaisesBoton" onClick={(e) => {handlePromo(e, 'EZE', 'ORY')}}>
+                      <img src={Italia} className="d-block w-100 " alt="..." />
+                    </button>
                   </div>
                   <div className="carousel-item ">
-                    <img src={Colombia} className="d-block w-100" alt="..." />
+                    <button className="Promociones-PaisesBoton" onClick={(e) => {handlePromo(e, 'EZE', 'BOG')}}>
+                      <img src={Colombia} className="d-block w-100 " alt="..." />
+                    </button>
                   </div>
                   <div className="carousel-item">
-                    <img src={Chile} className="d-block w-100" alt="..." />
+                    <button className="Promociones-PaisesBoton" onClick={(e) => {handlePromo(e, 'EZE', 'SCL')}}>
+                      <img src={Chile} className="d-block w-100 " alt="..." />
+                    </button>
                   </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -133,7 +182,7 @@ function Home(props) {
 
       {/* Preguntas */}
       <div className="mt-3">
-        <div className="container">
+        <div className="container" id="Preguntas">
           <h3>Preguntas frecuentes</h3>
           <CardPreguntas />
         </div>

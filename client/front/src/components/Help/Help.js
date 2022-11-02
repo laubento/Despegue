@@ -239,7 +239,7 @@ export default function Help() {
                 <div className="col-10">
                   <p className="m-0">
                     Visita nuestras preguntas frecuentes tocando{" "}
-                    <a className="Help-Aqui">Aquí</a>.
+                    <Link to={'/#Preguntas'} className="Help-Aqui">Aquí</Link>.
                   </p>
                 </div>
               </div>

@@ -3,11 +3,13 @@
     background-size: cover;
     /* margin-right: 10px; */
     width: 100%;
+    min-height: 250px;
+    margin: 0px 5px;
+    
 }
-
-.container-record{
-    margin-left: 80px;
-    margin-top: 20px;
-    width: 95%;
-    /* height: 60%; */
+.Record-ContainerGeneral{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
