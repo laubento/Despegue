@@ -280,10 +280,10 @@ export const onSecondFlightRoute = () => {
 }
 
 
-export const sendMailCompra = (id, idPago) => {
+export const sendMailCompra = (id) => {
     return async function (dispatch) {
         console.log(id)
-        let response = await axios.post(`/sendmailpago/${id}/${idPago}`)
+        let response = await axios.post(`/sendmailpago/${id}`)
         return dispatch({ type: "SEND_MAIL_COMPRA", payload: response.data })
     }
 }

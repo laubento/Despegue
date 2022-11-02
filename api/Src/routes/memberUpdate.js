@@ -44,7 +44,7 @@ router.post("/dispatchEmail", async (req, res) => {
     });
     emails.forEach((el) => {
       infoTransporter(
-        "nehuenxtreem6@gmail.com",
+        "despegue.info@gmail.com",
         el.mail,
         "Ofertas Para Miembros!",
         `

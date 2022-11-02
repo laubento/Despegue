@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 import mp from "../../Images/mercadopago.png";
+import { useDispatch } from "react-redux";
+import { sendMailCompra } from "../../Redux/Actions";
 import axios from "axios";
 import { useEffect } from "react";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
+  const dispatch = useDispatch()
   const user = JSON.parse(window.localStorage.getItem("user"));
   const history = useHistory();
   const payment = useSelector((state) => state.getPayment);
@@ -105,6 +108,8 @@ export default function Checkout() {
         .catch((e) => swal("Ha ocurrido un error"));
   
       // swal('Felicidades!', 'Has realizado una compra.', 'success')
+      let id = user !== null ? user.id : ''
+      dispatch(sendMailCompra(id))
       window.localStorage.removeItem("cartRespaldo")
       window.localStorage.removeItem("oferts")
       window.localStorage.removeItem("busqueda")
@@ -121,6 +126,8 @@ export default function Checkout() {
       .catch((e) => swal("Ha ocurrido un error"));
 
     // swal('Felicidades!', 'Has realizado una compra.', 'success')
+    let id = user !== null ? user.id : ''
+    dispatch(sendMailCompra(id))
     window.localStorage.removeItem("cartRespaldo")
     window.localStorage.removeItem("oferts")
     window.localStorage.removeItem("busqueda")

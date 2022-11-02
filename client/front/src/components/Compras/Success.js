@@ -41,7 +41,7 @@ function Success(props) {
             console.log(e)
           })
         let id = user !== null ? user.id : ''
-        dispatch(sendMailCompra(id, payment_id))
+        dispatch(sendMailCompra(id))
         swal('Felicidades!', `Has comprado tu pasaje`, 'success')
         history.push('/user')
         if (display === 'false') {
@@ -74,7 +74,7 @@ function Success(props) {
             console.log(e)
           })
         let id = user !== null ? user.id : ''
-        dispatch(sendMailCompra(id, payment_id))
+        dispatch(sendMailCompra(id))
         swal('Felicidades!', `Has comprado tu pasaje`, 'success')
         history.push('/user')
         if (display === 'false') {
