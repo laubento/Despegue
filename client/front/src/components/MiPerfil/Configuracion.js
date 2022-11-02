@@ -43,9 +43,9 @@ export default function Configuracion() {
         <div>
           <div className="Configuracion-ContainerTituloDatos">
             <h1>Configuracion de cuenta</h1>
-            <button onClick={() => setActive(false)} disabled={!active}>
+            {user.sub.split('|')[0] === 'auth0' ?<button onClick={() => setActive(false)} disabled={!active}>
               ✏️
-            </button>
+            </button>: null}
           </div>
           <div className="Configuracion-hr">
             <hr />
