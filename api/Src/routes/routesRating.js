@@ -10,8 +10,9 @@ router.post("/ratingComprobation", async (req, res) => {
         console.log(req.body)
         const user = req.body
         const matchedEmail = await Rating.find({userEmail: user.email})
-        console.log(matchedEmail)
         if(matchedEmail.length){
+            
+
             return res.send(true)
         } else return res.send(false)
         
@@ -101,6 +102,7 @@ router.get("/getAllRatings", async (req,res) => {
                 }
             },
         ])
+
         res.status(200).send(addUserData)
     } catch(err){
         console.log(err)

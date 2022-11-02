@@ -67,8 +67,8 @@ const login = () => {
 
   const handleViajes = (e) => {
     e.preventDefault();
-    if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
-    else if(user.email === "") return alerts.noEmail(history)
+    if(!user) return alerts.noLogViajes(loginWithRedirect)
+    // else if(user.email === "") return alerts.noEmail(history)
     return history.push('/user/travels')
   }
 

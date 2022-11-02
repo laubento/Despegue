@@ -68,15 +68,15 @@ function Home(props) {
   return (
     <div>
         <FlightsSearch cancel={setCancel} />
-      <div>
+      <div className="cart-home">
         {vuelos === null || vuelos === undefined ? <div><span className="text-center FlightSearch-errorsText font-weight-bold mt-2">{cancel}</span> </div> : user !== null && display !== false && (
           <div className={display === false || display === null ? "display-none-btn" : 'mt-4'}>
             <div className="d-flex justify-content-center">
-              <button onClick={handleClickCompra} className='btn btn-success font-weight-bold'>CONTINUA CON LA COMPRA  </button>
-              <button onClick={handleClickCancelar} className='btn btn-danger font-weight-bold ml-3' >CANCELAR COMPRA</button>
+              <button onClick={handleClickCompra} className='btn btn-success font-weight-bold m-1'>CONTINUA CON LA COMPRA  </button>
+              <button onClick={handleClickCancelar} className='btn btn-danger font-weight-bold m-1' >CANCELAR COMPRA</button>
             </div>
             {cartRespaldo.length === 0 ? <div className="d-flex justify-content-center">
-              <span className="font-weight-bold mt-4 mb-4">CARRITO VACÍO!</span>
+              <span className="home-cart-vacio">CARRITO VACÍO!</span>
             </div> : display === true || display !== null ? vuelo.length && vuelo.map(e => {
               return (
                 <div className="d-flex justify-content-center">

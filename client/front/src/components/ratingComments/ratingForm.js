@@ -56,9 +56,10 @@ export default function RatingForm() {
 
     useEffect(() => {
         if (user) {
+            let userMail = {email: user.email}
             axios({
                 method: "POST",
-                data: user,
+                data: userMail,
                 url: "/rating/ratingComprobation",
             }).then((data) => {
                 setComprobationState(data.data)

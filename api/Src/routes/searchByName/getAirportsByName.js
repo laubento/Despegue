@@ -1,12 +1,13 @@
 const { Router } = require("express");
 
 const axios = require('axios')
+require("dotenv").config();
 
 const router = Router();
 
 
 //modificar esto
-const apikey = process.env.API_KEY || "63617f075d52b36b5d4adedd"
+const apikey = process.env.API_KEY || "635eee1a412ef3234032bb60"
 
 router.get('/from', async (req,res) => {
     const {nombre} = req.query

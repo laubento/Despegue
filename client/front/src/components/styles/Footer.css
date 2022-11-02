@@ -5,7 +5,11 @@
     height: 0px;
 }
 body{
-    padding-bottom: 1000px;
-    position: relative;
+    margin: 0;
+    margin-bottom: 40px;
     /* min-height: 100vh; */
+}
+html{
+    min-height: 100%;
+    position: relative;
 }

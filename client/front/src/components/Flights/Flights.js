@@ -60,7 +60,7 @@ function Flights() {
 
       setDataSource(() => dataSource.concat(arregloDeArreglos[length]))
       setLength(length + 1)
-    }, 800)
+    }, 400)
   }
 
 
@@ -84,10 +84,15 @@ function Flights() {
                   loader={<div className="d-flex justify-content-center loader-scroll"><img className="scroll" onClick={fetchMoreData} src={scrollgif} /></div>}
                   endMessage={
                     <div className="back-top-div d-flex justify-content-center mt-4">
-                      <span className="text-center font-weight-bold">No hay más.</span>
+                      <div className="d-flex flex-column">
+                      <span className="text-center font-weight-bold fli-msg">No hay más vuelos con lo solicitado</span>
+                      <div className="d-flex justify-content-center">
                       <a href="#top" className="back-top" >
-                        <span>Volver</span>
+                        <span className="fli-volver">👆↑ Volver 👆↑</span>
                       </a>
+                      </div>
+
+                      </div>
                     </div>
                   }
                 >

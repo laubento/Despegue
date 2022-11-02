@@ -167,7 +167,7 @@ export default function Cart() {
         //validaciones usuario
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
         else if(user.email === "") return alerts.noEmail(history)
-        else if(!user.verify) return alerts.notVerify()
+        // else if(!user.verify) return alerts.notVerify()
         else {
             await dispatch(getPayment(prueba))
             localStorage.setItem('onCart', false)
@@ -207,8 +207,16 @@ export default function Cart() {
     // console.log('cartSinAsis', cartSinAsistencias)
     // console.log('cartsinasisRes', cartSinAsistenciasRespaldo)
     return (
-        <div className='container-xxl'>
-            <h1 className='text-center mt-3'>CARRITO DE COMPRAS</h1>
+        <div className='cart-container'>
+            <div className='d-flex justify-content-center'>
+
+            { cartRespaldo === undefined || cartRespaldo === null ? '' :
+                cartSinAsistenciasRespaldo.length === 0  ? <div className='cart-title-cart-vacio'> <h1 className=''>CARRITO VACÍO</h1> </div> : <div className='cart-title-cart'> <h1 className=''>CARRITO DE COMPRAS</h1> </div>}
+            </div>
+            
+            <div className='d-flex justify-content-center'>
+            <div className='flex-column'>
+
             {
                 items !== ''
                     ? cart.length > 0
@@ -266,8 +274,10 @@ export default function Cart() {
             }
 
             {/* Asistencia */}
-            <div className='container-xxl d-flex justify-content-center'>
-                <AsistCard obj={asistant} />
+            <div className='mt-5'>
+            <AsistCard obj={asistant} />
+            </div>
+            </div>
             </div>
 
             {
@@ -303,10 +313,10 @@ export default function Cart() {
                                 </div>
                             </div>
                             <div className='d-flex justify-content-center '>
-                                <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                                <button className='cart-btn-home p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
                             </div>
                             {display === true ?
-                                <div className="flights-cont">
+                                <div className="d-flex justify-content-center">
                                     <Loader />
                                 </div> : ''}
                         </div>
@@ -338,24 +348,17 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-center '>
-                                    <button className='btn FlightSearch-btn p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
+                                    <button className='btn cart-btn-home p-2 font-weight-bold' onClick={handleRebuscar}>Buscar</button>
                                 </div>
                                 {display === true ?
-                                    <div className="flights-cont">
-                                        <Loader />
-                                    </div> : ''}
+                                    <div className="d-flex justify-content-center">
+                                    <Loader />
+                                </div> : ''}
                             </div>
 
                             :
-                            <div className='row'>
-                                <div className='col-md-4'></div>
-                                <div className='col-md-4'></div>
-
-                                <div className='col-md-4 text-right'>
-                                    <div className='container'>
-                                        <button className='btn btn-success' onClick={handleClick}>Comprar</button>
-                                    </div>
-                                </div>
+                            <div className='d-flex justify-content-center mt-5'>
+                            <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
                             </div>
             }
 
