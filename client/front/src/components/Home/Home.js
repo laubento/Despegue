@@ -15,13 +15,14 @@ import { Link } from "react-router-dom";
 import '../Home/Promociones.css'
 import Record from "../Record/Record";
 import Logo from "../../Images/Logo.png";
-
+import CardPreguntas from "./CardPreguntas";
 
 // se usa info de momento
 
 function Home(props) {
   const history = useHistory()
   const [cancel, setCancel] = useState('')
+  const [seteo, setSeteo] = useState(false)
   let display = localStorage.getItem('display')
   let cartRespaldo = JSON.parse(localStorage.getItem('cartRespaldo'))
   let vuelos = undefined || null ? '' : JSON.parse(localStorage.getItem('detail'))
@@ -61,6 +62,9 @@ function Home(props) {
     history.push('/')
   }
 
+  function reclamo(){
+    setSeteo(false)
+  }
 
   localStorage.setItem('onCart', false)
 
@@ -68,7 +72,7 @@ function Home(props) {
     <div>
       <FlightsSearch cancel={setCancel} />
 
-        {/* Promociones */}
+      {/* Promociones */}
       <div className="Promociones-ContainerPrincipal">
         <div className="container-xl">
           <div className="row">
@@ -124,6 +128,39 @@ function Home(props) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Preguntas */}
+      <div className="mt-3">
+        <div className="container">
+          <h3>Preguntas frecuentes</h3>
+          <CardPreguntas />
+        </div>
+      </div>
+
+      {/* Notas */}
+      <div className="container">
+        <hr></hr>
+        <div className="PromocionesArrepentimiento">
+          <h6>Podés cancelar tus compras* realizadas de forma online o telefonica dentro de un plazo máximo de 10 días desde la fecha que realizaste la compra.</h6>
+          <p>*Según Resolución 329/2020 ANAC no aplica para vuelos, se rigen por política de devolución informada en tu voucher</p>
+          <button className="Promociones-Boton" onClick={(e) => {setSeteo(!seteo)}}>Boton de arrepentimiento</button>
+          <div className="Promociones-ContainerInput">
+            <div className="d-flex mt-3">
+              {seteo ? <input placeholder="Numero de Telefono o EMAIL" className="form-control " type={"text"}/> : null} 
+              {seteo ? <button onClick={reclamo} className="PromocionesBotonReclamo">Enviar</button> : null}
+            </div>
+            {seteo ? <p className="m-0">*Nuestros operadores se contactaran a la brevedad con usted, preocurar enviar solo una vez*</p>: null}
+          </div>
+          
+        </div>
+      </div>
+      <div className="container">
+        <div className="Promociones-Notas">
+          <h4>Vuelos baratos, hoteles y alojamientos en oferta, paquetes turísticos y más</h4>
+          <p>Despegue te propone las mejores ofertas y oportunidades para que viajes en serio sin gastar de más. Buscamos brindarte la mejor y más personalizada atención para que hagas de tus vacaciones lo único que deben ser: espectaculares Aprovechá nuestras oportunidades en vuelos baratos, promociones aéreas, hoteles, paquetes turísticos, alquiler de autos, actividades, cruceros y seguros de viaje. Llegamos a todo el planeta: Argentina, Brasil, Caribe, Estados Unidos, Europa y miles de destinos más. Empezá a disfrutar ahora de tu viaje comprando con el mejor precio y la mejor financiación en Despegue.</p>
+          <hr></hr>
         </div>
       </div>
     </div>

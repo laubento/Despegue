@@ -6,6 +6,7 @@ import { deleteOffer, listHistory, listOffers, listUsers, offersCreate, reactiva
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReplyAllTwoToneIcon from '@mui/icons-material/ReplyAllTwoTone';
 import '../styles/Admin.css'
+import axios from "axios";
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -372,7 +373,12 @@ export default function Admin() {
                             editable={{
                                 onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                     dispatch(offersCreate(newRow))
-
+                                    console.log(newRow)
+                                    axios({
+                                        method: "POST",
+                                        data: newRow,
+                                        url: "/users/dispatchEmail",
+                                      })
                                     resolve()
                                     window.location.reload()
                                 }),

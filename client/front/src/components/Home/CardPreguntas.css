@@ -1,0 +1,15 @@
+.CardPreguntas-Container{
+    width: 25%;
+    height: 430px;
+    background-color: white;
+    padding: 20px 20px;
+    box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.473);
+    margin: 5px;
+    border-radius: 10px;
+}
+.CardPreguntas-Container h4{
+    font-size: 20px;
+}
+.CardPreguntas-Container p{
+    font-size: 13px;
+}
