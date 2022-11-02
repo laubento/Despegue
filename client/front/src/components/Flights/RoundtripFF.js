@@ -75,11 +75,11 @@ console.log('aa', arregloDeArreglos)
 
 
   return (
-    <div className="d-flex">
-      {/* <Filter paginado={paginado} number={number}/> */}
-      <Filter dataSource={setDataSource} arregloDeArreglos={arregloDeArreglos} setLength={setLength} length={length} fetchMoreData={fetchMoreData} ds={dataSource}  setHasMore={setHasMore}/>
+    <div>
       {
         allFlights.length !== 0 ? 
+        <div className="d-flex">
+        <Filter dataSource={setDataSource} arregloDeArreglos={arregloDeArreglos} setLength={setLength} length={length} fetchMoreData={fetchMoreData} ds={dataSource}  setHasMore={setHasMore}/>
         <div className="w-100">
           {
             flights.length !== 0 ? 
@@ -136,6 +136,7 @@ console.log('aa', arregloDeArreglos)
 
           }
 
+          </div>
           </div>
           : <div className="flights-cont">
           <Loader />
