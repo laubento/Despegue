@@ -75,7 +75,7 @@ function App() {
         <Route path="/user" render={() => <MiPerfil />} />
         <Route exact path={"/register"} render={() => <Register />} />
         <Route exact path="/flights" component={Flights} />
-        <Route exact path="/admin" component={Admin} />
+        <PrivateRoute exact path="/admin" component={Admin} />
         <Route
           exact
           path="/flights/roundtrip/firstFlight"

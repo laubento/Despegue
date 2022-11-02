@@ -6,9 +6,7 @@ import { deleteOffer, listHistory, listOffers, listUsers, offersCreate, reactiva
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReplyAllTwoToneIcon from '@mui/icons-material/ReplyAllTwoTone';
 import '../styles/Admin.css'
-import _ from "lodash";
-import { Redirect } from "react-router-dom";
-import Loader from "../Loader/Loader";
+import axios from "axios";
 
 export default function Admin() {
     const dispatch = useDispatch()
@@ -334,97 +332,92 @@ export default function Admin() {
         // },
     ]
 
-    const reduxUser = useSelector((state) => state.user);
-    const localUser = JSON.parse(window.localStorage.getItem("user"));
-  
-    if(!localUser) return <Redirect to={'/'} />
-    else if (!_.isEqual(reduxUser, localUser)) return window.location.reload()
-    else if (!localUser.roles.includes('admin')) return <Redirect to={'/'} />
-    else {
-        return (
-            <div className="d-flex">
-                <div className="usersTable">
-                    <div className="card-income">
-                        <h3>Ingreso Total: {income}$</h3>
+    return (
+        <div className="d-flex">
+            <div className="usersTable">
+                <div className="card-income">
+                    <h3>Ingreso Total: {income}$</h3>
+                </div>
+                <div className="tableUsers">
+                    <h2>Usuarios</h2>
+                    <div>
+                        <MaterialTable
+                            title={'Lista de usuarios'}
+                            columns={columns}
+                            data={users}
+                            options={{ filtering: true, actionsColumnIndex: -1, columnsButton: true, rowStyle: { background: '#f5f5f5' }, paginationType: 'stepped' }}
+                            editable={{
+                                onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
+                                    dispatch(updateUser(newRow))
+                                    // setRender('hola')
+                                    resolve()
+                                    window.location.reload()
+                                })
+                            }}
+                        />
                     </div>
-                    <div className="tableUsers">
-                        <h2>Usuarios</h2>
-                        <div>
-                            <MaterialTable
-                                title={'Lista de usuarios'}
-                                columns={columns}
-                                data={users}
-                                options={{ filtering: true, actionsColumnIndex: -1, columnsButton: true, rowStyle: { background: '#f5f5f5' }, paginationType: 'stepped' }}
-                                editable={{
-                                    onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
-                                        dispatch(updateUser(newRow))
-                                        // setRender('hola')
-                                        resolve()
-                                        window.location.reload()
-                                    })
-                                }}
-                            />
-                        </div>
+                </div>
+                <div className="tableUsers">
+                    <h2>Ofertas Activas</h2>
+                    <div>
+                        <MaterialTable
+                            title={'Lista de Ofertas Activadas'}
+                            columns={columnsOffersA}
+                            data={offersActive}
+                            actions={[{
+                                icon: () => <DeleteIcon />,
+                                tooltip: 'Click me',
+                                onClick: (e, data) => dispatch(deleteOffer(data))
+                            }]}
+                            options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: true }}
+                            editable={{
+                                onRowAdd: (newRow) => new Promise((resolve, reject) => {
+                                    dispatch(offersCreate(newRow))
+                                    console.log(newRow)
+                                    axios({
+                                        method: "POST",
+                                        data: newRow,
+                                        url: "/users/dispatchEmail",
+                                      })
+                                    resolve()
+                                    window.location.reload()
+                                }),
+                                onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
+                                    dispatch(updateOffer(newRow))
+
+                                    resolve()
+                                    window.location.reload()
+                                }),
+                                onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
+                                    dispatch(deleteOffer(selectedRow))
+
+                                    resolve()
+                                    window.location.reload()
+                                })
+                            }}
+                        />
                     </div>
-                    <div className="tableUsers">
-                        <h2>Ofertas Activas</h2>
-                        <div>
-                            <MaterialTable
-                                title={'Lista de Ofertas Activadas'}
-                                columns={columnsOffersA}
-                                data={offersActive}
-                                actions={[{
-                                    icon: () => <DeleteIcon />,
-                                    tooltip: 'Click me',
-                                    onClick: (e, data) => dispatch(deleteOffer(data))
-                                }]}
-                                options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: true }}
-                                editable={{
-                                    onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                        dispatch(offersCreate(newRow))
-    
-                                        resolve()
-                                        window.location.reload()
-                                    }),
-                                    onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
-                                        dispatch(updateOffer(newRow))
-    
-                                        resolve()
-                                        window.location.reload()
-                                    }),
-                                    onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
-                                        dispatch(deleteOffer(selectedRow))
-    
-                                        resolve()
-                                        window.location.reload()
-                                    })
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="tableUsers">
-                        <h2>Ofertas Desactivadas</h2>
-                        <div>
-                            <MaterialTable
-                                title={'Lista de Ofertas Desactivadas'}
-                                columns={columnsOffersD}
-                                data={offersDisable}
-                                actions={[{
-                                    icon: () => <ReplyAllTwoToneIcon />,
-                                    tooltip: 'Click me',
-                                    onClick: (e, data) => {
-                                        dispatch(reactivateOffer(data))
-                                        window.location.reload()
-                                    }
-                                }]}
-                                options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: false }}
-                            />
-                        </div>
+                </div>
+                <div className="tableUsers">
+                    <h2>Ofertas Desactivadas</h2>
+                    <div>
+                        <MaterialTable
+                            title={'Lista de Ofertas Desactivadas'}
+                            columns={columnsOffersD}
+                            data={offersDisable}
+                            actions={[{
+                                icon: () => <ReplyAllTwoToneIcon />,
+                                tooltip: 'Click me',
+                                onClick: (e, data) => {
+                                    dispatch(reactivateOffer(data))
+                                    window.location.reload()
+                                }
+                            }]}
+                            options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: false }}
+                        />
                     </div>
                 </div>
             </div>
-        );
-    }
-    
+        </div>
+    );
 }
-
