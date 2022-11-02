@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import {notLogedForPurchase} from '../../utils/alerts.js'
 import { useAuth0 } from "@auth0/auth0-react";
 import { getPayment } from "../../Redux/Actions";
+import dotenv from "dotenv";
+dotenv.config();
 
 export default function OfertasCard({oferts}){
     const dispatch = useDispatch()
