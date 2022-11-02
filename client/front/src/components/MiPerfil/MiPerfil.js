@@ -13,7 +13,6 @@ import _ from 'lodash'
 
 export default function MiPerfil() {
   const localUser = JSON.parse(window.localStorage.getItem("user"));
-  const reduxUser = useSelector((state) => state.user)
   const [user, setUser] = useState(localUser);
 
 
@@ -76,9 +75,8 @@ export default function MiPerfil() {
     });
   }
 
-  if(!reduxUser && !localUser) return <Redirect to={'/'}/>
-  else if(!reduxUser && localUser) return <Loader/>
-  else if (!_.isEqual(reduxUser, localUser)) return window.location.reload()
+  if(!localUser) return <Redirect to={'/'}/>
+  else if(localUser) return <Loader/>
   else{
     return (
         <div>
