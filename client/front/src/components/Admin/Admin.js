@@ -19,7 +19,7 @@ export default function Admin() {
         dispatch(listOffers())
         dispatch(listHistory())
         // setRender('chau')
-    }, [dispatch])
+    }, [dispatch]) 
 
     const users = useSelector(state => state.listUsers);
     const offersActive = useSelector(state => state.offersListA);
