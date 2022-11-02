@@ -5,6 +5,8 @@ import { FaStar } from "react-icons/fa"
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from 'react-router-dom';
+import dotenv from "dotenv";
+dotenv.config();
 
 
 
@@ -79,7 +81,7 @@ export default function RatingForm() {
                 }}
                 onSubmit={(inputs, { resetForm }) => {
                     if (!user) {
-                        loginWithRedirect({ redirectUri: "http://localhost:3000/callback" })
+                        loginWithRedirect({ redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback" })
                     }
                     resetForm()
                     postInfo(inputs.description)

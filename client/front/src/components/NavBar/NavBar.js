@@ -15,6 +15,8 @@ import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Swal from "sweetalert2";
 import * as alerts from '../../utils/alerts'
+import dotenv from "dotenv";
+dotenv.config();
 
 export default function NavBar() {
     const { loginWithRedirect, logout } = useAuth0();
@@ -62,7 +64,7 @@ const closeSession = () => {
 
 const login = () => {
     localStorage.setItem('callbackUrl', window.location.pathname)
-    loginWithRedirect({redirectUri: "http://localhost:3000/callback"})
+    loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
 }
 
   const handleViajes = (e) => {

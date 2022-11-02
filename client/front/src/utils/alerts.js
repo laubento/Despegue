@@ -1,5 +1,7 @@
 import swal2 from "sweetalert2";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const activeAcc = (log) => {
   swal2

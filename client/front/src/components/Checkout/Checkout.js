@@ -3,19 +3,21 @@ import ReactDOM from "react-dom";
 import style from "./Checkout.module.css";
 import { useSelector } from "react-redux";
 import swal from "sweetalert";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import mp from "../../Images/mercadopago.png";
 import axios from "axios";
 import { useEffect } from "react";
+import Loader from "../Loader/Loader";
+import _ from 'lodash'
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Checkout() {
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const localUser = JSON.parse(window.localStorage.getItem("user"));
+  const user = useSelector((state) => state.user)
   const history = useHistory();
   const payment = useSelector((state) => state.getPayment);
-  //   const flightCart = useSelector((state) => state.flightsCart);
+  const flightCartRedux = useSelector((state) => state.flightsCart);
   const flightCart = JSON.parse(window.localStorage.getItem("cartRespaldo"));
-
 
     useEffect(()=> {
       if(payment.length){
@@ -24,6 +26,10 @@ export default function Checkout() {
       }
       console.log(payment)
     },[payment])
+
+    if(!user && !localUser) return <Redirect to={'/'} />
+    else if(!user && localUser) return <Loader/>
+    else if (!_.isEqual(user, localUser)) return window.location.reload()
 
     let sinLog;
     let display;
