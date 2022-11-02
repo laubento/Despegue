@@ -7,15 +7,15 @@ export const activeAcc = (log) => {
   swal2
     .fire({
       title: "Tu cuenta se encuentra desactivada",
-      text: "¿Queres reactivar tu cuenta?",
+      text: "Para reactivar tu cuenta contactate con despegue.info@gmail.com",
       icon: "warning",
       showDenyButton: true,
-      confirmButtonText: "Reactivar cuenta",
-      denyButtonText: "No",
+      confirmButtonText: "Abrir email",
+      denyButtonText: "Salir",
     })
     .then((result) => {
       if (result.isConfirmed) {
-        swal2.fire("Cuenta Reactivada");
+        window.open('mailto:despegue.info@gmail.com', '_blank')
       } else if (result.isDenied) {
         log({
           returnTo: process.env.VERCEL_URL || "http://localhost:3000",

@@ -53,10 +53,10 @@ function App() {
         if (user.active && !user.banned) {
           window.localStorage.setItem("user", JSON.stringify(user));
           dispatch(storeUserInfo(user));
-        } else if (!user.active && !user.banned) {
-          return activeAcc(logout);
         } else if (user.banned) {
-          return bannedAcc(logout);
+            return bannedAcc(logout);
+        } else if (!user.active) {
+            return activeAcc(logout);
         }
       })
       .catch((err) => {
