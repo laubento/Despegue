@@ -21,7 +21,6 @@ export default function Help() {
   const [user, setUser] = useState(localUser);
   const history = useHistory()
   const { loginWithRedirect, logout } = useAuth0();
-  console.log(user);
   
   useEffect(() => {
     window.localStorage.setItem("user", JSON.stringify(user));
@@ -250,7 +249,7 @@ export default function Help() {
                 <div className="col-10">
                   <p className="m-0">
                     Visita nuestras preguntas frecuentes tocando{" "}
-                    <a className="Help-Aqui">Aquí</a>.
+                    <Link to={'/#Preguntas'} className="Help-Aqui">Aquí</Link>.
                   </p>
                 </div>
               </div>

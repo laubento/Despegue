@@ -11,9 +11,19 @@ router.post("/purchaseComplete", async (req, res) => {
         const flight = req.body.flight
         const infoBusqueda = req.body.info
         const asistant = req.body.asistant
+        const oferts = req.body.oferts
+        console.log(oferts)
+        if(oferts.length){
+            const history = new History({
+                package: oferts,
+                userId: id,
+            })
+            await history.save()
+            const user = await User.find({ "_id:": id }).populate("purchaseHistory")
+            return res.status(200).send("Succesfull Saved in User History")  
+        }
         // const extras = req.body.asistant
         if (Array.isArray(flight)) {
-
             let vuelos = flight.map((e) => {
                 return ({
                     exit: e.arrivalAirportCode,

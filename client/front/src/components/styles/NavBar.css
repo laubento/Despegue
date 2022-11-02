@@ -236,10 +236,8 @@ body{
     height: 25px;
     border-radius: 30px;
     z-index: 200;
-
 }
-
-
-.Nav-span{
-    cursor: pointer;
+.NavBar-MisViajes button{
+    border: 0;
+    font-weight: bold;
 }

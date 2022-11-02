@@ -12,7 +12,6 @@ export default function UserHistory() {
   if (!user && user2) user = user2;
 
   const history = useSelector((state) => state.history);
-  console.log(history);
   const dispatch = useDispatch();
   useEffect(() => {
     if (user) {
@@ -29,6 +28,7 @@ export default function UserHistory() {
         <div className="UserHistory-containerPrincipalVuelos">
           {history.length
             ? history.map((e, i) => {
+              if(i > 5) return
                 return (
                   <div key={i}>
                     <CardHistory paquete={e.package} />

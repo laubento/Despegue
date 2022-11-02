@@ -5,7 +5,8 @@ const historySchema = mongoose.Schema({
   package: {
     type: Array,
     required: true
-  }
+  },
+
 
 });
 

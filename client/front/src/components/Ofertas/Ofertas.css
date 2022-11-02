@@ -6,11 +6,18 @@
     cursor: pointer;
     box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.473);
     transition: all 0.3s;
+    border: 0;
+    padding: 0px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.726);
 }
 .Ofertas-ContainerPrincipal:hover{
-    border: 1px solid rgba(0, 0, 0, 0.452);
+    /* border: 1px solid rgba(0, 0, 0, 0.452); */
     box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.76);
     transform: scale(1.01);
+    padding: 0px;
 }
 .Ofertas-IMG{
     width: 100%;
@@ -60,4 +67,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+.Ofertas-BotonComprar{
+    width: 100%;
+    border: 0;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    padding: 5px 10px;
+    background-color: rgb(25, 0, 255);
+    color: white;
+    transition: all 0.3s;
+}
+.Ofertas-BotonComprar:hover{
+    background-color: rgb(15, 0, 148);
 }

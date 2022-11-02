@@ -32,18 +32,42 @@
 .Promociones-containerPago{
     margin-top: 10px;
 }
-
-.cart-home{
-    background-color: rgb(227, 226, 226);
-    
+.Promociones-Notas{
+    margin: 20px 0px 0px;
+    padding-bottom: 20px;
 }
-
-.home-cart-vacio{
-    font-weight: bold;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    font-size: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: rgb(156, 10, 10);
-    text-decoration: underline;
+.Promociones-Notas p{
+    font-size: 13px;
+}
+.PromocionesArrepentimiento{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.Promociones-Boton{
+    border: 0;
+    background-color: rgb(255, 153, 0);
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+.Promociones-Boton:hover{
+    background-color: rgb(255, 177, 32);
+}
+.PromocionesBotonReclamo{
+    padding: 10px 40px;
+    background-color: rgb(108, 123, 255);
+    border: 0;
+    border-radius: 5px;
+    outline: 1px solid rgba(0, 0, 0, 0.226);
+    color: white;
+}
+.Promociones-PaisesBoton{
+    border: 0;
+    margin: 0px;
+    background-color: white;
 }

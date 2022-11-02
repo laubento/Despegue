@@ -171,6 +171,7 @@ export default function Cart() {
         else {
             await dispatch(getPayment(prueba))
             localStorage.setItem('onCart', false)
+            window.localStorage.removeItem("oferts")
             history.push('/purchase')
             // dispatch(clearCart())
         }

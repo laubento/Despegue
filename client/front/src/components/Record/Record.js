@@ -41,25 +41,23 @@ export default function Record() {
                 ?
                     <div>
                         <h4>Busqueda Reciente</h4>
-                        <div className="row text-light">
+                        <div className="Record-ContainerGeneral">
                             {
                                 record.map((e, i) => {
                                     if (i > 2) return;
                                     return (
-                                        <div className="col-sm-3" key={i}>
-                                            <div className="card" id="record-card">
+                                            <div key={i} className="card" id="record-card">
                                                 <div className="card-body">
                                                     {
                                                         e.tripType === "roundtrip" 
                                                         ? <h6 className="p-1">Vuelo Ida y vuelta</h6> 
                                                         : <h6 className="p-1">Vuelo Ida</h6>
                                                     }
-                                                    <h5 className="card-title p-1">{e.arrivalAirportName !== undefined ?e.arrivalAirportName : null}</h5>
-                                                    <h6 className="p-1">Desde {e.departureAirportName}</h6>
-                                                    <button type="button" className="btn btn-outline-light" value={i} onClick={e => handleClick(e)}>Seguir buscando <ArrowForwardIosIcon /></button>
+                                                    <h5 className="card-title p-1">{names[i].arrivalAirportName !== undefined ?names[i].arrivalAirportName : null}</h5>
+                                                    <h6 className="p-1">Desde {names[i].departureAirportName}</h6>
+                                                    <button type="button" className="btn btn-light mt-3" value={i} onClick={e => handleClick(e)}>Seguir buscando <ArrowForwardIosIcon /></button>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </div>    
                                     )
                                 })
                             }
