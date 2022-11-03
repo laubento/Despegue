@@ -281,6 +281,9 @@ export default function Cart() {
             </div>
             </div>
             </div>
+            <div className='d-flex justify-content-center mt-5'>
+                <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
+            </div>
 
             {
                 cartRespaldo === undefined || cartRespaldo === null ? '' :
@@ -320,8 +323,10 @@ export default function Cart() {
                             {display === true ?
                                 <div className="d-flex justify-content-center">
                                     <Loader />
-                                </div> : ''}
+                                </div> : ''
+                                }
                         </div>
+                        
                         : backToSearch.length ?
                             <div>
                                 <div className='d-flex justify-content-center mb-4'>
@@ -360,9 +365,7 @@ export default function Cart() {
 
                             : null }
 
-                            <div className='d-flex justify-content-center mt-5'>
-                            <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
-                            </div>
+
             
 
         </div>
