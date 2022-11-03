@@ -213,7 +213,7 @@ export default function Cart() {
             <div className='d-flex justify-content-center'>
 
             {/* { cartRespaldo === undefined || cartRespaldo === null ? '' : */}
-                { cartRespaldo !== null  ? <div className='cart-title-cart'> <h1 className=''>CARRITO DE COMPRAS</h1> </div> : <div className='cart-title-cart-vacio'> <h1 className=''>CARRITO VACÍO</h1> </div>  }
+                <div className='cart-title-cart'> <h1 className=''>CARRITO DE COMPRAS</h1> </div>
             </div>
             
             <div className='d-flex justify-content-center'>
@@ -358,11 +358,12 @@ export default function Cart() {
                                 </div> : ''}
                             </div>
 
-                            :
+                            : null }
+
                             <div className='d-flex justify-content-center mt-5'>
                             <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
                             </div>
-            }
+            
 
         </div>
     )
