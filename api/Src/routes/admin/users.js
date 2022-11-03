@@ -31,7 +31,8 @@ router.post("/user", isAuthenticated, async (req, res) => {
 router.put("/userupdate", async (req, res) => {
   try {
     let { email, name, roles, active, banned, membership } = req.body.user;
-
+    let newRole = roles.split(',')
+    console.log(newRole)
     await User.updateOne(
       { email },
       {
@@ -40,7 +41,7 @@ router.put("/userupdate", async (req, res) => {
 
           active: active,
           banned: banned,
-          roles: roles,
+          roles: newRole,
           membership: membership,
         },
         // $push: { roles: roles },
