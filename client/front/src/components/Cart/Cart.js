@@ -153,6 +153,8 @@ export default function Cart() {
         }
     }, [dispatch, selectedFlight, asistant])
     const handleClick = async (e) => {
+
+        if(cartRespaldo.length === 0) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
         
         if (tripType === 'roundtrip' && cart.length === 2) {
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
@@ -281,15 +283,6 @@ export default function Cart() {
             </div>
             </div>
             </div>
-            {
-                cartRespaldo !== null &&
-                cartRespaldo.length !== 0 ?
-                <div className='d-flex justify-content-center mt-5'>
-                    <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
-                </div> 
-                : null
-            }
-
 
             {
                 cartRespaldo === undefined || cartRespaldo === null ? '' :
@@ -329,10 +322,8 @@ export default function Cart() {
                             {display === true ?
                                 <div className="d-flex justify-content-center">
                                     <Loader />
-                                </div> : ''
-                                }
+                                </div> : ''}
                         </div>
-                        
                         : backToSearch.length ?
                             <div>
                                 <div className='d-flex justify-content-center mb-4'>
@@ -371,7 +362,9 @@ export default function Cart() {
 
                             : null }
 
-
+                            <div className='d-flex justify-content-center mt-5'>
+                            <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
+                            </div>
             
 
         </div>
