@@ -28,12 +28,16 @@ router.post("/", async (req, res) => {
 
 router.get("/getoffers", async (req, res) => {
   try {
-    const offers = await Offers.find({});
+    Offers.find({})
+    .then((e) => {
+        return res.status(200).send(e)
+    })
+    .catch((e) => console.log(e))
     
-    if (offers.length) return res.send(offers);
-    res.send("No hay ofertas disponibles");
+    // if (offers.length) return res.send(offers);
+    // res.send("No hay ofertas disponibles");
   } catch (e) {
-    res.status(400).send({ message: e });
+    return res.status(400).send({ message: e });
   }
 });
 
