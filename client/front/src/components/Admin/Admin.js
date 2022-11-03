@@ -367,12 +367,12 @@ export default function Admin() {
                             actions={[{
                                 icon: () => <DeleteIcon />,
                                 tooltip: 'Click me',
-                                onClick: (e, data) => dispatch(deleteOffer(data))
+                                onClick: async (e, data) => await dispatch(deleteOffer(data))
                             }]}
                             options={{ addRowPosition: 'first', actionsColumnIndex: -1, columnsButton: true, paginationType: 'stepped', rowStyle: { background: '#f5f5f5' }, selection: true }}
                             editable={{
-                                onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                    dispatch(offersCreate(newRow))
+                                onRowAdd: (newRow) => new Promise( async (resolve, reject) => {
+                                    await dispatch(offersCreate(newRow))
                                     console.log(newRow)
                                     axios({
                                         method: "POST",
@@ -382,14 +382,14 @@ export default function Admin() {
                                     resolve()
                                     window.location.reload()
                                 }),
-                                onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
-                                    dispatch(updateOffer(newRow))
+                                onRowUpdate: (newRow, oldRow) => new Promise( async (resolve, reject) => {
+                                    await dispatch(updateOffer(newRow))
 
                                     resolve()
                                     window.location.reload()
                                 }),
-                                onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
-                                    dispatch(deleteOffer(selectedRow))
+                                onRowDelete: (selectedRow) => new Promise( async (resolve, reject) => {
+                                    await dispatch(deleteOffer(selectedRow))
 
                                     resolve()
                                     window.location.reload()
@@ -408,8 +408,8 @@ export default function Admin() {
                             actions={[{
                                 icon: () => <ReplyAllTwoToneIcon />,
                                 tooltip: 'Click me',
-                                onClick: (e, data) => {
-                                    dispatch(reactivateOffer(data))
+                                onClick: async (e, data) => {
+                                    await dispatch(reactivateOffer(data))
                                     window.location.reload()
                                 }
                             }]}
