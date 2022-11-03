@@ -31,8 +31,8 @@ export default function OfertasCard({oferts}){
             items,
             notification_url: "https://www.your-site.com/ipn",
             back_urls: {
-                failure: "https://despegue.vercel.app/success",
-                success: "https://despegue.vercel.app/failure",
+                failure: "https://despegue.vercel.app/failure",
+                success: "https://despegue.vercel.app/success" ,
             },
             "purpose": "wallet_purchase",
             "payment_methods": {
