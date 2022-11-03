@@ -371,7 +371,7 @@ export default function Cart() {
                             : null }
 
                             <div className='d-flex justify-content-center mt-5'>
-                            <button className='btn-cart-comprar' hidden={checkCart()} onClick={handleClick}>Comprar</button>
+                            <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
                             </div>
             
 
