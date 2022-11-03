@@ -23,18 +23,24 @@ export default function RatingForm() {
 
 
 
-    const postInfo = (description) => {
+    const postInfo = async (description) => {
         let obj = {
             user: user,
             description: description,
             value: currentValue
         }
-        axios({
+        await axios({
             method: "POST",
             data: obj,
             url: "/rating/newRating",
         })
-        window.location.reload()
+        .then((res) => {
+            console.log(res);
+            window.location.reload()
+        })
+        .catch((e) => {
+            console.log(e);
+        })
     }
 
     let handleClick = (value) => {
@@ -83,8 +89,8 @@ export default function RatingForm() {
                     if (!user) {
                         loginWithRedirect({ redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback" })
                     }
-                    resetForm()
                     postInfo(inputs.description)
+                    resetForm()
                 }}
                 validate={(inputs) => {
                     let errors = {}

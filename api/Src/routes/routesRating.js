@@ -12,9 +12,8 @@ router.post("/ratingComprobation", async (req, res) => {
         const matchedEmail = await Rating.find({userEmail: user.email})
         if(matchedEmail.length){
             
-
-            return res.send(true)
-        } else return res.send(false)
+            return res.status(200).send(true)
+        } else return res.status(400).send(false)
         
 
 
