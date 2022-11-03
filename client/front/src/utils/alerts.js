@@ -18,7 +18,7 @@ export const activeAcc = (log) => {
         window.open('mailto:despegue.info@gmail.com', '_blank')
       } else if (result.isDenied) {
         log({
-          returnTo: process.env.VERCEL_URL || "http://localhost:3000",
+          returnTo: "https://despegue.vercel.app",
         }); //return to localhost/activar cuenta
       }
     });
@@ -38,7 +38,7 @@ export const bannedAcc = (log) => {
     .then((result) => {
       if (result.isConfirmed) {
         log({
-          returnTo: process.env.VERCEL_URL || "http://localhost:3000",
+          returnTo: "https://despegue.vercel.app",
         }); //return to localhost/activar cuenta
         window.localStorage.removeItem("user");
       }
@@ -93,7 +93,7 @@ export const notLogedForPurchase = (loginWithRedirect) => {
         denyButtonText: "Cerrar"
     })
     .then((result) => {
-        if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback"})
+        if(result.isConfirmed) loginWithRedirect({redirectUri: "https://despegue.vercel.app/callback"})
     })
 }
 
@@ -154,6 +154,6 @@ export const noLogViajes = (loginWithRedirect) => {
     denyButtonText: "Cerrar"
   })
   .then((result) => {
-    if(result.isConfirmed) loginWithRedirect({redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/"})
+    if(result.isConfirmed) loginWithRedirect({redirectUri: "https://despegue.vercel.app/callback"})
 })
 }

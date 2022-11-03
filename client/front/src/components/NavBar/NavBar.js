@@ -48,7 +48,7 @@ const closeSession = () => {
         denyButtonText: `No`,
     }).then((result) => {
         if (result.isConfirmed) {
-            logout({ returnTo: process.env.REACT_APP_VERCEL_URL || "http://localhost:3000" });
+            logout({ returnTo: "https://despegue.vercel.app" });
             window.localStorage.removeItem("user");
             window.localStorage.removeItem("sinLog");
             window.localStorage.removeItem("init_point");

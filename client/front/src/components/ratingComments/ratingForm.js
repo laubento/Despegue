@@ -87,7 +87,7 @@ export default function RatingForm() {
                 }}
                 onSubmit={(inputs, { resetForm }) => {
                     if (!user) {
-                        loginWithRedirect({ redirectUri: process.env.REACT_APP_CALLBACK || "http://localhost:3000/callback" })
+                        loginWithRedirect({ redirectUri: "https://despegue.vercel.app/callback" })
                     }
                     postInfo(inputs.description)
                     resetForm()
