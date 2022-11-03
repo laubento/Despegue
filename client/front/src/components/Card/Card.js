@@ -18,6 +18,7 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
   const handleClick = (e) => {
 
     dispatch(filterFlightById(id))
+    localStorage.setItem('ejemplo', true)
     if (onFlights || onSecondFlight) {
       return history.push('/flights/roundtrip/asistant');
     }
