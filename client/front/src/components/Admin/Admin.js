@@ -347,8 +347,8 @@ export default function Admin() {
                             data={users}
                             options={{ filtering: true, actionsColumnIndex: -1, columnsButton: true, rowStyle: { background: '#f5f5f5' }, paginationType: 'stepped' }}
                             editable={{
-                                onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
-                                    dispatch(updateUser(newRow))
+                                onRowUpdate: (newRow, oldRow) => new Promise( async (resolve, reject) => {
+                                    await dispatch(updateUser(newRow))
                                     // setRender('hola')
                                     resolve()
                                     window.location.reload()
