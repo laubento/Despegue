@@ -152,6 +152,13 @@ export default function Cart() {
         }
         }
     }, [dispatch, selectedFlight, asistant])
+
+    function checkCart(e){
+        if(cart && cart.length === 0 ) return true
+        if(cartRespaldo && cartRespaldo.length === 0 ) return true
+        return false
+    }
+
     const handleClick = async (e) => {
 
         
@@ -166,6 +173,8 @@ export default function Cart() {
         localStorage.setItem('callbackUrl', window.location.pathname)
 
         //validaciones usuario
+        if(cart && cart.length === 0 ) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
+        if(cartRespaldo && cartRespaldo.length === 0 ) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
         // else if(user.email === "") return alerts.noEmail(history)
         // else if(!user.verify) return alerts.notVerify()
@@ -362,7 +371,7 @@ export default function Cart() {
                             : null }
 
                             <div className='d-flex justify-content-center mt-5'>
-                            <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
+                            <button className='btn-cart-comprar' hidden={checkCart()} onClick={handleClick}>Comprar</button>
                             </div>
             
 
