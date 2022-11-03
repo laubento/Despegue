@@ -374,7 +374,7 @@ export default function Admin() {
                                 onRowAdd: (newRow) => new Promise( async (resolve, reject) => {
                                     await dispatch(offersCreate(newRow))
                                     console.log(newRow)
-                                    axios({
+                                    await axios({
                                         method: "POST",
                                         data: newRow,
                                         url: "/users/dispatchEmail",
