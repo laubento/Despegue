@@ -173,8 +173,6 @@ export default function Cart() {
         localStorage.setItem('callbackUrl', window.location.pathname)
 
         //validaciones usuario
-        if(cart && cart.length === 0 ) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
-        if(cartRespaldo && cartRespaldo.length === 0 ) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
         if(!user) return alerts.notLogedForPurchase(loginWithRedirect)
         // else if(user.email === "") return alerts.noEmail(history)
         // else if(!user.verify) return alerts.notVerify()
