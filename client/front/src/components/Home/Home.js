@@ -106,6 +106,9 @@ function Home(props) {
     dispatch(clearAirportsName())
 }
 
+  useEffect(() => {
+    localStorage.removeItem('flightsRespaldo')
+  },[])
 
   return (
     <div>

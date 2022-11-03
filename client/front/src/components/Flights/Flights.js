@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 import Filter from "../Filter/Filter.js";
 import Paginado from "../Paginado/Paginado";
@@ -8,14 +8,24 @@ import Loader from "../Loader/Loader.js";
 import InfiniteScroll from 'react-infinite-scroll-component'
 import "../styles/Flights.css";
 import scrollgif from '../../Images/scroll-down.gif'
+import { useHistory } from "react-router-dom";
+import { getFlights } from "../../Redux/Actions.js";
 
 // se usa info de momento
 
 function Flights() {
   let flights = useSelector((state) => state.flights);
-
+  const history = useHistory()
   let allFlights = useSelector((state) => state.allFlights);
-
+  let busqueda = JSON.parse(localStorage.getItem('busqueda'))
+  const dispatch = useDispatch()
+  if(allFlights.length > 0) {
+    localStorage.setItem('on', true)
+  }
+  if(allFlights.length === 0){
+    localStorage.setItem('on', false)
+  }
+  let on = localStorage.getItem('on')
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
@@ -63,6 +73,23 @@ function Flights() {
     }, 400)
   }
 
+  useEffect(() => {
+    
+    if(on === 'false'){
+      window.onbeforeunload = function() {
+        console.log('hola')
+    };
+    return () => {
+      localStorage.setItem('on', true)
+      dispatch(getFlights(busqueda)) 
+    };
+    }
+
+}, [history, busqueda, dispatch]);
+
+//   window.onbeforeunload = function() {
+//     return '¿Desea recargar la página web?';
+// };
 
   console.log(dataSource)
 

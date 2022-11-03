@@ -6,7 +6,7 @@ import Filter from "../Filter/Filter.js";
 import Paginado from "../Paginado/Paginado";
 import Card from '../Card/Card'
 import Loader from "../Loader/Loader.js";
-import { addFlightToCart, onSecondFlightRoute } from "../../Redux/Actions.js";
+import { addFlightToCart, getFlights, getRoundTripSF, onSecondFlightRoute } from "../../Redux/Actions.js";
 // styles
 import "../styles/Flights.css";
 
@@ -21,7 +21,15 @@ function RoundtripSF() {
   let flights = useSelector((state) => state.secondFlighs);
   let allFlights = useSelector((state) => state.allFlights);
   let selectedFlight = useSelector((state) => state.flightDetail);
-
+  let busqueda = JSON.parse(localStorage.getItem('busqueda'))
+  let ejemplo = localStorage.getItem('ejemplo')
+  if(allFlights.length > 0) {
+    localStorage.setItem('on', true)
+  }
+  if(allFlights.length === 0){
+    localStorage.setItem('on', false)
+  }
+  let on = localStorage.getItem('on')
   // local states
   // const [orden, setOrden] = useState('')
   // const [currentPage, setCurrentPage] = useState(1)
@@ -41,15 +49,33 @@ function RoundtripSF() {
   //     pageNumbers.push(i)
   // }
 
-  // functions
+  // functions 
+  
   const dispatch = useDispatch();
+
+  const handleDesmontar = async () => {
+    localStorage.setItem('on', true)
+      await dispatch(getFlights(busqueda)) 
+      dispatch(getRoundTripSF())
+      dispatch(onSecondFlightRoute());
+  }
+
   useEffect(() => {
-    dispatch(onSecondFlightRoute());
-    console.log(selectedFlight)
-    if (selectedFlight.length > 0) {
-      dispatch(addFlightToCart(selectedFlight))
+    if(ejemplo === 'true'){
+      localStorage.setItem('ejemplo', false)
+      dispatch(onSecondFlightRoute());
+      console.log(selectedFlight)
+      if (selectedFlight.length > 0) {
+        console.log(selectedFlight)
+        dispatch(addFlightToCart(selectedFlight))
+      }
     }
-  }, [dispatch, selectedFlight])
+    if(on === 'false'){
+      window.onbeforeunload = function() {
+    };
+    handleDesmontar();
+    }
+  }, [])
 
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");

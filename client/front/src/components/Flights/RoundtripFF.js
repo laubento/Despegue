@@ -6,7 +6,7 @@ import Filter from "../Filter/Filter.js";
 import Paginado from "../Paginado/Paginado";
 import Card from '../Card/Card'
 import Loader from "../Loader/Loader.js";
-import { getRoundTripFF, getRoundTripSF, onFirstFlightRoute } from "../../Redux/Actions.js";
+import { getFlights, getRoundTripFF, getRoundTripSF, onFirstFlightRoute } from "../../Redux/Actions.js";
 // styles
 import "../styles/Flights.css";
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -21,15 +21,48 @@ function RoundtripFF() {
   let apiResponse = useSelector((state) => state.allFlights);
   let flights = useSelector((state) => state.firstFlights);
   let allFlights = useSelector((state) => state.allFlights);
-
+  let busqueda = JSON.parse(localStorage.getItem('busqueda'))
+  let ejemplo = localStorage.getItem('ejemplo')
+  if(allFlights.length > 0) {
+    localStorage.setItem('on', true)
+  }
+  if(allFlights.length === 0){
+    localStorage.setItem('on', false)
+  }
+  let on = localStorage.getItem('on')
 
   // functions
   const dispatch = useDispatch();
+    // dispatch(getRoundTripFF())
+    // dispatch(getRoundTripSF())
+    // dispatch(onFirstFlightRoute());
+
+const handleDesmontar = async () => {
+         localStorage.setItem('on', true)
+       await dispatch(getFlights(busqueda)) 
+        dispatch(getRoundTripFF())
+        dispatch(getRoundTripSF())
+        dispatch(onFirstFlightRoute());
+}
+
   useEffect(() => {
-    dispatch(getRoundTripFF())
-    dispatch(getRoundTripSF())
-    dispatch(onFirstFlightRoute());
-  }, [dispatch, apiResponse])
+    if(ejemplo === 'true'){
+      localStorage.setItem('ejemplo', false)
+      dispatch(getRoundTripFF())
+      dispatch(getRoundTripSF())
+      dispatch(onFirstFlightRoute());
+    }
+      if(on === 'false'){
+        window.onbeforeunload = function() {
+          console.log('hola')
+      };
+      
+        console.log('entre return')
+        handleDesmontar()
+      
+    }
+  }, [dispatch])
+
 
   const logout = () => {
     window.open("http://localhost:3001/auth/logout", "_self");
