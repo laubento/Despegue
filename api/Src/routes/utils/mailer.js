@@ -22,7 +22,7 @@ transporter
 const infoTransporter = async (fromTitle, toList, subject, html) => {
   transporter
     .sendMail({
-      from: `"${fromTitle}" <nehuenxtreem6@gmail.com>`, // sender address
+      from: `"${fromTitle}" <info.despegue@gmail.com>`, // sender address
       to: `${toList}`, // list of receivers
       subject: `${subject}`, // Subject line
       html: `${html}`, // html body
