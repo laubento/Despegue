@@ -12,7 +12,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/user", isAuthenticated, async (req, res) => {
+router.post("/user", async (req, res) => {
   try {
     if (req.body.email) {
       let user = await User.findOne({ email: req.body.email });

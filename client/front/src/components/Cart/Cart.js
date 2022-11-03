@@ -154,7 +154,6 @@ export default function Cart() {
     }, [dispatch, selectedFlight, asistant])
     const handleClick = async (e) => {
 
-        if(cartRespaldo.length === 0) return swal('Carrito de compras vacío, vuelva a hacer su búsqueda.', '', 'error')
         
         if (tripType === 'roundtrip' && cart.length === 2) {
             setBackToSearch('Falta un vuelo. Por favor vuelva a buscar el pasaje que falta.')
