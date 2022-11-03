@@ -281,9 +281,15 @@ export default function Cart() {
             </div>
             </div>
             </div>
-            <div className='d-flex justify-content-center mt-5'>
-                <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
-            </div>
+            {
+                cartRespaldo !== null &&
+                cartRespaldo.length !== 0 ?
+                <div className='d-flex justify-content-center mt-5'>
+                    <button className='btn-cart-comprar' onClick={handleClick}>Comprar</button>
+                </div> 
+                : null
+            }
+
 
             {
                 cartRespaldo === undefined || cartRespaldo === null ? '' :
