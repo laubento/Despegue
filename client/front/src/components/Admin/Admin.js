@@ -50,7 +50,7 @@ export default function Admin() {
         {
             title: 'Rol',
             field: 'roles',
-            lookup: { 'user,admin': 'admin', user: 'user', vip: 'vip' },
+            lookup: { 'user,admin': 'admin', user: 'user'},
             filterPlaceholder: 'Filtro por Rol'
         },
         {
