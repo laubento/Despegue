@@ -18,9 +18,10 @@ import scrollgif from '../../Images/scroll-down.gif'
 function RoundtripFF() {
 
   // global states
-  let apiResponse = useSelector((state) => state.allFlights);
   let flights = useSelector((state) => state.firstFlights);
+  const filteredFlights = useSelector((state) => state.filteredFlights)
   let allFlights = useSelector((state) => state.allFlights);
+  const areThereFlights = useSelector((state) => state.areThereFlights)
   let busqueda = JSON.parse(localStorage.getItem('busqueda'))
   let ejemplo = localStorage.getItem('ejemplo')
   if(allFlights.length > 0) {
@@ -63,13 +64,8 @@ const handleDesmontar = async () => {
     }
   }, [dispatch])
 
-
-  const logout = () => {
-    window.open("http://localhost:3001/auth/logout", "_self");
-  };
-
-
 // --------------
+if(filteredFlights.length && areThereFlights) flights = filteredFlights
 let arregloDeArreglos = []; // Aquí almacenamos los nuevos arreglos
     const LONGITUD_PEDAZOS = 10; // Partir en arreglo de 3
     for (let i = 0; i <= flights.length; i += LONGITUD_PEDAZOS) {
@@ -137,36 +133,34 @@ console.log('aa', arregloDeArreglos)
             >
           <div>
             {
-            flights.length !==  0 ?
-            dataSource === undefined ? '' :  dataSource.map((e,i) => {
-              
+            flights.length !==  0 && areThereFlights &&
+            dataSource !== undefined ? dataSource.map((e,i) => {
                 return(
-                  <div key={i} className='d-flex justify-content-center'>
-                  <Card 
-                    id={e.id}
-                    cabin={e.cabinClass}
-                    departureName={e.departureAirportName}
-                    arrivalName={e.arrivalAirportName}
-                    departureCode={e.departureAirportCode}
-                    arrivalCode={e.arrivalAirportCode}
-                    segments={e.segments}
-                    airlinesName={e.airlinesNames}
-                    departureTime={e.departureTime}
-                    arrivalTime={e.arrivalTime}
-                    duration={e.duration}
-                    stopoversCount={e.stopoversCount}
-                    price={e.price}
-                    going={e.going}
-                    onFlights={true}
-                    onFirstFlight={true}
-                    cart={false}
-                  />
+                    <div key={i} className='d-flex justify-content-center'>
+                    <Card 
+                        id={e.id}
+                        cabin={e.cabinClass}
+                        departureName={e.departureAirportName}
+                        arrivalName={e.arrivalAirportName}
+                        departureCode={e.departureAirportCode}
+                        arrivalCode={e.arrivalAirportCode}
+                        segments={e.segments}
+                        airlinesName={e.airlinesNames}
+                        departureTime={e.departureTime}
+                        arrivalTime={e.arrivalTime}
+                        duration={e.duration}
+                        stopoversCount={e.stopoversCount}
+                        price={e.price}
+                        going={e.going}
+                        onFlights={true}
+                        onFirstFlight={true}
+                        cart={false}
+                    />
                   </div>
                 )
-
-              })
-             :
-          <h2 className="text-center mt-5">There are no flights with these characteristics</h2>
+                })
+                :
+                <h2 className="text-center mt-5">There are no flights with these characteristics</h2>
              
             }
           </div>

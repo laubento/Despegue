@@ -131,9 +131,9 @@ function Flights() {
                     {
                       flights.length !== 0 && areThereFlights &&
                         dataSource !== undefined ? dataSource.map((e, i) => {
-                          return (
+                        return (
                             <div key={i} className='d-flex justify-content-center'>
-                              <Card
+                            <Card
                                 id={e.id}
                                 cabin={e.cabinClass}
                                 departureName={e.departureAirportName}
@@ -150,10 +150,9 @@ function Flights() {
                                 going={e.going}
                                 onFlights={true}
                                 cart={false}
-                              />
+                            />
                             </div>
                           )
-
                         })
                         :
                         <h2 className="text-center mt-5">There are no flights with these characteristics</h2>

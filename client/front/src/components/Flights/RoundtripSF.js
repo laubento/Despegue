@@ -19,7 +19,9 @@ function RoundtripSF() {
 
   // global states
   let flights = useSelector((state) => state.secondFlighs);
+  const filteredFlights = useSelector((state) => state.filteredFlights)
   let allFlights = useSelector((state) => state.allFlights);
+  const areThereFlights = useSelector((state) => state.areThereFlights)
   let selectedFlight = useSelector((state) => state.flightDetail);
   let busqueda = JSON.parse(localStorage.getItem('busqueda'))
   let ejemplo = localStorage.getItem('ejemplo')
@@ -98,6 +100,7 @@ function RoundtripSF() {
   // }
 
   // -----------------------
+  if(filteredFlights.length && areThereFlights) flights = filteredFlights
   let arregloDeArreglos = []; // Aquí almacenamos los nuevos arreglos
   const LONGITUD_PEDAZOS = 10; // Partir en arreglo de 3
   for (let i = 0; i <= flights.length; i += LONGITUD_PEDAZOS) {
@@ -167,8 +170,8 @@ function RoundtripSF() {
                 >
                   <div className="Card-ContainerCard-Flights">
                     {
-                      flights.length !== 0 ?
-                        dataSource === undefined ? '' : dataSource.map((e, i) => {
+                      flights.length !== 0 && areThereFlights &&
+                        dataSource !== undefined ? dataSource.map((e, i) => {
 
                           return (
                             <div key={i} className='d-flex justify-content-center'>
