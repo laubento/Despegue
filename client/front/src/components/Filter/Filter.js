@@ -3,38 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterFlights, searchAirline, clearFilters } from '../../Redux/Actions'
 import '../styles/Filter.css'
 import ReactPaginate from "react-paginate";
-import { Slider, Typography, Grid } from '@mui/material';
+import { Slider, Typography, Grid, Box } from '@mui/material';
 
 export default function Filter({paginado, number, dataSource, arregloDeArreglos, setLength, length, setHasMore, ds, onFlights, onFirstFlight, onSecondFlight}) {
     // hooks
     let dispatch = useDispatch();
     let flights = useSelector(state => state.flights);
+    let filteredFlights = useSelector((state) => state.filteredFlights)
     let firstFlights = useSelector(state => state.firstFlights);
     let secondFlighs = useSelector(state => state.secondFligh);
     
-    if (onFirstFlight) {
-        flights = firstFlights;
-    }
 
-    if (onSecondFlight) {
-        flights = secondFlighs;
-    }
 
     // variables
     let pricesArray = flights.map((e) => parseInt(e.price));
     let minP = Math.min(...pricesArray);
-    let maxP = Math.max(...pricesArray);
+    let maxP = Math.max(...pricesArray)
     let durationArray = flights.map((e) => parseInt(e.duration.slice(0,2)));
     let minD = Math.min(...durationArray);
-    let maxD = Math.max(...durationArray);
+    let maxD = Math.max(...durationArray)
 
     // local states
     let [filters, setFilters] = useState({
-        minPrice: 'default',
-        maxPrice: 'default',
-        minHour: 'default',
-        maxHour: 'default',
-        maxDuration: 'default',
+        minPrice: minP,
+        maxPrice: maxP,
+        minHour: 0,
+        maxHour: 24,
+        minDuration: minD,
+        maxDuration: maxD,
         stopOvers: 'default',
         findAirline: {
             payload: '',
@@ -211,6 +207,122 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
 
         }
     }
+
+    function valuetext(value) {
+        return `${value}°C`;
+      }
+
+    const noDupPrice = [...new Set(pricesArray)]
+
+    const prices = noDupPrice.map((e) => {
+        return { value: e }
+    })  
+
+    //prices
+    const handlePriceCommited = (e, newValue) => {
+
+        // console.log(e);
+        // console.log(newValue);
+        
+        setFilters({...filters, minPrice: newValue[0], maxPrice:newValue[1]})
+
+        validate();
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
+
+    const [price, setPrice] = React.useState([minP, maxP]);
+
+    const handlePrice = (event, newValue, activeThumb) => {
+        // console.log(event);
+        // console.log(newValue);
+        // console.log(activeThumb);
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+
+        if (activeThumb === 0) {
+            setPrice([
+                Math.min(newValue[0], price[1]),
+                price[1],
+            ]);
+        } else {
+            setPrice([
+                price[0],
+                Math.max(newValue[1], price[0]),
+            ]);
+        }
+    };
+
+    //duration
+    const noDupDuration = [...new Set(durationArray)]
+
+    const durations = noDupDuration.map((e) => {
+        return { value: e }
+    })  
+
+    const [duration, setDuration] = React.useState(maxD);
+    
+    const handleDuration = (event, newValue, activeThumb) => {
+        // console.log(event);
+        console.log(newValue);
+        // console.log(activeThumb);
+        setDuration(newValue);
+    };
+
+    const handleDurationCommited = (e, newValue) => {
+        
+        setFilters({...filters, maxDuration: newValue})
+
+        validate();
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
+    //hours
+    const [hour, setHour] = React.useState([0, 24]);
+
+    const noDupHour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+
+    const hours = noDupHour.map((e) => {
+        return { value: e }
+    })  
+
+    const handleHourCommited = (e, newValue) => {
+        
+        setFilters({...filters, minHour: newValue[0], maxHour: newValue[1]})
+
+        validate();
+        setLength(0);
+        setHasMore(true);
+        dataSource([]);
+        dataSource((prevData) => prevData);
+    }
+
+    const handleHour = (event, newValue, activeThumb) => {
+        // console.log(event);
+        // console.log(newValue);
+        // console.log(activeThumb);
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+
+        if (activeThumb === 0) {
+            setHour([
+                Math.min(newValue[0], hour[1]),
+                hour[1],
+            ]);
+        } else {
+            setHour([
+                hour[0],
+                Math.max(newValue[1], hour[0]),
+            ]);
+        }
+    };
+    
     
     return (
         <div className="bg-secondary text-white">
@@ -218,37 +330,73 @@ export default function Filter({paginado, number, dataSource, arregloDeArreglos,
                 <ul className="list-unstyled px-2">
                     <h3>Filtros</h3>
                     <li className="pb-2 border-top">
-                        <h4>Por precio</h4>
-                        <label htmlFor="customRange2" className="d-flex form-label">Máx:<p>{slider.maxPrice}$</p></label>
-                        <input type="range" name={'maxPrice'} className="form-range w-100" min={Number(filters.minPrice)} max={Number(valueSlide.maxP)} id="customRange2" defaultValue={valueSlide.maxP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
-
-                        <label htmlFor="customRange2" className="d-flex form-label">Mín:<p>{slider.minPrice}$</p></label>
-                        <input type="range" name={'minPrice'} className="form-range w-100" min={Number(valueSlide.minP)} max={Number(filters.maxPrice)} id="customRange2" defaultValue={valueSlide.minP} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <h4>Precio:</h4>
+                        <Box sx={{width: 250}}>
+                            <span>${price[0]}</span>
+                            <span style={{float:"right"}}>${price[1]}</span>
+                            <Slider
+                                name="price"
+                                getAriaLabel={() => "Minimum distance"}
+                                value={price}
+                                onChange={handlePrice}
+                                onChangeCommitted={handlePriceCommited}
+                                valueLabelDisplay='auto'
+                                // getAriaValueText={valuetext}
+                                marks={prices}
+                                step={null}
+                                disableSwap
+                                min={minP}
+                                max={maxP}
+                                track={false}
+                            />
+                        </Box>
                     </li>
-                    {/* <Slider
-                        value={priceValues}
-                        onChange={handleChangeMuiSlider}
-                    />
-                    <div className="row">
-                        <Grid item className="col-md-6">
-                            <Typography>{priceValues[0]}</Typography>
-                        </Grid>
-                        <Grid item className="col-md-6">
-                            <Typography>{priceValues[1]}</Typography>
-                        </Grid>
-                    </div> */}
                     <li className="pb-2 border-top">
-                        <h4>Duración:</h4>
-                        <p>{slider.maxDuration}hs</p>
-                        <input type="range" name={'maxDuration'} className="form-range w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <h4>Duración: {duration}</h4>
+                        <Box sx={{width: 250}}>
+                            <Slider
+                                getAriaLabel={() => "Minimum distance"}
+                                value={duration}
+                                onChange={handleDuration}
+                                onChangeCommitted={handleDurationCommited}
+                                valueLabelDisplay='auto'
+                                // getAriaValueText={valuetext}
+                                marks={durations}
+                                step={null}
+                                disableSwap
+                                min={minD}
+                                max={maxD}
+                                track={false}
+                            />
+                        </Box>
+                        {/* <p>{slider.maxDuration}hs</p>
+                        <input type="range" name={'maxDuration'} className="form-range w-100" min={Number(valueSlide.minD)} max={Number(valueSlide.maxD)} defaultValue={valueSlide.maxD} id="customRange2" onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} /> */}
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Horario:</h4>
-                        <label htmlFor="customRange2" className="d-flex form-label">Máx hs:<p>{slider.maxHour}hs</p></label>
+                        <Box sx={{width: 250}}>
+                            <span>{hour[0]}</span>
+                            <span style={{float:"right"}}>{hour[1]}</span>
+                            <Slider
+                                getAriaLabel={() => "Minimum distance"}
+                                value={hour}
+                                onChange={handleHour}
+                                onChangeCommitted={handleHourCommited}
+                                valueLabelDisplay='auto'
+                                // getAriaValueText={valuetext}
+                                marks={hours}
+                                step={null}
+                                disableSwap
+                                min={0}
+                                max={24}
+                                track={false}
+                            />
+                        </Box>
+                        {/* <label htmlFor="customRange2" className="d-flex form-label">Máx hs:<p>{slider.maxHour}hs</p></label>
                         <input type="range" name={'maxHour'} className="form-range w-100" min={Number(filters.minHour)} max={Number(valueSlide.maxHs)} id="customRange2" defaultValue={valueSlide.maxHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
 
                         <label htmlFor="customRange2" className="d-flex form-label">Mín hs:<p>{slider.minHour}hs</p></label>
-                        <input type="range" name={'minHour'} className="form-range w-100" min={Number(valueSlide.minHs)} max={Number(filters.maxHour)} id="customRange2" defaultValue={valueSlide.minHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} />
+                        <input type="range" name={'minHour'} className="form-range w-100" min={Number(valueSlide.minHs)} max={Number(filters.maxHour)} id="customRange2" defaultValue={valueSlide.minHs} onMouseUp={e => rangeChange(e)} onChange={e => handleChange(e)} /> */}
                     </li>
                     <li className="pb-2 border-top">
                         <h4>Escalas</h4>

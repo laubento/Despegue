@@ -15,6 +15,7 @@ import { getFlights } from "../../Redux/Actions.js";
 
 function Flights() {
   let flights = useSelector((state) => state.flights);
+  const filteredFlights = useSelector((state) => state.filteredFlights)
   const history = useHistory()
   let allFlights = useSelector((state) => state.allFlights);
   let busqueda = JSON.parse(localStorage.getItem('busqueda'))
@@ -30,6 +31,8 @@ function Flights() {
     window.open("http://localhost:3001/auth/logout", "_self");
   };
   // console.log(flights,'--', allFlights)
+  const areThereFlights = useSelector((state) => state.areThereFlights)
+
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [flightsPerPage, setFlightsPerPage] = useState(5)
@@ -37,6 +40,7 @@ function Flights() {
   const indexFirstFlight = indexLastFlight - flightsPerPage
   const currentFlights = flights.slice(indexFirstFlight, indexLastFlight)
 
+  if(filteredFlights.length && areThereFlights) flights = filteredFlights
   let arregloDeArreglos = []; // Aquí almacenamos los nuevos arreglos
   const LONGITUD_PEDAZOS = 10; // Partir en arreglo de 3
   for (let i = 0; i <= flights.length; i += LONGITUD_PEDAZOS) {
@@ -87,11 +91,11 @@ function Flights() {
 
 }, [history, busqueda, dispatch]);
 
+
 //   window.onbeforeunload = function() {
 //     return '¿Desea recargar la página web?';
 // };
-
-  console.log(dataSource)
+//   if(filteredFlights.length) allFlights = filteredFlights
 
   return (
     <div>
@@ -125,9 +129,8 @@ function Flights() {
                 >
                   <div>
                     {
-                      flights.length !== 0 ?
-                        dataSource === undefined ? '' : dataSource.map((e, i) => {
-
+                      flights.length !== 0 && areThereFlights &&
+                        dataSource !== undefined ? dataSource.map((e, i) => {
                           return (
                             <div key={i} className='d-flex justify-content-center'>
                               <Card

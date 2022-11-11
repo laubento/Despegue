@@ -10,8 +10,9 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
   hideButton, onFlights, onFirstFlight, onSecondFlight, cart, departureName, arrivalName, cabin, departureCode, arrivalCode }) {
 
   const dispatch = useDispatch();
+  const filteredFlights = useSelector((state) => state.filteredFlights)
   const flightDetail = useSelector((state) => state.flightDetail);
-  const allFlights = useSelector(state => state.allFlights)
+  let allFlights = useSelector(state => state.allFlights)
   const busqueda = JSON.parse(localStorage.getItem('busqueda'))
   const history = useHistory();
   let exactprice = Number(price)
@@ -54,7 +55,6 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
     dispatch(deleteFlight(id))
   }
 
-
   return (
     <div className="container Card-ContainerPrincipal">
       <div className="row">
@@ -62,9 +62,9 @@ function Card({ id, airlinesName, departureTime, arrivalTime, duration, stopover
           <div className="Card-Cabezara pt-1 mb-1">
             <h4 className="Card-IdaVuelta m-0">{(going === undefined || going === true) ? "➯IDA" : "➯VUELTA"}</h4>
             <div className="d-flex justify-content-center ms-1 Card-Cabezara">
-              <h6 className="Card-NameAirport mb-0 me-2 ms-2">{busqueda.departureDate} ➯</h6>
-              <h6 className="Card-NameAirport mb-0">{departureName[0]} -</h6>
-              <h6 className="Card-NameAirport mb-0 ms-1">{arrivalName[0]}</h6>
+              {/* <h6 className="Card-NameAirport mb-0 me-2 ms-2">{busqueda.departureDate} ➯</h6> */}
+              {/* <h6 className="Card-NameAirport mb-0">{departureName[0]} -</h6>
+              <h6 className="Card-NameAirport mb-0 ms-1">{arrivalName[0]}</h6> */}
             </div>
           </div>
           <hr className="m-0" />
